@@ -1,0 +1,78 @@
+android.annotation.SuppressLint
+android.annotation.TargetApi
+com.hyperionics.fbreader.plugin.tts_plus.BuildConfig
+com.hyperionics.fbreader.plugin.tts_plus.R
+com.hyperionics.fbreader.plugin.tts_plus.R$attr
+com.hyperionics.fbreader.plugin.tts_plus.R$drawable
+com.hyperionics.fbreader.plugin.tts_plus.R$id
+com.hyperionics.fbreader.plugin.tts_plus.R$layout
+com.hyperionics.fbreader.plugin.tts_plus.R$string
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity:
+    private static final java.lang.String NO_RESTART_TALK
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService:
+    static final java.lang.String BOOK_LANG
+    private static final java.lang.String UTTERANCE_ID
+com.hyperionics.fbreader.plugin.tts_plus.TtsSentenceExtractor:
+    11:11:public TtsSentenceExtractor()
+org.geometerplus.android.fbreader.api.Api
+org.geometerplus.android.fbreader.api.ApiClientImplementation:
+    private static final java.lang.String ACTION_API
+    static final java.lang.String ACTION_API_CALLBACK
+    static final java.lang.String EVENT_TYPE
+    73:74:public void removeListener(org.geometerplus.android.fbreader.api.ApiListener)
+    107:117:private synchronized java.util.List requestList(int,org.geometerplus.android.fbreader.api.ApiObject[])
+    130:134:private java.util.Date requestDate(int,org.geometerplus.android.fbreader.api.ApiObject[])
+    162:170:private java.util.List requestStringList(int,org.geometerplus.android.fbreader.api.ApiObject[])
+    176:176:private static org.geometerplus.android.fbreader.api.ApiObject[] envelope(java.lang.String)
+    185:185:public java.lang.String getFBReaderVersion()
+    190:190:public java.util.List getOptionGroups()
+    194:194:public java.util.List getOptionNames(java.lang.String)
+    198:198:public java.lang.String getOptionValue(java.lang.String,java.lang.String)
+    205:209:public void setOptionValue(java.lang.String,java.lang.String,java.lang.String)
+    216:216:public java.lang.String getBookTitle()
+    220:220:public java.util.List getBookTags()
+    224:224:public java.lang.String getBookFilePath()
+    228:228:public java.lang.String getBookHash()
+    232:232:public java.lang.String getBookUniqueId()
+    236:236:public java.util.Date getBookLastTurningTime()
+    240:240:public java.lang.String getBookLanguage(long)
+    244:244:public java.lang.String getBookTitle(long)
+    248:248:public java.util.List getBookTags(long)
+    252:252:public java.lang.String getBookFilePath(long)
+    256:256:public java.lang.String getBookHash(long)
+    260:260:public java.lang.String getBookUniqueId(long)
+    264:264:public java.util.Date getBookLastTurningTime(long)
+    272:272:public org.geometerplus.android.fbreader.api.TextPosition getPageEnd()
+    276:276:public boolean isPageEndOfSection()
+    292:292:public int getElementsNumber(int)
+org.geometerplus.android.fbreader.api.ApiException:
+    private static final long serialVersionUID
+org.geometerplus.android.fbreader.api.ApiInterface$Stub:
+    private static final java.lang.String DESCRIPTOR
+    static final int TRANSACTION_request
+    static final int TRANSACTION_requestList
+    static final int TRANSACTION_requestMap
+    14:16:public ApiInterface$Stub()
+    34:34:public android.os.IBinder asBinder()
+org.geometerplus.android.fbreader.api.ApiInterface$Stub$Proxy:
+    103:103:public java.lang.String getInterfaceDescriptor()
+org.geometerplus.android.fbreader.api.ApiListener:
+    public static final java.lang.String EVENT_READ_MODE_OPENED
+    public static final java.lang.String EVENT_READ_MODE_CLOSED
+org.geometerplus.android.fbreader.api.ApiMethods
+org.geometerplus.android.fbreader.api.ApiObject:
+    156:156:static org.geometerplus.android.fbreader.api.ApiObject envelope(boolean)
+    160:160:static org.geometerplus.android.fbreader.api.ApiObject envelope(java.lang.String)
+    164:164:static org.geometerplus.android.fbreader.api.ApiObject envelope(java.util.Date)
+    168:172:static java.util.List envelope(java.util.List)
+org.geometerplus.android.fbreader.api.ApiObject$Type
+org.geometerplus.android.fbreader.api.PluginApi:
+    public static final java.lang.String ACTION_REGISTER
+    public static final java.lang.String ACTION_RUN
+    13:87:public PluginApi()
+org.geometerplus.android.fbreader.api.PluginApi$ActionInfo:
+    protected static final int TYPE_MENU_OBSOLETE
+    protected static final int TYPE_MENU
+    49:49:public android.net.Uri getId()
+org.geometerplus.android.fbreader.api.PluginApi$PluginInfo:
+    public static final java.lang.String KEY

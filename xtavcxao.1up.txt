@@ -1,0 +1,25 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# Explicit paths specified without -i nor -o; assuming --only paths...
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   AndroidManifest.xml
+#	new file:   res/layout/about_panel.xml
+#	modified:   res/layout/control_panel.xml
+#	deleted:    res/values-cs/strings.xml
+#	deleted:    res/values-ru/strings.xml
+#	modified:   res/values/strings.xml
+#	modified:   src/com/hyperionics/fbreader/plugin/tts_plus/MediaButtonIntentReceiver.java
+#	modified:   src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java
+#	modified:   src/com/hyperionics/fbreader/plugin/tts_plus/SpeakApplication.java
+#	modified:   src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	TtsPlus-FBReader.apk
+#	proguard_logs/
+

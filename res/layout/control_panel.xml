@@ -18,21 +18,33 @@
         <Button android:id="@+id/button_lang"
                 android:text="@string/set_language"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 />
-        <Button android:id="@+id/button_reset"
-                android:text="@string/reset_tts"
-                android:layout_width="wrap_content"
+            <Button android:id="@+id/button_tts_set"
+                    android:text="@string/tts_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    />
+        </TableRow>
+        <TableRow
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                />
-        <Button android:id="@+id/button_tts_set"
-                android:text="@string/tts_settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                />
+                android:gravity="center_vertical" >
+
+            <Button android:id="@+id/button_reset"
+                    android:text="@string/reset_tts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    />
+            <Button android:id="@+id/button_about"
+                    android:text="@string/about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    />
         </TableRow>
 
     <CheckBox
@@ -165,7 +177,7 @@
                      android:layout_width="40dip"
                      android:layout_height="40dip"
                      android:layout_weight="1"
-                     android:src="@drawable/setup_show"
+                     android:src="@drawable/setup_hide"
                 />
     </LinearLayout>
 

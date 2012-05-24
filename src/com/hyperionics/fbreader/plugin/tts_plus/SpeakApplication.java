@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.util.Log;
 
@@ -20,6 +21,8 @@ import java.util.List;
 public class SpeakApplication extends Application
 {
     private static SpeakApplication myApplication;
+    static String versionName = "";
+    int versionCode = 0;
 
     static boolean isFBReaderOnTop() {
         // the code below needs:  <uses-permission android:name="android.permission.GET_TASKS"/>
@@ -42,6 +45,13 @@ public class SpeakApplication extends Application
     @Override
     public void onCreate() {
         myApplication = this;
+        try {
+            versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            Log.d("FBReaderTTS", "version = " + versionName + " (" + versionCode + ")");
+        } catch (PackageManager.NameNotFoundException e) {
+            ;
+        }
         startService(new Intent(this, SpeakService.class));
     }
 

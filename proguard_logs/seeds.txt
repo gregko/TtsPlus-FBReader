@@ -1,0 +1,71 @@
+com.hyperionics.fbreader.plugin.tts_plus.BluetoothConnectReceiver
+com.hyperionics.fbreader.plugin.tts_plus.MediaButtonIntentReceiver
+com.hyperionics.fbreader.plugin.tts_plus.PluginInfo
+com.hyperionics.fbreader.plugin.tts_plus.R$drawable: int fbreader_plugin
+com.hyperionics.fbreader.plugin.tts_plus.R$drawable: int media_playback_pause
+com.hyperionics.fbreader.plugin.tts_plus.R$drawable: int media_playback_start
+com.hyperionics.fbreader.plugin.tts_plus.R$drawable: int media_playback_stop
+com.hyperionics.fbreader.plugin.tts_plus.R$drawable: int media_skip_backward
+com.hyperionics.fbreader.plugin.tts_plus.R$drawable: int media_skip_forward
+com.hyperionics.fbreader.plugin.tts_plus.R$drawable: int setup_hide
+com.hyperionics.fbreader.plugin.tts_plus.R$drawable: int setup_show
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int bigButtons
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int button_about
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int button_close
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int button_lang
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int button_next_paragraph
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int button_pause
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int button_play
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int button_previous_paragraph
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int button_reset
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int button_setup
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int button_tts_set
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int info
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int pitch_control
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int read_sentences
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int sliders
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int speed_control
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int volume_control
+com.hyperionics.fbreader.plugin.tts_plus.R$id: int vtext
+com.hyperionics.fbreader.plugin.tts_plus.R$layout: int about_panel
+com.hyperionics.fbreader.plugin.tts_plus.R$layout: int control_panel
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int about
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int back
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int book_language
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int choose_language
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int copyright
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int failure
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int initialization_error
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int language_is_not_set
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int no_data_for_language
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int no_tts_installed
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int pitch
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int read_sentences
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int reset_tts
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int set_language
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int speak_menu_item
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int speed
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int title
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int tts_settings
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int unknown
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int url
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int version
+com.hyperionics.fbreader.plugin.tts_plus.R$string: int volume
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity
+com.hyperionics.fbreader.plugin.tts_plus.SpeakApplication
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService
+org.geometerplus.android.fbreader.api.ApiObject
+org.geometerplus.android.fbreader.api.ApiObject: android.os.Parcelable$Creator CREATOR
+org.geometerplus.android.fbreader.api.ApiObject$Boolean
+org.geometerplus.android.fbreader.api.ApiObject$Date
+org.geometerplus.android.fbreader.api.ApiObject$Error
+org.geometerplus.android.fbreader.api.ApiObject$Integer
+org.geometerplus.android.fbreader.api.ApiObject$Long
+org.geometerplus.android.fbreader.api.ApiObject$String
+org.geometerplus.android.fbreader.api.ApiObject$Void
+org.geometerplus.android.fbreader.api.PluginApi$ActionInfo
+org.geometerplus.android.fbreader.api.PluginApi$ActionInfo: android.os.Parcelable$Creator CREATOR
+org.geometerplus.android.fbreader.api.PluginApi$MenuActionInfo
+org.geometerplus.android.fbreader.api.PluginApi$PluginInfo
+org.geometerplus.android.fbreader.api.TextPosition
+org.geometerplus.android.fbreader.api.TextPosition: android.os.Parcelable$Creator CREATOR

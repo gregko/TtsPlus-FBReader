@@ -24,7 +24,7 @@ import java.util.Locale;
  * Time: 12:45 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SpeakService extends Service implements TextToSpeech.OnUtteranceCompletedListener {
+public class SpeakService extends Service implements TextToSpeech.OnUtteranceCompletedListener, ApiClientImplementation.ConnectionListener {
     static SpeakService currentService;
 
     static ApiClientImplementation myApi;
@@ -45,6 +45,11 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static boolean myIsActive = false;
     static boolean myWasActive = false;
+
+    static volatile int myInitializationStatus;
+    static int API_INITIALIZED = 1;
+    static int TTS_INITIALIZED = 2;
+    static int FULLY_INITIALIZED = API_INITIALIZED | TTS_INITIALIZED;
 
     public void onUtteranceCompleted(String uttId) {
         regainBluetoothFocus();
@@ -144,13 +149,15 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             } catch (ApiException e) {
                 e.printStackTrace();
             }
-            myApi.disconnect();
-            myApi = null;
+            // do not disconnect and destroy, we need it to get events.
+//            myApi.disconnect();
+//            myApi = null;
         }
         if (SpeakService.myTTS != null) {
             SpeakService.myTTS.shutdown();
             SpeakService.myTTS = null;
         }
+        myInitializationStatus &= ~TTS_INITIALIZED;
     }
 
     static void nextParagraph() {
@@ -256,10 +263,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             if (!"".equals(text) && !myApi.isPageEndOfText()) {
                 myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
             }
-            if (SpeakApplication.isFBReaderOnTop()) {
-                SpeakActivity.restartActivity(SpeakApplication.getContext());
-                return "";
-            }
             highlightParagraph();
             if (myParagraphIndex >= myParagraphsNumber) {
                 if (SpeakActivity.getCurrent() != null) {
@@ -295,25 +298,48 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         currentService.stopSelf();
     }
 
+    // implements ApiClientImplementation.ConnectionListener
+    public void onConnected() {
+        if (myInitializationStatus != FULLY_INITIALIZED) {
+            myInitializationStatus |= API_INITIALIZED;
+            if (myInitializationStatus == FULLY_INITIALIZED) {
+                SpeakActivity.onInitializationCompleted();
+            }
+        }
+    }
+
     @Override
     public IBinder onBind(Intent arg0) { return null; }
     @Override
     public void onCreate() {
-        Log.d("FBReaderTTS", "Service created");
         currentService = this;
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         componentName = new ComponentName(getPackageName(), MediaButtonIntentReceiver.class.getName());
+        myApi = new ApiClientImplementation(this, this);
+        if (myApi != null) {
+            myApi.addListener(new ApiListener() {
+                @Override
+                public void onEvent(String eventType) {
+                    if (SpeakActivity.isInitialized() && eventType.equals(EVENT_READ_MODE_OPENED)) {
+                        SpeakActivity.restartActivity(SpeakApplication.getContext());
+                    }
+                }
+            });
+        }
         super.onCreate();
     }
     @Override
     public void onDestroy() {
-        Log.d("FBReaderTTS", "Service destroyed");
+        switchOff();
+        if (myApi != null) {
+            myApi.disconnect();
+            myApi = null;
+        }
         currentService = null;
         super.onDestroy();
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("FBReaderTTS", "Service onStartCommand");
         mAudioManager.registerMediaButtonEventReceiver(componentName);
         mAudioManager.requestAudioFocus(afChangeListener,
                 // Use the music stream.
@@ -324,21 +350,11 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         myPreferences = getSharedPreferences("FBReaderTTS", MODE_PRIVATE);
         selectedLanguage = myPreferences.getString("lang", BOOK_LANG);
         myReadSentences = myPreferences.getBoolean("readSentences", true);
-
         if (myApi != null) {
-            myApi.addListener(new ApiListener() {
-                @Override
-                public void onEvent(String eventType) {
-                    Log.d("FBReaderTTS", "onEvent: " + eventType);
-                }
-            });
+            myApi.connect();
         }
+
         return START_STICKY;
-    }
-    @Override
-    public boolean onUnbind (Intent intent) {
-        Log.d("FBReaderTTS", "Service onUnbind");
-        return super.onUnbind(intent);
     }
 
     // The listener below is needed to stop talking when Voice Dialer button is pressed,

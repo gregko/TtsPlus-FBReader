@@ -4,7 +4,6 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.KeyEvent;
 
 // See: http://stackoverflow.com/questions/6468463/start-activity-inside-onreceive-broadcastreceiver
@@ -38,19 +37,17 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                 case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                 case 127: // KeyEvent.KEYCODE_MEDIA_PAUSE: - not available under Gingerbread API
                 case 126: // KeyEvent.KEYCODE_MEDIA_PLAY:
-                    boolean isFbrOnTop = SpeakApplication.isFBReaderOnTop();
                     if (!SpeakActivity.isInitialized()) {
+                        boolean isFbrOnTop = SpeakApplication.isFBReaderOnTop();
                         if (isFbrOnTop) {
-                            SpeakActivity.restartActivity(context);
-                        } else {
+                            SpeakActivity.startActivity(context);
+                        }
+                        else {
                             clearAbortBroadcast();
                             SpeakApplication.exitApp();
                             return;
                         }
                     } else {
-                        if (isFbrOnTop) {
-                            SpeakActivity.restartActivity(context);
-                        }
                         SpeakService.toggleTalking();
                     }
                     break;
