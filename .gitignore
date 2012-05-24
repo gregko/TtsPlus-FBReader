@@ -1,0 +1,7 @@
+local.properties
+bin
+gen
+out
+.idea
+*.iml
+lint.xml
