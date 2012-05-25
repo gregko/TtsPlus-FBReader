@@ -105,8 +105,8 @@ com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$8 -> com.hyperionics.fbre
 com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$9 -> com.hyperionics.fbreader.plugin.tts_plus.t:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakApplication -> com.hyperionics.fbreader.plugin.tts_plus.SpeakApplication:
-    com.hyperionics.fbreader.plugin.tts_plus.SpeakApplication myApplication -> c
+com.hyperionics.fbreader.plugin.tts_plus.SpeakApp -> com.hyperionics.fbreader.plugin.tts_plus.SpeakApp:
+    com.hyperionics.fbreader.plugin.tts_plus.SpeakApp myApplication -> c
     java.lang.String versionName -> a
     int versionCode -> b
     boolean isFBReaderOnTop() -> a

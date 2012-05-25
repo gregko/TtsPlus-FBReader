@@ -6,7 +6,7 @@
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
-	<application android:label="@string/title" android:icon="@drawable/fbreader_plugin" android:name="SpeakApplication">
+	<application android:label="@string/title" android:icon="@drawable/fbreader_plugin" android:name=".SpeakApp">
 		<receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.PluginInfo">
 			<intent-filter>
 				<action android:name="android.fbreader.action.plugin.REGISTER" />
@@ -18,7 +18,7 @@
 			<intent-filter>
 				<action android:name="android.fbreader.action.plugin.RUN" />
 				<category android:name="android.intent.category.DEFAULT" />
-				<data android:host="data.fbreader.org" android:scheme="http" android:path="/plugin/tts/speak" />
+				<data android:host="hyperionics.com" android:scheme="http" android:path="/plugin/tts_plus/speak" />
 			</intent-filter>
 		</activity>
         <service android:name=".SpeakService">

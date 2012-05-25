@@ -6,8 +6,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.AudioManager;
-import android.util.Log;
 
 import java.util.List;
 
@@ -18,9 +16,9 @@ import java.util.List;
  * Time: 5:30 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SpeakApplication extends Application
+public class SpeakApp extends Application
 {
-    private static SpeakApplication myApplication;
+    private static SpeakApp myApplication;
     static String versionName = "";
     int versionCode = 0;
 
@@ -45,7 +43,26 @@ public class SpeakApplication extends Application
         return cn.equals("org.geometerplus.zlibrary.ui.android");
     }
 
+    private void EnableComponents(boolean enabled) {
+        int flag = (enabled ?
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED :
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
+        ComponentName component = new ComponentName(getPackageName(),
+                MediaButtonIntentReceiver.class.getName());
+        getPackageManager().setComponentEnabledSetting(component, flag,
+                PackageManager.DONT_KILL_APP);
+        component = new ComponentName(getPackageName(),
+                BluetoothConnectReceiver.class.getName());
+        getPackageManager().setComponentEnabledSetting(component, flag,
+                PackageManager.DONT_KILL_APP);
+    }
+
     static void exitApp() {
+        if (SpeakActivity.getCurrent() != null)
+            SpeakActivity.getCurrent().finish();
+        SpeakService.mAudioManager.unregisterMediaButtonEventReceiver(SpeakService.componentName);
+        SpeakService.mAudioManager.abandonAudioFocus(SpeakService.afChangeListener);
+        myApplication.EnableComponents(false);
         SpeakService.stop();
         System.exit(0); // exit, so that next time FBReader is activated, we regain BT focus.
     }
@@ -53,10 +70,16 @@ public class SpeakApplication extends Application
     @Override
     public void onCreate() {
         myApplication = this;
+        if (!isFbrPackageOnTop()) {
+            Lt.d("No FBReader on top, exiting.");
+            EnableComponents(false);
+            System.exit(0);
+        }
         try {
+            EnableComponents(true);
             versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
             versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-            Log.d("FBReaderTTS", "version = " + versionName + " (" + versionCode + ")");
+            Lt.d("version = " + versionName + " (" + versionCode + ")");
         } catch (PackageManager.NameNotFoundException e) {
             ;
         }

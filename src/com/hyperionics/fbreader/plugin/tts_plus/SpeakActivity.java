@@ -2,12 +2,10 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.*;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -16,14 +14,10 @@ import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
 import org.geometerplus.android.fbreader.api.*;
-import com.hyperionics.fbreader.plugin.tts_plus.R;
-
-import static android.os.SystemClock.uptimeMillis;
 
 public class SpeakActivity extends Activity implements TextToSpeech.OnInitListener {
 
@@ -120,7 +114,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 LayoutInflater inflater = LayoutInflater.from(SpeakActivity.this);
                 View view = inflater.inflate(R.layout.about_panel, null);
                 TextView tv = (TextView) view.findViewById(R.id.vtext);
-                tv.setText(getString(R.string.version) + " " + SpeakApplication.versionName);
+                tv.setText(getString(R.string.version) + " " + SpeakApp.versionName);
                 builder.setView(view);
                 builder.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

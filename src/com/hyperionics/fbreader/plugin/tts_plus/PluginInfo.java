@@ -12,7 +12,7 @@ public class PluginInfo extends PluginApi.PluginInfo {
 	@Override
 	protected List<PluginApi.ActionInfo> implementedActions(Context context) {
 		return Collections.<PluginApi.ActionInfo>singletonList(new PluginApi.MenuActionInfo(
-			Uri.parse("http://data.fbreader.org/plugin/tts/speak"),
+			Uri.parse("http://hyperionics.com/plugin/tts_plus/speak"),
 			context.getText(R.string.speak_menu_item).toString(),
 			Integer.MAX_VALUE
 		));

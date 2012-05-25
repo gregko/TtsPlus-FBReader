@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
+import android.os.Handler;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.ApiListener;
@@ -45,6 +45,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static boolean myIsActive = false;
     static boolean myWasActive = false;
+
 
     static volatile int myInitializationStatus;
     static int API_INITIALIZED = 1;
@@ -312,6 +313,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     public IBinder onBind(Intent arg0) { return null; }
     @Override
     public void onCreate() {
+        Lt.d("SpeakService created.");
         currentService = this;
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         componentName = new ComponentName(getPackageName(), MediaButtonIntentReceiver.class.getName());
@@ -320,8 +322,22 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             myApi.addListener(new ApiListener() {
                 @Override
                 public void onEvent(String eventType) {
-                    if (SpeakActivity.isInitialized() && eventType.equals(EVENT_READ_MODE_OPENED)) {
-                        SpeakActivity.restartActivity(SpeakApplication.getContext());
+                    mHandler.removeCallbacks(mTimerTask);
+                    boolean isInitialized = SpeakActivity.isInitialized();
+                    boolean isTop = SpeakApp.isFbrPackageOnTop();
+                    Lt.d("onEvent-" + eventType + "; isInit=" + isInitialized + "; FbrTop=" + isTop);
+                    if (isInitialized && eventType.equals(EVENT_READ_MODE_OPENED)) {
+                        SpeakActivity.restartActivity(SpeakApp.getContext());
+                    }
+                    else if (!isInitialized && eventType.equals(EVENT_READ_MODE_CLOSED))
+                    {
+                        if (!isTop) {
+                            Lt.d("  - exitApp from onEvent");
+                            SpeakApp.exitApp();
+                        } else {
+                            // Need to check if FBReader is still on top or exited only after some time...
+                            mHandler.postDelayed(mTimerTask, 1000);
+                        }
                     }
                 }
             });
@@ -379,4 +395,22 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
     };
 
+    // A timer called on "stopReading" event sent from FBReader and when TTS+ is not active.
+    // After some time passes, we need to check if the main reader is still on top - if not,
+    // we need to stop the service and exit, to let other apps take over Bluetooth controls.
+    private Handler mHandler = new Handler();
+    private Runnable mTimerTask = new Runnable() {
+        public void run() {
+            mHandler.removeCallbacks(mTimerTask);
+            if (!SpeakApp.isFbrPackageOnTop()) {
+                Lt.d("  - exitApp from mTimerTask");
+                SpeakApp.exitApp();
+            } else if (!SpeakActivity.isInitialized()) {
+                // Re-post again, we could be in a modal dialog of FBReader. Callbacks will be removed
+                // upon next event posted to us from FBR, or we'll exit if user presses Home while in
+                // Settings or other modal dialog.
+                mHandler.postDelayed(mTimerTask, 1000);
+            }
+        }
+    };
 }

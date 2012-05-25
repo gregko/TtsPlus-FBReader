@@ -4937,7 +4937,7 @@ _____________________________________________________________________
   Major version: 0x32
   Minor version: 0x0
   Access flags:  0x21
-    = public class com.hyperionics.fbreader.plugin.tts_plus.SpeakApplication extends android.app.Application
+    = public class com.hyperionics.fbreader.plugin.tts_plus.SpeakApp extends android.app.Application
 
 Interfaces (count = 0):
 
@@ -5082,7 +5082,7 @@ Constant Pool (count = 137):
 Fields (count = 3):
   + Field:        c Lcom/hyperionics/fbreader/plugin/tts_plus/SpeakApplication;
     Access flags: 0xa
-      = private static com.hyperionics.fbreader.plugin.tts_plus.SpeakApplication c
+      = private static com.hyperionics.fbreader.plugin.tts_plus.SpeakApp c
   + Field:        a Ljava/lang/String;
     Access flags: 0x8
       = static java.lang.String a

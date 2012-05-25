@@ -1,5 +1,7 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
+import android.util.Log;
+
 /**
  * Created with IntelliJ IDEA.
  * User: greg
@@ -8,4 +10,11 @@ package com.hyperionics.fbreader.plugin.tts_plus;
  * To change this template use File | Settings | File Templates.
  */
 public class Lt {
+    private static String myTag = "FBReaderTTS";
+    private Lt() {}
+    static void setTag(String tag) { myTag = tag; }
+    public static void d(String msg) {
+        // Uncomment line below to turn on debug output
+        //Log.d(myTag, msg);
+    }
 }

@@ -52,7 +52,7 @@ com.hyperionics.fbreader.plugin.tts_plus.R$string: int url
 com.hyperionics.fbreader.plugin.tts_plus.R$string: int version
 com.hyperionics.fbreader.plugin.tts_plus.R$string: int volume
 com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity
-com.hyperionics.fbreader.plugin.tts_plus.SpeakApplication
+com.hyperionics.fbreader.plugin.tts_plus.SpeakApp
 com.hyperionics.fbreader.plugin.tts_plus.SpeakService
 org.geometerplus.android.fbreader.api.ApiObject
 org.geometerplus.android.fbreader.api.ApiObject: android.os.Parcelable$Creator CREATOR
