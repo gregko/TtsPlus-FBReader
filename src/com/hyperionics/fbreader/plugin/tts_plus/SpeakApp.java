@@ -37,6 +37,14 @@ public class SpeakApplication extends Application
         return cn.equals("org.geometerplus.android.fbreader.FBReader");
     }
 
+    static boolean isFbrPackageOnTop() {
+        ActivityManager am = (ActivityManager) myApplication.getSystemService(ACTIVITY_SERVICE);
+        // get the info from the currently running task
+        List< ActivityManager.RunningTaskInfo > taskInfo = am.getRunningTasks(1);
+        String cn = taskInfo.get(0).topActivity.getPackageName();
+        return cn.equals("org.geometerplus.zlibrary.ui.android");
+    }
+
     static void exitApp() {
         SpeakService.stop();
         System.exit(0); // exit, so that next time FBReader is activated, we regain BT focus.
