@@ -109,7 +109,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myCurrentSentence >= mySentences.length) {
             gotoNextParagraph();
         }
-        speakString(mySentences[myCurrentSentence]);
+        if (myCurrentSentence < mySentences.length)
+            speakString(mySentences[myCurrentSentence]);
+        else
+            stopTalking();
     }
 
     static void stopTalking() {

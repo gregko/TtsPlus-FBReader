@@ -2,14 +2,14 @@
 <resources>
 	<string name="title">FBReader TTS+ Plugin</string>
     <string name="about">O programie</string>
-    <string name="version">FBReader TTS+ Plugin wersja</string>
+    <string name="version">FBReader TTS+ Plugin wer.</string>
     <string name="copyright">Copyright (C) 2012\nHyperionics Technology LLC</string>
     <string name="url">http://www.hyperionics.com/TtsPlus</string>
     <string name="back"> Powrót </string>
 	<string name="failure">Przepraszamy, błąd inicjacji.</string>
 	<string name="speak_menu_item">Mów (+)</string>
 	<string name="no_tts_installed">Brak połączenia z modułem TTS na tym urządzeniu.</string>
-	<string name="initialization_error">Nie można uzyskać danych o książce z FBReader'a.</string>
+	<string name="initialization_error">Nie można uzyskać danych o książce z FBReader\'a.</string>
 	<string name="language_is_not_set">Język książki nieznany. Próbuję czytać w języku: %0.</string>
 	<string name="no_data_for_language" formatted="false">Pliki Text-to-speech dla języka %0 nie są zainstalowane. Próbuję czytać w języku: %1.</string>
 	<string name="speed">Szybkość:</string>

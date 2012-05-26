@@ -1,16 +1,2 @@
-===== 1.3 (May 20, 2012 ===== (by Greg Kochaniak, gregko)
-* Added Bluetooth headset controls for play/pause/resume and next/previous buttons
-* Improved control panel, adding Setup button that opens rate, pitch and volume
-  slider controls, and buttons to reset to default values, select language and
-  open system TTS settings app, e.g. to change the TTS engine.
-* Subdividing paragraphs into sentences. This makes it possible to pause and resume
-  playback at sentence resolution, instead of listening again to the part of 
-  possibly long paragraph already heard before.
-* Also proposed a small change to the main reader app to let it start talking upon
-  pressing Bluetooth play button, without going through the menu. Up to gemeter
-  to add these changes to the main reader app code.
-
-===== 1.1 (Jan 8, 2012) =====
-* Wakelock: don't stop reading in auto mode
-* Czech localization (by Marek Pavelka)
-* Separate packages for Android 1.6/2 and Anroid 3+
+===== 1.0 (May 25, 2012 ===== (by Greg Kochaniak, gregko)
+Initial release to Google Play Store

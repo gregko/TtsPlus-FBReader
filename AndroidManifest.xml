@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.hyperionics.fbreader.plugin.tts_plus" android:versionCode="100000" android:versionName="1.0" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.hyperionics.fbreader.plugin.tts_plus" android:versionCode="100001" android:versionName="1.0.1" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="10"/>
 	<supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:anyDensity="true" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -23,12 +23,12 @@
 		</activity>
         <service android:name=".SpeakService">
         </service>
-        <receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.MediaButtonIntentReceiver">
+        <receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.MediaButtonIntentReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.BluetoothConnectReceiver">
+        <receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.BluetoothConnectReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.bluetooth.device.action.ACL_CONNECTED"/>
                 <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED"/>
