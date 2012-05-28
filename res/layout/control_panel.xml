@@ -7,11 +7,11 @@
 >
     <TableLayout
             android:id="@+id/bigButtons"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             >
         <TableRow
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical" >
 
@@ -29,7 +29,7 @@
                     />
         </TableRow>
         <TableRow
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical" >
 
@@ -59,18 +59,18 @@
             android:id="@+id/sliders"
             android:visibility="visible"
             android:paddingBottom="5dp"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
         <TableRow
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical" >
 
         </TableRow>
 
         <TableRow
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical" >
 
@@ -85,14 +85,14 @@
             <SeekBar
                     android:id="@+id/speed_control"
                     android:paddingRight="5dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     />
         </TableRow>
 
         <TableRow
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical" >
 
@@ -107,14 +107,14 @@
             <SeekBar
                     android:id="@+id/pitch_control"
                     android:paddingRight="5dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     />
         </TableRow>
 
         <TableRow
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical" >
 
@@ -129,7 +129,7 @@
             <SeekBar
                     android:id="@+id/volume_control"
                     android:paddingRight="5dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     />

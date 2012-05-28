@@ -12,8 +12,8 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
+//import android.telephony.PhoneStateListener;
+//import android.telephony.TelephonyManager;
 import android.view.*;
 import android.widget.*;
 
@@ -115,6 +115,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 View view = inflater.inflate(R.layout.about_panel, null);
                 TextView tv = (TextView) view.findViewById(R.id.vtext);
                 tv.setText(getString(R.string.version) + " " + SpeakApp.versionName);
+//                tv = (TextView) view.findViewById(R.id.pgstart);
+//                try {
+//                    TextPosition tp = SpeakService.myApi.getPageStart();
+//                    tv.setText("Page start: " + tp.ParagraphIndex + " (" + SpeakService.myApi.getElementsNumber(tp.ParagraphIndex) + ")");
+//                } catch (ApiException e) {
+//                }
                 builder.setView(view);
                 builder.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -257,17 +263,21 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             }
         });
 
-        ((TelephonyManager)getSystemService(TELEPHONY_SERVICE)).listen(
-                new PhoneStateListener() {
-                    public void onCallStateChanged(int state, String incomingNumber) {
-                        if (state == TelephonyManager.CALL_STATE_RINGING) {
-                            SpeakService.myWasActive = SpeakService.myIsActive;
-                            SpeakService.stopTalking();
-                        }
-                    }
-                },
-                PhoneStateListener.LISTEN_CALL_STATE
-        );
+        // The code below needs:
+        // 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+        // it does not seem to be necessary, the OnAudioFocusChangeListener() callback
+        // handles breaking through of phone calls fine.
+//        ((TelephonyManager)getSystemService(TELEPHONY_SERVICE)).listen(
+//                new PhoneStateListener() {
+//                    public void onCallStateChanged(int state, String incomingNumber) {
+//                        if (state == TelephonyManager.CALL_STATE_RINGING) {
+//                            SpeakService.myWasActive = SpeakService.myIsActive;
+//                            SpeakService.stopTalking();
+//                        }
+//                    }
+//                },
+//                PhoneStateListener.LISTEN_CALL_STATE
+//        );
 
         getWindow().setGravity(Gravity.BOTTOM);
 		setActive(false);
@@ -351,7 +361,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_FAIL) { // some engines fail here, yet work correctly...
                 SpeakService.myTTS = new TextToSpeech(this, this);
                 // The line below gets voices for the "default action" speech engine...
-                myVoices = data.getStringArrayListExtra(TextToSpeech.Engine.EXTRA_AVAILABLE_VOICES);
+                if (data != null)
+                    myVoices = data.getStringArrayListExtra(TextToSpeech.Engine.EXTRA_AVAILABLE_VOICES);
             } else {
                 try {
                     startActivity(new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA));

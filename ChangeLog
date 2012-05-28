@@ -1,2 +1,14 @@
+Checking for null data object in SpeakActivity.onActivityResult()
+
+Removed READ_PHONE_STATE permission and PhoneStateListener() -
+OnAudioFocusChangeListener() in SpeadService is enough to break
+through the phone calls.
+
+1.0.2 released 5/26/2012
+------------------------
+Lowered API to 8, Android 2.2
+Small code corrections
+
+
 ===== 1.0 (May 25, 2012 ===== (by Greg Kochaniak, gregko)
 Initial release to Google Play Store

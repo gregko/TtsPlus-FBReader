@@ -48,7 +48,7 @@ public class TtsSentenceExtractor {
 
         inStr = inStr.replace("Mr. ", "Mr ");
         inStr = inStr.replace("Mrs. ", "Mrs ");
-        inStr = inStr.replace("Dr. ", "D R "); // we don't know if it's "Doctor" or "Drive"
+        inStr = inStr.replace("Dr. ", "Dr "); // we don't know if it's "Doctor" or "Drive"
         inStr = inStr.replace("Prof. ", "Prof ");
         inStr = inStr.replace("i.e. ", "I E ");
         inStr = inStr.replace("Rev. ", "Rev ");
@@ -63,6 +63,10 @@ public class TtsSentenceExtractor {
         inStr = inStr.replace("M.A. ", "M A ");
         inStr = inStr.replace("D.D.S. ", "D D S ");
 
+        // Greg's private replacemtns... Move into preferences...
+        inStr = inStr.replace("antiaging", "anti-aging");
+        inStr = inStr.replace("Antiaging", "Anti-aging");
+        inStr = inStr.replace("No.", "No;");
         return inStr;
     }
 }

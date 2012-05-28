@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.hyperionics.fbreader.plugin.tts_plus" android:versionCode="101000" android:versionName="1.01" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="10"/>
-	<supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:anyDensity="true" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.hyperionics.fbreader.plugin.tts_plus"
+          android:versionCode="100003" android:versionName="1.0.3">
+	<uses-sdk android:minSdkVersion="8"/>
+	<supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true"
+                      android:anyDensity="true" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
 	<application android:label="@string/title" android:icon="@drawable/fbreader_plugin" android:name=".SpeakApp">
@@ -14,7 +15,8 @@
 				<category android:name="android.intent.category.INFO" />
 			</intent-filter>
 		</receiver>
-		<activity android:name="com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity" android:configChanges="orientation|keyboardHidden" android:theme="@android:style/Theme.Dialog">
+		<activity android:name="com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity"
+                  android:configChanges="orientation|keyboardHidden" android:theme="@android:style/Theme.Dialog">
 			<intent-filter>
 				<action android:name="android.fbreader.action.plugin.RUN" />
 				<category android:name="android.intent.category.DEFAULT" />
