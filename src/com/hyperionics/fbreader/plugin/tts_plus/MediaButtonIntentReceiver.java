@@ -40,8 +40,12 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     Lt.d("Bluetooth media button: " + keycode);
                     if (!SpeakActivity.isInitialized() && SpeakApp.isFBReaderOnTop()) {
                         SpeakActivity.startActivity(context);
-                    } else {
+                    } else if (keycode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
                         SpeakService.toggleTalking();
+                    } else if (keycode == 127) { // KEYCODE_MEDIA_PLAY
+                        SpeakService.startTalking();
+                    } else { // 126, KEYCODE_MEDIA_PAUSE
+                        SpeakService.stopTalking();
                     }
                     break;
                 case KeyEvent.KEYCODE_MEDIA_NEXT:
