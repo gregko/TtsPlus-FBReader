@@ -38,6 +38,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static String selectedLanguage = BOOK_LANG; // either "book" or locale code like "eng-USA"
     static int myParagraphIndex = -1;
     static int myParagraphsNumber;
+    static float myCurrentPitch = 1f;
 
     private static final String UTTERANCE_ID = "FBReaderTTSPlugin";
     static String mySentences[] = new String[0];
@@ -45,7 +46,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static boolean myIsActive = false;
     static boolean myWasActive = false;
-
 
     static volatile int myInitializationStatus;
     static int API_INITIALIZED = 1;
@@ -210,8 +210,16 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void setPitch(float pitch) {
-        if (myTTS != null)
+        if (myTTS != null) {
+            myCurrentPitch = pitch;
             myTTS.setPitch(pitch);
+        }
+    }
+
+    private static void setPitchTemp(float pitch) {
+        if (myTTS != null) {
+            myTTS.setPitch(pitch);
+        }
     }
 
     private static void highlightParagraph() throws ApiException {
@@ -278,6 +286,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     });
                 }
             }
+
             if (myReadSentences) {
                 mySentences = TtsSentenceExtractor.extract(text, myTTS.getLanguage());
             } else {
@@ -329,14 +338,17 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     boolean isInitialized = SpeakActivity.isInitialized();
                     boolean isTop = SpeakApp.isFbrPackageOnTop();
                     Lt.d("onEvent-" + eventType + "; isInit=" + isInitialized + "; FbrTop=" + isTop);
-                    if (isInitialized && eventType.equals(EVENT_READ_MODE_OPENED)) {
-                        SpeakActivity.restartActivity(SpeakApp.getContext());
+                    if (eventType.equals(EVENT_READ_MODE_OPENED)) {
+                        SpeakApp.EnableComponents(true);
+                        if (isInitialized)
+                            SpeakActivity.restartActivity(SpeakApp.getContext());
                     }
                     else if (!isInitialized && eventType.equals(EVENT_READ_MODE_CLOSED))
                     {
                         if (!isTop) {
-                            Lt.d("  - exitApp from onEvent");
-                            SpeakApp.exitApp();
+                            Lt.d("  - Disabling components from onEvent");
+                            SpeakApp.EnableComponents(false);
+                            //SpeakApp.exitApp();
                         } else {
                             // Need to check if FBReader is still on top or exited only after some time...
                             mHandler.postDelayed(mTimerTask, 1000);
@@ -406,8 +418,11 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         public void run() {
             mHandler.removeCallbacks(mTimerTask);
             if (!SpeakApp.isFbrPackageOnTop()) {
-                Lt.d("  - exitApp from mTimerTask");
-                SpeakApp.exitApp();
+                if (!SpeakActivity.isInitialized()) {
+                    Lt.d("  - Disabling components from mTimerTask");
+                    SpeakApp.EnableComponents(false);
+                    //SpeakApp.exitApp();
+                }
             } else if (!SpeakActivity.isInitialized()) {
                 // Re-post again, we could be in a modal dialog of FBReader. Callbacks will be removed
                 // upon next event posted to us from FBR, or we'll exit if user presses Home while in

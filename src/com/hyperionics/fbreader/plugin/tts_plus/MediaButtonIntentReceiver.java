@@ -37,15 +37,13 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                 case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                 case 127: // KeyEvent.KEYCODE_MEDIA_PAUSE: - not available under Gingerbread API
                 case 126: // KeyEvent.KEYCODE_MEDIA_PLAY:
+                    // Note: works much better without distinguishing between KEYCODE_MEDIA_PAUSE and
+                    // KEYCODE_MEDIA_PAUSE on ICS!
                     Lt.d("Bluetooth media button: " + keycode);
                     if (!SpeakActivity.isInitialized() && SpeakApp.isFBReaderOnTop()) {
                         SpeakActivity.startActivity(context);
-                    } else if (keycode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
+                    } else {
                         SpeakService.toggleTalking();
-                    } else if (keycode == 127) { // KEYCODE_MEDIA_PLAY
-                        SpeakService.startTalking();
-                    } else { // 126, KEYCODE_MEDIA_PAUSE
-                        SpeakService.stopTalking();
                     }
                     break;
                 case KeyEvent.KEYCODE_MEDIA_NEXT:

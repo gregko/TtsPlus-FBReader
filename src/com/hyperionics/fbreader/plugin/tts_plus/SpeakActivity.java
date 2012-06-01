@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
-//import android.telephony.PhoneStateListener;
-//import android.telephony.TelephonyManager;
 import android.view.*;
 import android.widget.*;
 
@@ -141,17 +139,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 myEditor.commit();
             }
         });
-        setListener(R.id.button_tts_set, new View.OnClickListener() {
-            public void onClick(View v) {
-                SpeakService.stopTalking();
-                Intent intent = new Intent("com.android.settings.TTS_SETTINGS");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                SpeakService.switchOff();
-                finish();
-            }
-        });
-        setListener(R.id.button_setup, new View.OnClickListener() {
+         setListener(R.id.button_setup, new View.OnClickListener() {
             public void onClick(View v) {
                 View vs = findViewById(R.id.sliders);
                 View v2 = findViewById(R.id.bigButtons);

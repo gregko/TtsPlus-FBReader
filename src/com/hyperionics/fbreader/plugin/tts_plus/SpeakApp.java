@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 
 import java.util.List;
 
@@ -20,7 +21,9 @@ public class SpeakApp extends Application
 {
     private static SpeakApp myApplication;
     static String versionName = "";
-    int versionCode = 0;
+    static int versionCode = 0;
+    static PackageManager myPackageManager;
+    static String myPackageName;
 
     static boolean isFBReaderOnTop() {
         // the code below needs:  <uses-permission android:name="android.permission.GET_TASKS"/>
@@ -43,42 +46,48 @@ public class SpeakApp extends Application
         return cn.equals("org.geometerplus.zlibrary.ui.android");
     }
 
-    private void EnableComponents(boolean enabled) {
+    static void EnableComponents(boolean enabled) {
         int flag = (enabled ?
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED :
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
-        ComponentName component = new ComponentName(getPackageName(),
+        ComponentName component = new ComponentName(myPackageName,
                 MediaButtonIntentReceiver.class.getName());
-        getPackageManager().setComponentEnabledSetting(component, flag,
+        myPackageManager.setComponentEnabledSetting(component, flag,
                 PackageManager.DONT_KILL_APP);
-        component = new ComponentName(getPackageName(),
+        component = new ComponentName(myPackageName,
                 BluetoothConnectReceiver.class.getName());
-        getPackageManager().setComponentEnabledSetting(component, flag,
+        myPackageManager.setComponentEnabledSetting(component, flag,
                 PackageManager.DONT_KILL_APP);
-    }
-
-    static void exitApp() {
-        if (SpeakActivity.getCurrent() != null)
-            SpeakActivity.getCurrent().finish();
-        SpeakService.mAudioManager.unregisterMediaButtonEventReceiver(SpeakService.componentName);
-        SpeakService.mAudioManager.abandonAudioFocus(SpeakService.afChangeListener);
-        myApplication.EnableComponents(false);
-        SpeakService.stop();
-        System.exit(0); // exit, so that next time FBReader is activated, we regain BT focus.
+        if (SpeakService.mAudioManager != null)
+        {
+            if (enabled) {
+                SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
+                SpeakService.mAudioManager.requestAudioFocus(SpeakService.afChangeListener,
+                        // Use the music stream.
+                        AudioManager.STREAM_MUSIC,
+                        // Request permanent focus.
+                        AudioManager.AUDIOFOCUS_GAIN);
+            }
+            else {
+                SpeakService.mAudioManager.unregisterMediaButtonEventReceiver(SpeakService.componentName);
+                SpeakService.mAudioManager.abandonAudioFocus(SpeakService.afChangeListener);
+            }
+        }
     }
 
     @Override
     public void onCreate() {
         myApplication = this;
+        myPackageManager = getPackageManager();
+        myPackageName = getPackageName();
         if (!isFbrPackageOnTop()) {
-            Lt.d("No FBReader on top, exiting.");
+            Lt.d("No FBReader on top, disabling components.");
             EnableComponents(false);
-            System.exit(0);
         }
         try {
             EnableComponents(true);
-            versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-            versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            versionName = myPackageManager.getPackageInfo(myPackageName, 0).versionName;
+            versionCode = myPackageManager.getPackageInfo(myPackageName, 0).versionCode;
             Lt.d("version = " + versionName + " (" + versionCode + ")");
         } catch (PackageManager.NameNotFoundException e) {
             ;
