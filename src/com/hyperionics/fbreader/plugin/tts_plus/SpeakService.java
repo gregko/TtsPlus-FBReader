@@ -67,7 +67,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 }
             }
             // Highlight the sentence here...
-            highlightSentence();
+            if (SpeakActivity.haveNewApi > 0)
+                highlightSentence();
             speakString(mySentences[myCurrentSentence].s);
 
         } else {
@@ -115,7 +116,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             gotoNextParagraph();
         }
         if (myCurrentSentence < mySentences.length) {
-            highlightSentence();
+            if (SpeakActivity.haveNewApi > 0)
+                highlightSentence();
             speakString(mySentences[myCurrentSentence].s);
         } else
             stopTalking();
@@ -266,10 +268,12 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 }
             }
             // The lines commented out below will be needed only when reading whole paragraphs.
-//            if (myApi.getPageStart().ParagraphIndex >= myParagraphIndex) {
-//                myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
-//            }
-            //highlightParagraph();
+            if (SpeakActivity.haveNewApi < 1) {
+                if (myApi.getPageStart().ParagraphIndex >= myParagraphIndex) {
+                    myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
+                }
+                highlightParagraph();
+            }
             if (SpeakActivity.getCurrent() != null) {
                 SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
                     public void run() {
@@ -284,48 +288,86 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void gotoNextParagraph() {
-        try {
-            List<String> wl = null;
-            ArrayList<Integer> il = null;
-            myCurrentSentence = 0;
-            for (; myParagraphIndex < myParagraphsNumber; ++myParagraphIndex) {
-                // final String s = myApi.getParagraphText(myParagraphIndex);
-                wl = myApi.getParagraphWords(myParagraphIndex);
-                if (wl.size() > 0) {
-                    il = myApi.getParagraphIndices(myParagraphIndex);
-                    break;
-                }
-            }
-            // The code below will be needed only when reading whole paragraphs
-//            if (wl != null && wl.size() != 0 && !myApi.isPageEndOfText()) {
-//                myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
-//            }
-            //highlightParagraph();
-            if (myParagraphIndex >= myParagraphsNumber) {
-                if (SpeakActivity.getCurrent() != null) {
-                    SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
-                        public void run() {
-                            SpeakActivity.getCurrent().findViewById(R.id.button_next_paragraph).setEnabled(false);
-                            SpeakActivity.getCurrent().findViewById(R.id.button_play).setEnabled(false);
-                        }
-                    });
-                }
-            }
-
-            if (myReadSentences) {
-                //mySentences = TtsSentenceExtractor.extract(text, myTTS.getLanguage());
-                mySentences = TtsSentenceExtractor.build(wl, il, myTTS.getLanguage());
-            } else {
+        if (SpeakActivity.haveNewApi < 1) { // Old API for FBReader 1.5.3 and lower
+            try {
                 String text = "";
-                for (int i = 0; i < wl.size(); i++)
-                    text += wl.get(i) + " ";
-                mySentences = new TtsSentenceExtractor.SentenceIndex[1];
-                mySentences[0] = new TtsSentenceExtractor.SentenceIndex(text, 0);
+                myCurrentSentence = 0;
+                for (; myParagraphIndex < myParagraphsNumber; ++myParagraphIndex) {
+                    final String s = myApi.getParagraphText(myParagraphIndex);
+                    if (s.length() > 0) {
+                        text = s;
+                        break;
+                    }
+                }
+                if (!"".equals(text) && !myApi.isPageEndOfText()) {
+                    myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
+                }
+                highlightParagraph();
+                if (myParagraphIndex >= myParagraphsNumber) {
+                    if (SpeakActivity.getCurrent() != null) {
+                        SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
+                            public void run() {
+                                SpeakActivity.getCurrent().findViewById(R.id.button_next_paragraph).setEnabled(false);
+                                SpeakActivity.getCurrent().findViewById(R.id.button_play).setEnabled(false);
+                            }
+                        });
+                    }
+                }
+                if (myReadSentences) {
+                    mySentences = TtsSentenceExtractor.extract(text, myTTS.getLanguage());
+                } else {
+                    mySentences = new TtsSentenceExtractor.SentenceIndex[1];
+                    mySentences[0] = new TtsSentenceExtractor.SentenceIndex(text, 0);
+                }
+            } catch (ApiException e) {
+                e.printStackTrace();
             }
-        } catch (ApiException e) {
-            stopTalking();
-            SpeakActivity.showErrorMessage(R.string.initialization_error);
-            e.printStackTrace();
+        }
+        else {
+            // The code below uses new APIs
+            try {
+                List<String> wl = null;
+                ArrayList<Integer> il = null;
+                myCurrentSentence = 0;
+                for (; myParagraphIndex < myParagraphsNumber; ++myParagraphIndex) {
+                    // final String s = myApi.getParagraphText(myParagraphIndex);
+                    wl = myApi.getParagraphWords(myParagraphIndex);
+                    if (wl.size() > 0) {
+                        il = myApi.getParagraphIndices(myParagraphIndex);
+                        break;
+                    }
+                }
+                // The code below will be needed only when reading whole paragraphs
+    //            if (wl != null && wl.size() != 0 && !myApi.isPageEndOfText()) {
+    //                myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
+    //            }
+                //highlightParagraph();
+                if (myParagraphIndex >= myParagraphsNumber) {
+                    if (SpeakActivity.getCurrent() != null) {
+                        SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
+                            public void run() {
+                                SpeakActivity.getCurrent().findViewById(R.id.button_next_paragraph).setEnabled(false);
+                                SpeakActivity.getCurrent().findViewById(R.id.button_play).setEnabled(false);
+                            }
+                        });
+                    }
+                }
+
+                if (myReadSentences) {
+                    //mySentences = TtsSentenceExtractor.extract(text, myTTS.getLanguage());
+                    mySentences = TtsSentenceExtractor.build(wl, il, myTTS.getLanguage());
+                } else {
+                    String text = "";
+                    for (int i = 0; i < wl.size(); i++)
+                        text += wl.get(i) + " ";
+                    mySentences = new TtsSentenceExtractor.SentenceIndex[1];
+                    mySentences[0] = new TtsSentenceExtractor.SentenceIndex(text, 0);
+                }
+            } catch (ApiException e) {
+                stopTalking();
+                SpeakActivity.showErrorMessage(R.string.initialization_error);
+                e.printStackTrace();
+            }
         }
     }
 
