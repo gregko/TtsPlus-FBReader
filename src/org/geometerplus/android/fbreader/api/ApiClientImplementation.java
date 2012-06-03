@@ -170,7 +170,19 @@ public class ApiClientImplementation implements ServiceConnection, Api, ApiMetho
 		return stringList;
 	}
 
-	private static final ApiObject[] EMPTY_PARAMETERS = new ApiObject[0];
+    private ArrayList<Integer> requestIntegerList(int method, ApiObject[] params) throws ApiException {
+        final List<ApiObject> list = requestList(method, params);
+        final ArrayList<Integer> intList = new ArrayList<Integer>(list.size());
+        for (ApiObject object : list) {
+            if (!(object instanceof ApiObject.Integer)) {
+                throw new ApiException("Cannot cast an element returned from method " + method + " to Integer");
+            }
+            intList.add(((ApiObject.Integer)object).Value);
+        }
+        return intList;
+    }
+
+    private static final ApiObject[] EMPTY_PARAMETERS = new ApiObject[0];
 
 	private static ApiObject[] envelope(String value) {
 		return new ApiObject[] { ApiObject.envelope(value) };
@@ -288,7 +300,15 @@ public class ApiClientImplementation implements ServiceConnection, Api, ApiMetho
 		return requestString(GET_PARAGRAPH_TEXT, envelope(paragraphIndex));
 	}
 
-	public int getElementsNumber(int paragraphIndex) throws ApiException {
+    public List<String> getParagraphWords(int paragraphIndex) throws ApiException {
+        return requestStringList(GET_PARAGRAPH_WORDS, envelope(paragraphIndex));
+    }
+
+    public ArrayList<Integer> getParagraphIndices(int paragraphIndex) throws ApiException {
+        return requestIntegerList(GET_PARAGRAPH_INDICES, envelope(paragraphIndex));
+    }
+
+    public int getElementsNumber(int paragraphIndex) throws ApiException {
 		return requestInt(GET_ELEMENTS_NUMBER, envelope(paragraphIndex));
 	}
 
@@ -303,4 +323,12 @@ public class ApiClientImplementation implements ServiceConnection, Api, ApiMetho
 	public void clearHighlighting() throws ApiException {
 		request(CLEAR_HIGHLIGHTING, EMPTY_PARAMETERS);
 	}
+
+    public int getBottomMargin() throws ApiException {
+        return requestInt(GET_BOTTOM_MARGIN, EMPTY_PARAMETERS);
+    }
+
+    public void setBottomMargin(int value) throws ApiException {
+        request(SET_BOTTOM_MARGIN, new ApiObject[] { ApiObject.envelope(value) });
+    }
 }

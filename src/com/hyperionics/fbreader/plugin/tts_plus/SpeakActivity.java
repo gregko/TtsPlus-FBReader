@@ -7,6 +7,7 @@ import java.util.Locale;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.*;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -27,6 +28,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
     private static volatile PowerManager.WakeLock myWakeLock;
     private int myMaxVolume;
+    private int savedBottomMargin = -1;
+    static int haveNewApi = 1;
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
 
     private void setListener(int id, View.OnClickListener listener) {
@@ -133,7 +136,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             private SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
             public void onClick(View v) {
                 SpeakService.stopTalking();
-                SpeakService.mySentences = new String[0];
+                SpeakService.mySentences = new TtsSentenceExtractor.SentenceIndex[0];
                 SpeakService.myReadSentences = ((CheckBox) v).isChecked();
                 myEditor.putBoolean("readSentences", SpeakService.myReadSentences);
                 myEditor.commit();
@@ -251,23 +254,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             }
         });
 
-        // The code below needs:
-        // 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-        // it does not seem to be necessary, the OnAudioFocusChangeListener() callback
-        // handles breaking through of phone calls fine.
-//        ((TelephonyManager)getSystemService(TELEPHONY_SERVICE)).listen(
-//                new PhoneStateListener() {
-//                    public void onCallStateChanged(int state, String incomingNumber) {
-//                        if (state == TelephonyManager.CALL_STATE_RINGING) {
-//                            SpeakService.myWasActive = SpeakService.myIsActive;
-//                            SpeakService.stopTalking();
-//                        }
-//                    }
-//                },
-//                PhoneStateListener.LISTEN_CALL_STATE
-//        );
-
         getWindow().setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.dimAmount = 0f;
+        getWindow().setAttributes(lp);
 		setActive(false);
 		setActionsEnabled(false);
         if (SpeakService.myPreferences.getBoolean("HIDE_PREFS", false)) {
@@ -308,6 +298,22 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
                 SpeakService.myParagraphIndex = SpeakService.myApi.getPageStart().ParagraphIndex;
                 SpeakService.myParagraphsNumber = SpeakService.myApi.getParagraphsNumber();
+
+                // Calculate the extra bottom margin needed for navigation buttons
+                try {
+                    currentSpeakActivity.savedBottomMargin = SpeakService.myApi.getBottomMargin();
+                    Rect rectf = new Rect();
+                    View v = currentSpeakActivity.findViewById(R.id.nav_buttons);
+                    v.getLocalVisibleRect(rectf);
+                    int d = rectf.bottom;
+                    d += d/5 + currentSpeakActivity.savedBottomMargin;
+                    if (currentSpeakActivity.savedBottomMargin < d) {
+                        SpeakService.myApi.setBottomMargin(d);
+                        SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
+                    }
+                } catch (ApiException e) {
+                    haveNewApi = 0;
+                }
                 currentSpeakActivity.setActionsEnabled(true);
                 if (startTalkAtOnce)
                     SpeakService.startTalking();
@@ -386,6 +392,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 	protected void onDestroy() {
         if (isFinishing()) {
             isActivated = false;
+            if (savedBottomMargin > -1) {
+                try {
+                    SpeakService.myApi.setBottomMargin(savedBottomMargin);
+                    SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
+                } catch (ApiException e) {
+                    ;
+                }
+            }
             SpeakService.switchOff();
         }
         currentSpeakActivity = null;

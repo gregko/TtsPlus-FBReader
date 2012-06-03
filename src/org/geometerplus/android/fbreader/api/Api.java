@@ -55,4 +55,6 @@ public interface Api {
 	void setPageStart(TextPosition position) throws ApiException;
 	void highlightArea(TextPosition start, TextPosition end) throws ApiException;
 	void clearHighlighting() throws ApiException;
+    public int getBottomMargin() throws ApiException;
+    public void setBottomMargin(int value) throws ApiException;
 }

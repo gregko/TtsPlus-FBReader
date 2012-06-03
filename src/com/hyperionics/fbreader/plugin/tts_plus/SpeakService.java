@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
@@ -14,7 +15,9 @@ import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.ApiListener;
 import org.geometerplus.android.fbreader.api.TextPosition;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -41,7 +44,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static float myCurrentPitch = 1f;
 
     private static final String UTTERANCE_ID = "FBReaderTTSPlugin";
-    static String mySentences[] = new String[0];
+    static TtsSentenceExtractor.SentenceIndex mySentences[] = new TtsSentenceExtractor.SentenceIndex[0];
     private static int myCurrentSentence = 0;
 
     static boolean myIsActive = false;
@@ -63,7 +66,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     return;
                 }
             }
-            speakString(mySentences[myCurrentSentence]);
+            // Highlight the sentence here...
+            highlightSentence();
+            speakString(mySentences[myCurrentSentence].s);
 
         } else {
             SpeakActivity.setActive(false);
@@ -109,9 +114,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myCurrentSentence >= mySentences.length) {
             gotoNextParagraph();
         }
-        if (myCurrentSentence < mySentences.length)
-            speakString(mySentences[myCurrentSentence]);
-        else
+        if (myCurrentSentence < mySentences.length) {
+            highlightSentence();
+            speakString(mySentences[myCurrentSentence].s);
+        } else
             stopTalking();
     }
 
@@ -146,7 +152,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static void switchOff() {
         stopTalking();
-        mySentences = new String[0];
+        mySentences = new TtsSentenceExtractor.SentenceIndex[0];
         if (myApi != null) {
             try {
                 myApi.clearHighlighting();
@@ -222,6 +228,21 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
     }
 
+    private static void highlightSentence() {
+        try {
+            int endEI = myCurrentSentence < mySentences.length-1 ?
+                            mySentences[myCurrentSentence+1].i-1: Integer.MAX_VALUE;
+            TextPosition stPos = new TextPosition(myParagraphIndex, mySentences[myCurrentSentence].i, 0);
+            TextPosition edPos = new TextPosition(myParagraphIndex, endEI, 0);
+            if (stPos.compareTo(myApi.getPageStart()) < 0 ||
+                edPos.compareTo(myApi.getPageEnd()) > 0)
+                myApi.setPageStart(stPos);
+            myApi.highlightArea(stPos, edPos);
+        } catch (ApiException e) {
+            ;
+        }
+    }
+
     private static void highlightParagraph() throws ApiException {
         if (0 <= myParagraphIndex && myParagraphIndex < myParagraphsNumber) {
             myApi.highlightArea(
@@ -234,7 +255,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void gotoPreviousParagraph() {
-        mySentences = new String[0];
+        mySentences = new TtsSentenceExtractor.SentenceIndex[0];
         try {
             if (myParagraphIndex > myParagraphsNumber)
                 myParagraphIndex = myParagraphsNumber;
@@ -244,10 +265,11 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     break;
                 }
             }
-            if (myApi.getPageStart().ParagraphIndex >= myParagraphIndex) {
-                myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
-            }
-            highlightParagraph();
+            // The lines commented out below will be needed only when reading whole paragraphs.
+//            if (myApi.getPageStart().ParagraphIndex >= myParagraphIndex) {
+//                myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
+//            }
+            //highlightParagraph();
             if (SpeakActivity.getCurrent() != null) {
                 SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
                     public void run() {
@@ -261,21 +283,24 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
     }
 
-    static String gotoNextParagraph() {
+    static void gotoNextParagraph() {
         try {
-            String text = "";
+            List<String> wl = null;
+            ArrayList<Integer> il = null;
             myCurrentSentence = 0;
             for (; myParagraphIndex < myParagraphsNumber; ++myParagraphIndex) {
-                final String s = myApi.getParagraphText(myParagraphIndex);
-                if (s.length() > 0) {
-                    text = s;
+                // final String s = myApi.getParagraphText(myParagraphIndex);
+                wl = myApi.getParagraphWords(myParagraphIndex);
+                if (wl.size() > 0) {
+                    il = myApi.getParagraphIndices(myParagraphIndex);
                     break;
                 }
             }
-            if (!"".equals(text) && !myApi.isPageEndOfText()) {
-                myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
-            }
-            highlightParagraph();
+            // The code below will be needed only when reading whole paragraphs
+//            if (wl != null && wl.size() != 0 && !myApi.isPageEndOfText()) {
+//                myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
+//            }
+            //highlightParagraph();
             if (myParagraphIndex >= myParagraphsNumber) {
                 if (SpeakActivity.getCurrent() != null) {
                     SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
@@ -288,15 +313,19 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
 
             if (myReadSentences) {
-                mySentences = TtsSentenceExtractor.extract(text, myTTS.getLanguage());
+                //mySentences = TtsSentenceExtractor.extract(text, myTTS.getLanguage());
+                mySentences = TtsSentenceExtractor.build(wl, il, myTTS.getLanguage());
             } else {
-                mySentences = new String[1];
-                mySentences[0] = text;
+                String text = "";
+                for (int i = 0; i < wl.size(); i++)
+                    text += wl.get(i) + " ";
+                mySentences = new TtsSentenceExtractor.SentenceIndex[1];
+                mySentences[0] = new TtsSentenceExtractor.SentenceIndex(text, 0);
             }
-            return text;
         } catch (ApiException e) {
+            stopTalking();
+            SpeakActivity.showErrorMessage(R.string.initialization_error);
             e.printStackTrace();
-            return "";
         }
     }
 

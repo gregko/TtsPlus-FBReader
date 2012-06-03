@@ -1,3 +1,17 @@
+To do for ver. 1.0.5 or higher:
+------------------------------
+Sentence highlighting already works. Maybe remove paragraph speech and
+highlight options?
+Prev/Next buttons should now work by sentence, not paragraph,
+and highlight accordingly.
+Add option to stop after each sentence?
+
+Done:
+----
+Limit display area of main reader so that text is not hidden under speech
+buttons.
+
+------------------------------------------------------------------
 Checking for null data object in SpeakActivity.onActivityResult()
 
 Removed READ_PHONE_STATE permission and PhoneStateListener() -
