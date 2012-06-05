@@ -10,7 +10,8 @@
 	<string name="speak_menu_item">Mów (+)</string>
 	<string name="no_tts_installed">Brak połączenia z modułem TTS na tym urządzeniu.</string>
 	<string name="initialization_error">Nie można uzyskać danych o książce z FBReader\'a.</string>
-	<string name="language_is_not_set">Język książki nieznany. Próbuję czytać w języku: %0.</string>
+    <string name="api_error_2">Błąd API.</string>
+    <string name="language_is_not_set">Język książki nieznany. Próbuję czytać w języku: %0.</string>
 	<string name="no_data_for_language" formatted="false">Pliki Text-to-speech dla języka %0 nie są zainstalowane. Próbuję czytać w języku: %1.</string>
 	<string name="speed">Szybkość:</string>
     <string name="pitch">Wysokość:</string>
@@ -21,5 +22,5 @@
     <string name="unknown">nieznany</string>
     <string name="tts_settings">Ustawienia TTS</string>
     <string name="reset_tts">Domyślne"</string>
-    <string name="read_sentences">Czytaj zdaniami (mniej powtórki po pauzie)</string>
+    <string name="hi_sentences">Podświetlaj czytany text</string>
 </resources>

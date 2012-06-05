@@ -48,11 +48,11 @@
         </TableRow>
 
     <CheckBox
-            android:id="@+id/read_sentences"
+            android:id="@+id/highlight_sentences"
             android:checked="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/read_sentences" />
+            android:text="@string/hi_sentences" />
     </TableLayout>
 
     <TableLayout
@@ -142,8 +142,9 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		android:weightSum="5"
-	>
-		<ImageButton android:id="@+id/button_previous_paragraph"
+        android:id="@+id/nav_buttons"
+    >
+		<ImageButton android:id="@+id/button_previous"
 			android:layout_width="70dip"
 			android:layout_height="40dip"
 			android:layout_weight="1"
@@ -161,7 +162,7 @@
 			android:layout_weight="1"
 			android:src="@drawable/media_playback_pause"
 		/>
-		<ImageButton android:id="@+id/button_next_paragraph"
+		<ImageButton android:id="@+id/button_next"
 			android:layout_width="70dip"
 			android:layout_height="40dip"
 			android:layout_weight="1"

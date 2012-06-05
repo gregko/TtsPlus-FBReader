@@ -17,4 +17,8 @@ public class Lt {
         // Uncomment line below to turn on debug output
         //Log.d(myTag, msg);
     }
+    public static void df(String msg) {
+        // Forced output, do not comment out - for exceptions etc.
+        Log.d(myTag, msg);
+    }
 }

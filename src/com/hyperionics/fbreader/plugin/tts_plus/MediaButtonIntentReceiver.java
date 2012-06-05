@@ -47,10 +47,10 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     }
                     break;
                 case KeyEvent.KEYCODE_MEDIA_NEXT:
-                    SpeakService.nextParagraph();
+                    SpeakService.nextToSpeak();
                     break;
                 case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
-                    SpeakService.prevParagraph();
+                    SpeakService.prevToSpeak();
                     break;
                 default:
                     break;

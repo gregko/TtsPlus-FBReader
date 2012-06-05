@@ -5,20 +5,17 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
+import android.text.format.Time;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.ApiListener;
 import org.geometerplus.android.fbreader.api.TextPosition;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,11 +34,12 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static SharedPreferences myPreferences;
 
     static final String BOOK_LANG = "book";
-    static boolean myReadSentences = true;
+    static boolean myHighlightSentences = true;
     static String selectedLanguage = BOOK_LANG; // either "book" or locale code like "eng-USA"
     static int myParagraphIndex = -1;
     static int myParagraphsNumber;
     static float myCurrentPitch = 1f;
+    static int haveNewApi = 1;
 
     private static final String UTTERANCE_ID = "FBReaderTTSPlugin";
     static TtsSentenceExtractor.SentenceIndex mySentences[] = new TtsSentenceExtractor.SentenceIndex[0];
@@ -55,19 +53,87 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static int TTS_INITIALIZED = 2;
     static int FULLY_INITIALIZED = API_INITIALIZED | TTS_INITIALIZED;
 
+    static void savePosition() {
+        try {
+            String bookHash = "BP:" + myApi.getBookHash();
+            SharedPreferences.Editor myEditor = myPreferences.edit();
+            Time time = new Time();
+            time.setToNow();
+            myEditor.putString(bookHash,
+                    "p:" + myParagraphIndex + " s:" + myCurrentSentence + " e:" + mySentences[myCurrentSentence].i +
+                            " d:" + time.format2445());
+            myEditor.commit();
+        } catch (ApiException e) {
+            ;
+        }
+    }
+
+    static void restorePosition() {
+        try {
+            String bookHash = "BP:" + myApi.getBookHash();
+            String s = myPreferences.getString(bookHash, "");
+            int para = s.indexOf("p:");
+            int sent = s.indexOf("s:");
+            int idx = s.indexOf("e:");
+            int dt = s.indexOf("d:");
+            if (para > -1 && sent > -1 && idx > -1 && dt > -1) {
+                para = Integer.parseInt(s.substring(para + 2, sent-1));
+                sent = Integer.parseInt(s.substring(sent + 2, idx - 1));
+                idx = Integer.parseInt(s.substring(idx + 2, dt - 1));
+                TextPosition tp = new TextPosition(para, idx, 0);
+                if (tp.compareTo(myApi.getPageStart()) >= 0 && tp.compareTo(myApi.getPageEnd()) < 0) {
+                    myParagraphIndex = para;
+                    processCurrentParagraph();
+                    myCurrentSentence = sent;
+                }
+            }
+        } catch (ApiException e) {
+            ;
+        }
+    }
+
+    static void cleanupPositions() {
+        // Cleanup - delete any hashes older than 6 months
+        try {
+            Map<String, ?> prefs = myPreferences.getAll();
+            SharedPreferences.Editor myEditor = myPreferences.edit();
+            for(Map.Entry<String,?> entry : prefs.entrySet())
+            {
+                if (entry.getKey().substring(0, 3).equals("BP:")) {
+                    String s = entry.getValue().toString();
+                    int i = s.indexOf("d:");
+                    if (i > -1) {
+                        Time time = new Time();
+                        time.parse(s.substring(i+2));
+                        Time now = new Time();
+                        now.setToNow();
+                        long days = (now.toMillis(false) - time.toMillis(false))/1000/3600/24;
+                        if (days > 182)
+                            myEditor.remove(entry.getKey());
+                    }
+                    else
+                        myEditor.remove(entry.getKey());
+                }
+            }
+            myEditor.commit();
+        } catch (NullPointerException e) {
+            ;
+        }
+    }
+
     public void onUtteranceCompleted(String uttId) {
         regainBluetoothFocus();
         if (myIsActive && UTTERANCE_ID.equals(uttId)) {
             if (++myCurrentSentence >= mySentences.length) {
                 ++myParagraphIndex;
-                gotoNextParagraph();
+                processCurrentParagraph();
                 if (myParagraphIndex >= myParagraphsNumber) {
                     stopTalking();
                     return;
                 }
             }
             // Highlight the sentence here...
-            if (SpeakActivity.haveNewApi > 0)
+            if (haveNewApi > 0)
                 highlightSentence();
             speakString(mySentences[myCurrentSentence].s);
 
@@ -81,6 +147,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         try {
             if (languageCode == null || languageCode.equals(BOOK_LANG)) {
                 languageCode = myApi.getBookLanguage();
+                if (languageCode == null)
+                    languageCode = Locale.getDefault().getLanguage();
             }
             int n = languageCode.indexOf("-");
             if (n > 0) {
@@ -113,10 +181,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static void startTalking() {
         SpeakActivity.setActive(true);
         if (myCurrentSentence >= mySentences.length) {
-            gotoNextParagraph();
+            processCurrentParagraph();
         }
         if (myCurrentSentence < mySentences.length) {
-            if (SpeakActivity.haveNewApi > 0)
+            if (haveNewApi > 0)
                 highlightSentence();
             speakString(mySentences[myCurrentSentence].s);
         } else
@@ -136,6 +204,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     ;
                 }
             }
+            savePosition();
         }
         regainBluetoothFocus();
     }
@@ -157,6 +226,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         mySentences = new TtsSentenceExtractor.SentenceIndex[0];
         if (myApi != null) {
             try {
+                cleanupPositions();
                 myApi.clearHighlighting();
             } catch (ApiException e) {
                 e.printStackTrace();
@@ -172,35 +242,36 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         myInitializationStatus &= ~TTS_INITIALIZED;
     }
 
-    static void nextParagraph() {
-        // Users sometime press media next button by mistake, instead of play/resume.
-        // Therefore we go to the next paragraph only if we were actually speaking.
+    static void nextToSpeak() {
         boolean wasSpeaking = myTTS.isSpeaking();
-        if (wasSpeaking) {
+        if (wasSpeaking)
             stopTalking();
+        if (haveNewApi < 1) {
             if (myParagraphIndex < myParagraphsNumber) {
                 ++myParagraphIndex;
-                gotoNextParagraph();
+                processCurrentParagraph();
                 if (wasSpeaking)
                     startTalking();
             }
         }
-        else
-            startTalking();
-    }
-
-    static void prevParagraph() {
-        // Same potential to press media previous button by mistake, instead of
-        // play/resume.
-        boolean wasSpeaking = myTTS.isSpeaking()
-                || myParagraphIndex >= myParagraphsNumber;
-        if (wasSpeaking) {
-            stopTalking();
-            gotoPreviousParagraph();
+        else {
+            gotoNextSentence();
             if (wasSpeaking)
                 startTalking();
         }
-        else
+    }
+
+    static void prevToSpeak() {
+        boolean wasSpeaking = myTTS.isSpeaking()
+                || myParagraphIndex >= myParagraphsNumber;
+        if (wasSpeaking)
+            stopTalking();
+        if (haveNewApi < 1) {
+            gotoPreviousParagraph();
+            highlightParagraph();
+        } else
+            gotoPreviousSentence();
+        if (wasSpeaking)
             startTalking();
     }
 
@@ -234,28 +305,79 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         try {
             int endEI = myCurrentSentence < mySentences.length-1 ?
                             mySentences[myCurrentSentence+1].i-1: Integer.MAX_VALUE;
-            TextPosition stPos = new TextPosition(myParagraphIndex, mySentences[myCurrentSentence].i, 0);
+            TextPosition stPos;
+            if (myCurrentSentence == 0)
+                stPos = new TextPosition(myParagraphIndex, 0, 0);
+            else
+                stPos = new TextPosition(myParagraphIndex, mySentences[myCurrentSentence].i, 0);
             TextPosition edPos = new TextPosition(myParagraphIndex, endEI, 0);
-            if (stPos.compareTo(myApi.getPageStart()) < 0 ||
-                edPos.compareTo(myApi.getPageEnd()) > 0)
+            if (stPos.compareTo(myApi.getPageStart()) < 0 || edPos.compareTo(myApi.getPageEnd()) > 0)
                 myApi.setPageStart(stPos);
-            myApi.highlightArea(stPos, edPos);
+            if (myHighlightSentences)
+                myApi.highlightArea(stPos, edPos);
+            else
+                myApi.clearHighlighting();
+        } catch (ApiException e) {
+            Lt.df(e.getCause().toString());
+            e.printStackTrace();
+        }
+    }
+
+    private static void highlightParagraph() {
+        try {
+            TextPosition stPos = new TextPosition(myParagraphIndex, 0, 0);
+            TextPosition edPos = new TextPosition(myParagraphIndex, Integer.MAX_VALUE, 0);
+            if (stPos.compareTo(myApi.getPageStart()) < 0 || edPos.compareTo(myApi.getPageEnd()) > 0)
+                myApi.setPageStart(stPos);
+            if (myHighlightSentences && 0 <= myParagraphIndex && myParagraphIndex < myParagraphsNumber) {
+                myApi.highlightArea(
+                        new TextPosition(myParagraphIndex, 0, 0),
+                        new TextPosition(myParagraphIndex, Integer.MAX_VALUE, 0)
+                );
+            } else {
+                myApi.clearHighlighting();
+            }
+        } catch (ApiException e) {
+            Lt.df(e.getCause().toString());
+            e.printStackTrace();
+        }
+    }
+
+    static void gotoPreviousSentence() {
+        try {
+            myApi.clearHighlighting();
         } catch (ApiException e) {
             ;
         }
-    }
-
-    private static void highlightParagraph() throws ApiException {
-        if (0 <= myParagraphIndex && myParagraphIndex < myParagraphsNumber) {
-            myApi.highlightArea(
-                    new TextPosition(myParagraphIndex, 0, 0),
-                    new TextPosition(myParagraphIndex, Integer.MAX_VALUE, 0)
-            );
-        } else {
-            myApi.clearHighlighting();
+        if (myCurrentSentence > 0) {
+            myCurrentSentence--;
+            highlightSentence();
+        }
+        else if (myParagraphIndex > 0) {
+            gotoPreviousParagraph();
+            processCurrentParagraph();
+            myCurrentSentence = mySentences.length - 1;
+            highlightSentence();
         }
     }
 
+    static void gotoNextSentence() {
+        try {
+            myApi.clearHighlighting();
+        } catch (ApiException e) {
+            ;
+        }
+        if (myCurrentSentence < mySentences.length -1) {
+            myCurrentSentence++;
+            highlightSentence();
+        }
+        else if (myParagraphIndex < myParagraphsNumber) {
+            ++myParagraphIndex;
+            processCurrentParagraph();
+            myCurrentSentence = 0;
+            highlightSentence();
+        }
+    }
     static void gotoPreviousParagraph() {
         mySentences = new TtsSentenceExtractor.SentenceIndex[0];
         try {
@@ -267,17 +389,12 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     break;
                 }
             }
-            // The lines commented out below will be needed only when reading whole paragraphs.
-            if (SpeakActivity.haveNewApi < 1) {
-                if (myApi.getPageStart().ParagraphIndex >= myParagraphIndex) {
-                    myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
-                }
+            if (haveNewApi < 1)
                 highlightParagraph();
-            }
             if (SpeakActivity.getCurrent() != null) {
                 SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
                     public void run() {
-                        SpeakActivity.getCurrent().findViewById(R.id.button_next_paragraph).setEnabled(true);
+                        SpeakActivity.getCurrent().findViewById(R.id.button_next).setEnabled(true);
                         SpeakActivity.getCurrent().findViewById(R.id.button_play).setEnabled(true);
                     }
                 });
@@ -287,8 +404,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
     }
 
-    static void gotoNextParagraph() {
-        if (SpeakActivity.haveNewApi < 1) { // Old API for FBReader 1.5.3 and lower
+    static void processCurrentParagraph() {
+        if (haveNewApi < 1) { // Old API for FBReader 1.5.3 and lower
             try {
                 String text = "";
                 myCurrentSentence = 0;
@@ -299,26 +416,18 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         break;
                     }
                 }
-                if (!"".equals(text) && !myApi.isPageEndOfText()) {
-                    myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
-                }
                 highlightParagraph();
                 if (myParagraphIndex >= myParagraphsNumber) {
                     if (SpeakActivity.getCurrent() != null) {
                         SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
                             public void run() {
-                                SpeakActivity.getCurrent().findViewById(R.id.button_next_paragraph).setEnabled(false);
+                                SpeakActivity.getCurrent().findViewById(R.id.button_next).setEnabled(false);
                                 SpeakActivity.getCurrent().findViewById(R.id.button_play).setEnabled(false);
                             }
                         });
                     }
                 }
-                if (myReadSentences) {
-                    mySentences = TtsSentenceExtractor.extract(text, myTTS.getLanguage());
-                } else {
-                    mySentences = new TtsSentenceExtractor.SentenceIndex[1];
-                    mySentences[0] = new TtsSentenceExtractor.SentenceIndex(text, 0);
-                }
+                mySentences = TtsSentenceExtractor.extract(text, myTTS.getLanguage());
             } catch (ApiException e) {
                 e.printStackTrace();
             }
@@ -337,35 +446,21 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         break;
                     }
                 }
-                // The code below will be needed only when reading whole paragraphs
-    //            if (wl != null && wl.size() != 0 && !myApi.isPageEndOfText()) {
-    //                myApi.setPageStart(new TextPosition(myParagraphIndex, 0, 0));
-    //            }
-                //highlightParagraph();
                 if (myParagraphIndex >= myParagraphsNumber) {
                     if (SpeakActivity.getCurrent() != null) {
                         SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
                             public void run() {
-                                SpeakActivity.getCurrent().findViewById(R.id.button_next_paragraph).setEnabled(false);
+                                SpeakActivity.getCurrent().findViewById(R.id.button_next).setEnabled(false);
                                 SpeakActivity.getCurrent().findViewById(R.id.button_play).setEnabled(false);
                             }
                         });
                     }
                 }
 
-                if (myReadSentences) {
-                    //mySentences = TtsSentenceExtractor.extract(text, myTTS.getLanguage());
-                    mySentences = TtsSentenceExtractor.build(wl, il, myTTS.getLanguage());
-                } else {
-                    String text = "";
-                    for (int i = 0; i < wl.size(); i++)
-                        text += wl.get(i) + " ";
-                    mySentences = new TtsSentenceExtractor.SentenceIndex[1];
-                    mySentences[0] = new TtsSentenceExtractor.SentenceIndex(text, 0);
-                }
+                mySentences = TtsSentenceExtractor.build(wl, il, myTTS.getLanguage());
             } catch (ApiException e) {
                 stopTalking();
-                SpeakActivity.showErrorMessage(R.string.initialization_error);
+                SpeakActivity.showErrorMessage(R.string.api_error_2);
                 e.printStackTrace();
             }
         }
@@ -386,62 +481,34 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     public void onConnected() {
         if (myInitializationStatus != FULLY_INITIALIZED) {
             myInitializationStatus |= API_INITIALIZED;
+            try {
+                String version = myApi.getFBReaderVersion();
+                Lt.d("FBReader version: " + version);
+                String bookHash = myApi.getBookHash();
+                Lt.d("book hash = " + bookHash + "(" + myApi.getBookTitle() + ")");
+            } catch (ApiException e) {
+                ;
+            }
             if (myInitializationStatus == FULLY_INITIALIZED) {
                 SpeakActivity.onInitializationCompleted();
             }
         }
     }
 
-    @Override
-    public IBinder onBind(Intent arg0) { return null; }
-    @Override
-    public void onCreate() {
+    @Override public IBinder onBind(Intent arg0) { return null; }
+    @Override public void onCreate() {
         Lt.d("SpeakService created.");
         currentService = this;
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         componentName = new ComponentName(getPackageName(), MediaButtonIntentReceiver.class.getName());
-        myApi = new ApiClientImplementation(this, this);
-        if (myApi != null) {
-            myApi.addListener(new ApiListener() {
-                @Override
-                public void onEvent(String eventType) {
-                    mHandler.removeCallbacks(mTimerTask);
-                    boolean isInitialized = SpeakActivity.isInitialized();
-                    boolean isTop = SpeakApp.isFbrPackageOnTop();
-                    Lt.d("onEvent-" + eventType + "; isInit=" + isInitialized + "; FbrTop=" + isTop);
-                    if (eventType.equals(EVENT_READ_MODE_OPENED)) {
-                        SpeakApp.EnableComponents(true);
-                        if (isInitialized)
-                            SpeakActivity.restartActivity(SpeakApp.getContext());
-                    }
-                    else if (!isInitialized && eventType.equals(EVENT_READ_MODE_CLOSED))
-                    {
-                        if (!isTop) {
-                            Lt.d("  - Disabling components from onEvent");
-                            SpeakApp.EnableComponents(false);
-                            //SpeakApp.exitApp();
-                        } else {
-                            // Need to check if FBReader is still on top or exited only after some time...
-                            mHandler.postDelayed(mTimerTask, 1000);
-                        }
-                    }
-                }
-            });
-        }
         super.onCreate();
     }
-    @Override
-    public void onDestroy() {
+    @Override public void onDestroy() {
         switchOff();
-        if (myApi != null) {
-            myApi.disconnect();
-            myApi = null;
-        }
         currentService = null;
         super.onDestroy();
     }
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    @Override public int onStartCommand(Intent intent, int flags, int startId) {
         mAudioManager.registerMediaButtonEventReceiver(componentName);
         mAudioManager.requestAudioFocus(afChangeListener,
                 // Use the music stream.
@@ -451,10 +518,34 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
         myPreferences = getSharedPreferences("FBReaderTTS", MODE_PRIVATE);
         selectedLanguage = myPreferences.getString("lang", BOOK_LANG);
-        myReadSentences = myPreferences.getBoolean("readSentences", true);
-        if (myApi != null) {
-            myApi.connect();
-        }
+        myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
+        myApi = new ApiClientImplementation(this, this);
+        myApi.addListener(new ApiListener() {
+            @Override
+            public void onEvent(String eventType) {
+                mHandler.removeCallbacks(mTimerTask);
+                boolean isInitialized = SpeakActivity.isInitialized();
+                boolean isTop = SpeakApp.isFbrPackageOnTop();
+                Lt.d("onEvent-" + eventType + "; isInit=" + isInitialized + "; FbrTop=" + isTop);
+                if (eventType.equals(EVENT_READ_MODE_OPENED)) {
+                    SpeakApp.EnableComponents(true);
+                    if (isInitialized)
+                        SpeakActivity.restartActivity(SpeakApp.getContext());
+                }
+                else if (!isInitialized && eventType.equals(EVENT_READ_MODE_CLOSED))
+                {
+                    if (!isTop) {
+                        Lt.d("  - Disabling components from onEvent");
+                        SpeakApp.EnableComponents(false);
+                        //SpeakApp.exitApp();
+                    } else {
+                        // Need to check if FBReader is still on top or exited only after some time...
+                        mHandler.postDelayed(mTimerTask, 1000);
+                    }
+                }
+            }
+        });
+        myApi.connect();
 
         return START_STICKY;
     }

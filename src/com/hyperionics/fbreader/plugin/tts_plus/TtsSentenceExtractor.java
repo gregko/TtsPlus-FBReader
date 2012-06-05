@@ -62,6 +62,11 @@ public class TtsSentenceExtractor {
             char lastCh = w.charAt(w.length() - 1);
             endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
                           lastCh == '!' || lastCh == '?';
+            if (!endSentence && w.length () > 1 && (lastCh == '"' || lastCh == ')')) {
+                lastCh = w.charAt(w.length() - 2);
+                endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
+                        lastCh == '!' || lastCh == '?';
+            }
             if (!currSent.equals("") && (w.length() > 1 || !endSentence) && currSent.charAt(currSent.length()-1) != '.')
                 currSent += " ";
             currSent += w;

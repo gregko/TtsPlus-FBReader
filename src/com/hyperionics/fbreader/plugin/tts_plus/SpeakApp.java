@@ -58,6 +58,11 @@ public class SpeakApp extends Application
                 BluetoothConnectReceiver.class.getName());
         myPackageManager.setComponentEnabledSetting(component, flag,
                 PackageManager.DONT_KILL_APP);
+        if (!enabled && SpeakService.myApi != null) {
+            SpeakService.myApi.disconnect();
+            SpeakService.myApi = null;
+            SpeakService.myInitializationStatus &= ~SpeakService.API_INITIALIZED;
+        }
         if (SpeakService.mAudioManager != null)
         {
             if (enabled) {

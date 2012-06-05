@@ -1,4 +1,3 @@
-
 package com.hyperionics.fbreader.plugin.tts_plus;
 
 import java.util.ArrayList;
@@ -29,20 +28,19 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     private static volatile PowerManager.WakeLock myWakeLock;
     private int myMaxVolume;
     private int savedBottomMargin = -1;
-    static int haveNewApi = 1;
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
+    AlertDialog mySetup;
+
+    static boolean isInitialized() { return isActivated; }
 
     private void setListener(int id, View.OnClickListener listener) {
 		findViewById(id).setOnClickListener(listener);
 	}
 
-    AlertDialog mySetup;
+    @Override protected void onCreate(Bundle savedInstanceState) {
 
-    static boolean isInitialized() { return isActivated; }
-
-    @Override
-	protected void onCreate(Bundle savedInstanceState) {
-
+        SpeakService.haveNewApi = 1;
+        savedBottomMargin = -1;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         startTalkAtOnce = (getIntent().getIntExtra(NO_RESTART_TALK, 0) != 1);
@@ -52,26 +50,21 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
         myMaxVolume = SpeakService.mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
-        ((CheckBox)findViewById(R.id.read_sentences)).setChecked(SpeakService.myReadSentences);
+        ((CheckBox)findViewById(R.id.highlight_sentences)).setChecked(SpeakService.myHighlightSentences);
 
-		setListener(R.id.button_previous_paragraph, new View.OnClickListener() {
+		setListener(R.id.button_previous, new View.OnClickListener() {
 			public void onClick(View v) {
-				SpeakService.stopTalking();
-				SpeakService.gotoPreviousParagraph();
+                SpeakService.prevToSpeak();
 			}
 		});
-		setListener(R.id.button_next_paragraph, new View.OnClickListener() {
+		setListener(R.id.button_next, new View.OnClickListener() {
 			public void onClick(View v) {
-				SpeakService.stopTalking();
-				if (SpeakService.myParagraphIndex < SpeakService.myParagraphsNumber) {
-					++SpeakService.myParagraphIndex;
-                    SpeakService.gotoNextParagraph();
-				}
+                SpeakService.nextToSpeak();
 			}
 		});
         setListener(R.id.button_close, new View.OnClickListener() {
             public void onClick(View v) {
-                SpeakService.switchOff();
+                SpeakService.stopTalking();
                 currentSpeakActivity.finish();
             }
         });
@@ -116,12 +109,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 View view = inflater.inflate(R.layout.about_panel, null);
                 TextView tv = (TextView) view.findViewById(R.id.vtext);
                 tv.setText(getString(R.string.version) + " " + SpeakApp.versionName);
-//                tv = (TextView) view.findViewById(R.id.pgstart);
-//                try {
-//                    TextPosition tp = SpeakService.myApi.getPageStart();
-//                    tv.setText("Page start: " + tp.ParagraphIndex + " (" + SpeakService.myApi.getElementsNumber(tp.ParagraphIndex) + ")");
-//                } catch (ApiException e) {
-//                }
                 builder.setView(view);
                 builder.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -132,17 +119,17 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 alert.show();
             }
         });
-        setListener(R.id.read_sentences, new View.OnClickListener() {
+        setListener(R.id.highlight_sentences, new View.OnClickListener() {
             private SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
             public void onClick(View v) {
                 SpeakService.stopTalking();
                 SpeakService.mySentences = new TtsSentenceExtractor.SentenceIndex[0];
-                SpeakService.myReadSentences = ((CheckBox) v).isChecked();
-                myEditor.putBoolean("readSentences", SpeakService.myReadSentences);
+                SpeakService.myHighlightSentences = ((CheckBox) v).isChecked();
+                myEditor.putBoolean("hiSentences", SpeakService.myHighlightSentences);
                 myEditor.commit();
             }
         });
-         setListener(R.id.button_setup, new View.OnClickListener() {
+        setListener(R.id.button_setup, new View.OnClickListener() {
             public void onClick(View v) {
                 View vs = findViewById(R.id.sliders);
                 View v2 = findViewById(R.id.bigButtons);
@@ -312,8 +299,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                         SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
                     }
                 } catch (ApiException e) {
-                    haveNewApi = 0;
+                    SpeakService.haveNewApi = 0;
                 }
+                SpeakService.restorePosition();
                 currentSpeakActivity.setActionsEnabled(true);
                 if (startTalkAtOnce)
                     SpeakService.startTalking();
@@ -344,8 +332,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         }
     }
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	@Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (myWakeLock != null) {
                 myWakeLock.release();
@@ -367,14 +354,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         }
 	}
 
-	@Override
-	protected void onResume() {
+	@Override protected void onResume() {
         SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
         super.onResume();
 	}
 
-	@Override
-	protected void onPause() {
+	@Override protected void onPause() {
         if (isFinishing()) {
             isActivated = false;
         } else {
@@ -383,13 +368,11 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 		super.onPause();
 	}
 
-    @Override
-    protected void onStop() {
+    @Override protected void onStop() {
         super.onStop();
     }
 
-	@Override
-	protected void onDestroy() {
+	@Override protected void onDestroy() {
         if (isFinishing()) {
             isActivated = false;
             if (savedBottomMargin > -1) {
@@ -408,8 +391,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
 	private void setActionsEnabled(final boolean enabled) {
         // again trouble if it's done through runOnUiThread()
-        findViewById(R.id.button_previous_paragraph).setEnabled(enabled);
-        findViewById(R.id.button_next_paragraph).setEnabled(enabled);
+        findViewById(R.id.button_previous).setEnabled(enabled);
+        findViewById(R.id.button_next).setEnabled(enabled);
         findViewById(R.id.button_play).setEnabled(enabled);
         findViewById(R.id.button_setup).setEnabled(enabled);
 	}
