@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.*;
 import android.graphics.Rect;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -110,6 +111,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 TextView tv = (TextView) view.findViewById(R.id.vtext);
                 tv.setText(getString(R.string.version) + " " + SpeakApp.versionName);
                 builder.setView(view);
+                builder.setPositiveButton(R.string.rate, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=com.hyperionics.fbreader.plugin.tts_plus"));
+                        startActivity(browserIntent);                    }
+                });
                 builder.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();

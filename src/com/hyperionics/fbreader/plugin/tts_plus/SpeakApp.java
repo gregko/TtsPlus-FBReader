@@ -67,11 +67,6 @@ public class SpeakApp extends Application
         {
             if (enabled) {
                 SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
-                SpeakService.mAudioManager.requestAudioFocus(SpeakService.afChangeListener,
-                        // Use the music stream.
-                        AudioManager.STREAM_MUSIC,
-                        // Request permanent focus.
-                        AudioManager.AUDIOFOCUS_GAIN);
             }
             else {
                 SpeakService.mAudioManager.unregisterMediaButtonEventReceiver(SpeakService.componentName);
@@ -80,8 +75,7 @@ public class SpeakApp extends Application
         }
     }
 
-    @Override
-    public void onCreate() {
+    @Override public void onCreate() {
         myApplication = this;
         myPackageManager = getPackageManager();
         myPackageName = getPackageName();

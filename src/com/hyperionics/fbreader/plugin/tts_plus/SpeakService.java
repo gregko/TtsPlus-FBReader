@@ -186,6 +186,11 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myCurrentSentence < mySentences.length) {
             if (haveNewApi > 0)
                 highlightSentence();
+            mAudioManager.requestAudioFocus(afChangeListener,
+                    // Use the music stream.
+                    AudioManager.STREAM_MUSIC,
+                    // Request permanent focus.
+                    AudioManager.AUDIOFOCUS_GAIN);
             speakString(mySentences[myCurrentSentence].s);
         } else
             stopTalking();
@@ -206,6 +211,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
             savePosition();
         }
+        mAudioManager.abandonAudioFocus(afChangeListener);
         regainBluetoothFocus();
     }
 
@@ -510,11 +516,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
     @Override public int onStartCommand(Intent intent, int flags, int startId) {
         mAudioManager.registerMediaButtonEventReceiver(componentName);
-        mAudioManager.requestAudioFocus(afChangeListener,
-                // Use the music stream.
-                AudioManager.STREAM_MUSIC,
-                // Request permanent focus.
-                AudioManager.AUDIOFOCUS_GAIN);
 
         myPreferences = getSharedPreferences("FBReaderTTS", MODE_PRIVATE);
         selectedLanguage = myPreferences.getString("lang", BOOK_LANG);
@@ -567,7 +568,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 myWasActive = myIsActive;
                 stopTalking();
                 mAudioManager.unregisterMediaButtonEventReceiver(componentName);
-                mAudioManager.abandonAudioFocus(afChangeListener);
             }
         }
     };

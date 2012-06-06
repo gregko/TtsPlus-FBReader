@@ -22,6 +22,6 @@
     <string name="unknown">unknown</string>
     <string name="tts_settings">TTS Settings</string>
     <string name="reset_tts">Reset TTS"</string>
-    <string name="hi_sentences">Highlight text
-        read</string>
+    <string name="hi_sentences">Highlight spoken text</string>
+    <string name="rate">Rate TTS+!</string>
 </resources>
