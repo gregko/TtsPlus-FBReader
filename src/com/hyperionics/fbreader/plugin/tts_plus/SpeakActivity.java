@@ -39,7 +39,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 	}
 
     @Override protected void onCreate(Bundle savedInstanceState) {
-
         SpeakService.haveNewApi = 1;
         savedBottomMargin = -1;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -47,7 +46,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         startTalkAtOnce = (getIntent().getIntExtra(NO_RESTART_TALK, 0) != 1);
         setContentView(R.layout.control_panel);
         currentSpeakActivity = this;
-        startService(new Intent(this, SpeakService.class));
 
         myMaxVolume = SpeakService.mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
@@ -277,7 +275,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     }
 
     static void onInitializationCompleted() {
-        SpeakService.myTTS.setOnUtteranceCompletedListener(SpeakService.currentService);
+        if (SpeakService.myApi == null || !SpeakService.myApi.isConnected()) {
+            SpeakService.stop();
+            currentSpeakActivity.startService(new Intent(currentSpeakActivity, SpeakService.class));
+            return;
+        }
+        SpeakService.myTTS.setOnUtteranceCompletedListener(SpeakService.getCurrentService());
         SpeakService.setLanguage(SpeakService.selectedLanguage);
 
         if (currentSpeakActivity != null) {
@@ -313,15 +316,20 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 if (startTalkAtOnce)
                     SpeakService.startTalking();
             } catch (ApiException e) {
-                currentSpeakActivity.setActionsEnabled(false);
+                Lt.df("Init error: " + (SpeakService.myApi==null ? "myApi=null" :
+                        (SpeakService.myApi.isConnected() ? "myApi connected" : "myApi NOT connected"))
+                );
+                Lt.df("- myTTS is " + (SpeakService.myTTS==null ? "null" : "NOT null"));
                 SpeakActivity.showErrorMessage(R.string.initialization_error);
                 e.printStackTrace();
+                currentSpeakActivity.setActionsEnabled(false);
             }
         }
     }
 
     void doStartTts() {
         try {
+            SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
             Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
             String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
             if (speakEng != null) {
@@ -333,7 +341,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                             .newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP,
                                     "FBReader TTS+ plugin");
             myWakeLock.acquire();
-            currentSpeakActivity.startActivityForResult(in, 1);
+            currentSpeakActivity.startActivityForResult(in, 1); // goes to onActivityResult() below
         } catch (ActivityNotFoundException e) {
             currentSpeakActivity.showErrorMessage(R.string.no_tts_installed);
         }

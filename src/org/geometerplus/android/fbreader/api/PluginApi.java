@@ -9,6 +9,8 @@ import java.util.*;
 import android.content.*;
 import android.net.Uri;
 import android.os.*;
+import com.hyperionics.fbreader.plugin.tts_plus.Lt;
+import com.hyperionics.fbreader.plugin.tts_plus.SpeakService;
 
 public abstract class PluginApi {
 	public static final String ACTION_REGISTER = "android.fbreader.action.plugin.REGISTER";
@@ -18,6 +20,7 @@ public abstract class PluginApi {
 		public static final String KEY = "actions";
 
 		public void onReceive(Context context, Intent intent) {
+            SpeakService.reconnect();
 			final List<ActionInfo> newActions = implementedActions(context);
 			if (newActions != null) {
 				final Bundle bundle = getResultExtras(true);
