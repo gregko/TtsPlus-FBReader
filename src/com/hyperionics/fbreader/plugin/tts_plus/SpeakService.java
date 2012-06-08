@@ -41,6 +41,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static int myParagraphsNumber;
     static float myCurrentPitch = 1f;
     static int haveNewApi = 1;
+    static private boolean isServiceTalking = false;
+    static boolean isTalking() { return isServiceTalking; }
 
     private static final String UTTERANCE_ID = "FBReaderTTSPlugin";
     static TtsSentenceExtractor.SentenceIndex mySentences[] = new TtsSentenceExtractor.SentenceIndex[0];
@@ -124,6 +126,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     public void onUtteranceCompleted(String uttId) {
         regainBluetoothFocus();
+        isServiceTalking = false;
         if (myIsActive && UTTERANCE_ID.equals(uttId)) {
             if (++myCurrentSentence >= mySentences.length) {
                 ++myParagraphIndex;
@@ -201,7 +204,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static void stopTalking() {
         SpeakActivity.setActive(false);
-        if (myTTS != null && myTTS.isSpeaking()) {
+        if (isServiceTalking && myTTS != null) {
             myTTS.stop();
             while (SpeakActivity.getCurrent() != null && myTTS.isSpeaking()) {
                 try {
@@ -214,6 +217,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
             savePosition();
         }
+        isServiceTalking = false;
         mAudioManager.abandonAudioFocus(afChangeListener);
         regainBluetoothFocus();
     }
@@ -286,6 +290,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         HashMap<String, String> callbackMap = new HashMap<String, String>();
         callbackMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
         int ret = myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, callbackMap);
+        isServiceTalking = ret == TextToSpeech.SUCCESS;
         return ret;
     }
 
@@ -413,6 +418,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void processCurrentParagraph() {
+        if (myTTS == null) {
+            return;
+        }
         if (haveNewApi < 1) { // Old API for FBReader 1.5.3 and lower
             try {
                 String text = "";
@@ -480,13 +488,14 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void stop() {
+        Lt.d("Stopping service...");
         SpeakApp.EnableComponents(false);
         mAudioManager.unregisterMediaButtonEventReceiver(componentName);
         mAudioManager.abandonAudioFocus(afChangeListener);
-        if (myApi != null)
-            myApi.disconnect();
         myInitializationStatus &= ~API_INITIALIZED;
-        //currentService.stopSelf();
+        if (myApi != null && myApi.isConnected())
+            myApi.disconnect();
+        currentService.stopSelf();
     }
 
     // implements ApiClientImplementation.ConnectionListener
@@ -567,6 +576,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     @Override public int onStartCommand(Intent intent, int flags, int startId) {
+        Lt.d("Starting service...");
         doStartup();
         return START_STICKY;
     }

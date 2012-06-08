@@ -40,8 +40,9 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     // Note: works much better without distinguishing between KEYCODE_MEDIA_PAUSE and
                     // KEYCODE_MEDIA_PAUSE on ICS!
                     Lt.d("Bluetooth media button: " + keycode);
-                    if ((!SpeakActivity.isInitialized() || SpeakService.myTTS == null ) && SpeakApp.isFBReaderOnTop()) {
-                        SpeakActivity.startActivity(context);
+                    if (!SpeakActivity.isInitialized() &&
+                         SpeakApp.isFBReaderOrTtspOnTop()) {
+                        SpeakActivity.startMyActivity(context);
                     } else {
                         SpeakService.toggleTalking();
                     }

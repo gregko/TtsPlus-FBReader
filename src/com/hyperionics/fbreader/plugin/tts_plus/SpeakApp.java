@@ -25,7 +25,7 @@ public class SpeakApp extends Application
     static PackageManager myPackageManager;
     static String myPackageName;
 
-    static boolean isFBReaderOnTop() {
+    static boolean isFBReaderOrTtspOnTop() {
         // the code below needs:  <uses-permission android:name="android.permission.GET_TASKS"/>
         // Gets:
         // taskInfo.get(0).topActivity.getClassName(): org.geometerplus.android.fbreader.FBReader
@@ -35,7 +35,9 @@ public class SpeakApp extends Application
         // get the info from the currently running task
         List< ActivityManager.RunningTaskInfo > taskInfo = am.getRunningTasks(1);
         String cn = taskInfo.get(0).topActivity.getClassName();
-        return cn.equals("org.geometerplus.android.fbreader.FBReader");
+        Lt.d("Activity on top: " + cn);
+        return cn.equals("org.geometerplus.android.fbreader.FBReader") ||
+               cn.equals("com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity");
     }
 
     static boolean isFbrPackageOnTop() {

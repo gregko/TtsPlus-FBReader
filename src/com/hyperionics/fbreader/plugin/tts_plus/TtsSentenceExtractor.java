@@ -100,7 +100,7 @@ public class TtsSentenceExtractor {
             return inStr;
 
         String lang = loc.getLanguage();
-        if (!lang.equals("eng"))
+        if (!(lang.equals("eng") || lang.equals("en")))
             return inStr;
 
         inStr = inStr.replace("Mr.", "Mr ");

@@ -32,7 +32,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
     AlertDialog mySetup;
 
-    static boolean isInitialized() { return isActivated; }
+    static boolean isInitialized() {
+        return isActivated && currentSpeakActivity!=null && !currentSpeakActivity.isFinishing();
+    }
 
     private void setListener(int id, View.OnClickListener listener) {
 		findViewById(id).setOnClickListener(listener);
@@ -64,7 +66,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         setListener(R.id.button_close, new View.OnClickListener() {
             public void onClick(View v) {
                 SpeakService.stopTalking();
-                currentSpeakActivity.finish();
+                doDestroy();
+                finish();
             }
         });
         setListener(R.id.button_lang, new View.OnClickListener() {
@@ -96,7 +99,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 Intent intent = new Intent("com.android.settings.TTS_SETTINGS");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
-                SpeakService.switchOff();
+                doDestroy();
                 finish();
             }
         });
@@ -275,55 +278,66 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     }
 
     static void onInitializationCompleted() {
+        if (currentSpeakActivity == null) {
+            Lt.df("FATAL ERROR: currentSpeakActivity == null in SpeakActivity.onInitializationCompleted()");
+            return;
+        }
+
         if (SpeakService.myApi == null || !SpeakService.myApi.isConnected()) {
+            Lt.d("Stopping and restarting service from SpeakActivity.onInitializationCompleted()");
             SpeakService.stop();
             currentSpeakActivity.startService(new Intent(currentSpeakActivity, SpeakService.class));
             return;
         }
-        SpeakService.myTTS.setOnUtteranceCompletedListener(SpeakService.getCurrentService());
-        SpeakService.setLanguage(SpeakService.selectedLanguage);
 
-        if (currentSpeakActivity != null) {
+        try {
+            SpeakService.myParagraphIndex = SpeakService.myApi.getPageStart().ParagraphIndex;
+            SpeakService.myParagraphsNumber = SpeakService.myApi.getParagraphsNumber();
+
+            final SeekBar speedControl = (SeekBar)currentSpeakActivity.findViewById(R.id.speed_control);
+            speedControl.setEnabled(true);
+            SpeakService.setSpeechRate(speedControl.getProgress());
+
+            final SeekBar pitchControl = (SeekBar)currentSpeakActivity.findViewById(R.id.pitch_control);
+            pitchControl.setEnabled(true);
+            SpeakService.setLanguage(SpeakService.selectedLanguage);
+            SpeakService.myTTS.setPitch((pitchControl.getProgress() + 25f) / 100f);
+            SpeakService.myTTS.setOnUtteranceCompletedListener(SpeakService.getCurrentService());
+
+            // Calculate the extra bottom margin needed for navigation buttons
             try {
-                final SeekBar speedControl = (SeekBar)currentSpeakActivity.findViewById(R.id.speed_control);
-                speedControl.setEnabled(true);
-                SpeakService.setSpeechRate(speedControl.getProgress());
-
-                final SeekBar pitchControl = (SeekBar)currentSpeakActivity.findViewById(R.id.pitch_control);
-                pitchControl.setEnabled(true);
-                SpeakService.myTTS.setPitch((pitchControl.getProgress()+25f)/100f);
-
-                SpeakService.myParagraphIndex = SpeakService.myApi.getPageStart().ParagraphIndex;
-                SpeakService.myParagraphsNumber = SpeakService.myApi.getParagraphsNumber();
-
-                // Calculate the extra bottom margin needed for navigation buttons
-                try {
-                    currentSpeakActivity.savedBottomMargin = SpeakService.myApi.getBottomMargin();
-                    Rect rectf = new Rect();
-                    View v = currentSpeakActivity.findViewById(R.id.nav_buttons);
-                    v.getLocalVisibleRect(rectf);
-                    int d = rectf.bottom;
-                    d += d/5 + currentSpeakActivity.savedBottomMargin;
-                    if (currentSpeakActivity.savedBottomMargin < d) {
-                        SpeakService.myApi.setBottomMargin(d);
-                        SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
-                    }
-                } catch (ApiException e) {
-                    SpeakService.haveNewApi = 0;
+                currentSpeakActivity.savedBottomMargin = SpeakService.myApi.getBottomMargin();
+                Rect rectf = new Rect();
+                View v = currentSpeakActivity.findViewById(R.id.nav_buttons);
+                v.getLocalVisibleRect(rectf);
+                int d = rectf.bottom;
+                d += d/5 + currentSpeakActivity.savedBottomMargin;
+                if (currentSpeakActivity.savedBottomMargin < d) {
+                    SpeakService.myApi.setBottomMargin(d);
+                    SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
                 }
-                SpeakService.restorePosition();
-                currentSpeakActivity.setActionsEnabled(true);
-                if (startTalkAtOnce)
-                    SpeakService.startTalking();
             } catch (ApiException e) {
-                Lt.df("Init error: " + (SpeakService.myApi==null ? "myApi=null" :
-                        (SpeakService.myApi.isConnected() ? "myApi connected" : "myApi NOT connected"))
-                );
-                Lt.df("- myTTS is " + (SpeakService.myTTS==null ? "null" : "NOT null"));
-                SpeakActivity.showErrorMessage(R.string.initialization_error);
-                e.printStackTrace();
-                currentSpeakActivity.setActionsEnabled(false);
+                SpeakService.haveNewApi = 0;
             }
+            SpeakService.restorePosition();
+            currentSpeakActivity.setActionsEnabled(true);
+            if (startTalkAtOnce)
+                SpeakService.startTalking();
+        } catch (ApiException e) {
+            Lt.d("Init error: " + (SpeakService.myApi == null ? "myApi=null" :
+                    (SpeakService.myApi.isConnected() ? "myApi connected" : "myApi NOT connected"))
+            );
+            Lt.d("- myTTS is " + (SpeakService.myTTS == null ? "null" : "NOT null"));
+            if (SpeakService.myApi != null && SpeakService.myApi.isConnected()) {
+                Lt.d("Trying to restart the service and activity...");
+                SpeakService.stop();
+                currentSpeakActivity.startService(new Intent(currentSpeakActivity, SpeakService.class));
+                restartActivity(SpeakApp.getContext());
+                return;
+            }
+            SpeakActivity.showErrorMessage(R.string.initialization_error);
+            e.printStackTrace();
+            currentSpeakActivity.setActionsEnabled(false);
         }
     }
 
@@ -355,6 +369,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             }
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS ||
                 resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_FAIL) { // some engines fail here, yet work correctly...
+                if (SpeakService.myTTS != null) {
+                    SpeakService.myTTS.shutdown();
+                    SpeakService.myTTS = null;
+                }
                 SpeakService.myTTS = new TextToSpeech(this, this);
                 // The line below gets voices for the "default action" speech engine...
                 if (data != null)
@@ -375,9 +393,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 	}
 
 	@Override protected void onPause() {
-        if (isFinishing()) {
-            isActivated = false;
-        } else {
+        if (!isFinishing()) {
             SpeakService.regainBluetoothFocus();
         }
 		super.onPause();
@@ -387,20 +403,24 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         super.onStop();
     }
 
-	@Override protected void onDestroy() {
-        if (isFinishing()) {
-            isActivated = false;
-            if (savedBottomMargin > -1) {
-                try {
-                    SpeakService.myApi.setBottomMargin(savedBottomMargin);
-                    SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
-                } catch (ApiException e) {
-                    ;
-                }
+    void doDestroy() {
+        if (!isActivated)
+            return;
+        isActivated = false;
+        if (savedBottomMargin > -1) {
+            try {
+                SpeakService.myApi.setBottomMargin(savedBottomMargin);
+                SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
+            } catch (ApiException e) {
+                ;
             }
-            SpeakService.switchOff();
         }
-        currentSpeakActivity = null;
+        SpeakService.switchOff();
+    }
+
+	@Override protected void onDestroy() {
+        if (isFinishing())
+            doDestroy();
         super.onDestroy();
 	}
 
@@ -412,9 +432,21 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         findViewById(R.id.button_setup).setEnabled(enabled);
 	}
 
-    static void startActivity(Context context) {
-        if (currentSpeakActivity != null)
+    static void startMyActivity(Context context) {
+        if (currentSpeakActivity != null) {
+            currentSpeakActivity.doDestroy();
             currentSpeakActivity.finish();
+        }
+        if (SpeakService.myTTS != null) {
+            Lt.d("TTS shutdown in startMyActivity()");
+            try {
+                SpeakService.myTTS.shutdown();
+            } catch (Exception e) {
+                ;
+            }
+            SpeakService.myTTS = null;
+            SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
+        }
         Intent i = new Intent();
         i.setClassName("com.hyperionics.fbreader.plugin.tts_plus", "com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity");
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -423,8 +455,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
     static void restartActivity(Context context) {
         boolean wasActive = SpeakService.myIsActive;
-        if (currentSpeakActivity != null)
+        if (currentSpeakActivity != null) {
+            currentSpeakActivity.doDestroy();
             currentSpeakActivity.finish();
+        }
         Intent i = new Intent();
         i.setClassName("com.hyperionics.fbreader.plugin.tts_plus", "com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity");
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
