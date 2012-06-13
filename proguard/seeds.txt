@@ -1,0 +1,21 @@
+com.hyperionics.fbreader.plugin.tts_plus.BluetoothConnectReceiver
+com.hyperionics.fbreader.plugin.tts_plus.MediaButtonIntentReceiver
+com.hyperionics.fbreader.plugin.tts_plus.PluginInfo
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService
+com.hyperionics.fbreader.plugin.tts_plus.TtsApp
+org.geometerplus.android.fbreader.api.ApiObject
+org.geometerplus.android.fbreader.api.ApiObject: android.os.Parcelable$Creator CREATOR
+org.geometerplus.android.fbreader.api.ApiObject$Boolean
+org.geometerplus.android.fbreader.api.ApiObject$Date
+org.geometerplus.android.fbreader.api.ApiObject$Error
+org.geometerplus.android.fbreader.api.ApiObject$Integer
+org.geometerplus.android.fbreader.api.ApiObject$Long
+org.geometerplus.android.fbreader.api.ApiObject$String
+org.geometerplus.android.fbreader.api.ApiObject$Void
+org.geometerplus.android.fbreader.api.PluginApi$ActionInfo
+org.geometerplus.android.fbreader.api.PluginApi$ActionInfo: android.os.Parcelable$Creator CREATOR
+org.geometerplus.android.fbreader.api.PluginApi$MenuActionInfo
+org.geometerplus.android.fbreader.api.PluginApi$PluginInfo
+org.geometerplus.android.fbreader.api.TextPosition
+org.geometerplus.android.fbreader.api.TextPosition: android.os.Parcelable$Creator CREATOR
