@@ -15,8 +15,7 @@ import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.view.*;
 import android.widget.*;
-
-import org.geometerplus.android.fbreader.api.*;
+import org.geometerplus.android.fbreader.api.ApiException;
 
 public class SpeakActivity extends Activity implements TextToSpeech.OnInitListener {
 
@@ -25,6 +24,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     private static boolean isActivated = false;
     private static final String NO_RESTART_TALK = "NO_RESTART_TALK";
     private static boolean startTalkAtOnce = true;
+    private static boolean currentlyVisible = false;
 
     private static volatile PowerManager.WakeLock myWakeLock;
     private int myMaxVolume;
@@ -32,16 +32,13 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
     AlertDialog mySetup;
 
-    static boolean isInitialized() {
-        return isActivated && currentSpeakActivity!=null && !currentSpeakActivity.isFinishing();
-    }
-
     private void setListener(int id, View.OnClickListener listener) {
 		findViewById(id).setOnClickListener(listener);
 	}
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         SpeakService.haveNewApi = 1;
+        SpeakService.doStartup();
         savedBottomMargin = -1;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
@@ -110,7 +107,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 LayoutInflater inflater = LayoutInflater.from(SpeakActivity.this);
                 View view = inflater.inflate(R.layout.about_panel, null);
                 TextView tv = (TextView) view.findViewById(R.id.vtext);
-                tv.setText(getString(R.string.version) + " " + SpeakApp.versionName);
+                tv.setText(getString(R.string.version) + " " + TtsApp.versionName);
                 builder.setView(view);
                 builder.setPositiveButton(R.string.rate, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -261,7 +258,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             findViewById(R.id.sliders).setVisibility(View.GONE);
             findViewById(R.id.bigButtons).setVisibility(View.GONE);
         }
-
         doStartTts();
         isActivated = true;
 	}
@@ -278,18 +274,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     }
 
     static void onInitializationCompleted() {
-        if (currentSpeakActivity == null) {
-            Lt.df("FATAL ERROR: currentSpeakActivity == null in SpeakActivity.onInitializationCompleted()");
-            return;
-        }
-
-        if (SpeakService.myApi == null || !SpeakService.myApi.isConnected()) {
-            Lt.d("Stopping and restarting service from SpeakActivity.onInitializationCompleted()");
-            SpeakService.stop();
-            currentSpeakActivity.startService(new Intent(currentSpeakActivity, SpeakService.class));
-            return;
-        }
-
+        TtsApp.enableComponents(true);
         try {
             SpeakService.myParagraphIndex = SpeakService.myApi.getPageStart().ParagraphIndex;
             SpeakService.myParagraphsNumber = SpeakService.myApi.getParagraphsNumber();
@@ -324,20 +309,28 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             if (startTalkAtOnce)
                 SpeakService.startTalking();
         } catch (ApiException e) {
-            Lt.d("Init error: " + (SpeakService.myApi == null ? "myApi=null" :
-                    (SpeakService.myApi.isConnected() ? "myApi connected" : "myApi NOT connected"))
-            );
-            Lt.d("- myTTS is " + (SpeakService.myTTS == null ? "null" : "NOT null"));
-            if (SpeakService.myApi != null && SpeakService.myApi.isConnected()) {
-                Lt.d("Trying to restart the service and activity...");
-                SpeakService.stop();
-                currentSpeakActivity.startService(new Intent(currentSpeakActivity, SpeakService.class));
-                restartActivity(SpeakApp.getContext());
-                return;
-            }
-            SpeakActivity.showErrorMessage(R.string.initialization_error);
-            e.printStackTrace();
-            currentSpeakActivity.setActionsEnabled(false);
+            Lt.df("Init error: " + (SpeakService.myApi == null ? "myApi=null" :
+                (SpeakService.myApi.isConnected() ? "myApi connected" : "myApi NOT connected"))
+            		);
+        
+	        Lt.df("- myTTS is " + (SpeakService.myTTS == null ? "null" : "NOT null"));
+	        currentSpeakActivity.setActionsEnabled(false);
+    		if (SpeakService.myTTS != null) {
+		        try {
+	       			SpeakService.myTTS.shutdown();
+	        	} catch (Exception e2) {
+	        	}
+    		}
+    		if (SpeakService.myApi != null) {
+    			try {
+    				SpeakService.myApi.disconnect();
+    			} catch (Exception e3) {
+    			}
+    		}
+        	SpeakService.myApi = null;
+        	SpeakService.myTTS = null;
+        	SpeakService.myInitializationStatus = 0;
+        	currentSpeakActivity.finish();
         }
     }
 
@@ -370,7 +363,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS ||
                 resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_FAIL) { // some engines fail here, yet work correctly...
                 if (SpeakService.myTTS != null) {
-                    SpeakService.myTTS.shutdown();
+                    try {
+                        SpeakService.myTTS.shutdown();
+                    } catch (Exception e) {
+                    }
                     SpeakService.myTTS = null;
                 }
                 SpeakService.myTTS = new TextToSpeech(this, this);
@@ -388,22 +384,33 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 	}
 
 	@Override protected void onResume() {
+        currentSpeakActivity = this;
         SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
         super.onResume();
 	}
 
 	@Override protected void onPause() {
-        if (!isFinishing()) {
-            SpeakService.regainBluetoothFocus();
+        if (isFinishing()) {
+            TtsApp.enableComponents(false);
         }
 		super.onPause();
 	}
 
+    @Override protected void onStart() {
+        currentlyVisible = true;
+        super.onStart();
+    }
+
     @Override protected void onStop() {
+        currentlyVisible = false;
         super.onStop();
     }
 
-    void doDestroy() {
+    static boolean isVisible() {
+        return currentlyVisible;
+    }
+
+    private void doDestroy() {
         if (!isActivated)
             return;
         isActivated = false;
@@ -416,11 +423,13 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             }
         }
         SpeakService.switchOff();
+        currentSpeakActivity = null;
     }
 
 	@Override protected void onDestroy() {
         if (isFinishing())
             doDestroy();
+        currentSpeakActivity = null;
         super.onDestroy();
 	}
 
@@ -431,41 +440,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         findViewById(R.id.button_play).setEnabled(enabled);
         findViewById(R.id.button_setup).setEnabled(enabled);
 	}
-
-    static void startMyActivity(Context context) {
-        if (currentSpeakActivity != null) {
-            currentSpeakActivity.doDestroy();
-            currentSpeakActivity.finish();
-        }
-        if (SpeakService.myTTS != null) {
-            Lt.d("TTS shutdown in startMyActivity()");
-            try {
-                SpeakService.myTTS.shutdown();
-            } catch (Exception e) {
-                ;
-            }
-            SpeakService.myTTS = null;
-            SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
-        }
-        Intent i = new Intent();
-        i.setClassName("com.hyperionics.fbreader.plugin.tts_plus", "com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity");
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(i);
-    }
-
-    static void restartActivity(Context context) {
-        boolean wasActive = SpeakService.myIsActive;
-        if (currentSpeakActivity != null) {
-            currentSpeakActivity.doDestroy();
-            currentSpeakActivity.finish();
-        }
-        Intent i = new Intent();
-        i.setClassName("com.hyperionics.fbreader.plugin.tts_plus", "com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity");
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (!wasActive)
-            i.putExtra(NO_RESTART_TALK, 1);
-        context.startActivity(i);
-    }
 
     static void showErrorMessage(int textId) {
         if (currentSpeakActivity == null)

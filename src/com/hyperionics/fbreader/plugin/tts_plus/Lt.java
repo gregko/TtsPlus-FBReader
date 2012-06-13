@@ -15,7 +15,7 @@ public class Lt {
     static void setTag(String tag) { myTag = tag; }
     public static void d(String msg) {
         // Uncomment line below to turn on debug output
-        Log.d(myTag, msg);
+        //Log.d(myTag, msg);
     }
     public static void df(String msg) {
         // Forced output, do not comment out - for exceptions etc.

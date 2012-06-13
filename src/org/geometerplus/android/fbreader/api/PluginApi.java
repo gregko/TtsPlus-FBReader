@@ -20,7 +20,6 @@ public abstract class PluginApi {
 		public static final String KEY = "actions";
 
 		public void onReceive(Context context, Intent intent) {
-            SpeakService.reconnect();
 			final List<ActionInfo> newActions = implementedActions(context);
 			if (newActions != null) {
 				final Bundle bundle = getResultExtras(true);
@@ -31,7 +30,9 @@ public abstract class PluginApi {
 				actions.addAll(newActions);
 				bundle.putParcelableArrayList(KEY, actions);
 			}
-		}
+            Lt.d("PluginInfo onReceive()");
+            SpeakService.reconnect();
+        }
 
 		protected abstract List<ActionInfo> implementedActions(Context context);
 	}

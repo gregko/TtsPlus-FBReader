@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.hyperionics.fbreader.plugin.tts_plus"
-          android:versionCode="1000090" android:versionName="1.0.9">
+          android:versionCode="1020000" android:versionName="1.2">
 	<uses-sdk android:minSdkVersion="8"/>
 	<supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true"
                       android:anyDensity="true" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-	<application android:label="@string/title" android:icon="@drawable/fbreader_plugin" android:name=".SpeakApp">
+	<application android:label="@string/title" android:icon="@drawable/fbreader_plugin" android:name=".TtsApp">
 		<receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.PluginInfo">
 			<intent-filter>
 				<action android:name="android.fbreader.action.plugin.REGISTER" />
@@ -32,7 +31,6 @@
         </receiver>
         <receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.BluetoothConnectReceiver" android:enabled="false">
             <intent-filter>
-                <action android:name="android.bluetooth.device.action.ACL_CONNECTED"/>
                 <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED"/>
             </intent-filter>
         </receiver>
