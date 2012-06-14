@@ -36,6 +36,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static final String BOOK_LANG = "book";
     static boolean myHighlightSentences = true;
+    static int myParaPause = 0;
     static String selectedLanguage = BOOK_LANG; // either "book" or locale code like "eng-USA"
     static int myParagraphIndex = -1;
     static int myParagraphsNumber;
@@ -44,7 +45,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static private boolean isServiceTalking = false;
     static boolean isTalking() { return isServiceTalking; }
 
-    private static final String UTTERANCE_ID = "FBReaderTTSPlugin";
+    private static final String UTTERANCE_ID = "FBReaderTTS+Plugin";
     static TtsSentenceExtractor.SentenceIndex mySentences[] = new TtsSentenceExtractor.SentenceIndex[0];
     private static int myCurrentSentence = 0;
 
@@ -129,6 +130,12 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         isServiceTalking = false;
         if (myIsActive && UTTERANCE_ID.equals(uttId)) {
             if (++myCurrentSentence >= mySentences.length) {
+                if (myParaPause > 0 && myCurrentSentence == mySentences.length) {
+                    HashMap<String, String> callbackMap = new HashMap<String, String>();
+                    callbackMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
+                    myTTS.playSilence(myParaPause, TextToSpeech.QUEUE_ADD, callbackMap);
+                    return;
+                }
                 ++myParagraphIndex;
                 processCurrentParagraph();
                 if (myParagraphIndex >= myParagraphsNumber) {
@@ -546,6 +553,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         myPreferences = currentService.getSharedPreferences("FBReaderTTS", MODE_PRIVATE);
         selectedLanguage = myPreferences.getString("lang", BOOK_LANG);
         myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
+        myParaPause = myPreferences.getInt("paraPause", 0);
         if (myApi == null) {
             myInitializationStatus &= ~API_INITIALIZED;
             myApi = new ApiClientImplementation(currentService, currentService);

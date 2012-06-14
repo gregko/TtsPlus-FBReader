@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 
 /**
@@ -17,6 +18,8 @@ public class TtsApp extends Application
 {
     private static TtsApp myApplication;
     private static boolean componentsEnabled = false;
+    private static HeadsetPlugReceiver headsetPlugReceiver = null;
+
     static String versionName = "";
     static int versionCode = 0;
     static PackageManager myPackageManager;
@@ -35,6 +38,16 @@ public class TtsApp extends Application
                 BluetoothConnectReceiver.class.getName());
         myPackageManager.setComponentEnabledSetting(component, flag,
                 PackageManager.DONT_KILL_APP);
+
+        if (enabled) {
+            headsetPlugReceiver = new HeadsetPlugReceiver();
+            myApplication.registerReceiver(headsetPlugReceiver, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+        }
+        else if (headsetPlugReceiver != null) {
+            myApplication.unregisterReceiver(headsetPlugReceiver);
+            headsetPlugReceiver = null;
+        }
+
         if (enabled) {
             SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
         }

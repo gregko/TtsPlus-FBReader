@@ -24,4 +24,5 @@
     <string name="reset_tts">Reset TTS"</string>
     <string name="hi_sentences">Highlight spoken text</string>
     <string name="rate">Rate TTS+!</string>
+    <string name="paragraph_delay">Additional pause at paragraph end (ms):</string>
 </resources>

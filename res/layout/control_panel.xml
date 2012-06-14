@@ -46,13 +46,39 @@
                     android:layout_weight="1"
                     />
         </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
 
+
+		    <TextView
+		        android:id="@+id/textView1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"
+		        android:text="@string/paragraph_delay" />
+		
+		    <EditText
+		        android:id="@+id/paraPause"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="3"
+		        android:ems="10"
+		        android:inputType="number"
+		        android:singleLine="true" >
+		
+		        <requestFocus />
+		    </EditText>
+
+		</TableRow>
     <CheckBox
             android:id="@+id/highlight_sentences"
             android:checked="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hi_sentences" />
+
     </TableLayout>
 
     <TableLayout

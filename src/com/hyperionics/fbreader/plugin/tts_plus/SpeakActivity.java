@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.*;
 import android.widget.*;
 import org.geometerplus.android.fbreader.api.ApiException;
@@ -162,6 +164,39 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 		setListener(R.id.button_play, new View.OnClickListener() {
             public void onClick(View v) {
                 SpeakService.startTalking();
+            }
+        });
+
+        final EditText paraPauseEdit = (EditText)findViewById(R.id.paraPause);
+        paraPauseEdit.setText(Integer.toString(SpeakService.myParaPause));
+        paraPauseEdit.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                int pp;
+                try {
+                    pp = Integer.parseInt(s.toString());
+                } catch (NumberFormatException e) {
+                    pp = 0;
+                }
+                SpeakService.myParaPause = pp;
+                if (pp < 0)
+                    pp = 0;
+                else if (pp > 5000)
+                    pp = 5000;
+                if (pp != SpeakService.myParaPause) {
+                    paraPauseEdit.setText(Integer.toString(pp));
+                }
+                else {
+                    SharedPreferences.Editor editor = SpeakService.myPreferences.edit();
+                    editor.putInt("paraPause", pp);
+                    editor.commit();
+                }
+                SpeakService.myParaPause = pp;
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
 

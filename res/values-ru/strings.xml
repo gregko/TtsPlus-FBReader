@@ -24,4 +24,5 @@
     <string name="reset_tts">Перезапуск TTS"</string>
     <string name="hi_sentences">Подсветка читанного текста</string>
     <string name="rate">Оцените TTS+!</string>
+    <string name="paragraph_delay">Дополнительная пауза в конце пункта (ms):</string>
 </resources>

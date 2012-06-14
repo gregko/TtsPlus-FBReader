@@ -24,4 +24,5 @@
     <string name="reset_tts">Domyślne"</string>
     <string name="hi_sentences">Podświetlaj czytany text</string>
     <string name="rate">Oceń TTS+!</string>
+    <string name="paragraph_delay">Dodatkowa pauza na końcu paragrafu (ms):</string>
 </resources>
