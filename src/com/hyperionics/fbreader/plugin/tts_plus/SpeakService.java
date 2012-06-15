@@ -51,6 +51,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static boolean myIsActive = false;
     static boolean myWasActive = false;
+    static private HashMap<String, String> myCallbackMap;
 
     static volatile int myInitializationStatus = 0;
     static int API_INITIALIZED = 1;
@@ -131,9 +132,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myIsActive && UTTERANCE_ID.equals(uttId)) {
             if (++myCurrentSentence >= mySentences.length) {
                 if (myParaPause > 0 && myCurrentSentence == mySentences.length) {
-                    HashMap<String, String> callbackMap = new HashMap<String, String>();
-                    callbackMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
-                    myTTS.playSilence(myParaPause, TextToSpeech.QUEUE_ADD, callbackMap);
+                    myTTS.playSilence(myParaPause, TextToSpeech.QUEUE_ADD, myCallbackMap);
                     return;
                 }
                 ++myParagraphIndex;
@@ -299,9 +298,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     private static int speakString(String text) {
-        HashMap<String, String> callbackMap = new HashMap<String, String>();
-        callbackMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
-        int ret = myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, callbackMap);
+        int ret = myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, myCallbackMap);
         isServiceTalking = ret == TextToSpeech.SUCCESS;
         return ret;
     }
@@ -554,6 +551,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         selectedLanguage = myPreferences.getString("lang", BOOK_LANG);
         myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
         myParaPause = myPreferences.getInt("paraPause", 0);
+        if (myCallbackMap == null) {
+            myCallbackMap = new HashMap<String, String>();
+            myCallbackMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
+        }
         if (myApi == null) {
             myInitializationStatus &= ~API_INITIALIZED;
             myApi = new ApiClientImplementation(currentService, currentService);

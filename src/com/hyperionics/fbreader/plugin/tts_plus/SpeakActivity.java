@@ -259,17 +259,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         });
 
         final SeekBar volumeControl = (SeekBar)findViewById(R.id.volume_control);
-        volumeControl.setMax(100);
-        int vol = SpeakService.myPreferences.getInt("volume", 100);
+        int vol = SpeakService.mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        volumeControl.setMax(myMaxVolume);
         volumeControl.setProgress(vol);
-        SpeakService.mAudioManager.setStreamVolume(SpeakService.mAudioManager.STREAM_MUSIC, myMaxVolume * vol / 100, 0);
         volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            private SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    SpeakService.mAudioManager.setStreamVolume(SpeakService.mAudioManager.STREAM_MUSIC, myMaxVolume * progress / 100, 0);
-                    myEditor.putInt("volume", progress);
+                    SpeakService.mAudioManager.setStreamVolume(SpeakService.mAudioManager.STREAM_MUSIC, progress, 0);
                 }
             }
 
@@ -277,7 +274,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) {
-                myEditor.commit();
             }
         });
 
@@ -475,6 +471,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         findViewById(R.id.button_play).setEnabled(enabled);
         findViewById(R.id.button_setup).setEnabled(enabled);
 	}
+
+    static void SetVolumeProgress() {
+        if (currentSpeakActivity != null && currentlyVisible) {
+            final SeekBar volumeControl = (SeekBar)currentSpeakActivity.findViewById(R.id.volume_control);
+            int vol = SpeakService.mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            volumeControl.setProgress(vol);
+        }
+    }
 
     static void showErrorMessage(int textId) {
         if (currentSpeakActivity == null)

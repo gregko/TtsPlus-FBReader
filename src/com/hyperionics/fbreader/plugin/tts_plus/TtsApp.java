@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.provider.MediaStore;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,6 +43,7 @@ public class TtsApp extends Application
         if (enabled) {
             headsetPlugReceiver = new HeadsetPlugReceiver();
             myApplication.registerReceiver(headsetPlugReceiver, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+            myApplication.registerReceiver(headsetPlugReceiver, new IntentFilter("android.media.VOLUME_CHANGED_ACTION"));
         }
         else if (headsetPlugReceiver != null) {
             myApplication.unregisterReceiver(headsetPlugReceiver);

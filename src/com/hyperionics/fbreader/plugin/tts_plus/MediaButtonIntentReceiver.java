@@ -26,6 +26,7 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
             return;
         }
         int keycode = event.getKeyCode();
+
         int action = event.getAction();
         if (action == KeyEvent.ACTION_DOWN) {
             switch (keycode) {
@@ -33,7 +34,6 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     SpeakService.stopTalking();
                     break;
                 case KeyEvent.KEYCODE_HEADSETHOOK:
-                    break;
                 case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                 case 127: // KeyEvent.KEYCODE_MEDIA_PAUSE: - not available under Gingerbread API
                 case 126: // KeyEvent.KEYCODE_MEDIA_PLAY:

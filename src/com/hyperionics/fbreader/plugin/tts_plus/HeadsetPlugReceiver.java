@@ -29,5 +29,8 @@ public class HeadsetPlugReceiver extends BroadcastReceiver {
             else if (headsetState == 1 && !SpeakService.myIsActive)
                 SpeakService.startTalking();
         }
+        else if (intentAction.equals("android.media.VOLUME_CHANGED_ACTION")) {
+            SpeakActivity.SetVolumeProgress();
+        }
     }
 }
