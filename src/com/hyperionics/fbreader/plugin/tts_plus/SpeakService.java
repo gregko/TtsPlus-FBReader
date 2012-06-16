@@ -225,8 +225,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             savePosition();
         }
         isServiceTalking = false;
-        mAudioManager.abandonAudioFocus(afChangeListener);
-        regainBluetoothFocus();
+        if (mAudioManager != null) {
+            mAudioManager.abandonAudioFocus(afChangeListener);
+            regainBluetoothFocus();
+        }
     }
 
     static void toggleTalking() {
@@ -265,6 +267,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void nextToSpeak() {
+        if (myTTS == null)
+            return;
         boolean wasSpeaking = myTTS.isSpeaking();
         if (wasSpeaking)
             stopTalking();
@@ -284,6 +288,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void prevToSpeak() {
+        if (myTTS == null)
+            return;
         boolean wasSpeaking = myTTS.isSpeaking()
                 || myParagraphIndex >= myParagraphsNumber;
         if (wasSpeaking)
@@ -491,7 +497,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void regainBluetoothFocus() {
-        if (myTTS != null)
+        if (myTTS != null && mAudioManager != null)
             mAudioManager.registerMediaButtonEventReceiver(componentName);
     }
 
