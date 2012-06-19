@@ -1,0 +1,16 @@
+TTS+ is a plugin for FBReader on Android, a product of geometerplus.
+You can find FBReader in Google Play Store, and the source code to
+it as https://github.com/geometer/FBReaderJ. TTS+ Plugin is a free
+product, licensed under Apache License 2.0.
+
+The TTS+ plugin works relatively well with FBReader 1.5.x currently
+released, but to work really well it would need some changes to
+FBReader, which I suggested to the author of the reader. I think
+that FBReader should also implement a "content provider service"
+to feed text to other plugins. This would prevent the destroying of
+objects and FBReader process when it's in background, which gets
+plugins using it into trouble.
+
+Greg Kochaniak<br>
+Hyperionics Technology LLC<br>
+http://www.hyperionics.com/?Page=/TtsPlus
