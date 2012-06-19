@@ -18,12 +18,21 @@ import org.geometerplus.android.fbreader.api.TextPosition;
 import java.util.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: greg
- * Date: 5/23/12
- * Time: 12:45 PM
- * To change this template use File | Settings | File Templates.
+ *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
+
 public class SpeakService extends Service implements TextToSpeech.OnUtteranceCompletedListener, ApiClientImplementation.ConnectionListener {
     static private SpeakService currentService;
     static SpeakService getCurrentService() { return currentService; }
@@ -552,7 +561,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     		currentService.stopSelf();
     }
     
-    static void doStartup() {
+    static boolean doStartup() {
+        if (currentService == null)
+            return false;
         myPreferences = currentService.getSharedPreferences("FBReaderTTS", MODE_PRIVATE);
         selectedLanguage = myPreferences.getString("lang", BOOK_LANG);
         myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
@@ -576,13 +587,18 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
         if (myTTS == null)
         	myInitializationStatus &= ~TTS_INITIALIZED;
+        return true;
+    }
+
+    static boolean isStarted() {
+        return currentService != null;
     }
 
     @Override public int onStartCommand(Intent intent, int flags, int startId) {
-        Lt.d("Starting service...");
         currentService = this;
         if (myApi == null)
             doStartup();
+        Lt.d("TTS+ Service started");
         return START_STICKY;
     }
 

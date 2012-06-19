@@ -19,6 +19,22 @@ import android.view.*;
 import android.widget.*;
 import org.geometerplus.android.fbreader.api.ApiException;
 
+/**
+ *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 public class SpeakActivity extends Activity implements TextToSpeech.OnInitListener {
 
     private static ArrayList<String> myVoices = new ArrayList<String>();
@@ -40,10 +56,19 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         SpeakService.haveNewApi = 1;
-        SpeakService.doStartup();
+        super.onCreate(savedInstanceState);
+        if (!SpeakService.doStartup()) {
+            if (SpeakService.myApi != null) {
+                SpeakService.myApi.disconnect();
+                SpeakService.myApi = null;
+            }
+            // this is asynchronous
+            startService(new Intent(this, SpeakService.class));
+            finish();
+            return;
+        }
         savedBottomMargin = -1;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
         startTalkAtOnce = (getIntent().getIntExtra(NO_RESTART_TALK, 0) != 1);
         setContentView(R.layout.control_panel);
         currentSpeakActivity = this;
