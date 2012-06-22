@@ -83,14 +83,13 @@ public class TtsApp extends Application
         myApplication = this;
         myPackageManager = getPackageManager();
         myPackageName = getPackageName();
+        startService(new Intent(this, SpeakService.class));
         try {
             versionName = myPackageManager.getPackageInfo(myPackageName, 0).versionName;
             versionCode = myPackageManager.getPackageInfo(myPackageName, 0).versionCode;
             Lt.d("- version = " + versionName + " (" + versionCode + ")");
         } catch (PackageManager.NameNotFoundException e) {
         }
-
-        startService(new Intent(this, SpeakService.class));
     }
 
     static Context getContext() { return myApplication; }

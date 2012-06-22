@@ -4,6 +4,7 @@
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
+    android:id="@+id/RootView"
 >
     <TableLayout
             android:id="@+id/bigButtons"
@@ -21,8 +22,8 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 />
-            <Button android:id="@+id/button_tts_set"
-                    android:text="@string/tts_settings"
+            <Button android:id="@+id/button_more"
+                    android:text="@string/more_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_weight="1"
@@ -46,38 +47,6 @@
                     android:layout_weight="1"
                     />
         </TableRow>
-        <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical" >
-
-
-		    <TextView
-		        android:id="@+id/textView1"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"
-		        android:text="@string/paragraph_delay" />
-		
-		    <EditText
-		        android:id="@+id/paraPause"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="3"
-		        android:ems="10"
-		        android:inputType="number"
-		        android:singleLine="true" >
-		
-		        <requestFocus />
-		    </EditText>
-
-		</TableRow>
-    <CheckBox
-            android:id="@+id/highlight_sentences"
-            android:checked="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hi_sentences" />
 
     </TableLayout>
 

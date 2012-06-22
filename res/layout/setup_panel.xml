@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:id="@+id/SetupRoot">
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TableLayout
+            android:id="@+id/bigButtons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            >
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+
+            <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/paragraph_delay" />
+
+            <EditText
+                    android:id="@+id/paraPause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:singleLine="true" >
+
+                <requestFocus />
+            </EditText>
+
+        </TableRow>
+        <CheckBox
+                android:id="@+id/highlight_sentences"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hi_sentences" />
+
+        <CheckBox
+                android:id="@+id/plug_start"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/headset_plug_start" />
+
+        <CheckBox
+                android:id="@+id/wired_key"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/handle_wired_key" />
+
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sleep_after" />
+
+            <Spinner
+                android:id="@+id/sleepSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:prompt="@string/sleep_after"
+            />
+
+        </TableRow>
+
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+            <Button android:id="@+id/button_tts_set"
+                    android:text="@string/tts_settings"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    />
+            <Button android:id="@+id/button_back"
+                    android:text="@string/back"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    />
+        </TableRow>
+
+
+    </TableLayout>
+
+</LinearLayout>

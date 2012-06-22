@@ -34,6 +34,8 @@ import java.util.*;
  */
 
 public class SpeakService extends Service implements TextToSpeech.OnUtteranceCompletedListener, ApiClientImplementation.ConnectionListener {
+    private Handler mHandler = new Handler();
+
     static private SpeakService currentService;
     static SpeakService getCurrentService() { return currentService; }
 
@@ -52,11 +54,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static float myCurrentPitch = 1f;
     static int haveNewApi = 1;
     static private boolean isServiceTalking = false;
-    static boolean isTalking() { return isServiceTalking; }
 
-    private static final String UTTERANCE_ID = "FBReaderTTS+Plugin";
+    static private final String UTTERANCE_ID = "FBReaderTTS+Plugin";
     static TtsSentenceExtractor.SentenceIndex mySentences[] = new TtsSentenceExtractor.SentenceIndex[0];
-    private static int myCurrentSentence = 0;
+    static private int myCurrentSentence = 0;
 
     static boolean myIsActive = false;
     static boolean myWasActive = false;
@@ -66,17 +67,21 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static int API_INITIALIZED = 1;
     static int TTS_INITIALIZED = 2;
     static int FULLY_INITIALIZED = API_INITIALIZED | TTS_INITIALIZED;
+    static final String SVC_STARTED = "com.hyperionics.fbreader.plugin.tts_plus.SVC_STARTED";
+    static final String TTSP_KILL = "com.hyperionics.fbreader.plugin.tts_plus.TTSP_KILL";
 
     static void savePosition() {
         try {
-            String bookHash = "BP:" + myApi.getBookHash();
-            SharedPreferences.Editor myEditor = myPreferences.edit();
-            Time time = new Time();
-            time.setToNow();
-            myEditor.putString(bookHash,
-                    "p:" + myParagraphIndex + " s:" + myCurrentSentence + " e:" + mySentences[myCurrentSentence].i +
-                            " d:" + time.format2445());
-            myEditor.commit();
+            if (myCurrentSentence < mySentences.length) {
+                String bookHash = "BP:" + myApi.getBookHash();
+                SharedPreferences.Editor myEditor = myPreferences.edit();
+                Time time = new Time();
+                time.setToNow();
+                myEditor.putString(bookHash,
+                        "p:" + myParagraphIndex + " s:" + myCurrentSentence + " e:" + mySentences[myCurrentSentence].i +
+                                " d:" + time.format2445());
+                myEditor.commit();
+            }
         } catch (ApiException e) {
             ;
         }
@@ -221,7 +226,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         Lt.d("stopTalking()");
         SpeakActivity.setActive(false);
         if (isServiceTalking && myTTS != null) {
+            isServiceTalking = false;
             myTTS.stop();
+            savePosition();
             while (SpeakActivity.getCurrent() != null && myTTS.isSpeaking()) {
                 try {
                     synchronized (SpeakActivity.getCurrent()) {
@@ -231,9 +238,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     ;
                 }
             }
-            savePosition();
         }
-        isServiceTalking = false;
         if (mAudioManager != null) {
             mAudioManager.abandonAudioFocus(afChangeListener);
             regainBluetoothFocus();
@@ -255,6 +260,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static void switchOff() {
         stopTalking();
+        currentService.mHandler.removeCallbacks(currentService.myTimerTask);
         mySentences = new TtsSentenceExtractor.SentenceIndex[0];
         if (myApi != null && myApi.isConnected()) {
             try {
@@ -590,15 +596,33 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         return true;
     }
 
-    static boolean isStarted() {
-        return currentService != null;
+    static void setSleepTimer(int minutes) {
+        if (currentService == null)
+            return;
+        currentService.mHandler.removeCallbacks(currentService.myTimerTask);
+        if (minutes > 0)
+            currentService.mHandler.postDelayed(currentService.myTimerTask, minutes*60000);
     }
+
+    private Runnable myTimerTask = new Runnable() {
+        public void run() {
+            switchOff();
+            SpeakActivity sa = SpeakActivity.getCurrent();
+            if (sa != null) {
+                sa.doDestroy();
+                sa.finish();
+            }
+        }
+    };
+
 
     @Override public int onStartCommand(Intent intent, int flags, int startId) {
         currentService = this;
         if (myApi == null)
             doStartup();
         Lt.d("TTS+ Service started");
+        Intent i = new Intent(SVC_STARTED);
+        sendBroadcast(i);
         return START_STICKY;
     }
 

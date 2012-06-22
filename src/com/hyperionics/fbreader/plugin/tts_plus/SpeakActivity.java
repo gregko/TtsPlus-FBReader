@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.*;
 import android.widget.*;
 import org.geometerplus.android.fbreader.api.ApiException;
@@ -43,11 +41,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     private static final String NO_RESTART_TALK = "NO_RESTART_TALK";
     private static boolean startTalkAtOnce = true;
     private static boolean currentlyVisible = false;
-
     private static volatile PowerManager.WakeLock myWakeLock;
+    static boolean wantStarted = false;
+    static SpeakActivity getCurrent() { return currentSpeakActivity; }
+
     private int myMaxVolume;
     private int savedBottomMargin = -1;
-    static SpeakActivity getCurrent() { return currentSpeakActivity; }
     AlertDialog mySetup;
 
     private void setListener(int id, View.OnClickListener listener) {
@@ -55,18 +54,21 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 	}
 
     @Override protected void onCreate(Bundle savedInstanceState) {
-        SpeakService.haveNewApi = 1;
         super.onCreate(savedInstanceState);
+        Lt.d("SpeakActivity onCreate()");
         if (!SpeakService.doStartup()) {
+            currentSpeakActivity = null;
             if (SpeakService.myApi != null) {
                 SpeakService.myApi.disconnect();
                 SpeakService.myApi = null;
             }
             // this is asynchronous
-            startService(new Intent(this, SpeakService.class));
+            wantStarted = true;
+            startService(new Intent(TtsApp.getContext(), SpeakService.class));
             finish();
             return;
         }
+        SpeakService.haveNewApi = 1;
         savedBottomMargin = -1;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         startTalkAtOnce = (getIntent().getIntExtra(NO_RESTART_TALK, 0) != 1);
@@ -74,8 +76,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         currentSpeakActivity = this;
 
         myMaxVolume = SpeakService.mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-
-        ((CheckBox)findViewById(R.id.highlight_sentences)).setChecked(SpeakService.myHighlightSentences);
 
 		setListener(R.id.button_previous, new View.OnClickListener() {
 			public void onClick(View v) {
@@ -96,7 +96,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         });
         setListener(R.id.button_lang, new View.OnClickListener() {
             public void onClick(View v) {
-                doSetup();
+                selectLanguage();
+            }
+        });
+        setListener(R.id.button_more, new View.OnClickListener() {
+            public void onClick(View v) {
+                SpeakService.stopTalking();
+                Intent in = new Intent(TtsApp.getContext(), SettingsActivity.class);
+                startActivityForResult(in, 2);
             }
         });
         setListener(R.id.button_reset, new View.OnClickListener() {
@@ -115,16 +122,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 SpeakService.setPitch(1f);
                 if (wasActive)
                     SpeakService.startTalking();
-            }
-        });
-        setListener(R.id.button_tts_set, new View.OnClickListener() {
-            public void onClick(View v) {
-                SpeakService.stopTalking();
-                Intent intent = new Intent("com.android.settings.TTS_SETTINGS");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                doDestroy();
-                finish();
             }
         });
         setListener(R.id.button_about, new View.OnClickListener() {
@@ -149,16 +146,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
-            }
-        });
-        setListener(R.id.highlight_sentences, new View.OnClickListener() {
-            private SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
-            public void onClick(View v) {
-                SpeakService.stopTalking();
-                SpeakService.mySentences = new TtsSentenceExtractor.SentenceIndex[0];
-                SpeakService.myHighlightSentences = ((CheckBox) v).isChecked();
-                myEditor.putBoolean("hiSentences", SpeakService.myHighlightSentences);
-                myEditor.commit();
             }
         });
         setListener(R.id.button_setup, new View.OnClickListener() {
@@ -189,39 +176,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 		setListener(R.id.button_play, new View.OnClickListener() {
             public void onClick(View v) {
                 SpeakService.startTalking();
-            }
-        });
-
-        final EditText paraPauseEdit = (EditText)findViewById(R.id.paraPause);
-        paraPauseEdit.setText(Integer.toString(SpeakService.myParaPause));
-        paraPauseEdit.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-                int pp;
-                try {
-                    pp = Integer.parseInt(s.toString());
-                } catch (NumberFormatException e) {
-                    pp = 0;
-                }
-                SpeakService.myParaPause = pp;
-                if (pp < 0)
-                    pp = 0;
-                else if (pp > 5000)
-                    pp = 5000;
-                if (pp != SpeakService.myParaPause) {
-                    paraPauseEdit.setText(Integer.toString(pp));
-                }
-                else {
-                    SharedPreferences.Editor editor = SpeakService.myPreferences.edit();
-                    editor.putInt("paraPause", pp);
-                    editor.commit();
-                }
-                SpeakService.myParaPause = pp;
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
         });
 
@@ -329,6 +283,38 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         }
     }
 
+    static void adjustBottomMargin() {
+        // Calculate the extra bottom margin needed for navigation buttons
+        try {
+            if (currentSpeakActivity.savedBottomMargin < 0)
+                currentSpeakActivity.savedBottomMargin = SpeakService.myApi.getBottomMargin();
+            Lt.d("savedBottomMargin = " + currentSpeakActivity.savedBottomMargin);
+            Rect rectf = new Rect();
+            View v = currentSpeakActivity.findViewById(R.id.nav_buttons);
+            v.getLocalVisibleRect(rectf);
+            int d = rectf.bottom;
+            d += d/5 + currentSpeakActivity.savedBottomMargin;
+            if (currentSpeakActivity.savedBottomMargin < d) {
+                SpeakService.myApi.setBottomMargin(d);
+                SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
+            }
+        } catch (ApiException e) {
+            SpeakService.haveNewApi = 0;
+        }
+    }
+
+    static void restoreBottomMargin() {
+        if (currentSpeakActivity != null && SpeakService.haveNewApi > 0 && currentSpeakActivity.savedBottomMargin > -1) {
+            try {
+                SpeakService.myApi.setBottomMargin(currentSpeakActivity.savedBottomMargin);
+                SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
+                currentSpeakActivity.savedBottomMargin = -1;
+            } catch (ApiException e) {
+                ;
+            }
+        }
+    }
+
     static void onInitializationCompleted() {
         TtsApp.enableComponents(true);
         try {
@@ -344,22 +330,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             SpeakService.setLanguage(SpeakService.selectedLanguage);
             SpeakService.myTTS.setPitch((pitchControl.getProgress() + 25f) / 100f);
             SpeakService.myTTS.setOnUtteranceCompletedListener(SpeakService.getCurrentService());
-
-            // Calculate the extra bottom margin needed for navigation buttons
-            try {
-                currentSpeakActivity.savedBottomMargin = SpeakService.myApi.getBottomMargin();
-                Rect rectf = new Rect();
-                View v = currentSpeakActivity.findViewById(R.id.nav_buttons);
-                v.getLocalVisibleRect(rectf);
-                int d = rectf.bottom;
-                d += d/5 + currentSpeakActivity.savedBottomMargin;
-                if (currentSpeakActivity.savedBottomMargin < d) {
-                    SpeakService.myApi.setBottomMargin(d);
-                    SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
-                }
-            } catch (ApiException e) {
-                SpeakService.haveNewApi = 0;
-            }
+            adjustBottomMargin();
             SpeakService.restorePosition();
             currentSpeakActivity.setActionsEnabled(true);
             if (startTalkAtOnce)
@@ -437,28 +408,36 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 }
             }
         }
+        else if (requestCode == 2) { // SettingsActivity returned
+            SpeakService.setSleepTimer(resultCode);
+        }
 	}
 
 	@Override protected void onResume() {
-        currentSpeakActivity = this;
-        SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
         super.onResume();
+        currentSpeakActivity = this;
+        currentlyVisible = true;
+        adjustBottomMargin();
+        SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
 	}
 
-	@Override protected void onPause() {
+	@Override protected void onPause() { // pre-HONEYCOMB be prepared to die after this exits
+        super.onPause();
+        currentlyVisible = false;
         if (isFinishing()) {
+            SpeakService.switchOff();
+            restoreBottomMargin();
             TtsApp.enableComponents(false);
+            sendBroadcast(new Intent(SpeakService.TTSP_KILL));
         }
-		super.onPause();
 	}
 
     @Override protected void onStart() {
-        currentlyVisible = true;
         super.onStart();
     }
 
-    @Override protected void onStop() {
-        currentlyVisible = false;
+    @Override protected void onStop() { // HONEYCOMB and up: be prepared to die after this exits
+        restoreBottomMargin();
         super.onStop();
     }
 
@@ -466,28 +445,38 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         return currentlyVisible;
     }
 
-    private void doDestroy() {
+    void doDestroy() {
         if (!isActivated)
             return;
         isActivated = false;
-        if (savedBottomMargin > -1) {
-            try {
-                SpeakService.myApi.setBottomMargin(savedBottomMargin);
-                SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
-            } catch (ApiException e) {
-                ;
-            }
-        }
         SpeakService.switchOff();
+        restoreBottomMargin();
         currentSpeakActivity = null;
     }
 
 	@Override protected void onDestroy() {
+        restoreBottomMargin();
         if (isFinishing())
             doDestroy();
         currentSpeakActivity = null;
         super.onDestroy();
-	}
+        unbindDrawables(findViewById(R.id.RootView));
+        System.gc();
+    }
+
+    private void unbindDrawables(View view) {
+        if (view == null)
+            return;
+        if (view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
+            }
+            ((ViewGroup) view).removeAllViews();
+        }
+    }
 
 	private void setActionsEnabled(final boolean enabled) {
         // again trouble if it's done through runOnUiThread()
@@ -550,7 +539,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 		}
 	}
 
-    private void doSetup() {
+    private void selectLanguage() {
         SpeakService.stopTalking();
         if (mySetup == null) {
             final CharSequence[] items = new CharSequence[myVoices.size()+1];

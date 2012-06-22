@@ -25,4 +25,27 @@
     <string name="hi_sentences">Podświetlaj czytany text</string>
     <string name="rate">Oceń TTS+!</string>
     <string name="paragraph_delay">Dodatkowa pauza na końcu paragrafu (ms):</string>
+    <string name="more_settings">Więcej...</string>
+    <string name="headset_plug_start">Zacznij czytać po wetknięciu wtyczki słuchawek</string>
+    <string name="sleep_after">Przestań czytać po</string>
+    <string name="handle_wired_key">Start/stop czytania przyciskiem słuchawek przewodowych</string>
+    <string-array name="sleep_array">
+        <item>Never</item>
+        <item>1 minucie</item>
+        <item>2 minutach</item>
+        <item>3 minutach</item>
+        <item>5 minutach</item>
+        <item>10 minutach</item>
+        <item>15 minutach</item>
+        <item>20 minutach</item>
+        <item>25 minutach</item>
+        <item>30 minutach</item>
+        <item>45 minutach</item>
+        <item>1 godzinie</item>
+        <item>2 godzinach</item>
+        <item>3 godzinach</item>
+        <item>4 godzinach</item>
+        <item>5 godzinach</item>
+    </string-array>
+
 </resources>

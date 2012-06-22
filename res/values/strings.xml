@@ -25,4 +25,27 @@
     <string name="hi_sentences">Highlight spoken text</string>
     <string name="rate">Rate TTS+!</string>
     <string name="paragraph_delay">Additional pause at paragraph end (ms):</string>
+    <string name="more_settings">More...</string>
+    <string name="headset_plug_start">Start talking when wired headset plug inserted</string>
+    <string name="sleep_after">Sleep after</string>
+    <string name="handle_wired_key">Start/stop speech when wired headset key pressed</string>
+    <string-array name="sleep_array">
+        <item>Never</item>
+        <item>1 minute</item>
+        <item>2 minutes</item>
+        <item>3 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>45 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>4 hours</item>
+        <item>5 hours</item>
+    </string-array>
+
 </resources>

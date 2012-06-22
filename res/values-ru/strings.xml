@@ -1,28 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title">FBReader TTS+ Plugin</string>
+    <string name="title">Плагин FBReader TTS+</string>
     <string name="about">О программе</string>
-    <string name="version">FBReader TTS+ Plugin версия</string>
+    <string name="version">Плагин FBReader TTS+ версия</string>
     <string name="copyright">Copyright © 2012\nHyperionics Technology LLC</string>
     <string name="url">http://www.hyperionics.com/TtsPlus</string>
     <string name="back">Назад</string>
     <string name="failure">Ошибка инициализации</string>
     <string name="speak_menu_item">Читать вслух (+)</string>
-    <string name="no_tts_installed">Не могу найти движок text-to-speech на устройстве.</string>
+    <string name="no_tts_installed">Не найден движок text-to-speech на устройстве.</string>
     <string name="initialization_error">Не удалось получить информацию о книге от FBReader.</string>
     <string name="api_error_2">Ошибка API.</string>
-    <string name="language_is_not_set">>Язык книги не указан. Используем для чтения %0 язык.</string>
-    <string name="no_data_for_language" formatted="false">Данные для языка &quot;%0&quot; не установлены. Используем для чтения %1 язык.</string>
+    <string name="language_is_not_set">>Язык книги не указан. Используем для чтения язык %0.</string>
+    <string name="no_data_for_language" formatted="false">Данные для языка &quot;%0&quot; не установлены. Используем для чтения язык %1.</string>
     <string name="speed">Скорость:</string>
     <string name="pitch">Тембр:</string>
     <string name="volume">Громкость:</string>
     <string name="set_language">Установка языка</string>
     <string name="choose_language">Выберите язык</string>
     <string name="book_language">Язык книги</string>
-    <string name="unknown">неизвестный</string>
+    <string name="unknown">неизвестно</string>
     <string name="tts_settings">Настройки TTS</string>
     <string name="reset_tts">Перезапуск TTS"</string>
-    <string name="hi_sentences">Подсветка читанного текста</string>
+    <string name="hi_sentences">Подсветка читаемого текста</string>
     <string name="rate">Оцените TTS+!</string>
-    <string name="paragraph_delay">Дополнительная пауза в конце пункта (ms):</string>
+    <string name="paragraph_delay">Дополнительная пауза в конце пункта (мс):</string>
+    <string name="more_settings">Ещё...</string>
+    <string name="headset_plug_start">Начинать чтение при подключении проводных наушников</string>
+    <string name="sleep_after">Остановить чтение через</string>
+    <string name="handle_wired_key">Старт/стоп по кнопке проводных наушников</string>
+    <string-array name="sleep_array">
+        <item>никогда</item>
+        <item>1 минуту</item>
+        <item>2 минуты</item>
+        <item>3 минуты</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>25 минут</item>
+        <item>30 минут</item>
+        <item>45 минут</item>
+        <item>1 час</item>
+        <item>2 часа</item>
+        <item>3 часа</item>
+        <item>4 часа</item>
+        <item>5 часа</item>
+    </string-array>
 </resources>

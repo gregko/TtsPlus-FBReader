@@ -42,7 +42,8 @@ public class HeadsetPlugReceiver extends BroadcastReceiver {
             int headsetState = intent.getIntExtra("state", 0);      //get the headset state property
             if (headsetState == 0 && SpeakService.myIsActive)
                 SpeakService.stopTalking();
-            else if (headsetState == 1 && !SpeakService.myIsActive)
+            else if (headsetState == 1 && !SpeakService.myIsActive &&
+                     SpeakService.myPreferences.getBoolean("plugStart", false))
                 SpeakService.startTalking();
         }
         else if (intentAction.equals("android.media.VOLUME_CHANGED_ACTION")) {
