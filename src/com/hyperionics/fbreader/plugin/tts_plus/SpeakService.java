@@ -609,6 +609,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             switchOff();
             SpeakActivity sa = SpeakActivity.getCurrent();
             if (sa != null) {
+                sa.restoreBottomMargin();
+                TtsApp.enableComponents(false);
                 sa.doDestroy();
                 sa.finish();
             }
