@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="36881102-1f07-46e3-b919-36d1380bf90f" name="Default" comment="" />
+    <list default="true" id="36881102-1f07-46e3-b919-36d1380bf90f" name="Default" comment="">
+      <change type="DELETED" beforePath="D:\android\TtsPlus-FBReader\FBReaderJ-TTS.iml" afterPath="" />
+      <change type="DELETED" beforePath="D:\android\TtsPlus-FBReader\TtsPlus-FBReader.apk" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" />
+    </list>
     <ignored path="FBReaderJ-TTS.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -56,12 +65,29 @@
   <component name="FavoritesManager">
     <favorites_list name="FBReaderJ-TTS" />
   </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" />
+        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="136" />
-    <option name="y" value="18" />
+    <option name="x" value="2024" />
+    <option name="y" value="9" />
     <option name="width" value="1461" />
     <option name="height" value="1143" />
   </component>
@@ -91,21 +117,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FBReaderJ-TTS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FBReaderJ-TTS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -158,19 +169,39 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FBReaderJ-TTS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FBReaderJ-TTS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="ExportedApkPath" value="D:\android\TtsPlus-FBReader\TtsPlus-FBReader.apk" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
+    <property name="ExportedModule" value="TtsPlus-FBReader" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="AndroidRunProguardForReleaseBuild" value="false" />
+    <property name="KeystoreLocation" value="D:\Users\greg\.android\Hyperionics.keystore" />
+    <property name="KeyAlias" value="hyperionics" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
   </component>
   <component name="RunManager" selected="Android Application.TtsPlus">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -193,24 +224,6 @@
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -239,6 +252,24 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -323,7 +354,9 @@
       <option name="NETWORK_SPEED" value="full" />
       <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
+      <RunnerSettings RunnerId="AndroidDebugRunner" />
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -336,38 +369,57 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="DETECT_NESTED_COPIES" value="true" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <configuration useDefault="false">D:\Users\greg\AppData\Roaming\Subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="36881102-1f07-46e3-b919-36d1380bf90f" name="Default" comment="" />
       <created>1341583725223</created>
       <updated>1341583725223</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="136" y="18" width="1461" height="1143" extended-state="0" />
+    <frame x="2024" y="9" width="1461" height="1143" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3721591" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24982105" sideWeight="0.67039675" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24928367" sideWeight="0.64598167" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3540183" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -428,6 +480,109 @@
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
+  <component name="editorHistoryManager">
+    <entry file="jar://$PROJECT_DIR$/../android-sdk/platforms/android-8/android.jar!/java/lang/Character.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="202" column="26" selection-start="9422" selection-end="9422" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="42" selection-start="2598" selection-end="2598" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="124" column="46" selection-start="5220" selection-end="5220" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="448" column="17" selection-start="19035" selection-end="19035" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="docComment;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#getCurrent#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#setListener#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#onCreate#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="class#3014:3124" expanded="false" />
+            <element signature="method#onClick#0;class#3014:3124" expanded="false" />
+            <element signature="class#3163:3273" expanded="false" />
+            <element signature="method#onClick#0;class#3163:3273" expanded="false" />
+            <element signature="class#3319:3508" expanded="false" />
+            <element signature="method#onClick#0;class#3319:3508" expanded="false" />
+            <element signature="class#3553:3677" expanded="false" />
+            <element signature="method#onClick#0;class#3553:3677" expanded="false" />
+            <element signature="class#3722:3988" expanded="false" />
+            <element signature="method#onClick#0;class#3722:3988" expanded="false" />
+            <element signature="class#4034:4872" expanded="false" />
+            <element signature="method#onClick#0;class#4034:4872" expanded="false" />
+            <element signature="class#4918:6307" expanded="false" />
+            <element signature="method#onClick#0;class#4918:6307" expanded="false" />
+            <element signature="class#5533:5943" expanded="false" />
+            <element signature="method#onClick#0;class#5533:5943" expanded="false" />
+            <element signature="class#6007:6197" expanded="false" />
+            <element signature="method#onClick#0;class#6007:6197" expanded="false" />
+            <element signature="class#6353:7344" expanded="false" />
+            <element signature="method#onClick#0;class#6353:7344" expanded="false" />
+            <element signature="class#7390:7524" expanded="false" />
+            <element signature="method#onClick#0;class#7390:7524" expanded="false" />
+            <element signature="class#7563:7698" expanded="false" />
+            <element signature="method#onClick#0;class#7563:7698" expanded="false" />
+            <element signature="class#7966:8939" expanded="false" />
+            <element signature="method#onProgressChanged#0;class#7966:8939" expanded="false" />
+            <element signature="method#onStartTrackingTouch#0;class#7966:8939" expanded="false" />
+            <element signature="method#onStopTrackingTouch#0;class#7966:8939" expanded="false" />
+            <element signature="class#9231:10221" expanded="false" />
+            <element signature="method#onProgressChanged#0;class#9231:10221" expanded="false" />
+            <element signature="method#onStartTrackingTouch#0;class#9231:10221" expanded="false" />
+            <element signature="method#onStopTrackingTouch#0;class#9231:10221" expanded="false" />
+            <element signature="class#10532:11010" expanded="false" />
+            <element signature="method#onProgressChanged#0;class#10532:11010" expanded="false" />
+            <element signature="method#onStartTrackingTouch#0;class#10532:11010" expanded="false" />
+            <element signature="method#onStopTrackingTouch#0;class#10532:11010" expanded="false" />
+            <element signature="method#onInit#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#adjustBottomMargin#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#restoreBottomMargin#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#onInitializationCompleted#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#doStartTts#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#onActivityResult#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#onResume#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#onPause#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#onStart#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#onStop#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#isVisible#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#unbindDrawables#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#setActionsEnabled#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#SetVolumeProgress#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#showErrorMessage#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="class#20891:21046" expanded="false" />
+            <element signature="method#run#0;class#20891:21046" expanded="false" />
+            <element signature="method#showErrorMessage#1;class#SpeakActivity#0" expanded="false" />
+            <element signature="class#21225:21380" expanded="false" />
+            <element signature="method#run#0;class#21225:21380" expanded="false" />
+            <element signature="method#setActive#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="method#selectLanguage#0;class#SpeakActivity#0" expanded="false" />
+            <element signature="class#23528:24302" expanded="false" />
+            <element signature="method#onClick#0;class#23528:24302" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="66" selection-start="225" selection-end="225" vertical-scroll-proportion="0.04992658">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
@@ -444,7 +599,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>No facets are configured</last-edited>
+          <last-edited>Android</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -479,7 +634,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Android|FBReaderJ-TTS</last-edited>
+          <last-edited>TtsPlus-FBReader</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

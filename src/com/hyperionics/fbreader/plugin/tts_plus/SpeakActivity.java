@@ -446,11 +446,11 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     }
 
     void doDestroy() {
+        restoreBottomMargin();
         if (!isActivated)
             return;
         isActivated = false;
         SpeakService.switchOff();
-        restoreBottomMargin();
         currentSpeakActivity = null;
     }
 

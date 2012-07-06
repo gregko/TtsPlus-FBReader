@@ -64,16 +64,19 @@ public class TtsSentenceExtractor {
         int i, indToAdd = 0;
 
         for (i = 0; i < wl.size(); i++) {
-            boolean endSentence = false;
             String w = wl.get(i);
             int len = currSent.length();
             if (len == 0)
                 indToAdd = il.get(i);
-            w = replaceEngAbbreviations(w, loc);
+            if (w.length() == 2 && w.endsWith(".") && Character.isUpperCase(w.charAt(0))) {
+                w = w.substring(0, 1) + " ";
+            } else {
+                w = replaceEngAbbreviations(w, loc);
+            }
             char lastCh = w.charAt(w.length() - 1);
-            endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
+            boolean endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
                           lastCh == '!' || lastCh == '?';
-            if (!endSentence && w.length () > 1 && (lastCh == '"' || lastCh == ')')) {
+            if (!endSentence && w.length () > 1 && (lastCh == '"' || lastCh == 0x201D || lastCh == ')')) {
                 lastCh = w.charAt(w.length() - 2);
                 endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
                         lastCh == '!' || lastCh == '?';
@@ -114,27 +117,28 @@ public class TtsSentenceExtractor {
         if (!(lang.equals("eng") || lang.equals("en")))
             return inStr;
 
-        inStr = inStr.replace("Mr.", "Mr ");
-        inStr = inStr.replace("Mrs.", "Mrs ");
-        inStr = inStr.replace("Dr.", "Dr "); // we don't know if it's "Doctor" or "Drive"
-        inStr = inStr.replace("Prof.", "Prof ");
-        inStr = inStr.replace("i.e.", "I E ");
-        inStr = inStr.replace("Rev.", "Rev ");
-        inStr = inStr.replace("Gen.", "General ");
-        inStr = inStr.replace("St.", "S T "); // we don't know if it's "Saint" or "Street"...
-        inStr = inStr.replace("Rep.", "Representative ");
-        inStr = inStr.replace("Ph.D.", "Ph.D ");
-        inStr = inStr.replace("Sr.", "Senior ");
-        inStr = inStr.replace("Jr.", "Junior ");
-        inStr = inStr.replace("M.D.", "M D ");
-        inStr = inStr.replace("B.A.", "B A ");
-        inStr = inStr.replace("M.A.", "M A ");
-        inStr = inStr.replace("D.D.S. ", "D D S ");
-        inStr = inStr.replace("H.M.", "H M ");
-        inStr = inStr.replace("H.M.S.", "H M S ");
-        inStr = inStr.replace("No.", "No;"); // Ivona reads it at "number"
-        inStr = inStr.replace("no.", "no;");
-
+        if (inStr.endsWith(".")) {
+            inStr = inStr.replace("Mr.", "Mr ");
+            inStr = inStr.replace("Mrs.", "Mrs ");
+            inStr = inStr.replace("Dr.", "Dr "); // we don't know if it's "Doctor" or "Drive"
+            inStr = inStr.replace("Prof.", "Prof ");
+            inStr = inStr.replace("i.e.", "I E ");
+            inStr = inStr.replace("Rev.", "Rev ");
+            inStr = inStr.replace("Gen.", "General ");
+            inStr = inStr.replace("St.", "S T "); // we don't know if it's "Saint" or "Street"...
+            inStr = inStr.replace("Rep.", "Representative ");
+            inStr = inStr.replace("Ph.D.", "Ph.D ");
+            inStr = inStr.replace("Sr.", "Senior ");
+            inStr = inStr.replace("Jr.", "Junior ");
+            inStr = inStr.replace("M.D.", "M D ");
+            inStr = inStr.replace("B.A.", "B A ");
+            inStr = inStr.replace("M.A.", "M A ");
+            inStr = inStr.replace("D.D.S. ", "D D S ");
+            inStr = inStr.replace("H.M.", "H M ");
+            inStr = inStr.replace("H.M.S.", "H M S ");
+            inStr = inStr.replace("No.", "No;"); // Ivona reads it at "number"
+            inStr = inStr.replace("no.", "no;");
+        }
         // Greg's private replacemtns... Move into preferences...
         inStr = inStr.replace("antiaging", "anti-aging");
         inStr = inStr.replace("Antiaging", "Anti-aging");
