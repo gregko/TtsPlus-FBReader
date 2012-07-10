@@ -47,7 +47,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
     private int myMaxVolume;
     private int savedBottomMargin = -1;
-    AlertDialog mySetup;
 
     private void setListener(int id, View.OnClickListener listener) {
 		findViewById(id).setOnClickListener(listener);
@@ -541,51 +540,64 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
     private void selectLanguage() {
         SpeakService.stopTalking();
-        if (mySetup == null) {
-            final CharSequence[] items = new CharSequence[myVoices.size()+1];
-            int checkedItem = 0;
-            String s = getText(R.string.book_language) + " (";
-            try {
-                items[0] = s + (new Locale(SpeakService.myApi.getBookLanguage())).getDisplayName() + ")";
-            } catch (Exception e) {
-                items[0] = s + getText(R.string.unknown) + ")";
+        AlertDialog mySetup;
+
+        final CharSequence[] items = new CharSequence[myVoices.size()+2];
+        int checkedItem = 0;
+        String s = getText(R.string.book_language) + " (";
+        try {
+            items[0] = s + (new Locale(SpeakService.myApi.getBookLanguage())).getDisplayName() + ")";
+        } catch (Exception e) {
+            items[0] = s + getText(R.string.unknown) + ")";
+        }
+        for (int i = 0; i < myVoices.size(); i++ ) {
+            s = myVoices.get(i);
+            if (SpeakService.selectedLanguage.equals(s))
+                checkedItem = i+1;
+            int n = s.indexOf("-");
+            String lang, country = "";
+            if (n > 0) {
+                lang = s.substring(0, n);
+                country = s.substring(n+1);
             }
-            for (int i = 0; i < myVoices.size(); i++ ) {
-                s = myVoices.get(i);
-                if (SpeakService.selectedLanguage.equals(s))
-                    checkedItem = i+1;
-                int n = s.indexOf("-");
-                String lang, country = "";
-                if (n > 0) {
-                    lang = s.substring(0, n);
-                    country = s.substring(n+1);
+            else {
+                lang = s;
+            }
+            items[i+1] = (new Locale(lang, country)).getDisplayName();
+
+        }
+        items[myVoices.size()+1] = getString(R.string.add_language);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.choose_language);
+        builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0:
+                        SpeakService.selectedLanguage = SpeakService.BOOK_LANG;
+                        break;
+                    default:
+                        if (item <= myVoices.size())
+                            SpeakService.selectedLanguage = myVoices.get(item-1);
+                        break;
+                }
+                dialog.cancel();
+                if (item == myVoices.size()+1) {
+                    try {
+                        startActivity(new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA));
+                    } catch (ActivityNotFoundException e) {
+                        showErrorMessage(R.string.no_tts_installed);
+                    }
+                    SpeakActivity.getCurrent().doDestroy();
+                    TtsApp.ExitApp();
                 }
                 else {
-                    lang = s;
-                }
-                items[i+1] = (new Locale(lang, country)).getDisplayName();
-
-            }
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.choose_language);
-            builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int item) {
-                    switch (item) {
-                        case 0:
-                            SpeakService.selectedLanguage = SpeakService.BOOK_LANG;
-                            break;
-                        default:
-                            SpeakService.selectedLanguage = myVoices.get(item-1);
-                            break;
-                    }
-                    dialog.cancel();
                     SpeakService.myPreferences.edit().putString("lang", SpeakService.selectedLanguage).commit();
                     SpeakService.setLanguage(SpeakService.selectedLanguage);
                     SpeakService.startTalking();
                 }
-            });
-            mySetup = builder.create();
-        }
+            }
+        });
+        mySetup = builder.create();
         mySetup.show();
         return;
     }

@@ -20,6 +20,7 @@
     <string name="choose_language">Wybierz język</string>
     <string name="book_language">Język książki</string>
     <string name="unknown">nieznany</string>
+    <string name="add_language">Dodaj nowy język...</string>
     <string name="tts_settings">Ustawienia TTS</string>
     <string name="reset_tts">Domyślne"</string>
     <string name="hi_sentences">Podświetlaj czytany text</string>

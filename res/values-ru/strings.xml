@@ -20,6 +20,7 @@
     <string name="choose_language">Выберите язык</string>
     <string name="book_language">Язык книги</string>
     <string name="unknown">неизвестно</string>
+    <string name="add_language">Добавите новый язык...</string>
     <string name="tts_settings">Настройки TTS</string>
     <string name="reset_tts">Перезапуск TTS"</string>
     <string name="hi_sentences">Подсветка читаемого текста</string>
