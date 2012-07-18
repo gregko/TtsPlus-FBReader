@@ -59,12 +59,14 @@ public class TtsApp extends Application
             headsetPlugReceiver = null;
         }
 
-        if (enabled) {
-            SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
-        }
-        else {
-            SpeakService.mAudioManager.unregisterMediaButtonEventReceiver(SpeakService.componentName);
-            SpeakService.mAudioManager.abandonAudioFocus(SpeakService.afChangeListener);
+        if (SpeakService.mAudioManager != null) {
+            if (enabled) {
+                SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
+            }
+            else {
+                SpeakService.mAudioManager.unregisterMediaButtonEventReceiver(SpeakService.componentName);
+                SpeakService.mAudioManager.abandonAudioFocus(SpeakService.afChangeListener);
+            }
         }
     }
 

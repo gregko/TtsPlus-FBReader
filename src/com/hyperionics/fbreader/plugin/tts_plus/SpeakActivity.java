@@ -96,6 +96,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         setListener(R.id.button_lang, new View.OnClickListener() {
             public void onClick(View v) {
                 selectLanguage();
+                //SpeakService.myPreferences.edit().putString("lang", SpeakService.selectedLanguage).commit();
             }
         });
         setListener(R.id.button_more, new View.OnClickListener() {
@@ -326,13 +327,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
             final SeekBar pitchControl = (SeekBar)currentSpeakActivity.findViewById(R.id.pitch_control);
             pitchControl.setEnabled(true);
-            SpeakService.setLanguage(SpeakService.selectedLanguage);
             SpeakService.myTTS.setPitch((pitchControl.getProgress() + 25f) / 100f);
             SpeakService.myTTS.setOnUtteranceCompletedListener(SpeakService.getCurrentService());
             adjustBottomMargin();
             SpeakService.restorePosition();
             currentSpeakActivity.setActionsEnabled(true);
-            if (startTalkAtOnce)
+            if (SpeakService.setLanguage(null) && startTalkAtOnce)
                 SpeakService.startTalking();
         } catch (ApiException e) {
             Lt.df("Init error: " + (SpeakService.myApi == null ? "myApi=null" :
@@ -538,7 +538,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 		}
 	}
 
-    private void selectLanguage() {
+    public void selectLanguage() {
         SpeakService.stopTalking();
         AlertDialog mySetup;
 
@@ -589,11 +589,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     }
                     SpeakActivity.getCurrent().doDestroy();
                     TtsApp.ExitApp();
-                }
-                else {
-                    SpeakService.myPreferences.edit().putString("lang", SpeakService.selectedLanguage).commit();
-                    SpeakService.setLanguage(SpeakService.selectedLanguage);
-                    SpeakService.startTalking();
                 }
             }
         });

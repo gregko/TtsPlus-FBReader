@@ -12,7 +12,9 @@
     <string name="initialization_error">Не удалось получить информацию о книге от FBReader.</string>
     <string name="api_error_2">Ошибка API.</string>
     <string name="language_is_not_set">>Язык книги не указан. Используем для чтения язык %0.</string>
-    <string name="no_data_for_language" formatted="false">Данные для языка &quot;%0&quot; не установлены. Используем для чтения язык %1.</string>
+    <string name="no_data_for_language" formatted="false">Данные для языка &quot;%0&quot; не установлены. Установить их сейчас?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
     <string name="speed">Скорость:</string>
     <string name="pitch">Тембр:</string>
     <string name="volume">Громкость:</string>
