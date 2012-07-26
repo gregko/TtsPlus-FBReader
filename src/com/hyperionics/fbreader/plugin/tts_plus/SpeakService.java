@@ -31,7 +31,8 @@ import java.util.*;
  *  limitations under the License.
  */
 
-public class SpeakService extends Service implements TextToSpeech.OnUtteranceCompletedListener, ApiClientImplementation.ConnectionListener {
+public class SpeakService extends Service implements TextToSpeech.OnUtteranceCompletedListener,
+        ApiClientImplementation.ConnectionListener {
     private Handler mHandler = new Handler();
 
     static private SpeakService currentService;

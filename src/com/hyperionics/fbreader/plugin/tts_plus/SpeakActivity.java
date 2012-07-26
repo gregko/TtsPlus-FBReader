@@ -361,6 +361,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     }
 
     void doStartTts() {
+        // This was used for testing crash reports.
+//        final SeekBar speedControl = (SeekBar)findViewById(777);
+//        speedControl.setMax(200);
+
         try {
             SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
             Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);

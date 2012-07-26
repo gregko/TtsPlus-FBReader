@@ -47,6 +47,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="acra-4.2.3" level="project" />
   </component>
 </module>
 
