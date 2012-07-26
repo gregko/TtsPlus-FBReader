@@ -178,7 +178,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         String languageCode;
         try {
             languageCode = selectedLanguage; // language previously selected by the user for this book
-            if (languageCode.equals(BOOK_LANG)) {
+            if (languageCode == null || languageCode.equals(BOOK_LANG)) {
                 languageCode = myApi.getBookLanguage();
             }
         } catch (Exception e) {
@@ -191,7 +191,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         Locale locale;
         if (languageCode == null) {
             languageCode = getCurrentBookLanguage();
-            if (languageCode.equals("")) {
+            if (languageCode == null || languageCode.equals("")) {
                 if (SpeakActivity.getCurrent() != null) {
                     SpeakActivity.getCurrent().selectLanguage();
                     return false;

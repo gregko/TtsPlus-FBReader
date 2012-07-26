@@ -16,9 +16,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TtsPlus-FBReader.apk" afterPath="$PROJECT_DIR$/TtsPlus-FBReader.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TtsPlus-FBReader.iml" afterPath="$PROJECT_DIR$/TtsPlus-FBReader.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/acra/ErrorReporter.java" afterPath="$PROJECT_DIR$/src/org/acra/ErrorReporter.java" />
     </list>
     <ignored path="FBReaderJ-TTS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,96 +84,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Locale.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/../android-sdk/platforms/android-8/android.jar!/java/util/Locale.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="28" selection-start="2824" selection-end="2824" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpeakActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SpeakActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="581" column="138" selection-start="23916" selection-end="23916" vertical-scroll-proportion="0.38209984">
+            <state line="581" column="138" selection-start="23916" selection-end="23916" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="34" selection-start="193" selection-end="193" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/../android-sdk/platforms/android-8/android.jar!/android/app/Activity.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="305" column="0" selection-start="14695" selection-end="14695" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpeakService.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SpeakService.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="209" column="64" selection-start="8169" selection-end="8202" vertical-scroll-proportion="-14.153846">
-              <folding>
-                <element signature="docComment;class#SpeakService#0" expanded="false" />
-                <element signature="method#getCurrentService#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#savePosition#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#restorePosition#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#cleanupPositions#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#onUtteranceCompleted#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#getCurrentBookLanguage#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#9062:9900" expanded="false" />
-                <element signature="method#onClick#0;class#9062:9900" expanded="false" />
-                <element signature="class#9982:10188" expanded="false" />
-                <element signature="method#onClick#0;class#9982:10188" expanded="false" />
-                <element signature="method#startTalking#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#stopTalking#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#toggleTalking#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#switchOff#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#nextToSpeak#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#prevToSpeak#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#speakString#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#setSpeechRate#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#setPitch#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#setPitchTemp#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#highlightSentence#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#highlightParagraph#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#gotoPreviousSentence#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#gotoNextSentence#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#gotoPreviousParagraph#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#18034:18326" expanded="false" />
-                <element signature="method#run#0;class#18034:18326" expanded="false" />
-                <element signature="method#processCurrentParagraph#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#19233:19567" expanded="false" />
-                <element signature="method#run#0;class#19233:19567" expanded="false" />
-                <element signature="class#20612:20946" expanded="false" />
-                <element signature="method#run#0;class#20612:20946" expanded="false" />
-                <element signature="method#regainBluetoothFocus#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#onConnected#0;class#SpeakService#0" expanded="false" />
-                <element signature="e#21667#21686#0" expanded="false" />
-                <element signature="method#reconnect#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#onBind#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#onCreate#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#onDestroy#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#doStop#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#doStartup#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#setSleepTimer#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#24853:25188" expanded="false" />
-                <element signature="method#run#0;class#24853:25188" expanded="false" />
-                <element signature="method#onStartCommand#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#25720:26495" expanded="false" />
-                <element signature="method#onAudioFocusChange#0;class#25720:26495" expanded="false" />
-              </folding>
+            <state line="193" column="40" selection-start="7590" selection-end="7590" vertical-scroll-proportion="1.0826162">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -199,15 +122,15 @@
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsApp.java" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/org/acra/ErrorReporter.java" />
-        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="310" />
-    <option name="y" value="93" />
+    <option name="x" value="2111" />
+    <option name="y" value="36" />
     <option name="width" value="1595" />
     <option name="height" value="1100" />
   </component>
@@ -237,6 +160,16 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -335,16 +268,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -388,24 +311,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -431,6 +336,24 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -557,13 +480,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="310" y="93" width="1595" height="1100" extended-state="0" />
+    <frame x="2111" y="36" width="1595" height="1100" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287234" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3712766" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -580,6 +502,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287234" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -660,142 +583,71 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/acra/ACRAConfigurationException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="112" selection-start="290" selection-end="290" vertical-scroll-proportion="0.13033953">
-          <folding />
-        </state>
+        <state line="7" column="112" selection-start="290" selection-end="290" vertical-scroll-proportion="0.13033953" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/acra/ACRA.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="109" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#16289#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="14" column="109" selection-start="623" selection-end="623" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/acra/ErrorReporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="784" column="18" selection-start="32053" selection-end="32053" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../android-sdk/platforms/android-8/android.jar!/android/app/Activity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="305" column="0" selection-start="14695" selection-end="14695" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="784" column="18" selection-start="32053" selection-end="32053" vertical-scroll-proportion="0.33333334" />
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/../android-sdk/platforms/android-8/android.jar!/android/speech/tts/TextToSpeech.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="45" selection-start="3601" selection-end="3601" vertical-scroll-proportion="0.3321234">
-          <folding />
-        </state>
+        <state line="68" column="45" selection-start="3601" selection-end="3601" vertical-scroll-proportion="0.3321234" />
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/../android-sdk/platforms/android-8/android.jar!/android/content/Intent.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="379" column="34" selection-start="26754" selection-end="26754" vertical-scroll-proportion="0.3321234">
-          <folding />
-        </state>
+        <state line="379" column="34" selection-start="26754" selection-end="26754" vertical-scroll-proportion="0.3321234" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/geometerplus/android/fbreader/api/ApiClientImplementation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="226" column="18" selection-start="7356" selection-end="7356" vertical-scroll-proportion="0.33296824">
-          <folding />
-        </state>
+        <state line="226" column="18" selection-start="7356" selection-end="7356" vertical-scroll-proportion="0.33296824" />
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/../android-sdk/platforms/android-8/android.jar!/android/content/Context.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="40" selection-start="2893" selection-end="2893" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="209" column="64" selection-start="8169" selection-end="8202" vertical-scroll-proportion="-14.153846">
-          <folding>
-            <element signature="docComment;class#SpeakService#0" expanded="false" />
-            <element signature="method#getCurrentService#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#savePosition#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#restorePosition#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#cleanupPositions#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#onUtteranceCompleted#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#getCurrentBookLanguage#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#9062:9900" expanded="false" />
-            <element signature="method#onClick#0;class#9062:9900" expanded="false" />
-            <element signature="class#9982:10188" expanded="false" />
-            <element signature="method#onClick#0;class#9982:10188" expanded="false" />
-            <element signature="method#startTalking#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#stopTalking#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#toggleTalking#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#switchOff#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#nextToSpeak#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#prevToSpeak#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#speakString#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#setSpeechRate#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#setPitch#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#setPitchTemp#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#highlightSentence#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#highlightParagraph#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#gotoPreviousSentence#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#gotoNextSentence#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#gotoPreviousParagraph#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#18034:18326" expanded="false" />
-            <element signature="method#run#0;class#18034:18326" expanded="false" />
-            <element signature="method#processCurrentParagraph#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#19233:19567" expanded="false" />
-            <element signature="method#run#0;class#19233:19567" expanded="false" />
-            <element signature="class#20612:20946" expanded="false" />
-            <element signature="method#run#0;class#20612:20946" expanded="false" />
-            <element signature="method#regainBluetoothFocus#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#onConnected#0;class#SpeakService#0" expanded="false" />
-            <element signature="e#21667#21686#0" expanded="false" />
-            <element signature="method#reconnect#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#onBind#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#onCreate#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#onDestroy#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#doStop#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#doStartup#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#setSleepTimer#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#24853:25188" expanded="false" />
-            <element signature="method#run#0;class#24853:25188" expanded="false" />
-            <element signature="method#onStartCommand#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#25720:26495" expanded="false" />
-            <element signature="method#onAudioFocusChange#0;class#25720:26495" expanded="false" />
-          </folding>
-        </state>
+        <state line="54" column="40" selection-start="2893" selection-end="2893" vertical-scroll-proportion="0.33333334" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/../android-sdk/platforms/android-8/android.jar!/java/util/Locale.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="28" selection-start="2824" selection-end="2824" vertical-scroll-proportion="0.0">
+        <state line="62" column="28" selection-start="2824" selection-end="2824" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../android-sdk/platforms/android-8/android.jar!/android/app/Activity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="305" column="0" selection-start="14695" selection-end="14695" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="581" column="138" selection-start="23916" selection-end="23916" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="34" selection-start="193" selection-end="193" vertical-scroll-proportion="0.0">
+        <state line="2" column="37" selection-start="196" selection-end="196" vertical-scroll-proportion="0.029259896">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="581" column="138" selection-start="23916" selection-end="23916" vertical-scroll-proportion="0.38209984">
+        <state line="193" column="40" selection-start="7590" selection-end="7590" vertical-scroll-proportion="1.0826162">
           <folding />
         </state>
       </provider>
