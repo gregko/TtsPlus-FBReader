@@ -370,7 +370,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
             String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
             if (speakEng != null) {
-                in = in.setClassName(speakEng, speakEng + ".CheckVoiceData");
+                in = in.setPackage(speakEng);
+                //in = in.setClassName(speakEng, speakEng + ".CheckVoiceData");
             }
             // WakeLock is needed, else we don't get to onActivityResult if the screen is dark...
             myWakeLock =
@@ -546,18 +547,23 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         SpeakService.stopTalking();
         AlertDialog mySetup;
 
-        final CharSequence[] items = new CharSequence[myVoices.size()+2];
         int checkedItem = 0;
-        String s = getText(R.string.book_language) + " (";
+        String curBkLang = "";
+        int bookLangKnown = 1;
         try {
-            items[0] = s + (new Locale(SpeakService.myApi.getBookLanguage())).getDisplayName() + ")";
-        } catch (Exception e) {
-            items[0] = s + getText(R.string.unknown) + ")";
-        }
+            curBkLang = SpeakService.myApi.getBookLanguage();
+        } catch (Exception e) {}
+        if (curBkLang.equals("")) {
+            curBkLang += getText(R.string.unknown);
+            bookLangKnown = 0;
+        } else
+            curBkLang = (new Locale(curBkLang)).getDisplayName();
+        final CharSequence[] items = new CharSequence[myVoices.size()+1+bookLangKnown];
+        if (bookLangKnown == 1)
+            items[0] = getText(R.string.book_language) + " (" + curBkLang + ")";
+
         for (int i = 0; i < myVoices.size(); i++ ) {
-            s = myVoices.get(i);
-            if (SpeakService.selectedLanguage.equals(s))
-                checkedItem = i+1;
+            String s = myVoices.get(i);
             int n = s.indexOf("-");
             String lang, country = "";
             if (n > 0) {
@@ -567,25 +573,34 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             else {
                 lang = s;
             }
-            items[i+1] = (new Locale(lang, country)).getDisplayName();
-
+            String currentSystemLang = (n == 2 ? Locale.getDefault().getLanguage() : Locale.getDefault().getISO3Language());
+            if (bookLangKnown == 1) {
+                if (SpeakService.selectedLanguage.equals(s))
+                    checkedItem = i+1;
+            } else if (currentSystemLang.equals(lang)) {
+                checkedItem = i;
+            }
+            items[i+bookLangKnown] = (new Locale(lang, country)).getDisplayName();
         }
-        items[myVoices.size()+1] = getString(R.string.add_language);
+        items[myVoices.size()+bookLangKnown] = getString(R.string.add_language);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.choose_language);
         builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                switch (item) {
-                    case 0:
-                        SpeakService.selectedLanguage = SpeakService.BOOK_LANG;
-                        break;
-                    default:
-                        if (item <= myVoices.size())
-                            SpeakService.selectedLanguage = myVoices.get(item-1);
-                        break;
+                String curBkLang = "";
+                int bookLangKnown = 1;
+                try {
+                    curBkLang = SpeakService.myApi.getBookLanguage();
+                } catch (Exception e) {}
+                if (curBkLang.equals("")) {
+                    bookLangKnown = 0;
                 }
+                if (bookLangKnown == 1 && item == 0)
+                    SpeakService.selectedLanguage = SpeakService.BOOK_LANG;
+                else if (item < myVoices.size() + bookLangKnown)
+                    SpeakService.selectedLanguage = myVoices.get(item - bookLangKnown);
                 dialog.cancel();
-                if (item == myVoices.size()+1) {
+                if (item == myVoices.size()+bookLangKnown) {
                     try {
                         startActivity(new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA));
                     } catch (ActivityNotFoundException e) {

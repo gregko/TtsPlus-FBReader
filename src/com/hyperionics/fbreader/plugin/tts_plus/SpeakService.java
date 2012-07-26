@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
 import android.text.format.Time;
+import org.acra.ErrorReporter;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.ApiListener;
@@ -174,44 +175,49 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     public static String getCurrentBookLanguage() {
-        String languageCode = null;
+        String languageCode;
         try {
             languageCode = selectedLanguage; // language previously selected by the user for this book
-            if (languageCode == BOOK_LANG) {
+            if (languageCode.equals(BOOK_LANG)) {
                 languageCode = myApi.getBookLanguage();
             }
         } catch (Exception e) {
-        }
-        if (languageCode == null) {
-            if (SpeakActivity.getCurrent() != null)
-                SpeakActivity.getCurrent().selectLanguage();
-            else
-                languageCode = BOOK_LANG;
+            languageCode = "";
         }
         return languageCode;
     }
 
     static boolean setLanguage(String languageCode) {
-        Locale locale = null;
-        if (languageCode == null)
+        Locale locale;
+        if (languageCode == null) {
             languageCode = getCurrentBookLanguage();
-        try {
-            if (languageCode.equals(BOOK_LANG)) { // the language of this book is unknown...
+            if (languageCode.equals("")) {
+                if (SpeakActivity.getCurrent() != null) {
+                    SpeakActivity.getCurrent().selectLanguage();
+                    return false;
+                }
+                else
+                    languageCode = BOOK_LANG;
+            }
+        }
+        if (languageCode.equals(BOOK_LANG)) { // the language of this book is unknown...
+            try {
                 languageCode = myApi.getBookLanguage();
-                if (languageCode == null)
-                    languageCode = Locale.getDefault().getLanguage();
+            } catch (Exception caughtException) {
+                languageCode = "";
             }
-            int n = languageCode.indexOf("-");
-            if (n > 0) {
-                String lang, country;
-                lang = languageCode.substring(0, n);
-                country = languageCode.substring(n+1);
-                locale = new Locale(lang, country);
-            }
-            else {
-                locale = new Locale(languageCode);
-            }
-        } catch (Exception e) {
+            if (languageCode.equals(""))
+                languageCode = Locale.getDefault().getLanguage();
+        }
+        int n = languageCode.indexOf("-");
+        if (n > 0) {
+            String lang, country;
+            lang = languageCode.substring(0, n);
+            country = languageCode.substring(n+1);
+            locale = new Locale(lang, country);
+        }
+        else {
+            locale = new Locale(languageCode);
         }
         if (myTTS.isLanguageAvailable(locale) < 0) {
             // Display install new TTS language dialog...
