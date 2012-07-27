@@ -175,15 +175,15 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     public static String getCurrentBookLanguage() {
-        String languageCode;
+        String languageCode = "";
         try {
             languageCode = selectedLanguage; // language previously selected by the user for this book
             if (languageCode == null || languageCode.equals(BOOK_LANG)) {
                 languageCode = myApi.getBookLanguage();
             }
-        } catch (Exception e) {
+        } catch (Exception e) {}
+        if (languageCode == null)
             languageCode = "";
-        }
         return languageCode;
     }
 
@@ -206,7 +206,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             } catch (Exception caughtException) {
                 languageCode = "";
             }
-            if (languageCode.equals(""))
+            if (languageCode == null || languageCode.equals(""))
                 languageCode = Locale.getDefault().getLanguage();
         }
         int n = languageCode.indexOf("-");

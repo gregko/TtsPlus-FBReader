@@ -25,7 +25,7 @@ import org.acra.annotation.*;
  *  limitations under the License.
  */
 
-@ReportsCrashes(formKey="dHkxejl0NVFKWndMdE43UlN5Q1VIVHc6MQ",
+@ReportsCrashes(formKey="dHkxejl0NVFKWndMdE43UlN5Q1VIVHc6MQ", // see: http://code.google.com/p/acra/
         mode = ReportingInteractionMode.NOTIFICATION,
         resToastText = R.string.crash_toast_text, // optional, displayed as soon as the crash occurs, before collecting data which can take a few seconds
         resNotifTickerText = R.string.crash_notif_ticker_text,

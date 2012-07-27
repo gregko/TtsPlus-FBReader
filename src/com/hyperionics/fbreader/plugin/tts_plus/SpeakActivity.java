@@ -15,6 +15,7 @@ import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.view.*;
 import android.widget.*;
+import org.acra.ErrorReporter;
 import org.geometerplus.android.fbreader.api.ApiException;
 
 /**
@@ -318,6 +319,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     static void onInitializationCompleted() {
         TtsApp.enableComponents(true);
         try {
+            ErrorReporter.getInstance().putCustomData("FBReaderVer", SpeakService.myApi.getFBReaderVersion());
+        } catch (Exception e) {}
+        try {
             SpeakService.myParagraphIndex = SpeakService.myApi.getPageStart().ParagraphIndex;
             SpeakService.myParagraphsNumber = SpeakService.myApi.getParagraphsNumber();
 
@@ -553,8 +557,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         try {
             curBkLang = SpeakService.myApi.getBookLanguage();
         } catch (Exception e) {}
-        if (curBkLang.equals("")) {
-            curBkLang += getText(R.string.unknown);
+        if (curBkLang == null || curBkLang.equals("")) {
+            curBkLang = "" + getText(R.string.unknown);
             bookLangKnown = 0;
         } else
             curBkLang = (new Locale(curBkLang)).getDisplayName();
@@ -592,7 +596,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 try {
                     curBkLang = SpeakService.myApi.getBookLanguage();
                 } catch (Exception e) {}
-                if (curBkLang.equals("")) {
+                if (curBkLang == null || curBkLang.equals("")) {
                     bookLangKnown = 0;
                 }
                 if (bookLangKnown == 1 && item == 0)
