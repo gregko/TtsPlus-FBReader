@@ -47,7 +47,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static final String BOOK_LANG = "book";
     static boolean myHighlightSentences = true;
-    static int myParaPause = 0;
+    static int myParaPause = 300;
     static String selectedLanguage = BOOK_LANG; // either "book" or locale code like "eng-USA"
     static int myParagraphIndex = -1;
     static int myParagraphsNumber;
@@ -572,14 +572,14 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     public void onConnected() {
         if (myInitializationStatus != FULLY_INITIALIZED) {
             myInitializationStatus |= API_INITIALIZED;
-//            try {
-//                String version = myApi.getFBReaderVersion();
-//                Lt.d("FBReader version: " + version);
+            try {
+                //String version = myApi.getFBReaderVersion();
+                ErrorReporter.getInstance().putCustomData("FBReaderVer", myApi.getFBReaderVersion());
 //                String bookHash = myApi.getBookHash();
 //                Lt.d("book hash = " + bookHash + "(" + myApi.getBookTitle() + ")");
-//            } catch (ApiException e) {
-//                ;
-//            }
+            } catch (ApiException e) {
+                ;
+            }
             if (myInitializationStatus == FULLY_INITIALIZED) {
                 SpeakActivity.onInitializationCompleted();
             }

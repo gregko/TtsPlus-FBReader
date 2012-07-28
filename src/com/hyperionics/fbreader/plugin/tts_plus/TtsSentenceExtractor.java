@@ -136,7 +136,8 @@ public class TtsSentenceExtractor {
             inStr = inStr.replace("D.D.S. ", "D D S ");
             inStr = inStr.replace("H.M.", "H M ");
             inStr = inStr.replace("H.M.S.", "H M S ");
-            inStr = inStr.replace("No.", "No;"); // Ivona reads it at "number"
+            inStr = inStr.replace("U.S.", "U S ");
+            inStr = inStr.replace("No.", "No;"); // Ivona reads it at "number", we want "no", negation, with a pause
             inStr = inStr.replace("no.", "no;");
         }
         // Greg's private replacemtns... Move into preferences...

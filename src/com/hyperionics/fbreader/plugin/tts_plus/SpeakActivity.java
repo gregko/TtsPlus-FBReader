@@ -319,9 +319,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     static void onInitializationCompleted() {
         TtsApp.enableComponents(true);
         try {
-            ErrorReporter.getInstance().putCustomData("FBReaderVer", SpeakService.myApi.getFBReaderVersion());
-        } catch (Exception e) {}
-        try {
             SpeakService.myParagraphIndex = SpeakService.myApi.getPageStart().ParagraphIndex;
             SpeakService.myParagraphsNumber = SpeakService.myApi.getParagraphsNumber();
 
@@ -338,13 +335,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             currentSpeakActivity.setActionsEnabled(true);
             if (SpeakService.setLanguage(null) && startTalkAtOnce)
                 SpeakService.startTalking();
-        } catch (ApiException e) {
+        } catch (Exception e) {
             Lt.df("Init error: " + (SpeakService.myApi == null ? "myApi=null" :
                 (SpeakService.myApi.isConnected() ? "myApi connected" : "myApi NOT connected"))
             		);
         
 	        Lt.df("- myTTS is " + (SpeakService.myTTS == null ? "null" : "NOT null"));
-	        currentSpeakActivity.setActionsEnabled(false);
     		if (SpeakService.myTTS != null) {
 		        try {
 	       			SpeakService.myTTS.shutdown();
@@ -360,7 +356,16 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         	SpeakService.myApi = null;
         	SpeakService.myTTS = null;
         	SpeakService.myInitializationStatus = 0;
-        	currentSpeakActivity.finish();
+            if (currentSpeakActivity != null) {
+                currentSpeakActivity.setActionsEnabled(false);
+                ErrorReporter.getInstance().handleException(e);
+                currentSpeakActivity.finish();
+            }
+            else {
+                Lt.df("- currentSpeakActivity is null!");
+                ErrorReporter.getInstance().handleException(e);
+                TtsApp.ExitApp();
+            }
         }
     }
 
@@ -618,5 +623,11 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         mySetup = builder.create();
         mySetup.show();
         return;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) { // BUG in API 11 and above
+        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        super.onSaveInstanceState(outState);
     }
 }
