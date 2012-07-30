@@ -573,10 +573,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myInitializationStatus != FULLY_INITIALIZED) {
             myInitializationStatus |= API_INITIALIZED;
             try {
-                //String version = myApi.getFBReaderVersion();
                 ErrorReporter.getInstance().putCustomData("FBReaderVer", myApi.getFBReaderVersion());
-//                String bookHash = myApi.getBookHash();
-//                Lt.d("book hash = " + bookHash + "(" + myApi.getBookTitle() + ")");
             } catch (ApiException e) {
                 ;
             }

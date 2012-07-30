@@ -336,11 +336,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             if (SpeakService.setLanguage(null) && startTalkAtOnce)
                 SpeakService.startTalking();
         } catch (Exception e) {
-            Lt.df("Init error: " + (SpeakService.myApi == null ? "myApi=null" :
-                (SpeakService.myApi.isConnected() ? "myApi connected" : "myApi NOT connected"))
-            		);
-        
-	        Lt.df("- myTTS is " + (SpeakService.myTTS == null ? "null" : "NOT null"));
+            if (SpeakService.myTTS == null)
+                ErrorReporter.getInstance().putCustomData("myTTS_null", "Yes");
+            if (SpeakService.myApi == null)
+                ErrorReporter.getInstance().putCustomData("myApi_null", "Yes");
     		if (SpeakService.myTTS != null) {
 		        try {
 	       			SpeakService.myTTS.shutdown();
