@@ -38,7 +38,7 @@ public class TtsSentenceExtractor {
 
     public static SentenceIndex[] extract(String paragraph, Locale loc) {
         paragraph = paragraph.replace(". . .", "...");
-        paragraph = replaceEngAbbreviations(paragraph, loc);
+        paragraph = paragraphReplaceEngAbbreviations(paragraph, loc);
         final Pattern p = Pattern.compile("[\\.\\!\\?]\\s+", Pattern.MULTILINE);
         String[] sentences = p.split(paragraph);
         int len = 0;
@@ -140,6 +140,44 @@ public class TtsSentenceExtractor {
             inStr = inStr.replace("No.", "No;"); // Ivona reads it at "number", we want "no", negation, with a pause
             inStr = inStr.replace("no.", "no;");
         }
+        // Greg's private replacemtns... Move into preferences...
+        inStr = inStr.replace("antiaging", "anti-aging");
+        inStr = inStr.replace("Antiaging", "Anti-aging");
+        return inStr;
+    }
+
+    // Slower version when reading entire paragraphs
+    private static String paragraphReplaceEngAbbreviations(String inStr, Locale loc) {
+        // spelling is not important here, pronunciation by TTS engine is.
+        if (loc == null)
+            return inStr;
+
+        String lang = loc.getLanguage();
+        if (!(lang.equals("eng") || lang.equals("en")))
+            return inStr;
+
+        inStr = inStr.replace("Mr.", "Mr ");
+        inStr = inStr.replace("Mrs.", "Mrs ");
+        inStr = inStr.replace("Dr.", "Dr "); // we don't know if it's "Doctor" or "Drive"
+        inStr = inStr.replace("Prof.", "Prof ");
+        inStr = inStr.replace("i.e.", "I E ");
+        inStr = inStr.replace("Rev.", "Rev ");
+        inStr = inStr.replace("Gen.", "General ");
+        inStr = inStr.replace("St.", "S T "); // we don't know if it's "Saint" or "Street"...
+        inStr = inStr.replace("Rep.", "Representative ");
+        inStr = inStr.replace("Ph.D.", "Ph.D ");
+        inStr = inStr.replace("Sr.", "Senior ");
+        inStr = inStr.replace("Jr.", "Junior ");
+        inStr = inStr.replace("M.D.", "M D ");
+        inStr = inStr.replace("B.A.", "B A ");
+        inStr = inStr.replace("M.A.", "M A ");
+        inStr = inStr.replace("D.D.S. ", "D D S ");
+        inStr = inStr.replace("H.M.", "H M ");
+        inStr = inStr.replace("H.M.S.", "H M S ");
+        inStr = inStr.replace("U.S.", "U S ");
+        inStr = inStr.replace("No.", "No;"); // Ivona reads it at "number", we want "no", negation, with a pause
+        inStr = inStr.replace("no.", "no;");
+
         // Greg's private replacemtns... Move into preferences...
         inStr = inStr.replace("antiaging", "anti-aging");
         inStr = inStr.replace("Antiaging", "Anti-aging");

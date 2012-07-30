@@ -413,6 +413,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 myApi.clearHighlighting();
         } catch (ApiException e) {
             switchOff();
+            TtsApp.ExitApp();
         }
     }
 
