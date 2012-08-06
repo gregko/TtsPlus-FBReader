@@ -220,7 +220,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             locale = new Locale(languageCode);
         }
         if (myTTS.isLanguageAvailable(locale) < 0) {
-            // Display install new TTS language dialog...
             String err = currentService.getText(R.string.no_data_for_language).toString()
                     .replace("%0", locale.getDisplayLanguage());
             AlertDialog.Builder builder = new AlertDialog.Builder(SpeakActivity.getCurrent());
@@ -236,7 +235,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                             } catch (ActivityNotFoundException e) {
                                 SpeakActivity.showErrorMessage(R.string.no_tts_installed);
                             }
-                            SpeakActivity.getCurrent().doDestroy();
+                            if (SpeakActivity.getCurrent() != null) // added this line post 1.5.5 rel. - line numbrs below same.
+                                SpeakActivity.getCurrent().doDestroy();
                             TtsApp.ExitApp();
                         }
                     })
@@ -279,17 +279,17 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         SpeakActivity.setActive(false);
         if (isServiceTalking && myTTS != null) {
             isServiceTalking = false;
-            myTTS.stop();
             savePosition();
-            while (SpeakActivity.getCurrent() != null && myTTS.isSpeaking()) {
-                try {
-                    synchronized (SpeakActivity.getCurrent()) {
-                        SpeakActivity.getCurrent().wait(100);
-                    }
-                } catch (InterruptedException e) {
-                    ;
+            try {
+                myTTS.stop();
+                while (SpeakActivity.getCurrent() != null && myTTS.isSpeaking()) {
+                    try {
+                        synchronized (SpeakActivity.getCurrent()) {
+                            SpeakActivity.getCurrent().wait(100);
+                        }
+                    } catch (InterruptedException e) {}
                 }
-            }
+            } catch (Exception e) {}
         }
         if (mAudioManager != null) {
             mAudioManager.abandonAudioFocus(afChangeListener);
@@ -571,7 +571,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     // implements ApiClientImplementation.ConnectionListener
     public void onConnected() {
-        if (myInitializationStatus != FULLY_INITIALIZED) {
+        if (myInitializationStatus != FULLY_INITIALIZED && myApi != null) {
             myInitializationStatus |= API_INITIALIZED;
             try {
                 ErrorReporter.getInstance().putCustomData("FBReaderVer", myApi.getFBReaderVersion());

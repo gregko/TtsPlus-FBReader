@@ -60,8 +60,8 @@ public class SettingsActivity extends Activity {
 
         ((CheckBox)findViewById(R.id.highlight_sentences)).setChecked(SpeakService.myHighlightSentences);
         setListener(R.id.highlight_sentences, new View.OnClickListener() {
-            private SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
             public void onClick(View v) {
+                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
                 SpeakService.mySentences = new TtsSentenceExtractor.SentenceIndex[0];
                 SpeakService.myHighlightSentences = ((CheckBox) v).isChecked();
                 myEditor.putBoolean("hiSentences", SpeakService.myHighlightSentences);

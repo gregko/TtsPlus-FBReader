@@ -59,7 +59,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         if (!SpeakService.doStartup()) {
             currentSpeakActivity = null;
             if (SpeakService.myApi != null) {
-                SpeakService.myApi.disconnect();
+                try {
+                    SpeakService.myApi.disconnect();
+                } catch (Exception e) {}
                 SpeakService.myApi = null;
             }
             // this is asynchronous
@@ -336,10 +338,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             if (SpeakService.setLanguage(null) && startTalkAtOnce)
                 SpeakService.startTalking();
         } catch (Exception e) {
-            if (SpeakService.myTTS == null)
-                ErrorReporter.getInstance().putCustomData("myTTS_null", "Yes");
-            if (SpeakService.myApi == null)
-                ErrorReporter.getInstance().putCustomData("myApi_null", "Yes");
+//            if (SpeakService.myTTS == null)
+//                ErrorReporter.getInstance().putCustomData("myTTS_null", "Yes");
+//            if (SpeakService.myApi == null)
+//                ErrorReporter.getInstance().putCustomData("myApi_null", "Yes");
     		if (SpeakService.myTTS != null) {
 		        try {
 	       			SpeakService.myTTS.shutdown();
@@ -357,12 +359,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         	SpeakService.myInitializationStatus = 0;
             if (currentSpeakActivity != null) {
                 currentSpeakActivity.setActionsEnabled(false);
-                ErrorReporter.getInstance().handleException(e);
+//                ErrorReporter.getInstance().handleException(e);
                 currentSpeakActivity.finish();
             }
             else {
-                Lt.df("- currentSpeakActivity is null!");
-                ErrorReporter.getInstance().handleException(e);
+//                ErrorReporter.getInstance().putCustomData("currentSpeakActivity_null", "Yes");
+//                ErrorReporter.getInstance().handleException(e);
                 TtsApp.ExitApp();
             }
         }
