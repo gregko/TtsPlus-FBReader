@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.hyperionics.fbreader.plugin.tts_plus"
-          android:versionCode="1050070" android:versionName="1.5.7">
+          android:versionCode="1050080" android:versionName="1.5.8">
 	<uses-sdk android:minSdkVersion="8"/>
 	<supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true"
                       android:anyDensity="true" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--<uses-permission android:name="android.permission.INTERNET" />-->
     <application android:label="@string/title" android:icon="@drawable/fbreader_plugin" android:name=".TtsApp">
 		<receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.PluginInfo">
 			<intent-filter>
@@ -45,10 +45,10 @@
                 <action android:name="com.hyperionics.fbreader.plugin.tts_plus.TTSP_KILL"></action>
             </intent-filter>
         </receiver>
-        <activity android:name="org.acra.CrashReportDialog"
-                  android:theme="@android:style/Theme.Dialog"
-                  android:launchMode="singleInstance"
-                  android:excludeFromRecents="true"
-                  android:finishOnTaskLaunch="true" />
+        <!--<activity android:name="org.acra.CrashReportDialog"-->
+                  <!--android:theme="@android:style/Theme.Dialog"-->
+                  <!--android:launchMode="singleInstance"-->
+                  <!--android:excludeFromRecents="true"-->
+                  <!--android:finishOnTaskLaunch="true" />-->
     </application>
 </manifest>

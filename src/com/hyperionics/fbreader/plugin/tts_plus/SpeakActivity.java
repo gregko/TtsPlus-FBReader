@@ -15,7 +15,6 @@ import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.view.*;
 import android.widget.*;
-import org.acra.ErrorReporter;
 import org.geometerplus.android.fbreader.api.ApiException;
 
 /**

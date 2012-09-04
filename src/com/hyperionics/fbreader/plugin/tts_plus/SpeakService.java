@@ -8,11 +8,11 @@ import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
 import android.text.format.Time;
-import org.acra.ErrorReporter;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.ApiListener;
 import org.geometerplus.android.fbreader.api.TextPosition;
+//import org.acra.ErrorReporter;
 
 import java.util.*;
 
@@ -573,11 +573,11 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     public void onConnected() {
         if (myInitializationStatus != FULLY_INITIALIZED && myApi != null) {
             myInitializationStatus |= API_INITIALIZED;
-            try {
-                ErrorReporter.getInstance().putCustomData("FBReaderVer", myApi.getFBReaderVersion());
-            } catch (ApiException e) {
-                ;
-            }
+//            try {
+//                ErrorReporter.getInstance().putCustomData("FBReaderVer", myApi.getFBReaderVersion());
+//            } catch (ApiException e) {
+//                ;
+//            }
             if (myInitializationStatus == FULLY_INITIALIZED) {
                 SpeakActivity.onInitializationCompleted();
             }
