@@ -38,6 +38,10 @@ public class TtsSentenceExtractor {
 
     public static SentenceIndex[] extract(String paragraph, Locale loc) {
         paragraph = paragraph.replace(". . .", "...");
+        paragraph = paragraph.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
+        paragraph = paragraph.replace('\u00A0', ' '); // dec 160, no-break space
+        if (paragraph.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
+            paragraph = " " + paragraph.substring(1);
         paragraph = paragraphReplaceEngAbbreviations(paragraph, loc);
         final Pattern p = Pattern.compile("[\\.\\!\\?]\\s+", Pattern.MULTILINE);
         String[] sentences = p.split(paragraph);
@@ -71,6 +75,10 @@ public class TtsSentenceExtractor {
             if (w.length() == 2 && w.endsWith(".") && Character.isUpperCase(w.charAt(0))) {
                 w = w.substring(0, 1) + " ";
             } else {
+                w = w.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
+                w = w.replace('\u00A0', ' '); // dec 160, no-break space
+                if (w.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
+                    w = " " + w.substring(1);
                 w = replaceEngAbbreviations(w, loc);
             }
             char lastCh = w.charAt(w.length() - 1);
