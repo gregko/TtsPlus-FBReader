@@ -401,7 +401,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 myWakeLock = null;
             }
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS ||
-                resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_FAIL) { // some engines fail here, yet work correctly...
+                resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_FAIL || // some engines fail here, yet work correctly...
+                resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_MISSING_DATA) { // Google TTS fails on jellybean
                 if (SpeakService.myTTS != null) {
                     try {
                         SpeakService.myTTS.shutdown();

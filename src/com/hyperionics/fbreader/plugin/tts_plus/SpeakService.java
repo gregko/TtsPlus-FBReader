@@ -281,8 +281,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             isServiceTalking = false;
             savePosition();
             try {
+                int i;
                 myTTS.stop();
-                while (SpeakActivity.getCurrent() != null && myTTS.isSpeaking()) {
+                for (i = 0; i < 10 && SpeakActivity.getCurrent() != null && myTTS.isSpeaking(); i++) {
                     try {
                         synchronized (SpeakActivity.getCurrent()) {
                             SpeakActivity.getCurrent().wait(100);
@@ -432,8 +433,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 myApi.clearHighlighting();
             }
         } catch (ApiException e) {
-            Lt.df(e.getCause().toString());
-            e.printStackTrace();
+//            Lt.df(e.getCause().toString());
+//            e.printStackTrace();
         }
     }
 
