@@ -37,12 +37,14 @@ public class TtsSentenceExtractor {
     }
 
     public static SentenceIndex[] extract(String paragraph, Locale loc) {
-        paragraph = paragraph.replace(". . .", "...");
-        paragraph = paragraph.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
-        paragraph = paragraph.replace('\u00A0', ' '); // dec 160, no-break space
-        if (paragraph.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
-            paragraph = " " + paragraph.substring(1);
-        paragraph = paragraphReplaceEngAbbreviations(paragraph, loc);
+        if (paragraph.length() > 0) {
+            paragraph = paragraph.replace(". . .", "...");
+            paragraph = paragraph.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
+            paragraph = paragraph.replace('\u00A0', ' '); // dec 160, no-break space
+            if (paragraph.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
+                paragraph = " " + paragraph.substring(1);
+            paragraph = paragraphReplaceEngAbbreviations(paragraph, loc);
+        }
         final Pattern p = Pattern.compile("[\\.\\!\\?]\\s+", Pattern.MULTILINE);
         String[] sentences = p.split(paragraph);
         int len = 0;
