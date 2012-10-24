@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.KeyguardManager;
 import android.content.*;
 import android.graphics.Rect;
 import android.media.AudioManager;
@@ -52,20 +53,13 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 		findViewById(id).setOnClickListener(listener);
 	}
 
+    // make another fake activity that FBReader menu will start, to start this one with
+    // wantStarted = true etc.
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Lt.d("SpeakActivity onCreate()");
         if (!SpeakService.doStartup()) {
             currentSpeakActivity = null;
-            if (SpeakService.myApi != null) {
-                try {
-                    SpeakService.myApi.disconnect();
-                } catch (Exception e) {}
-                SpeakService.myApi = null;
-            }
-            // this is asynchronous
-            wantStarted = true;
-            startService(new Intent(TtsApp.getContext(), SpeakService.class));
             finish();
             return;
         }
@@ -97,7 +91,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         });
         setListener(R.id.button_lang, new View.OnClickListener() {
             public void onClick(View v) {
-                selectLanguage();
+                selectLanguage(true);
                 //SpeakService.myPreferences.edit().putString("lang", SpeakService.selectedLanguage).commit();
             }
         });
@@ -277,8 +271,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     // implements TextToSpeech.OnInitListener
     public void onInit(int status) {
         if (SpeakService.myInitializationStatus != SpeakService.FULLY_INITIALIZED) {
-            if (status == TextToSpeech.SUCCESS)
+            if (status == TextToSpeech.SUCCESS) {
                 SpeakService.myInitializationStatus |= SpeakService.TTS_INITIALIZED;
+            }
             if (SpeakService.myInitializationStatus == SpeakService.FULLY_INITIALIZED) {
                 onInitializationCompleted();
             }
@@ -370,25 +365,21 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     }
 
     void doStartTts() {
-        // This was used for testing crash reports.
-//        final SeekBar speedControl = (SeekBar)findViewById(777);
-//        speedControl.setMax(200);
-
         try {
             SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
-            Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-            String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
-            if (speakEng != null) {
-                in = in.setPackage(speakEng);
-                //in = in.setClassName(speakEng, speakEng + ".CheckVoiceData");
+            PowerManager powerManager = (PowerManager)getSystemService(POWER_SERVICE);
+            KeyguardManager kgMgr =
+                    (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+            if (powerManager.isScreenOn() && !kgMgr.inKeyguardRestrictedInputMode()) {
+                Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+                String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
+                if (speakEng != null) {
+                    in = in.setPackage(speakEng);
+                }
+                currentSpeakActivity.startActivityForResult(in, 1); // goes to onActivityResult() below
+            } else {
+                SpeakService.myTTS = new TextToSpeech(this, this);
             }
-            // WakeLock is needed, else we don't get to onActivityResult if the screen is dark...
-            myWakeLock =
-                    ((PowerManager)getSystemService(POWER_SERVICE))
-                            .newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP,
-                                    "FBReader TTS+ plugin");
-            myWakeLock.acquire();
-            currentSpeakActivity.startActivityForResult(in, 1); // goes to onActivityResult() below
         } catch (ActivityNotFoundException e) {
             currentSpeakActivity.showErrorMessage(R.string.no_tts_installed);
         }
@@ -396,10 +387,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
 	@Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
-            if (myWakeLock != null) {
-                myWakeLock.release();
-                myWakeLock = null;
-            }
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS ||
                 resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_FAIL || // some engines fail here, yet work correctly...
                 resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_MISSING_DATA) { // Google TTS fails on jellybean
@@ -425,6 +412,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         else if (requestCode == 2) { // SettingsActivity returned
             SpeakService.setSleepTimer(resultCode);
         }
+        else if (requestCode == 7 && data != null) {
+            myVoices = data.getStringArrayListExtra(TextToSpeech.Engine.EXTRA_AVAILABLE_VOICES);
+            selectLanguage(false);
+        }
 	}
 
 	@Override protected void onResume() {
@@ -441,8 +432,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         if (isFinishing()) {
             SpeakService.switchOff();
             restoreBottomMargin();
-            TtsApp.enableComponents(false);
-            sendBroadcast(new Intent(SpeakService.TTSP_KILL));
+            //TtsApp.enableComponents(false);
+            //sendBroadcast(new Intent(SpeakService.TTSP_KILL));
         }
 	}
 
@@ -553,8 +544,17 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 		}
 	}
 
-    public void selectLanguage() {
+    public void selectLanguage(boolean tryCheckTtsData) {
         SpeakService.stopTalking();
+        if (myVoices.size() == 0 && tryCheckTtsData) {
+            Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+            String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
+            if (speakEng != null) {
+                in = in.setPackage(speakEng);
+            }
+            currentSpeakActivity.startActivityForResult(in, 7); // goes to onActivityResult()
+            return;
+        }
         AlertDialog mySetup;
 
         int checkedItem = 0;

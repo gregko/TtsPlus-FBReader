@@ -193,7 +193,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             languageCode = getCurrentBookLanguage();
             if (languageCode == null || languageCode.equals("")) {
                 if (SpeakActivity.getCurrent() != null) {
-                    SpeakActivity.getCurrent().selectLanguage();
+                    SpeakActivity.getCurrent().selectLanguage(true);
                     return false;
                 }
                 else
@@ -300,6 +300,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static void toggleTalking() {
         if (SpeakActivity.getCurrent() == null) {
+            Intent i = new Intent(SVC_STARTED);
+            SpeakActivity.wantStarted = true;
+            currentService.sendBroadcast(i);
             return;
         }
 
@@ -566,8 +569,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void regainBluetoothFocus() {
-        if (myTTS != null && mAudioManager != null)
+        if (/*myTTS != null && */mAudioManager != null) {
+            TtsApp.enableComponents(true);
             mAudioManager.registerMediaButtonEventReceiver(componentName);
+        }
     }
 
     // implements ApiClientImplementation.ConnectionListener
@@ -587,7 +592,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     public static void reconnect() {
         Lt.d("reconnect()");
-        if (TtsApp.areComponentsEnabled() && !SpeakActivity.isVisible()) {
+        if (TtsApp.areComponentsEnabled() && !SpeakActivity.isVisible() && SpeakActivity.getCurrent() != null) {
             // bring SpeakActivity to top
             Lt.d("- areComponentsEnabled() is true, activity not visible");
             if (myTTS == null) {
@@ -597,6 +602,18 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
             currentService.startActivity(intent);
         }
+        else {
+            if (mAudioManager != null) {
+                regainBluetoothFocus();
+            }
+        }
+    }
+
+    public static void disconnect() {
+        //TtsApp.enableComponents(false);
+        //currentService.sendBroadcast(new Intent(SpeakService.TTSP_KILL));
+        mAudioManager.unregisterMediaButtonEventReceiver(SpeakService.componentName);
+        mAudioManager.abandonAudioFocus(SpeakService.afChangeListener);
     }
 
     @Override public IBinder onBind(Intent arg0) { return null; }
@@ -605,6 +622,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         currentService = this;
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         componentName = new ComponentName(getPackageName(), MediaButtonIntentReceiver.class.getName());
+        regainBluetoothFocus();
         super.onCreate();
     }
     @Override public void onDestroy() {
@@ -634,6 +652,17 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             myApi = new ApiClientImplementation(currentService, currentService);
             myApi.connect();
         }
+        myApi.addListener(new ApiListener() {
+            @Override
+            public void onEvent(String eventType) {
+                Lt.d("onEvent: " + eventType);
+                if (eventType.equals(EVENT_READ_MODE_CLOSED) &&
+                        !TtsApp.isFBReaderOnTop() && SpeakActivity.getCurrent() == null) {
+                    Lt.d(" - FBReader is NOT on top");
+                    disconnect();
+                }
+            }
+        });
         if (myTTS != null) {
         	try {
         		if (myTTS.isSpeaking())
@@ -667,7 +696,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
         }
     };
-
 
     @Override public int onStartCommand(Intent intent, int flags, int startId) {
         currentService = this;

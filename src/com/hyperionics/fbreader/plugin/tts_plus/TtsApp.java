@@ -1,5 +1,6 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
@@ -8,6 +9,8 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 //import org.acra.*;
 import org.acra.annotation.*;
+
+import java.util.List;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
@@ -48,6 +51,18 @@ public class TtsApp extends Application
     static int versionCode = 0;
     static PackageManager myPackageManager;
     static String myPackageName;
+
+    static boolean isFBReaderOnTop() {
+        // the code below needs:  <uses-permission android:name="android.permission.GET_TASKS"/>
+        // Gets:
+        // taskInfo.get(0).topActivity.getClassName(): org.geometerplus.android.fbreader.FBReader
+        // taskInfo.get(0).topActivity.getPackageName(): org.geometerplus.zlibrary.ui.android
+        ActivityManager am = (ActivityManager) myApplication.getSystemService(ACTIVITY_SERVICE);
+        // get the info from the currently running task
+        List< ActivityManager.RunningTaskInfo > taskInfo = am.getRunningTasks(1);
+        String cn = taskInfo.get(0).topActivity.getClassName();
+        return cn.equals("org.geometerplus.android.fbreader.FBReader");
+    }
 
     static void enableComponents(boolean enabled) {
         componentsEnabled = enabled;
