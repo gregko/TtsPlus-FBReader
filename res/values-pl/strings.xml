@@ -32,6 +32,7 @@
     <string name="headset_plug_start">Zacznij czytać po wetknięciu wtyczki słuchawek</string>
     <string name="sleep_after">Przestań czytać po</string>
     <string name="handle_wired_key">Start/stop czytania przyciskiem słuchawek przewodowych</string>
+    <string name="headset_start_fbr">Startuj czytanie przyciskiem słuchawek gdy FBReader jest aktywny</string>
     <string-array name="sleep_array">
         <item>Never</item>
         <item>1 minucie</item>

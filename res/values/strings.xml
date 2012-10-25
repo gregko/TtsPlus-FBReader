@@ -32,6 +32,7 @@
     <string name="headset_plug_start">Start talking when wired headset plug inserted</string>
     <string name="sleep_after">Sleep after</string>
     <string name="handle_wired_key">Start/stop speech when wired headset key pressed</string>
+    <string name="headset_start_fbr">Start speech from headset key when FBReader is on top</string>
     <string-array name="sleep_array">
         <item>Never</item>
         <item>1 minute</item>

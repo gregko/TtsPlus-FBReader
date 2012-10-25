@@ -32,6 +32,7 @@
     <string name="headset_plug_start">Начинать чтение при подключении проводных наушников</string>
     <string name="sleep_after">Остановить чтение через</string>
     <string name="handle_wired_key">Старт/стоп по кнопке проводных наушников</string>
+    <string name="headset_start_fbr">Старт чтения  по кнопке наушников, когда FBReader на вершине</string>
     <string-array name="sleep_array">
         <item>никогда</item>
         <item>1 минуту</item>

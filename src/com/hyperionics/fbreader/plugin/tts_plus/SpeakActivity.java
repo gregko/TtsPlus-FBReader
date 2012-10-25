@@ -306,7 +306,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 SpeakService.myApi.setBottomMargin(currentSpeakActivity.savedBottomMargin);
                 SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
                 currentSpeakActivity.savedBottomMargin = -1;
-            } catch (ApiException e) {
+            } catch (Exception e) {
                 ;
             }
         }

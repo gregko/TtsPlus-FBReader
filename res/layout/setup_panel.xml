@@ -63,6 +63,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/handle_wired_key" />
 
+        <CheckBox
+                android:id="@+id/fbr_headset_start"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/headset_start_fbr" />
+
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

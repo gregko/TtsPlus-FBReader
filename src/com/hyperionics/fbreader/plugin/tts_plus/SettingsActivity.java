@@ -87,6 +87,15 @@ public class SettingsActivity extends Activity {
             }
         });
 
+        ((CheckBox)findViewById(R.id.fbr_headset_start)).setChecked(SpeakService.myPreferences.getBoolean("fbrStart", true));
+        setListener(R.id.fbr_headset_start, new View.OnClickListener() {
+            public void onClick(View v) {
+                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                myEditor.putBoolean("fbrStart", ((CheckBox) v).isChecked());
+                myEditor.commit();
+            }
+        });
+
         final EditText paraPauseEdit = (EditText)findViewById(R.id.paraPause);
         paraPauseEdit.setText(Integer.toString(SpeakService.myParaPause));
         paraPauseEdit.addTextChangedListener(new TextWatcher() {
