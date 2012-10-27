@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 //import org.acra.*;
-import org.acra.annotation.*;
+//import org.acra.annotation.*;
 
 import java.util.List;
 
@@ -59,9 +59,16 @@ public class TtsApp extends Application
         // taskInfo.get(0).topActivity.getPackageName(): org.geometerplus.zlibrary.ui.android
         ActivityManager am = (ActivityManager) myApplication.getSystemService(ACTIVITY_SERVICE);
         // get the info from the currently running task
-        List< ActivityManager.RunningTaskInfo > taskInfo = am.getRunningTasks(1);
+        List< ActivityManager.RunningTaskInfo > taskInfo = am.getRunningTasks(2);
         String cn = taskInfo.get(0).topActivity.getClassName();
-        return cn.equals("org.geometerplus.android.fbreader.FBReader");
+        if (cn.equals("org.geometerplus.android.fbreader.FBReader"))
+            return true;
+        if (cn.equals("com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity")) {
+            cn = taskInfo.get(1).topActivity.getClassName();
+            if (cn.equals("org.geometerplus.android.fbreader.FBReader"))
+                return true;
+        }
+        return false;
     }
 
     static void enableComponents(boolean enabled) {
@@ -79,9 +86,11 @@ public class TtsApp extends Application
                 PackageManager.DONT_KILL_APP);
 
         if (enabled) {
-            headsetPlugReceiver = new HeadsetPlugReceiver();
-            myApplication.registerReceiver(headsetPlugReceiver, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
-            myApplication.registerReceiver(headsetPlugReceiver, new IntentFilter("android.media.VOLUME_CHANGED_ACTION"));
+            if (headsetPlugReceiver == null) {
+                headsetPlugReceiver = new HeadsetPlugReceiver();
+                myApplication.registerReceiver(headsetPlugReceiver, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+                myApplication.registerReceiver(headsetPlugReceiver, new IntentFilter("android.media.VOLUME_CHANGED_ACTION"));
+            }
         }
         else if (headsetPlugReceiver != null) {
             myApplication.unregisterReceiver(headsetPlugReceiver);
@@ -107,6 +116,10 @@ public class TtsApp extends Application
     	enableComponents(false);
     	SpeakService.doStop();
     	System.exit(0);
+    }
+
+    public TtsApp() {
+        (new GlobalExceptionHandler()).init(this);
     }
 
     @Override public void onCreate() {

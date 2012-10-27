@@ -44,6 +44,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     private static boolean currentlyVisible = false;
     private static volatile PowerManager.WakeLock myWakeLock;
     static boolean wantStarted = false;
+    static boolean startedFromMenu = false;
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
 
     private int myMaxVolume;
@@ -57,10 +58,15 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     // wantStarted = true etc.
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Lt.d("SpeakActivity onCreate()");
-        if (!SpeakService.doStartup()) {
+        if (!startedFromMenu && !TtsApp.isFBReaderOnTop()) {
+            startedFromMenu = false;
             currentSpeakActivity = null;
             finish();
+            return;
+        }
+        startedFromMenu = false;
+        if (!SpeakService.doStartup()) {
+            currentSpeakActivity = null;
             return;
         }
         SpeakService.haveNewApi = 1;
@@ -296,6 +302,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
             }
         } catch (ApiException e) {
+            Lt.df("ApiException " + e);
+            e.printStackTrace();
             SpeakService.haveNewApi = 0;
         }
     }
@@ -336,6 +344,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 //                ErrorReporter.getInstance().putCustomData("myTTS_null", "Yes");
 //            if (SpeakService.myApi == null)
 //                ErrorReporter.getInstance().putCustomData("myApi_null", "Yes");
+            Lt.df("Exception in onInitializationCompleted(): " + e);
+            e.printStackTrace();
     		if (SpeakService.myTTS != null) {
 		        try {
 	       			SpeakService.myTTS.shutdown();
@@ -368,8 +378,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         try {
             SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
             PowerManager powerManager = (PowerManager)getSystemService(POWER_SERVICE);
-            KeyguardManager kgMgr =
-                    (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+            KeyguardManager kgMgr = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
             if (powerManager.isScreenOn() && !kgMgr.inKeyguardRestrictedInputMode()) {
                 Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
                 String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
@@ -422,7 +431,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         super.onResume();
         currentSpeakActivity = this;
         currentlyVisible = true;
-        adjustBottomMargin();
+        //adjustBottomMargin();
         SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
 	}
 
@@ -452,10 +461,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
     void doDestroy() {
         restoreBottomMargin();
-        if (!isActivated)
-            return;
-        isActivated = false;
-        SpeakService.switchOff();
+        if (isActivated) {
+            isActivated = false;
+            SpeakService.switchOff();
+        }
         currentSpeakActivity = null;
     }
 
@@ -546,6 +555,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
     public void selectLanguage(boolean tryCheckTtsData) {
         SpeakService.stopTalking();
+        //myVoices = null; // test crash
         if (myVoices.size() == 0 && tryCheckTtsData) {
             Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
             String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);

@@ -300,9 +300,12 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static void toggleTalking() {
         if (SpeakActivity.getCurrent() == null) {
+            if (currentService == null) {
+                TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
+            }
             Intent i = new Intent(SVC_STARTED);
             SpeakActivity.wantStarted = true;
-            currentService.sendBroadcast(i);
+            TtsApp.getContext().sendBroadcast(i);
             return;
         }
 

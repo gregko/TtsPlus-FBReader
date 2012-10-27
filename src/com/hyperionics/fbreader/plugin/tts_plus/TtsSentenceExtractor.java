@@ -40,6 +40,7 @@ public class TtsSentenceExtractor {
         if (paragraph.length() > 0) {
             paragraph = paragraph.replace(". . .", "...");
             paragraph = paragraph.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
+            paragraph = paragraph.replace('\u2014', '-'); // dec 8211, 'EM DASH', Ivona PL reads as "przecinek"
             paragraph = paragraph.replace('\u00A0', ' '); // dec 160, no-break space
             if (paragraph.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
                 paragraph = " " + paragraph.substring(1);
@@ -78,6 +79,7 @@ public class TtsSentenceExtractor {
                 w = w.substring(0, 1) + " ";
             } else {
                 w = w.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
+                w = w.replace('\u2014', '-'); // dec 8211, 'EM DASH', Ivona PL reads as "przecinek"
                 w = w.replace('\u00A0', ' '); // dec 160, no-break space
                 if (w.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
                     w = " " + w.substring(1);

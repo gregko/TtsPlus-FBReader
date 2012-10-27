@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.hyperionics.fbreader.plugin.tts_plus"
-          android:versionCode="1070010" android:versionName="1.7.0">
+          android:versionCode="1070030" android:versionName="1.7.3">
 	<uses-sdk android:minSdkVersion="8"/>
 	<supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true"
                       android:anyDensity="true" />

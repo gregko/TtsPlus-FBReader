@@ -29,10 +29,14 @@ public class StartupActivity extends Activity {
             if (SpeakService.myApi != null) {
                 try {
                     SpeakService.myApi.disconnect();
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                    Lt.df("StartupActivity exception: " + e);
+                    e.printStackTrace();
+                }
                 SpeakService.myApi = null;
             }
             // this is asynchronous
+            SpeakActivity.startedFromMenu = true;
             SpeakActivity.wantStarted = true;
             startService(new Intent(TtsApp.getContext(), SpeakService.class));
         }
