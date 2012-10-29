@@ -52,25 +52,6 @@ public class TtsApp extends Application
     static PackageManager myPackageManager;
     static String myPackageName;
 
-    static boolean isFBReaderOnTop() {
-        // the code below needs:  <uses-permission android:name="android.permission.GET_TASKS"/>
-        // Gets:
-        // taskInfo.get(0).topActivity.getClassName(): org.geometerplus.android.fbreader.FBReader
-        // taskInfo.get(0).topActivity.getPackageName(): org.geometerplus.zlibrary.ui.android
-        ActivityManager am = (ActivityManager) myApplication.getSystemService(ACTIVITY_SERVICE);
-        // get the info from the currently running task
-        List< ActivityManager.RunningTaskInfo > taskInfo = am.getRunningTasks(2);
-        String cn = taskInfo.get(0).topActivity.getClassName();
-        if (cn.equals("org.geometerplus.android.fbreader.FBReader"))
-            return true;
-        if (cn.equals("com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity")) {
-            cn = taskInfo.get(1).topActivity.getClassName();
-            if (cn.equals("org.geometerplus.android.fbreader.FBReader"))
-                return true;
-        }
-        return false;
-    }
-
     static void enableComponents(boolean enabled) {
         componentsEnabled = enabled;
         int flag = (enabled ?

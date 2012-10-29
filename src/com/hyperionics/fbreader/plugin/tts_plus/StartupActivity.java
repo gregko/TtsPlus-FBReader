@@ -36,7 +36,6 @@ public class StartupActivity extends Activity {
                 SpeakService.myApi = null;
             }
             // this is asynchronous
-            SpeakActivity.startedFromMenu = true;
             SpeakActivity.wantStarted = true;
             startService(new Intent(TtsApp.getContext(), SpeakService.class));
         }

@@ -1,10 +1,12 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
 import android.app.AlertDialog;
+import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.*;
 import android.media.AudioManager;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
 import android.text.format.Time;
@@ -54,6 +56,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static float myCurrentPitch = 1f;
     static int haveNewApi = 1;
     static private boolean isServiceTalking = false;
+    static boolean readingStarted = false;
 
     static private final String UTTERANCE_ID = "FBReaderTTS+Plugin";
     static TtsSentenceExtractor.SentenceIndex mySentences[] = new TtsSentenceExtractor.SentenceIndex[0];
@@ -300,12 +303,16 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static void toggleTalking() {
         if (SpeakActivity.getCurrent() == null) {
-            if (currentService == null) {
-                TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
+            if (readingStarted) {
+                if (currentService == null) {
+                    TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
+                }
+                Intent i = new Intent(SVC_STARTED);
+                SpeakActivity.wantStarted = true;
+                TtsApp.getContext().sendBroadcast(i);
+            } else {
+                TtsApp.enableComponents(false);
             }
-            Intent i = new Intent(SVC_STARTED);
-            SpeakActivity.wantStarted = true;
-            TtsApp.getContext().sendBroadcast(i);
             return;
         }
 
@@ -597,6 +604,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     public static void reconnect() {
         Lt.d("reconnect()");
+        readingStarted = true;
         if (TtsApp.areComponentsEnabled() && !SpeakActivity.isVisible() && SpeakActivity.getCurrent() != null) {
             // bring SpeakActivity to top
             Lt.d("- areComponentsEnabled() is true, activity not visible");
@@ -661,11 +669,20 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         myApi.addListener(new ApiListener() {
             @Override
             public void onEvent(String eventType) {
-                //Lt.d("onEvent: " + eventType);
-                if (eventType.equals(EVENT_READ_MODE_CLOSED) &&
-                        (!myPreferences.getBoolean("fbrStart", true) || !TtsApp.isFBReaderOnTop()) &&
+                Lt.d("onEvent: " + eventType);
+                if (eventType.equals(EVENT_READ_MODE_OPENED))
+                    readingStarted = true;
+                else if (eventType.equals(EVENT_READ_MODE_CLOSED)) {
+                    PowerManager powerManager = (PowerManager) TtsApp.getContext().getSystemService(POWER_SERVICE);
+                    KeyguardManager kgMgr = (KeyguardManager)  TtsApp.getContext().getSystemService(Context.KEYGUARD_SERVICE);
+                    if (powerManager.isScreenOn() && !kgMgr.inKeyguardRestrictedInputMode())
+                        readingStarted = false;
+                    else
+                        Lt.d("  - no stop");
+                }
+                if (!readingStarted &&
+                        (!myPreferences.getBoolean("fbrStart", true)) &&
                         SpeakActivity.getCurrent() == null) {
-                    //Lt.d(" - FBReader is NOT on top");
                     disconnect();
                 }
             }

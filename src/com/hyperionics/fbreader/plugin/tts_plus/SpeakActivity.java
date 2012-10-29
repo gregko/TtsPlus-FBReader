@@ -44,7 +44,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     private static boolean currentlyVisible = false;
     private static volatile PowerManager.WakeLock myWakeLock;
     static boolean wantStarted = false;
-    static boolean startedFromMenu = false;
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
 
     private int myMaxVolume;
@@ -58,13 +57,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     // wantStarted = true etc.
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!startedFromMenu && !TtsApp.isFBReaderOnTop()) {
-            startedFromMenu = false;
-            currentSpeakActivity = null;
-            finish();
-            return;
-        }
-        startedFromMenu = false;
         if (!SpeakService.doStartup()) {
             currentSpeakActivity = null;
             return;
