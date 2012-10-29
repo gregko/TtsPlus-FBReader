@@ -582,7 +582,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static void regainBluetoothFocus() {
         if (mAudioManager != null) {
-            TtsApp.enableComponents(true);
+            //TtsApp.enableComponents(true); // takes a long time on some hardware?.
             mAudioManager.registerMediaButtonEventReceiver(componentName);
         }
     }
@@ -616,7 +616,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             currentService.startActivity(intent);
         }
         else {
-            regainBluetoothFocus();
+            TtsApp.enableComponents(true);
         }
     }
 
@@ -635,7 +635,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         componentName = new ComponentName(getPackageName(), MediaButtonIntentReceiver.class.getName());
         myPreferences = getSharedPreferences("FBReaderTTS", MODE_PRIVATE);
         if (myPreferences.getBoolean("fbrStart", true))
-            regainBluetoothFocus();
+            TtsApp.enableComponents(true);
         super.onCreate();
     }
     @Override public void onDestroy() {
