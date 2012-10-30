@@ -131,10 +131,13 @@ public class SettingsActivity extends Activity {
 
         setListener(R.id.button_tts_set, new View.OnClickListener() {
             public void onClick(View v) {
-                SpeakActivity.getCurrent().doDestroy();
+                SpeakActivity sa = SpeakActivity.getCurrent();
                 Intent intent = new Intent("com.android.settings.TTS_SETTINGS");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                finish();
+                sa.doDestroy();
+                sa.finish();
                 TtsApp.ExitApp();
             }
         });
