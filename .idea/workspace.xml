@@ -37,42 +37,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36881102-1f07-46e3-b919-36d1380bf90f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProjectNotes.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/colors.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values-pl/colors.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values-ru/colors.xml" />
-      <change type="DELETED" beforePath="D:\android\TtsPlus-FBReader\.idea\libraries\acra_4_2_3.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TtsPlus-FBReader.apk" afterPath="$PROJECT_DIR$/TtsPlus-FBReader.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TtsPlus-FBReader.iml" afterPath="$PROJECT_DIR$/TtsPlus-FBReader.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/about_panel.xml" afterPath="$PROJECT_DIR$/res/layout/about_panel.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proguard_logs/dump.txt" afterPath="$PROJECT_DIR$/proguard_logs/dump.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proguard_logs/mapping.txt" afterPath="$PROJECT_DIR$/proguard_logs/mapping.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proguard_logs/seeds.txt" afterPath="$PROJECT_DIR$/proguard_logs/seeds.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-pl/strings.xml" afterPath="$PROJECT_DIR$/res/values-pl/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-ru/strings.xml" afterPath="$PROJECT_DIR$/res/values-ru/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proguard_logs/usage.txt" afterPath="$PROJECT_DIR$/proguard_logs/usage.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FBReaderJ-TTS.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/fragment.java" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353110802019" ignored="false" />
-    <file path="/SpeakActivity.java" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353110754443" ignored="false" />
-    <file path="/MyLinkify.java" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353109373450" ignored="false" />
-    <file path="/about_panel.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353107192924" ignored="false" />
-    <file path="/colors.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353106394358" ignored="false" />
-    <file path="$PROJECT_DIR$/../atVoice/res/values/colors.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353106189662" ignored="false" />
-    <file path="$PROJECT_DIR$/../atVoice/res/layout/about_panel2.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353106189662" ignored="false" />
-    <file path="/a.dummy" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353106063346" ignored="false" />
-    <file path="/Dummy.txt" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353105917764" ignored="false" />
-    <file path="/strings.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353103990072" ignored="false" />
+    <file path="$PROJECT_DIR$/../atVoice/src/com/hyperionics/atVoice/SpeakActivity.java" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353161186558" ignored="false" />
+    <file path="/SpeakActivity.java" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353161012068" ignored="false" />
+    <file path="/strings.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353160797255" ignored="false" />
+    <file path="$PROJECT_DIR$/../atVoice/res/values/strings.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353160797255" ignored="false" />
+    <file path="/fragment.java" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353160619601" ignored="false" />
+    <file path="$PROJECT_DIR$/../atVoice/res/layout/about_panel.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353158793665" ignored="false" />
+    <file path="/about_panel.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353158789751" ignored="false" />
+    <file path="/Dummy.txt" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353157764202" ignored="false" />
     <file path="/AboutActivity.java" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353105632188" ignored="false" />
+    <file path="/a.dummy" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353106063346" ignored="false" />
+    <file path="$PROJECT_DIR$/../atVoice/res/layout/about_panel2.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353106189662" ignored="false" />
+    <file path="$PROJECT_DIR$/../atVoice/res/values/colors.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353106189662" ignored="false" />
+    <file path="/colors.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353106394358" ignored="false" />
+    <file path="/MyLinkify.java" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353109373450" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,8 +105,7 @@
         <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
-    <line_breakpoints>
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint url="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" line="147" class="com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$7" package="com.hyperionics.fbreader.plugin.tts_plus">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
@@ -139,6 +121,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </line_breakpoints>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -150,19 +133,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SpeakActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SpeakActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="150" column="126" selection-start="6593" selection-end="6593" vertical-scroll-proportion="0.0">
+            <state line="136" column="125" selection-start="5824" selection-end="5867" vertical-scroll-proportion="0.09402655">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="37" selection-start="196" selection-end="196" vertical-scroll-proportion="0.05882353">
+            <state line="2" column="37" selection-start="196" selection-end="196" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -180,7 +163,7 @@
       <file leaf-file-name="about_panel.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/about_panel.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="36" selection-start="1595" selection-end="1595" vertical-scroll-proportion="-14.96">
+            <state line="45" column="55" selection-start="1160" selection-end="1854" vertical-scroll-proportion="-29.8">
               <folding />
             </state>
           </provider>
@@ -224,16 +207,16 @@
         <option value="$PROJECT_DIR$/res/values-ru/strings.xml" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/AboutActivity.java" />
         <option value="$PROJECT_DIR$/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/res/layout/about_panel.xml" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/MyLinkify.java" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/res/layout/about_panel.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1991" />
-    <option name="y" value="97" />
+    <option name="x" value="216" />
+    <option name="y" value="100" />
     <option name="width" value="1699" />
     <option name="height" value="1087" />
   </component>
@@ -263,6 +246,30 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TtsPlus-FBReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TtsPlus-FBReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -317,28 +324,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
           <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TtsPlus-FBReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TtsPlus-FBReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -358,10 +373,10 @@
     <property name="ExportedModule" value="TtsPlus-FBReader" />
     <property name="last_opened_file_path" value="$USER_HOME$/.android/Hyperionics.keystore" />
     <property name="AndroidLayoutSelectedEditor" value="text-editor" />
-    <property name="DefaultHtmlFileTemplate" value="Html" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="DefaultHtmlFileTemplate" value="Html" />
     <property name="DEBUGGABLE_DEVICE" value="emulator-5554 (JB-Intel)" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="DEBUGGABLE_PROCESS" value="com.hyperionics.fbreader.plugin.tts_plus" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="AndroidRunProguardForReleaseBuild" value="true" />
@@ -408,19 +423,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -446,6 +448,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -547,38 +562,38 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="36881102-1f07-46e3-b919-36d1380bf90f" name="Default" comment="" />
       <created>1341583725223</created>
-      <timeSpent>8721000</timeSpent>
+      <timeSpent>12293000</timeSpent>
       <updated>1341583725223</updated>
     </task>
-    <option name="myTotallyTimeSpent" value="8721000" />
+    <option name="myTotallyTimeSpent" value="12293000" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1991" y="97" width="1699" height="1087" extended-state="0" />
-    <editor active="false" />
+    <frame x="216" y="100" width="1699" height="1087" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3255956" sideWeight="0.64946234" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32538226" sideWeight="0.64946234" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3259939" sideWeight="0.64946234" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32844037" sideWeight="0.64946234" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32618025" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55053765" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295325" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32580644" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20891875" sideWeight="0.64946234" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2091743" sideWeight="0.64946234" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35053763" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32618025" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295325" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -645,6 +660,16 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/res/layout/about_panel.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="36" selection-start="1595" selection-end="1595" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="306" column="25" selection-start="12463" selection-end="12463" vertical-scroll-proportion="0.0">
@@ -675,23 +700,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="54" selection-start="3676" selection-end="3676" vertical-scroll-proportion="0.8649262">
-          <folding />
-        </state>
+        <state line="64" column="54" selection-start="3676" selection-end="3676" vertical-scroll-proportion="0.8649262" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values-ru/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="49" selection-start="2447" selection-end="2447" vertical-scroll-proportion="0.6942605">
-          <folding />
-        </state>
+        <state line="37" column="49" selection-start="2447" selection-end="2447" vertical-scroll-proportion="0.6942605" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values-pl/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="49" selection-start="2428" selection-end="2428" vertical-scroll-proportion="0.68558455">
-          <folding />
-        </state>
+        <state line="37" column="49" selection-start="2428" selection-end="2428" vertical-scroll-proportion="0.68558455" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/control_panel.xml">
@@ -728,16 +747,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/about_panel.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="36" selection-start="1595" selection-end="1595" vertical-scroll-proportion="-14.96">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/../android-sdk/platforms/android-10/android.jar!/android/text/util/Linkify.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="13" selection-start="160" selection-end="160" vertical-scroll-proportion="0.0">
@@ -745,16 +754,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="150" column="126" selection-start="6593" selection-end="6593" vertical-scroll-proportion="0.0">
+        <state line="2" column="37" selection-start="196" selection-end="196" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/res/layout/about_panel.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="37" selection-start="196" selection-end="196" vertical-scroll-proportion="0.05882353">
+        <state line="45" column="55" selection-start="1160" selection-end="1854" vertical-scroll-proportion="-29.8">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="125" selection-start="5824" selection-end="5867" vertical-scroll-proportion="0.09402655">
           <folding />
         </state>
       </provider>
