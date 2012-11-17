@@ -33,6 +33,9 @@
     <string name="sleep_after">Przestań czytać po</string>
     <string name="handle_wired_key">Start/stop czytania przyciskiem słuchawek przewodowych</string>
     <string name="headset_start_fbr">Startuj czytanie przyciskiem słuchawek gdy FBReader jest aktywny</string>
+    <string name="tts_check_err">Błąd: Nie można otrzymać listy dostępnych języków od generatora mowy.</string>
+    <string name="tryAllso">Try also our new product</string>
+    <string name="atVoice"> \@Voice Aloud Reader </string>
     <string-array name="sleep_array">
         <item>Never</item>
         <item>1 minucie</item>

@@ -2,6 +2,7 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +15,9 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.*;
 import android.widget.*;
 import org.geometerplus.android.fbreader.api.ApiException;
@@ -131,7 +135,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     public void onClick(DialogInterface dialog, int id) {
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("https://play.google.com/store/apps/details?id=com.hyperionics.fbreader.plugin.tts_plus"));
-                        startActivity(browserIntent);                    }
+                        startActivity(browserIntent);
+                    }
                 });
                 builder.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -140,6 +145,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
+                TextView lnk = (TextView) alert.findViewById(R.id.atVoiceLnk);
+                String s = lnk.getText().toString();
+                lnk.setText(
+                    Html.fromHtml("<a href=\"https://play.google.com/store/apps/details?id=com.hyperionics.atVoice\">" + s + "</a>")
+                );
+                lnk.setMovementMethod(LinkMovementMethod.getInstance());
             }
         });
         setListener(R.id.button_setup, new View.OnClickListener() {
@@ -554,7 +565,11 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             if (speakEng != null) {
                 in = in.setPackage(speakEng);
             }
-            currentSpeakActivity.startActivityForResult(in, 7); // goes to onActivityResult()
+            try {
+                currentSpeakActivity.startActivityForResult(in, 7); // goes to onActivityResult()
+            } catch (ActivityNotFoundException e) {
+                showErrorMessage(R.string.no_tts_installed);
+            }
             return;
         }
         AlertDialog mySetup;

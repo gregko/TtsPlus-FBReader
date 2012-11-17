@@ -1,7 +1,6 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -44,7 +43,7 @@ public class TtsSentenceExtractor {
             paragraph = paragraph.replace('\u00A0', ' '); // dec 160, no-break space
             if (paragraph.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
                 paragraph = " " + paragraph.substring(1);
-            paragraph = paragraphReplaceEngAbbreviations(paragraph, loc);
+            paragraph = paragraphReplaceAbbreviations(paragraph, loc);
         }
         final Pattern p = Pattern.compile("[\\.\\!\\?]\\s+", Pattern.MULTILINE);
         String[] sentences = p.split(paragraph);
@@ -83,7 +82,7 @@ public class TtsSentenceExtractor {
                 w = w.replace('\u00A0', ' '); // dec 160, no-break space
                 if (w.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
                     w = " " + w.substring(1);
-                w = replaceEngAbbreviations(w, loc);
+                w = replaceAbbreviations(w, loc);
             }
             char lastCh = w.charAt(w.length() - 1);
             boolean endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
@@ -120,12 +119,18 @@ public class TtsSentenceExtractor {
      * @param inStr - input String
      * @return - String with abbreviations replaced
      */
-    private static String replaceEngAbbreviations(String inStr, Locale loc) {
+    private static String replaceAbbreviations(String inStr, Locale loc) {
         // spelling is not important here, pronunciation by TTS engine is.
         if (loc == null)
             return inStr;
 
         String lang = loc.getLanguage();
+        if (lang.equals("pl")) {
+            inStr = inStr.replace("Prof.", "Profesor");
+            inStr = inStr.replace("prof.", "profesor");
+            return inStr;
+        }
+
         if (!(lang.equals("eng") || lang.equals("en")))
             return inStr;
 
@@ -159,12 +164,16 @@ public class TtsSentenceExtractor {
     }
 
     // Slower version when reading entire paragraphs
-    private static String paragraphReplaceEngAbbreviations(String inStr, Locale loc) {
+    private static String paragraphReplaceAbbreviations(String inStr, Locale loc) {
         // spelling is not important here, pronunciation by TTS engine is.
         if (loc == null)
             return inStr;
 
         String lang = loc.getLanguage();
+        if (lang.equals("pl")) {
+            inStr = inStr.replace("Prof.", "Profesor");
+            return inStr;
+        }
         if (!(lang.equals("eng") || lang.equals("en")))
             return inStr;
 

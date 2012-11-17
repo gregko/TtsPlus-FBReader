@@ -1,0 +1,37 @@
+2012.10.30
+----------
+
+Adding this to AndroidManifest.xml under our activity:
+
+            <intent-filter android:label="TTS+">
+                <action android:name="android.intent.action.SEND" />
+                <data android:mimeType="*/*" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+is enough to put our item named "TTS+" or whatever into Android "Share" or "SendTo" screen,
+and start that activity. Next to discover: how to know about this start mode, and how to
+get that data to read it aloud...
+
+OK, it works well when I inserted this code into SettingsActivity, got the following in the intent:
+        Intent myIntent = getIntent(); // this was in onCreate()
+
+    myIntent = {android.content.Intent@830029992696}"Intent { act=android.intent.action.SEND typ=text/plain flg=0x3000001
+       cmp=com.hyperionics.fbreader.plugin.tts_plus/.SettingsActivity (has clip) (has extras) }"
+    mAction = {java.lang.String@830026502488}"android.intent.action.SEND"
+    mCategories = null
+    mClipData = {android.content.ClipData@830029934368}"ClipData { text/plain {T:\nSubscribe: Digital / Home Delivery Log...
+    mClipDescription = {android.content.ClipDescription@830029784992}"ClipDescription { text/plain }"
+    mIcon = null
+    mItems = {java.util.ArrayList@830029603896} size = 1
+    [0] = {android.content.ClipData$Item@830029861472}"ClipData.Item { T:\nSubscribe: Digital / Home Delivery Log In...
+    mComponent = {android.content.ComponentName@830029935608}"ComponentInfo
+      {com.hyperionics.fbreader.plugin.tts_plus/com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity}"
+    mData = null
+    mExtras = {android.os.Bundle@830029120376}"Bundle[mParcelledData.dataSize=29272]"
+    mType = {java.lang.String@830030016192}"text/plain"
+    mPackage = null
+    mSelector = null
+    mSourceBounds = null
+    mFlags = 50331649
+

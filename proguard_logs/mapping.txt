@@ -1,171 +1,451 @@
 com.hyperionics.fbreader.plugin.tts_plus.BluetoothConnectReceiver -> com.hyperionics.fbreader.plugin.tts_plus.BluetoothConnectReceiver:
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.hyperionics.fbreader.plugin.tts_plus.GlobalExceptionHandler -> com.hyperionics.fbreader.plugin.tts_plus.a:
+    java.lang.Thread$UncaughtExceptionHandler mDefaultExceptionHandler -> a
+    void uncaughtException(java.lang.Thread,java.lang.Throwable) -> uncaughtException
+    void init(android.content.Context) -> a
+com.hyperionics.fbreader.plugin.tts_plus.HeadsetPlugReceiver -> com.hyperionics.fbreader.plugin.tts_plus.HeadsetPlugReceiver:
+    boolean myIgnore1st -> a
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.hyperionics.fbreader.plugin.tts_plus.IncomingReceiver -> com.hyperionics.fbreader.plugin.tts_plus.IncomingReceiver:
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.hyperionics.fbreader.plugin.tts_plus.Lt -> com.hyperionics.fbreader.plugin.tts_plus.b:
+    java.lang.String myTag -> a
+    void d(java.lang.String) -> a
+    void df(java.lang.String) -> b
 com.hyperionics.fbreader.plugin.tts_plus.MediaButtonIntentReceiver -> com.hyperionics.fbreader.plugin.tts_plus.MediaButtonIntentReceiver:
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
 com.hyperionics.fbreader.plugin.tts_plus.PluginInfo -> com.hyperionics.fbreader.plugin.tts_plus.PluginInfo:
     java.util.List implementedActions(android.content.Context) -> a
+com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity -> com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity:
+    void setListener(int,android.view.View$OnClickListener) -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onDestroy() -> onDestroy
+com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity$1 -> com.hyperionics.fbreader.plugin.tts_plus.c:
+    com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity$2 -> com.hyperionics.fbreader.plugin.tts_plus.d:
+    com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity$3 -> com.hyperionics.fbreader.plugin.tts_plus.e:
+    com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity$4 -> com.hyperionics.fbreader.plugin.tts_plus.f:
+    com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity$5 -> com.hyperionics.fbreader.plugin.tts_plus.g:
+    android.widget.EditText val$paraPauseEdit -> a
+    com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity this$0 -> b
+    void afterTextChanged(android.text.Editable) -> afterTextChanged
+    void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
+    void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
+com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity$6 -> com.hyperionics.fbreader.plugin.tts_plus.h:
+    com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity$7 -> com.hyperionics.fbreader.plugin.tts_plus.i:
+    com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity$MyOnSleepSelectedListener -> com.hyperionics.fbreader.plugin.tts_plus.j:
+    com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity this$0 -> a
+    void onItemSelected(android.widget.AdapterView,android.view.View,int,long) -> onItemSelected
+    void onNothingSelected(android.widget.AdapterView) -> onNothingSelected
 com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity -> com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity:
     java.util.ArrayList myVoices -> b
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity currentSpeakActivity -> c
     boolean isActivated -> d
     boolean startTalkAtOnce -> e
-    android.os.PowerManager$WakeLock myWakeLock -> f
-    int myMaxVolume -> g
-    android.app.AlertDialog mySetup -> a
+    boolean currentlyVisible -> f
+    android.os.PowerManager$WakeLock myWakeLock -> g
+    boolean wantStarted -> a
+    int myMaxVolume -> h
+    int savedBottomMargin -> i
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity getCurrent() -> a
     void setListener(int,android.view.View$OnClickListener) -> a
-    boolean isInitialized() -> b
     void onCreate(android.os.Bundle) -> onCreate
     void onInit(int) -> onInit
-    void onInitializationCompleted() -> c
-    void doStartTts() -> d
+    void adjustBottomMargin() -> b
+    void restoreBottomMargin() -> c
+    void onInitializationCompleted() -> d
+    void doStartTts() -> e
     void onActivityResult(int,int,android.content.Intent) -> onActivityResult
     void onResume() -> onResume
     void onPause() -> onPause
+    void onStart() -> onStart
     void onStop() -> onStop
+    boolean isVisible() -> f
+    void doDestroy() -> g
     void onDestroy() -> onDestroy
-    void setActionsEnabled(boolean) -> b
-    void startActivity(android.content.Context) -> a
-    void restartActivity(android.content.Context) -> b
+    void unbindDrawables(android.view.View) -> a
+    void setActionsEnabled(boolean) -> c
+    void SetVolumeProgress() -> h
     void showErrorMessage(int) -> a
-    void showErrorMessage(java.lang.CharSequence) -> a
     void setActive(boolean) -> a
-    void doSetup() -> g
-    com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity access$000() -> e
-    void access$100(com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity) -> a
-    int access$200(com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity) -> b
-    java.util.ArrayList access$300() -> f
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$1 -> com.hyperionics.fbreader.plugin.tts_plus.a:
+    void selectLanguage(boolean) -> b
+    void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
+    com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity access$000() -> i
+    java.util.ArrayList access$100() -> j
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$1 -> com.hyperionics.fbreader.plugin.tts_plus.k:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$10 -> com.hyperionics.fbreader.plugin.tts_plus.b:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$10 -> com.hyperionics.fbreader.plugin.tts_plus.l:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$11 -> com.hyperionics.fbreader.plugin.tts_plus.c:
-    com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$12 -> com.hyperionics.fbreader.plugin.tts_plus.d:
-    com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$13 -> com.hyperionics.fbreader.plugin.tts_plus.e:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$11 -> com.hyperionics.fbreader.plugin.tts_plus.m:
     android.content.SharedPreferences$Editor myEditor -> b
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onProgressChanged(android.widget.SeekBar,int,boolean) -> onProgressChanged
     void onStartTrackingTouch(android.widget.SeekBar) -> onStartTrackingTouch
     void onStopTrackingTouch(android.widget.SeekBar) -> onStopTrackingTouch
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$14 -> com.hyperionics.fbreader.plugin.tts_plus.f:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$12 -> com.hyperionics.fbreader.plugin.tts_plus.n:
     android.content.SharedPreferences$Editor myEditor -> b
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onProgressChanged(android.widget.SeekBar,int,boolean) -> onProgressChanged
     void onStartTrackingTouch(android.widget.SeekBar) -> onStartTrackingTouch
     void onStopTrackingTouch(android.widget.SeekBar) -> onStopTrackingTouch
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$15 -> com.hyperionics.fbreader.plugin.tts_plus.g:
-    android.content.SharedPreferences$Editor myEditor -> b
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$13 -> com.hyperionics.fbreader.plugin.tts_plus.o:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onProgressChanged(android.widget.SeekBar,int,boolean) -> onProgressChanged
     void onStartTrackingTouch(android.widget.SeekBar) -> onStartTrackingTouch
     void onStopTrackingTouch(android.widget.SeekBar) -> onStopTrackingTouch
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$16 -> com.hyperionics.fbreader.plugin.tts_plus.h:
-    com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
-    void onCallStateChanged(int,java.lang.String) -> onCallStateChanged
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$17 -> com.hyperionics.fbreader.plugin.tts_plus.i:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$14 -> com.hyperionics.fbreader.plugin.tts_plus.p:
     java.lang.CharSequence val$text -> a
     void run() -> run
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$18 -> com.hyperionics.fbreader.plugin.tts_plus.j:
-    java.lang.CharSequence val$text -> a
-    void run() -> run
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$19 -> com.hyperionics.fbreader.plugin.tts_plus.k:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$16 -> com.hyperionics.fbreader.plugin.tts_plus.q:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$2 -> com.hyperionics.fbreader.plugin.tts_plus.l:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$2 -> com.hyperionics.fbreader.plugin.tts_plus.r:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$3 -> com.hyperionics.fbreader.plugin.tts_plus.m:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$3 -> com.hyperionics.fbreader.plugin.tts_plus.s:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$4 -> com.hyperionics.fbreader.plugin.tts_plus.n:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$4 -> com.hyperionics.fbreader.plugin.tts_plus.t:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$5 -> com.hyperionics.fbreader.plugin.tts_plus.o:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$5 -> com.hyperionics.fbreader.plugin.tts_plus.u:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$6 -> com.hyperionics.fbreader.plugin.tts_plus.p:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$6 -> com.hyperionics.fbreader.plugin.tts_plus.v:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$7 -> com.hyperionics.fbreader.plugin.tts_plus.q:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$7 -> com.hyperionics.fbreader.plugin.tts_plus.w:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$7$1 -> com.hyperionics.fbreader.plugin.tts_plus.r:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$7$1 -> com.hyperionics.fbreader.plugin.tts_plus.x:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$7 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$8 -> com.hyperionics.fbreader.plugin.tts_plus.s:
-    android.content.SharedPreferences$Editor myEditor -> b
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$7$2 -> com.hyperionics.fbreader.plugin.tts_plus.y:
+    com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$7 this$1 -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$8 -> com.hyperionics.fbreader.plugin.tts_plus.z:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$9 -> com.hyperionics.fbreader.plugin.tts_plus.t:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$9 -> com.hyperionics.fbreader.plugin.tts_plus.aa:
     com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.hyperionics.fbreader.plugin.tts_plus.SpeakApp -> com.hyperionics.fbreader.plugin.tts_plus.SpeakApp:
-    com.hyperionics.fbreader.plugin.tts_plus.SpeakApp myApplication -> c
-    java.lang.String versionName -> a
-    int versionCode -> b
-    boolean isFBReaderOnTop() -> a
-    void exitApp() -> b
-    void onCreate() -> onCreate
-    android.content.Context getContext() -> c
 com.hyperionics.fbreader.plugin.tts_plus.SpeakService -> com.hyperionics.fbreader.plugin.tts_plus.SpeakService:
-    com.hyperionics.fbreader.plugin.tts_plus.SpeakService currentService -> a
-    org.geometerplus.android.fbreader.api.ApiClientImplementation myApi -> b
-    android.speech.tts.TextToSpeech myTTS -> c
-    android.media.AudioManager mAudioManager -> d
-    android.content.ComponentName componentName -> e
-    android.content.SharedPreferences myPreferences -> f
-    boolean myReadSentences -> g
+    android.os.Handler mHandler -> v
+    com.hyperionics.fbreader.plugin.tts_plus.SpeakService currentService -> w
+    org.geometerplus.android.fbreader.api.ApiClientImplementation myApi -> a
+    android.speech.tts.TextToSpeech myTTS -> b
+    android.media.AudioManager mAudioManager -> c
+    android.content.ComponentName componentName -> d
+    android.content.SharedPreferences myPreferences -> e
+    boolean myHighlightSentences -> f
+    int myParaPause -> g
     java.lang.String selectedLanguage -> h
     int myParagraphIndex -> i
     int myParagraphsNumber -> j
-    java.lang.String[] mySentences -> k
-    int myCurrentSentence -> s
-    boolean myIsActive -> l
-    boolean myWasActive -> m
-    int myInitializationStatus -> n
-    int API_INITIALIZED -> o
-    int TTS_INITIALIZED -> p
-    int FULLY_INITIALIZED -> q
-    android.media.AudioManager$OnAudioFocusChangeListener afChangeListener -> r
+    float myCurrentPitch -> k
+    int haveNewApi -> l
+    boolean isServiceTalking -> x
+    boolean readingStarted -> m
+    com.hyperionics.fbreader.plugin.tts_plus.TtsSentenceExtractor$SentenceIndex[] mySentences -> n
+    int myCurrentSentence -> y
+    boolean myIsActive -> o
+    boolean myWasActive -> p
+    java.util.HashMap myCallbackMap -> z
+    int myInitializationStatus -> q
+    int API_INITIALIZED -> r
+    int TTS_INITIALIZED -> s
+    int FULLY_INITIALIZED -> t
+    java.lang.Runnable myTimerTask -> A
+    android.media.AudioManager$OnAudioFocusChangeListener afChangeListener -> u
+    com.hyperionics.fbreader.plugin.tts_plus.SpeakService getCurrentService() -> a
+    void savePosition() -> b
+    void restorePosition() -> c
+    void cleanupPositions() -> d
     void onUtteranceCompleted(java.lang.String) -> onUtteranceCompleted
-    void setLanguage(java.lang.String) -> a
-    void startTalking() -> a
-    void stopTalking() -> b
-    void toggleTalking() -> c
-    void switchOff() -> d
-    void nextParagraph() -> e
-    void prevParagraph() -> f
+    java.lang.String getCurrentBookLanguage() -> e
+    boolean setLanguage(java.lang.String) -> a
+    void startTalking() -> f
+    void stopTalking() -> g
+    void toggleTalking() -> h
+    void switchOff() -> i
+    void nextToSpeak() -> j
+    void prevToSpeak() -> k
     int speakString(java.lang.String) -> b
     void setSpeechRate(int) -> a
     void setPitch(float) -> a
-    void highlightParagraph() -> l
-    void gotoPreviousParagraph() -> g
-    java.lang.String gotoNextParagraph() -> h
-    void regainBluetoothFocus() -> i
-    void stop() -> j
-    void onConnected() -> k
+    void highlightSentence() -> w
+    void highlightParagraph() -> x
+    void gotoPreviousSentence() -> l
+    void gotoNextSentence() -> m
+    void gotoPreviousParagraph() -> n
+    void processCurrentParagraph() -> o
+    void regainBluetoothFocus() -> p
+    void onConnected() -> q
+    void reconnect() -> r
+    void disconnect() -> s
     android.os.IBinder onBind(android.content.Intent) -> onBind
     void onCreate() -> onCreate
     void onDestroy() -> onDestroy
+    void doStop() -> t
+    boolean doStartup() -> u
+    void setSleepTimer(int) -> b
     int onStartCommand(android.content.Intent,int,int) -> onStartCommand
-com.hyperionics.fbreader.plugin.tts_plus.SpeakService$1 -> com.hyperionics.fbreader.plugin.tts_plus.u:
+    com.hyperionics.fbreader.plugin.tts_plus.SpeakService access$000() -> v
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService$1 -> com.hyperionics.fbreader.plugin.tts_plus.ab:
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService$2 -> com.hyperionics.fbreader.plugin.tts_plus.ac:
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService$3 -> com.hyperionics.fbreader.plugin.tts_plus.ad:
     void run() -> run
-com.hyperionics.fbreader.plugin.tts_plus.SpeakService$2 -> com.hyperionics.fbreader.plugin.tts_plus.v:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService$4 -> com.hyperionics.fbreader.plugin.tts_plus.ae:
     void run() -> run
-com.hyperionics.fbreader.plugin.tts_plus.SpeakService$3 -> com.hyperionics.fbreader.plugin.tts_plus.w:
-    com.hyperionics.fbreader.plugin.tts_plus.SpeakService this$0 -> a
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService$5 -> com.hyperionics.fbreader.plugin.tts_plus.af:
+    void run() -> run
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService$6 -> com.hyperionics.fbreader.plugin.tts_plus.ag:
     void onEvent(java.lang.String) -> a
-com.hyperionics.fbreader.plugin.tts_plus.SpeakService$4 -> com.hyperionics.fbreader.plugin.tts_plus.x:
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService$7 -> com.hyperionics.fbreader.plugin.tts_plus.ah:
+    com.hyperionics.fbreader.plugin.tts_plus.SpeakService this$0 -> a
+    void run() -> run
+com.hyperionics.fbreader.plugin.tts_plus.SpeakService$8 -> com.hyperionics.fbreader.plugin.tts_plus.ai:
     void onAudioFocusChange(int) -> onAudioFocusChange
-com.hyperionics.fbreader.plugin.tts_plus.TtsSentenceExtractor -> com.hyperionics.fbreader.plugin.tts_plus.y:
-    java.lang.String[] extract(java.lang.String,java.util.Locale) -> a
-    java.lang.String replaceEngAbbreviations(java.lang.String,java.util.Locale) -> b
+com.hyperionics.fbreader.plugin.tts_plus.StartupActivity -> com.hyperionics.fbreader.plugin.tts_plus.StartupActivity:
+    void onCreate(android.os.Bundle) -> onCreate
+com.hyperionics.fbreader.plugin.tts_plus.TtsApp -> com.hyperionics.fbreader.plugin.tts_plus.TtsApp:
+    com.hyperionics.fbreader.plugin.tts_plus.TtsApp myApplication -> e
+    boolean componentsEnabled -> f
+    com.hyperionics.fbreader.plugin.tts_plus.HeadsetPlugReceiver headsetPlugReceiver -> g
+    java.lang.String versionName -> a
+    int versionCode -> b
+    android.content.pm.PackageManager myPackageManager -> c
+    java.lang.String myPackageName -> d
+    void enableComponents(boolean) -> a
+    boolean areComponentsEnabled() -> a
+    void ExitApp() -> b
+    void onCreate() -> onCreate
+    android.content.Context getContext() -> c
+com.hyperionics.fbreader.plugin.tts_plus.TtsSentenceExtractor -> com.hyperionics.fbreader.plugin.tts_plus.aj:
+    com.hyperionics.fbreader.plugin.tts_plus.TtsSentenceExtractor$SentenceIndex[] extract(java.lang.String,java.util.Locale) -> a
+    com.hyperionics.fbreader.plugin.tts_plus.TtsSentenceExtractor$SentenceIndex[] build(java.util.List,java.util.ArrayList,java.util.Locale) -> a
+    java.lang.String replaceAbbreviations(java.lang.String,java.util.Locale) -> b
+    java.lang.String paragraphReplaceAbbreviations(java.lang.String,java.util.Locale) -> c
+com.hyperionics.fbreader.plugin.tts_plus.TtsSentenceExtractor$SentenceIndex -> com.hyperionics.fbreader.plugin.tts_plus.ak:
+    java.lang.String s -> a
+    int i -> b
+org.acra.ACRA -> org.acra.a:
+    java.lang.String LOG_TAG -> a
+    android.app.Application mApplication -> d
+    org.acra.annotation.ReportsCrashes mReportsCrashes -> e
+    org.acra.ReportField[] DEFAULT_MAIL_REPORT_FIELDS -> b
+    org.acra.ReportField[] DEFAULT_REPORT_FIELDS -> c
+    android.content.SharedPreferences getACRASharedPreferences() -> a
+    org.acra.annotation.ReportsCrashes getConfig() -> b
+org.acra.Compatibility -> org.acra.b:
+    int getAPILevel() -> a
+    java.lang.String getDropBoxServiceName() -> b
+org.acra.ConfigurationInspector -> org.acra.c:
+    android.util.SparseArray mHardKeyboardHiddenValues -> a
+    android.util.SparseArray mKeyboardValues -> b
+    android.util.SparseArray mKeyboardHiddenValues -> c
+    android.util.SparseArray mNavigationValues -> d
+    android.util.SparseArray mNavigationHiddenValues -> e
+    android.util.SparseArray mOrientationValues -> f
+    android.util.SparseArray mScreenLayoutValues -> g
+    android.util.SparseArray mTouchScreenValues -> h
+    android.util.SparseArray mUiModeValues -> i
+    java.util.HashMap mValueArrays -> j
+    java.lang.String toString(android.content.res.Configuration) -> a
+    java.lang.String getFieldValueName(android.content.res.Configuration,java.lang.reflect.Field) -> a
+    java.lang.String activeFlags(android.util.SparseArray,int) -> a
+org.acra.CrashReportData -> org.acra.d:
+    org.acra.CrashReportData defaults -> a
+    java.lang.String lineSeparator -> b
+    void dumpString(java.lang.StringBuilder,java.lang.String,boolean) -> a
+    java.lang.String getProperty(org.acra.ReportField) -> a
+    void load(java.io.InputStream) -> a
+    boolean isEbcdic(java.io.BufferedInputStream) -> a
+    void load(java.io.Reader) -> a
+    void store(java.io.OutputStream,java.lang.String) -> a
+org.acra.CrashReportDialog -> org.acra.CrashReportDialog:
+    android.content.SharedPreferences prefs -> b
+    android.widget.EditText userComment -> c
+    android.widget.EditText userEmail -> d
+    java.lang.String mReportFileName -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void cancelNotification() -> a
+    android.widget.EditText access$000(org.acra.CrashReportDialog) -> a
+    android.content.SharedPreferences access$100(org.acra.CrashReportDialog) -> b
+    android.widget.EditText access$200(org.acra.CrashReportDialog) -> c
+org.acra.CrashReportDialog$1 -> org.acra.e:
+    org.acra.CrashReportDialog this$0 -> a
+    void onClick(android.view.View) -> onClick
+org.acra.CrashReportDialog$2 -> org.acra.f:
+    org.acra.CrashReportDialog this$0 -> a
+    void onClick(android.view.View) -> onClick
+org.acra.DeviceFeaturesCollector -> org.acra.g:
+    java.lang.String getFeatures(android.content.Context) -> a
+org.acra.DropBoxCollector -> org.acra.h:
+    java.lang.String[] SYSTEM_TAGS -> a
+    java.lang.String read(android.content.Context,java.lang.String[]) -> a
+org.acra.DumpSysCollector -> org.acra.i:
+    java.lang.String collectMemInfo() -> a
+org.acra.ErrorReporter -> org.acra.j:
+    boolean enabled -> c
+    java.util.ArrayList mReportSenders -> d
+    org.acra.CrashReportData mCrashProperties -> e
+    java.util.Map mCustomParameters -> a
+    java.lang.String SILENT_SUFFIX -> b
+    java.lang.Thread$UncaughtExceptionHandler mDfltExceptionHandler -> f
+    org.acra.ErrorReporter mInstanceSingleton -> g
+    android.content.Context mContext -> h
+    java.lang.String mInitialConfiguration -> i
+    org.acra.ReportingInteractionMode mReportingInteractionMode -> j
+    void approvePendingReports() -> a
+    java.lang.String createCustomInfoString() -> f
+    org.acra.ErrorReporter getInstance() -> b
+    long getAvailableInternalMemorySize() -> g
+    long getTotalInternalMemorySize() -> h
+    void retrieveCrashData(android.content.Context) -> a
+    java.lang.String toString(android.view.Display) -> a
+    void uncaughtException(java.lang.Thread,java.lang.Throwable) -> uncaughtException
+    org.acra.ErrorReporter$ReportsSenderWorker handleException(java.lang.Throwable,org.acra.ReportingInteractionMode) -> a
+    org.acra.ErrorReporter$ReportsSenderWorker handleException(java.lang.Throwable) -> a
+    void notifySendReport(java.lang.String) -> a
+    void sendCrashReport(android.content.Context,org.acra.CrashReportData) -> a
+    java.lang.String saveCrashReportFile(java.lang.String,org.acra.CrashReportData) -> a
+    java.lang.String[] getCrashReportFilesList() -> c
+    void checkAndSendReports(android.content.Context,boolean) -> a
+    org.acra.CrashReportData loadCrashReport(android.content.Context,java.lang.String) -> a
+    void deleteFile(android.content.Context,java.lang.String) -> b
+    void deletePendingReports() -> d
+    void deletePendingReports(boolean,boolean,int) -> a
+    boolean isSilent(java.lang.String) -> b
+    boolean isApproved(java.lang.String) -> c
+    void addUserDataToReport(android.content.Context,java.lang.String,java.lang.String,java.lang.String) -> b
+    android.content.Context access$000() -> e
+    void access$100(android.content.Context,java.lang.String,java.lang.String,java.lang.String) -> a
+org.acra.ErrorReporter$1 -> org.acra.k:
+    org.acra.ErrorReporter this$0 -> a
+    void run() -> run
+org.acra.ErrorReporter$2 -> org.acra.l:
+    org.acra.ErrorReporter this$0 -> a
+    boolean accept(java.io.File,java.lang.String) -> accept
+org.acra.ErrorReporter$ReportsSenderWorker -> org.acra.m:
+    java.lang.String mCommentedReportFileName -> b
+    java.lang.String mUserComment -> c
+    java.lang.String mUserEmail -> d
+    boolean mSendOnlySilentReports -> e
+    boolean mApprovePendingReports -> f
+    org.acra.ErrorReporter this$0 -> a
+    void run() -> run
+    android.os.PowerManager$WakeLock acquireWakeLock() -> b
+    void setUserComment(java.lang.String,java.lang.String) -> a
+    void setUserEmail(java.lang.String,java.lang.String) -> b
+    void setApprovePendingReports() -> a
+org.acra.LogCatCollector -> org.acra.n:
+    java.lang.String collectLogCat(java.lang.String) -> a
+org.acra.ReflectionCollector -> org.acra.o:
+    java.lang.String collectConstants(java.lang.Class) -> a
+    java.lang.String collectStaticGettersResults(java.lang.Class) -> b
+org.acra.ReportField -> org.acra.p:
+    org.acra.ReportField REPORT_ID -> a
+    org.acra.ReportField APP_VERSION_CODE -> b
+    org.acra.ReportField APP_VERSION_NAME -> c
+    org.acra.ReportField PACKAGE_NAME -> d
+    org.acra.ReportField FILE_PATH -> e
+    org.acra.ReportField PHONE_MODEL -> f
+    org.acra.ReportField ANDROID_VERSION -> g
+    org.acra.ReportField BUILD -> h
+    org.acra.ReportField BRAND -> i
+    org.acra.ReportField PRODUCT -> j
+    org.acra.ReportField TOTAL_MEM_SIZE -> k
+    org.acra.ReportField AVAILABLE_MEM_SIZE -> l
+    org.acra.ReportField CUSTOM_DATA -> m
+    org.acra.ReportField STACK_TRACE -> n
+    org.acra.ReportField INITIAL_CONFIGURATION -> o
+    org.acra.ReportField CRASH_CONFIGURATION -> p
+    org.acra.ReportField DISPLAY -> q
+    org.acra.ReportField USER_COMMENT -> r
+    org.acra.ReportField USER_APP_START_DATE -> s
+    org.acra.ReportField USER_CRASH_DATE -> t
+    org.acra.ReportField DUMPSYS_MEMINFO -> u
+    org.acra.ReportField DROPBOX -> v
+    org.acra.ReportField LOGCAT -> w
+    org.acra.ReportField EVENTSLOG -> x
+    org.acra.ReportField RADIOLOG -> y
+    org.acra.ReportField IS_SILENT -> z
+    org.acra.ReportField DEVICE_ID -> A
+    org.acra.ReportField INSTALLATION_ID -> B
+    org.acra.ReportField USER_EMAIL -> C
+    org.acra.ReportField DEVICE_FEATURES -> D
+    org.acra.ReportField ENVIRONMENT -> E
+    org.acra.ReportField SETTINGS_SYSTEM -> F
+    org.acra.ReportField SETTINGS_SECURE -> G
+    org.acra.ReportField SHARED_PREFERENCES -> H
+    org.acra.ReportField[] $VALUES -> I
+    org.acra.ReportField[] values() -> values
+    org.acra.ReportField valueOf(java.lang.String) -> valueOf
+org.acra.ReportingInteractionMode -> org.acra.q:
+    org.acra.ReportingInteractionMode SILENT -> a
+    org.acra.ReportingInteractionMode NOTIFICATION -> b
+    org.acra.ReportingInteractionMode TOAST -> c
+    org.acra.ReportingInteractionMode[] $VALUES -> d
+    org.acra.ReportingInteractionMode[] values() -> values
+    org.acra.ReportingInteractionMode valueOf(java.lang.String) -> valueOf
+org.acra.SettingsCollector -> org.acra.r:
+    java.lang.String collectSystemSettings(android.content.Context) -> a
+    java.lang.String collectSecureSettings(android.content.Context) -> b
+    boolean isAuthorized(java.lang.reflect.Field) -> a
+org.acra.SharedPreferencesCollector -> org.acra.s:
+    java.lang.String collect(android.content.Context) -> a
+org.acra.annotation.ReportsCrashes -> org.acra.a.a:
+    int resDialogCommentPrompt() -> a
+    int resDialogEmailPrompt() -> b
+    int resDialogIcon() -> c
+    int resDialogOkToast() -> d
+    int resDialogText() -> e
+    int resDialogTitle() -> f
+    int resToastText() -> g
+    java.lang.String sharedPreferencesName() -> h
+    int sharedPreferencesMode() -> i
+    boolean includeDropBoxSystemTags() -> j
+    java.lang.String[] additionalDropBoxTags() -> k
+    int dropboxCollectionMinutes() -> l
+    java.lang.String[] logcatArguments() -> m
+    org.acra.ReportField[] customReportContent() -> n
+    java.lang.String mailTo() -> o
+    boolean forceCloseDialogAfterToast() -> p
+    java.lang.String[] additionalSharedPreferences() -> q
+org.acra.sender.ReportSender -> org.acra.b.a:
+    void send(org.acra.CrashReportData) -> a
+org.acra.sender.ReportSenderException -> org.acra.b.b:
+org.acra.util.BoundedLinkedList -> org.acra.c.a:
+    int maxSize -> a
+    boolean add(java.lang.Object) -> add
+    void add(int,java.lang.Object) -> add
+    boolean addAll(java.util.Collection) -> addAll
+    boolean addAll(int,java.util.Collection) -> addAll
+    void addFirst(java.lang.Object) -> addFirst
+    void addLast(java.lang.Object) -> addLast
+    java.lang.String toString() -> toString
+org.acra.util.Installation -> org.acra.c.b:
+    java.lang.String sID -> a
+    java.lang.String id(android.content.Context) -> a
+    java.lang.String readInstallationFile(java.io.File) -> a
+    void writeInstallationFile(java.io.File) -> b
 org.geometerplus.android.fbreader.api.ApiClientImplementation -> org.geometerplus.android.fbreader.api.a:
     android.content.Context myContext -> a
     org.geometerplus.android.fbreader.api.ApiClientImplementation$ConnectionListener myListener -> b
@@ -175,31 +455,39 @@ org.geometerplus.android.fbreader.api.ApiClientImplementation -> org.geometerplu
     org.geometerplus.android.fbreader.api.ApiObject[] EMPTY_PARAMETERS -> f
     void connect() -> a
     void disconnect() -> b
+    boolean isConnected() -> c
     void addListener(org.geometerplus.android.fbreader.api.ApiListener) -> a
     void onServiceConnected(android.content.ComponentName,android.os.IBinder) -> onServiceConnected
     void onServiceDisconnected(android.content.ComponentName) -> onServiceDisconnected
-    void checkConnection() -> h
+    void checkConnection() -> k
     org.geometerplus.android.fbreader.api.ApiObject request(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> a
-    java.lang.String requestString(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> b
-    int requestInt(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> c
-    boolean requestBoolean(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> d
+    java.util.List requestList(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> b
+    java.lang.String requestString(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> c
+    int requestInt(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> d
     org.geometerplus.android.fbreader.api.TextPosition requestTextPosition(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> e
-    org.geometerplus.android.fbreader.api.ApiObject[] envelope(int) -> b
-    java.lang.String getBookLanguage() -> c
-    org.geometerplus.android.fbreader.api.TextPosition getPageStart() -> d
-    boolean isPageEndOfText() -> e
-    int getParagraphsNumber() -> f
+    java.util.List requestStringList(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> f
+    java.util.ArrayList requestIntegerList(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> g
+    org.geometerplus.android.fbreader.api.ApiObject[] envelope(int) -> e
+    java.lang.String getBookLanguage() -> d
+    java.lang.String getBookHash() -> e
+    org.geometerplus.android.fbreader.api.TextPosition getPageStart() -> f
+    org.geometerplus.android.fbreader.api.TextPosition getPageEnd() -> g
+    int getParagraphsNumber() -> h
     java.lang.String getParagraphText(int) -> a
+    java.util.List getParagraphWords(int) -> b
+    java.util.ArrayList getParagraphIndices(int) -> c
     void setPageStart(org.geometerplus.android.fbreader.api.TextPosition) -> a
     void highlightArea(org.geometerplus.android.fbreader.api.TextPosition,org.geometerplus.android.fbreader.api.TextPosition) -> a
-    void clearHighlighting() -> g
+    void clearHighlighting() -> i
+    int getBottomMargin() -> j
+    void setBottomMargin(int) -> d
     org.geometerplus.android.fbreader.api.ApiInterface access$000(org.geometerplus.android.fbreader.api.ApiClientImplementation) -> a
     java.util.List access$100(org.geometerplus.android.fbreader.api.ApiClientImplementation) -> b
 org.geometerplus.android.fbreader.api.ApiClientImplementation$1 -> org.geometerplus.android.fbreader.api.b:
     org.geometerplus.android.fbreader.api.ApiClientImplementation this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
 org.geometerplus.android.fbreader.api.ApiClientImplementation$ConnectionListener -> org.geometerplus.android.fbreader.api.c:
-    void onConnected() -> k
+    void onConnected() -> q
 org.geometerplus.android.fbreader.api.ApiException -> org.geometerplus.android.fbreader.api.d:
 org.geometerplus.android.fbreader.api.ApiInterface -> org.geometerplus.android.fbreader.api.e:
     org.geometerplus.android.fbreader.api.ApiObject request(int,org.geometerplus.android.fbreader.api.ApiObject[]) -> a
@@ -282,6 +570,7 @@ org.geometerplus.android.fbreader.api.TextPosition -> org.geometerplus.android.f
     int CharIndex -> c
     android.os.Parcelable$Creator CREATOR -> CREATOR
     int type() -> a
+    int compareTo(org.geometerplus.android.fbreader.api.TextPosition) -> a
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
 org.geometerplus.android.fbreader.api.TextPosition$1 -> org.geometerplus.android.fbreader.api.k:
     org.geometerplus.android.fbreader.api.TextPosition createFromParcel(android.os.Parcel) -> a

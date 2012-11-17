@@ -4,8 +4,7 @@
         android:id="@+id/info"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center"
-        >
+        android:gravity="center">
         <TextView android:id="@+id/vtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -22,16 +21,27 @@
                 />
         <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:text="@string/url"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:autoLink="web"
+                android:gravity="center_horizontal|top"
+                />
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:text="@string/tryAllso"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:gravity="center"
                 />
-        <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" >
-        </TableRow>
-
+    <TextView
+            android:id="@+id/atVoiceLnk"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="@string/atVoice"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#4040ff"
+            android:clickable="true"
+            android:autoText="false"
+            android:gravity="center_horizontal|top"/>
 </TableLayout>

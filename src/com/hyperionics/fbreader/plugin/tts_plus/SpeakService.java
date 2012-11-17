@@ -555,12 +555,12 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 for (; myParagraphIndex < myParagraphsNumber; ++myParagraphIndex) {
                     // final String s = myApi.getParagraphText(myParagraphIndex);
                     wl = myApi.getParagraphWords(myParagraphIndex);
-                    if (wl.size() > 0) {
+                    if (wl != null && wl.size() > 0) {
                         il = myApi.getParagraphIndices(myParagraphIndex);
                         break;
                     }
                 }
-                if (myParagraphIndex >= myParagraphsNumber) {
+                if (wl == null || myParagraphIndex >= myParagraphsNumber) {
                     if (SpeakActivity.getCurrent() != null) {
                         SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
                             public void run() {
@@ -569,9 +569,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                             }
                         });
                     }
+                } else {
+                    mySentences = TtsSentenceExtractor.build(wl, il, myTTS.getLanguage());
                 }
-
-                mySentences = TtsSentenceExtractor.build(wl, il, myTTS.getLanguage());
             } catch (ApiException e) {
                 stopTalking();
                 SpeakActivity.showErrorMessage(R.string.api_error_2);
@@ -656,7 +656,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             myPreferences = currentService.getSharedPreferences("FBReaderTTS", MODE_PRIVATE);
         selectedLanguage = BOOK_LANG; // myPreferences.getString("lang", BOOK_LANG);
         myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
-        myParaPause = myPreferences.getInt("paraPause", 0);
+        myParaPause = myPreferences.getInt("paraPause", myParaPause);
         if (myCallbackMap == null) {
             myCallbackMap = new HashMap<String, String>();
             myCallbackMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
