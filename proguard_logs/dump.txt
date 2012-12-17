@@ -3907,7 +3907,7 @@ Methods (count = 27):
     Access flags: 0x0
       = void e()
     Class member attributes (count = 1):
-    + Code attribute instructions (code length = 116, locals = 5, stack = 4):
+    + Code attribute instructions (code length = 118, locals = 5, stack = 4):
       [0] getstatic #121
         + Fieldref [com/hyperionics/fbreader/plugin/tts_plus/SpeakService.q I]
       [3] getstatic #122
@@ -3970,36 +3970,37 @@ Methods (count = 27):
       [83] iconst_1
       [84] invokevirtual #201
         + Methodref [com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.startActivityForResult (Landroid/content/Intent;I)V]
-      [87] goto +15 (target=102)
+      [87] goto +17 (target=104)
       [90] new #63
         + Class [android/speech/tts/TextToSpeech]
       [93] dup
-      [94] aload_0 v0
-      [95] aload_0 v0
-      [96] invokespecial #155
+      [94] invokestatic #202
+        + Methodref [com/hyperionics/fbreader/plugin/tts_plus/SpeakService.a ()Lcom/hyperionics/fbreader/plugin/tts_plus/SpeakService;]
+      [97] aload_0 v0
+      [98] invokespecial #155
         + Methodref [android/speech/tts/TextToSpeech.<init> (Landroid/content/Context;Landroid/speech/tts/TextToSpeech$OnInitListener;)V]
-      [99] putstatic #112
+      [101] putstatic #112
         + Fieldref [com/hyperionics/fbreader/plugin/tts_plus/SpeakService.b Landroid/speech/tts/TextToSpeech;]
-      [102] goto +13 (target=115)
-      [105] astore_1 v1
-      [106] getstatic #104
+      [104] goto +13 (target=117)
+      [107] astore_1 v1
+      [108] getstatic #104
         + Fieldref [com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.c Lcom/hyperionics/fbreader/plugin/tts_plus/SpeakActivity;]
-      [109] pop
-      [110] ldc #3
+      [111] pop
+      [112] ldc #3
         + Integer [2131099656]
-      [112] invokestatic #176
+      [114] invokestatic #176
         + Methodref [com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.a (I)V]
-      [115] return
+      [117] return
       Code attribute exceptions (count = 1):
-      - ExceptionInfo (0 -> 102: 105):
+      - ExceptionInfo (0 -> 104: 107):
       + Class [android/content/ActivityNotFoundException]
       Code attribute attributes (attribute count = 1):
       + Stack map table attribute (count = 5):
         - [79] Var: [a:com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity][a:android/os/PowerManager][a:android/app/KeyguardManager][a:android/content/Intent][a:java/lang/String], Stack: 
         - [90] Var: -2, Stack: (empty)
-        - [102] Var: -2, Stack: (empty)
-        - [105] Var: ..., Stack: [a:android/content/ActivityNotFoundException]
-        - [115] Var: ..., Stack: (empty)
+        - [104] Var: -2, Stack: (empty)
+        - [107] Var: ..., Stack: [a:android/content/ActivityNotFoundException]
+        - [117] Var: ..., Stack: (empty)
   + Method:       onActivityResult(IILandroid/content/Intent;)V
     Access flags: 0x4
       = protected void onActivityResult(int,int,android.content.Intent)

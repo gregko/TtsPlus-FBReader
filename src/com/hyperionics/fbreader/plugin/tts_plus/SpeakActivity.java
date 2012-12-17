@@ -157,17 +157,20 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             public void onClick(View v) {
                 View vs = findViewById(R.id.sliders);
                 View v2 = findViewById(R.id.bigButtons);
+                View v3 = findViewById(R.id.promo);
                 ImageButton vb = (ImageButton) findViewById(R.id.button_setup);
                 SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
                 if (vs.isShown()) {
                     vb.setImageDrawable(getResources().getDrawable(R.drawable.setup_show));
                     vs.setVisibility(View.GONE);
                     v2.setVisibility(View.GONE);
+                    v3.setVisibility(View.GONE);
                     myEditor.putBoolean("HIDE_PREFS", true);
                 } else {
                     vb.setImageDrawable(getResources().getDrawable(R.drawable.setup_hide));
                     vs.setVisibility(View.VISIBLE);
                     v2.setVisibility(View.VISIBLE);
+                    v3.setVisibility(View.VISIBLE);
                     myEditor.putBoolean("HIDE_PREFS", false);
                 }
                 myEditor.commit();
@@ -181,6 +184,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 		setListener(R.id.button_play, new View.OnClickListener() {
             public void onClick(View v) {
                 SpeakService.startTalking();
+            }
+        });
+        setListener(R.id.promo, new View.OnClickListener() {
+            public void onClick(View v) {
+                SpeakService.stopTalking();
+                Uri uriUrl = Uri.parse("https://play.google.com/store/apps/details?id=com.hyperionics.atVoice");
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                startActivity(launchBrowser);
             }
         });
 
@@ -272,6 +283,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             vb.setImageDrawable(getResources().getDrawable(R.drawable.setup_show));
             findViewById(R.id.sliders).setVisibility(View.GONE);
             findViewById(R.id.bigButtons).setVisibility(View.GONE);
+            findViewById(R.id.promo).setVisibility(View.GONE);
         }
         doStartTts();
         isActivated = true;
@@ -390,7 +402,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 }
                 currentSpeakActivity.startActivityForResult(in, 1); // goes to onActivityResult() below
             } else {
-                SpeakService.myTTS = new TextToSpeech(this, this);
+                SpeakService.myTTS = new TextToSpeech(SpeakService.getCurrentService(), this);
             }
         } catch (ActivityNotFoundException e) {
             currentSpeakActivity.showErrorMessage(R.string.no_tts_installed);
@@ -592,10 +604,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         for (int i = 0; i < myVoices.size(); i++ ) {
             String s = myVoices.get(i);
             int n = s.indexOf("-");
-            String lang, country = "";
+            String lang;
             if (n > 0) {
                 lang = s.substring(0, n);
-                country = s.substring(n+1);
             }
             else {
                 lang = s;
@@ -607,7 +618,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             } else if (currentSystemLang.equals(lang)) {
                 checkedItem = i;
             }
-            items[i+bookLangKnown] = (new Locale(lang, country)).getDisplayName();
+            items[i+bookLangKnown] = TtsSentenceExtractor.localeFromString(s).getDisplayName(); // (new Locale(lang, country)).getDisplayName();
         }
         items[myVoices.size()+bookLangKnown] = getString(R.string.add_language);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -7,6 +7,34 @@
     android:id="@+id/RootView"
 >
     <TableLayout
+            android:id="@+id/promo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            >
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="4dp"
+                android:background="#dfdfdf"
+                >
+            <ImageView
+                    android:src="@drawable/at_voice"
+                    android:padding="6dp"
+                />
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/atVoice_free"
+                    android:textColor="#0000ff"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:gravity="left"
+                    android:padding="6dp"
+                />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
             android:id="@+id/bigButtons"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -14,7 +42,8 @@
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" >
+                android:gravity="center_vertical"
+                >
 
         <Button android:id="@+id/button_lang"
                 android:text="@string/set_language"
@@ -47,7 +76,6 @@
                     android:layout_weight="1"
                     />
         </TableRow>
-
     </TableLayout>
 
     <TableLayout
@@ -55,7 +83,8 @@
             android:visibility="visible"
             android:paddingBottom="5dp"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp">
 
         <TableRow
                 android:layout_width="fill_parent"
@@ -79,7 +108,7 @@
 
             <SeekBar
                     android:id="@+id/speed_control"
-                    android:paddingRight="5dp"
+                    android:paddingRight="1dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -101,7 +130,7 @@
 
             <SeekBar
                     android:id="@+id/pitch_control"
-                    android:paddingRight="5dp"
+                    android:paddingRight="1dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -123,7 +152,7 @@
 
             <SeekBar
                     android:id="@+id/volume_control"
-                    android:paddingRight="5dp"
+                    android:paddingRight="1dp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

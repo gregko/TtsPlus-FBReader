@@ -35,6 +35,28 @@ public class TtsSentenceExtractor {
         }
     }
 
+    static Locale localeFromString(String languageCode) {
+        int n = languageCode.indexOf("-");
+        if (n > 0) {
+            String lang, country;
+            lang = languageCode.substring(0, n);
+            country = languageCode.substring(n+1);
+            n = country.indexOf("-");
+            String variant = null;
+            if (n > 0) {
+                variant = country.substring(n+1);
+                country = country.substring(0, n);
+            }
+            if (variant != null)
+                return new Locale(lang, country, variant);
+            else
+                return new Locale(lang, country);
+        }
+        else {
+            return new Locale(languageCode);
+        }
+    }
+
     public static SentenceIndex[] extract(String paragraph, Locale loc) {
         if (paragraph.length() > 0) {
             paragraph = paragraph.replace(". . .", "...");

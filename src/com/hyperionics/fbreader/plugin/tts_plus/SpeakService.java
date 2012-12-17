@@ -212,16 +212,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             if (languageCode == null || languageCode.equals(""))
                 languageCode = Locale.getDefault().getLanguage();
         }
-        int n = languageCode.indexOf("-");
-        if (n > 0) {
-            String lang, country;
-            lang = languageCode.substring(0, n);
-            country = languageCode.substring(n+1);
-            locale = new Locale(lang, country);
-        }
-        else {
-            locale = new Locale(languageCode);
-        }
+
+        locale = TtsSentenceExtractor.localeFromString(languageCode);
+
         if (myTTS.isLanguageAvailable(locale) < 0) {
             String err = currentService.getText(R.string.no_data_for_language).toString()
                     .replace("%0", locale.getDisplayLanguage());

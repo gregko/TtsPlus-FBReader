@@ -40,7 +40,7 @@
             android:layout_height="60dp"
             android:text="@string/atVoice"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#4040ff"
+            android:textColor="#8080ff"
             android:clickable="true"
             android:autoText="false"
             android:gravity="center_horizontal|top"/>
