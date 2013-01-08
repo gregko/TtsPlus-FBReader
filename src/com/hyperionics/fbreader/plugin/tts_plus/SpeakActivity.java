@@ -148,7 +148,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 TextView lnk = (TextView) alert.findViewById(R.id.atVoiceLnk);
                 String s = lnk.getText().toString();
                 lnk.setText(
-                    Html.fromHtml("<a href=\"https://play.google.com/store/apps/details?id=com.hyperionics.atVoice\">" + s + "</a>")
+                    Html.fromHtml("<a href=\"http://hyperionics.com/atVoice/index.asp\">" + s + "</a>")
                 );
                 lnk.setMovementMethod(LinkMovementMethod.getInstance());
             }
@@ -189,7 +189,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         setListener(R.id.promo, new View.OnClickListener() {
             public void onClick(View v) {
                 SpeakService.stopTalking();
-                Uri uriUrl = Uri.parse("https://play.google.com/store/apps/details?id=com.hyperionics.atVoice");
+                Uri uriUrl = Uri.parse("http://hyperionics.com/atVoice/index.asp");
                 Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
                 startActivity(launchBrowser);
             }
@@ -446,8 +446,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         super.onResume();
         currentSpeakActivity = this;
         currentlyVisible = true;
-        //adjustBottomMargin();
-        SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
+        if (SpeakService.mAudioManager != null)
+            SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
 	}
 
 	@Override protected void onPause() { // pre-HONEYCOMB be prepared to die after this exits

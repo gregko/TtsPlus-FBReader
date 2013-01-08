@@ -9,6 +9,7 @@ import java.util.*;
 import android.content.*;
 import android.os.IBinder;
 import android.util.Log;
+import com.hyperionics.fbreader.plugin.tts_plus.Lt;
 
 public class ApiClientImplementation implements ServiceConnection, Api, ApiMethods {
 	public static interface ConnectionListener {
@@ -49,8 +50,12 @@ public class ApiClientImplementation implements ServiceConnection, Api, ApiMetho
 
 	public synchronized void connect() {
 		if (myInterface == null) {
-			myContext.bindService(new Intent(ACTION_API), this, Context.BIND_AUTO_CREATE);
-			myContext.registerReceiver(myEventReceiver, new IntentFilter(ACTION_API_CALLBACK));
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName("org.geometerplus.zlibrary.ui.android", "org.geometerplus.android.fbreader.api.ApiService"));
+			boolean bRet = myContext.bindService(intent, this, Context.BIND_AUTO_CREATE);
+            if (bRet) {
+                myContext.registerReceiver(myEventReceiver, new IntentFilter(ACTION_API_CALLBACK));
+            }
 		}
 	}
 

@@ -214,8 +214,21 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
 
         locale = TtsSentenceExtractor.localeFromString(languageCode);
+        if (myTTS == null)
+            return false;
+        boolean isAvailable = false;
+        try {
+            isAvailable = myTTS.isLanguageAvailable(locale) >= 0;
+        } catch (IllegalArgumentException e) {}
+        while (!isAvailable && languageCode.contains("-")) {
+            languageCode = languageCode.substring(0, languageCode.lastIndexOf("-"));
+            locale = TtsSentenceExtractor.localeFromString(languageCode);
+            try {
+                isAvailable = myTTS.isLanguageAvailable(locale) >= 0;
+            } catch (IllegalArgumentException e) {}
+        }
 
-        if (myTTS.isLanguageAvailable(locale) < 0) {
+        if (!isAvailable) {
             String err = currentService.getText(R.string.no_data_for_language).toString()
                     .replace("%0", locale.getDisplayLanguage());
             AlertDialog.Builder builder = new AlertDialog.Builder(SpeakActivity.getCurrent());
@@ -380,8 +393,14 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     private static int speakString(String text) {
-        int ret = myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, myCallbackMap);
-        isServiceTalking = ret == TextToSpeech.SUCCESS;
+        text = text.trim();
+        int ret = TextToSpeech.SUCCESS;
+        if (text.length() > 0) {
+            ret = myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, myCallbackMap);
+            isServiceTalking = ret == TextToSpeech.SUCCESS;
+        } else {
+            currentService.onUtteranceCompleted(UTTERANCE_ID);
+        }
         return ret;
     }
 
