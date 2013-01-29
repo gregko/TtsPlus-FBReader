@@ -63,6 +63,8 @@ public class TtsSentenceExtractor {
             paragraph = paragraph.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
             paragraph = paragraph.replace('\u2014', '-'); // dec 8211, 'EM DASH', Ivona PL reads as "przecinek"
             paragraph = paragraph.replace('\u00A0', ' '); // dec 160, no-break space
+            paragraph = paragraph.replace("\u200B", " ");  // dec. 8203, 'zero width space' (do not replace with empty, or we may get w empty and crash)
+            paragraph = paragraph.replace('\u2019', '\''); // RIGHT SINGLE QUOTATION MARK (U+2019), mis-pronounced by Google TTS?
             if (paragraph.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
                 paragraph = " " + paragraph.substring(1);
             paragraph = paragraphReplaceAbbreviations(paragraph, loc);
@@ -102,6 +104,8 @@ public class TtsSentenceExtractor {
                 w = w.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
                 w = w.replace('\u2014', '-'); // dec 8211, 'EM DASH', Ivona PL reads as "przecinek"
                 w = w.replace('\u00A0', ' '); // dec 160, no-break space
+                w = w.replace("\u200B", " ");  // dec. 8203, 'zero width space' (do not replace with empty, or we may get w empty and crash)
+                w = w.replace('\u2019', '\''); // RIGHT SINGLE QUOTATION MARK (U+2019), mis-pronounced by Google TTS?
                 if (w.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
                     w = " " + w.substring(1);
                 w = replaceAbbreviations(w, loc);

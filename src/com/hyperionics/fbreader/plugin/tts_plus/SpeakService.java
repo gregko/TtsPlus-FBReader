@@ -286,9 +286,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static void stopTalking() {
         Lt.d("stopTalking()");
         SpeakActivity.setActive(false);
+        savePosition();
         if (isServiceTalking && myTTS != null) {
             isServiceTalking = false;
-            savePosition();
             try {
                 int i;
                 myTTS.stop();
@@ -393,9 +393,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     private static int speakString(String text) {
-        text = text.trim();
+        // stupid Google voice stops on empty or silent sentences...
+        int n = text.replaceAll("[.?!'\"-,:;()\\[\\]{}\\*]", "").trim().length();
         int ret = TextToSpeech.SUCCESS;
-        if (text.length() > 0) {
+        if (n > 0) {
             ret = myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, myCallbackMap);
             isServiceTalking = ret == TextToSpeech.SUCCESS;
         } else {
@@ -428,9 +429,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             int endEI = myCurrentSentence < mySentences.length-1 ?
                             mySentences[myCurrentSentence+1].i-1: Integer.MAX_VALUE;
             TextPosition stPos;
-            if (myCurrentSentence == 0)
+            if (myCurrentSentence <= 0) {
+                myCurrentSentence = 0;
                 stPos = new TextPosition(myParagraphIndex, 0, 0);
-            else
+            } else
                 stPos = new TextPosition(myParagraphIndex, mySentences[myCurrentSentence].i, 0);
             TextPosition edPos = new TextPosition(myParagraphIndex, endEI, 0);
             if (stPos.compareTo(myApi.getPageStart()) < 0 || edPos.compareTo(myApi.getPageEnd()) > 0)

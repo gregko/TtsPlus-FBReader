@@ -515,11 +515,13 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         findViewById(R.id.button_setup).setEnabled(enabled);
 	}
 
-    static void SetVolumeProgress() {
+    static void setVolumeProgress() {
         if (currentSpeakActivity != null && currentlyVisible) {
             final SeekBar volumeControl = (SeekBar)currentSpeakActivity.findViewById(R.id.volume_control);
-            int vol = SpeakService.mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            volumeControl.setProgress(vol);
+            if (volumeControl != null) {
+                int vol = SpeakService.mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                volumeControl.setProgress(vol);
+            }
         }
     }
 
