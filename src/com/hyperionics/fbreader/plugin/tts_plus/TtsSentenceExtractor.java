@@ -1,5 +1,8 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
+import android.speech.tts.TextToSpeech;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -57,6 +60,7 @@ public class TtsSentenceExtractor {
         }
     }
 
+    // extract() is used only with old versions of FBReader. Do not maintain this function any longer.
     public static SentenceIndex[] extract(String paragraph, Locale loc) {
         if (paragraph.length() > 0) {
             paragraph = paragraph.replace(". . .", "...");
@@ -87,7 +91,24 @@ public class TtsSentenceExtractor {
         return si;
     }
 
-    public static SentenceIndex[] build(List<String> wl, ArrayList<Integer> il, Locale loc) {
+    public static SentenceIndex[] build(List<String> wl, ArrayList<Integer> il, TextToSpeech currentTTS) {
+        Locale loc = currentTTS.getLanguage();
+        boolean breakSentences;
+        try {
+            // Stupid: getCurrentEngine() of TTS is hidden. Try to get current engine if we can -
+            // at some point we may not be using the default TTS engine...
+            java.lang.reflect.Method method;
+            method = currentTTS.getClass().getMethod("getCurrentEngine");
+            String currEngine = (String) method.invoke(currentTTS);
+            breakSentences = currEngine.equals("nuance.tts");
+        } catch (Exception e) {
+            breakSentences = currentTTS.getDefaultEngine().equals("nuance.tts");
+        }
+//        catch (SecurityException e) {}
+//        catch (NoSuchMethodException e) {}
+//        catch (IllegalAccessException e) {}
+//        catch (InvocationTargetException e) {}
+
         ArrayList<String> ss = new ArrayList<String>();
         ArrayList<Integer> inds = new ArrayList<Integer>();
         String currSent = "";
@@ -117,6 +138,13 @@ public class TtsSentenceExtractor {
                 lastCh = w.charAt(w.length() - 2);
                 endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
                         lastCh == '!' || lastCh == '?';
+            }
+            // Split long sentences, Nuance TTS does not speak beyond 592 characters length...
+            // at the next comma, hyphen, ( or ), ellipses..., colon :, semicolon ;
+            if (breakSentences && !endSentence && currSent.length() > 500) {
+                endSentence = lastCh == ',' || lastCh == '-' || lastCh == '(' || lastCh == ')' ||
+                        lastCh == ':' || lastCh == ';' || currSent.length() > 580;
+
             }
             if (!currSent.equals("") && (w.length() > 1 || !endSentence) && currSent.charAt(currSent.length()-1) != '.')
                 currSent += " ";

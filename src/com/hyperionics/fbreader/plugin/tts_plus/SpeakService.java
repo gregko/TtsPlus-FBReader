@@ -17,6 +17,7 @@ import org.geometerplus.android.fbreader.api.TextPosition;
 //import org.acra.ErrorReporter;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
@@ -392,11 +393,18 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             startTalking();
     }
 
+    private static Pattern punctPat = Pattern.compile("[.?!'\"-,:;()\\[\\]{}\\*]");
     private static int speakString(String text) {
-        // stupid Google voice stops on empty or silent sentences...
-        int n = text.replaceAll("[.?!'\"-,:;()\\[\\]{}\\*]", "").trim().length();
         int ret = TextToSpeech.SUCCESS;
-        if (n > 0) {
+        // Loquendo - Nuance TTS stops on long sentences. Tested on Russian edition of Frazen's "The Corrections"
+        // "Поправки" - "Звонок звенил уже так давно, что Ламберты ..." - still speaks at 591 characters length,
+        // but stops speaking at 592. Idea - break sentences at about 512 length at the next comma, hyphen, ( or ),
+        // ellipses..., colon :, semicolon ;
+
+        // stupid Google voice stops on empty or silent sentences...
+        // int n = text.replaceAll("[.?!'\"-,:;()\\[\\]{}\\*]", "").trim().length();
+        // faster with pre-compiled pattern
+        if (punctPat.matcher(text).replaceAll("").trim().length() > 0) {
             ret = myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, myCallbackMap);
             isServiceTalking = ret == TextToSpeech.SUCCESS;
         } else {
@@ -584,7 +592,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         });
                     }
                 } else {
-                    mySentences = TtsSentenceExtractor.build(wl, il, myTTS.getLanguage());
+                    mySentences = TtsSentenceExtractor.build(wl, il, myTTS);
                 }
             } catch (ApiException e) {
                 stopTalking();
