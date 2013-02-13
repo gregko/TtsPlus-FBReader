@@ -58,10 +58,12 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static int haveNewApi = 1;
     static private boolean isServiceTalking = false;
     static boolean readingStarted = false;
+    static boolean wordPauses = false;
 
     static private final String UTTERANCE_ID = "FBReaderTTS+Plugin";
     static TtsSentenceExtractor.SentenceIndex mySentences[] = new TtsSentenceExtractor.SentenceIndex[0];
     static private int myCurrentSentence = 0;
+    static String myBookHash = null;
 
     static boolean myIsActive = false;
     static boolean myWasActive = false;
@@ -77,13 +79,14 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static void savePosition() {
         try {
             if (myCurrentSentence < mySentences.length) {
-                String bookHash = "BP:" + myApi.getBookHash();
+                if (myBookHash == null)
+                    myBookHash = "BP:" + myApi.getBookHash();
                 SharedPreferences.Editor myEditor = myPreferences.edit();
                 Time time = new Time();
                 time.setToNow();
                 String lang = "";
                 lang = " l:" + selectedLanguage;
-                myEditor.putString(bookHash, lang +
+                myEditor.putString(myBookHash, lang +
                         "p:" + myParagraphIndex + " s:" + myCurrentSentence + " e:" + mySentences[myCurrentSentence].i +
                         " d:" + time.format2445()
                 );
@@ -97,8 +100,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static void restorePosition() {
         try {
-            String bookHash = "BP:" + myApi.getBookHash();
-            String s = myPreferences.getString(bookHash, "");
+            if (myBookHash == null)
+                myBookHash = "BP:" + myApi.getBookHash();
+            String s = myPreferences.getString(myBookHash, "");
             int il = s.indexOf("l:");
             int para = s.indexOf("p:");
             int sent = s.indexOf("s:");
@@ -171,7 +175,14 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             // Highlight the sentence here...
             if (haveNewApi > 0)
                 highlightSentence();
-            speakString(mySentences[myCurrentSentence].s);
+            if (wordPauses && SpeakActivity.getCurrent() != null) {
+                SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
+                    public void run() {
+                        stopTalking();
+                    }
+                });
+            } else
+                speakString(mySentences[myCurrentSentence].s);
 
         } else {
             SpeakActivity.setActive(false);
@@ -266,6 +277,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static void startTalking() {
         SpeakActivity.setActive(true);
         setLanguage(SpeakService.selectedLanguage);
+        wordPauses = myPreferences.getBoolean("WORD_OPTS", false) &&
+                     myPreferences.getBoolean("SINGLE_WORDS", false) &&
+                     myPreferences.getBoolean("PAUSE_WORDS", false);
         if (myCurrentSentence >= mySentences.length) {
             processCurrentParagraph();
         }
@@ -537,6 +551,20 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
     }
 
+    static void switchReadMode() {
+        if (myCurrentSentence < mySentences.length) {
+            int sentIdx = mySentences[myCurrentSentence].i;
+            processCurrentParagraph();
+            for (int n = 0; n < mySentences.length; n++) {
+                if (n == mySentences.length-1 || mySentences[n].i == sentIdx || mySentences[n+1].i > sentIdx) {
+                    myCurrentSentence = n;
+                    break;
+                }
+            }
+            highlightSentence();
+        }
+    }
+
     static void processCurrentParagraph() {
         if (myTTS == null) {
             return;
@@ -592,7 +620,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         });
                     }
                 } else {
-                    mySentences = TtsSentenceExtractor.build(wl, il, myTTS);
+                    boolean wordsOnly = myPreferences.getBoolean("WORD_OPTS", false) &&
+                            myPreferences.getBoolean("SINGLE_WORDS", false);
+                    mySentences = TtsSentenceExtractor.build(wl, il, myTTS, wordsOnly);
                 }
             } catch (ApiException e) {
                 stopTalking();

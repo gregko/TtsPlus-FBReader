@@ -91,7 +91,7 @@ public class TtsSentenceExtractor {
         return si;
     }
 
-    public static SentenceIndex[] build(List<String> wl, ArrayList<Integer> il, TextToSpeech currentTTS) {
+    public static SentenceIndex[] build(List<String> wl, ArrayList<Integer> il, TextToSpeech currentTTS, boolean wordsOnly) {
         Locale loc = currentTTS.getLanguage();
         boolean breakSentences;
         try {
@@ -131,20 +131,23 @@ public class TtsSentenceExtractor {
                     w = " " + w.substring(1);
                 w = replaceAbbreviations(w, loc);
             }
-            char lastCh = w.charAt(w.length() - 1);
-            boolean endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
-                          lastCh == '!' || lastCh == '?';
-            if (!endSentence && w.length () > 1 && (lastCh == '"' || lastCh == 0x201D || lastCh == ')')) {
-                lastCh = w.charAt(w.length() - 2);
+            boolean endSentence = wordsOnly;
+            if (!wordsOnly) {
+                char lastCh = w.charAt(w.length() - 1);
                 endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
-                        lastCh == '!' || lastCh == '?';
-            }
-            // Split long sentences, Nuance TTS does not speak beyond 592 characters length...
-            // at the next comma, hyphen, ( or ), ellipses..., colon :, semicolon ;
-            if (breakSentences && !endSentence && currSent.length() > 500) {
-                endSentence = lastCh == ',' || lastCh == '-' || lastCh == '(' || lastCh == ')' ||
-                        lastCh == ':' || lastCh == ';' || currSent.length() > 580;
+                              lastCh == '!' || lastCh == '?';
+                if (!endSentence && w.length () > 1 && (lastCh == '"' || lastCh == 0x201D || lastCh == ')')) {
+                    lastCh = w.charAt(w.length() - 2);
+                    endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
+                            lastCh == '!' || lastCh == '?';
+                }
+                // Split long sentences, Nuance TTS does not speak beyond 592 characters length...
+                // at the next comma, hyphen, ( or ), ellipses..., colon :, semicolon ;
+                if (breakSentences && !endSentence && currSent.length() > 500) {
+                    endSentence = lastCh == ',' || lastCh == '-' || lastCh == '(' || lastCh == ')' ||
+                            lastCh == ':' || lastCh == ';' || currSent.length() > 580;
 
+                }
             }
             if (!currSent.equals("") && (w.length() > 1 || !endSentence) && currSent.charAt(currSent.length()-1) != '.')
                 currSent += " ";

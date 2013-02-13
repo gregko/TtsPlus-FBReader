@@ -158,6 +158,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 View vs = findViewById(R.id.sliders);
                 View v2 = findViewById(R.id.bigButtons);
                 View v3 = findViewById(R.id.promo);
+                View vw = findViewById(R.id.read_words);
                 ImageButton vb = (ImageButton) findViewById(R.id.button_setup);
                 SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
                 if (vs.isShown()) {
@@ -165,12 +166,16 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     vs.setVisibility(View.GONE);
                     v2.setVisibility(View.GONE);
                     v3.setVisibility(View.GONE);
+                    vw.setVisibility(View.GONE);
+                    adjustBottomMargin();
                     myEditor.putBoolean("HIDE_PREFS", true);
                 } else {
                     vb.setImageDrawable(getResources().getDrawable(R.drawable.setup_hide));
                     vs.setVisibility(View.VISIBLE);
                     v2.setVisibility(View.VISIBLE);
-                    v3.setVisibility(View.VISIBLE);
+                    boolean words = SpeakService.myPreferences.getBoolean("WORD_OPTS", false);
+                    v3.setVisibility(words ? View.GONE : View.VISIBLE);
+                    vw.setVisibility(words ? View.VISIBLE : View.GONE);
                     myEditor.putBoolean("HIDE_PREFS", false);
                 }
                 myEditor.commit();
@@ -189,9 +194,40 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         setListener(R.id.promo, new View.OnClickListener() {
             public void onClick(View v) {
                 SpeakService.stopTalking();
-                Uri uriUrl = Uri.parse("http://hyperionics.com/atVoice/index.asp");
-                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-                startActivity(launchBrowser);
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=com.hyperionics.avar")));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id=com.hyperionics.avar")));
+                }
+//                Uri uriUrl = Uri.parse("http://hyperionics.com/atVoice/index.asp");
+//                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+//                startActivity(launchBrowser);
+            }
+        });
+
+        ((CheckBox)findViewById(R.id.single_words)).setChecked(SpeakService.myPreferences.getBoolean("SINGLE_WORDS", false));
+        setListener(R.id.single_words, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                myEditor.putBoolean("SINGLE_WORDS", ((CheckBox) view).isChecked());
+                myEditor.commit();
+                SpeakService.stopTalking();
+                SpeakService.switchReadMode();
+            }
+        });
+        ((CheckBox)findViewById(R.id.pause_words)).setChecked(SpeakService.myPreferences.getBoolean("PAUSE_WORDS", false));
+        setListener(R.id.pause_words, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                myEditor.putBoolean("PAUSE_WORDS", ((CheckBox) view).isChecked());
+                myEditor.commit();
+                SpeakService.wordPauses = SpeakService.myPreferences.getBoolean("WORD_OPTS", false) &&
+                        SpeakService.myPreferences.getBoolean("SINGLE_WORDS", false) &&
+                        SpeakService.myPreferences.getBoolean("PAUSE_WORDS", false);
             }
         });
 
@@ -285,6 +321,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             findViewById(R.id.bigButtons).setVisibility(View.GONE);
             findViewById(R.id.promo).setVisibility(View.GONE);
         }
+        findViewById(R.id.read_words).setVisibility(View.GONE);
         doStartTts();
         isActivated = true;
 	}
@@ -338,6 +375,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     static void onInitializationCompleted() {
         TtsApp.enableComponents(true);
         try {
+            SpeakService.myBookHash = "BP:" + SpeakService.myApi.getBookHash();
             SpeakService.myParagraphIndex = SpeakService.myApi.getPageStart().ParagraphIndex;
             SpeakService.myParagraphsNumber = SpeakService.myApi.getParagraphsNumber();
 
@@ -446,6 +484,17 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         super.onResume();
         currentSpeakActivity = this;
         currentlyVisible = true;
+        if (!SpeakService.myPreferences.getBoolean("HIDE_PREFS", false)) {
+            View v3 = findViewById(R.id.promo);
+            View vw = findViewById(R.id.read_words);
+            boolean words = SpeakService.myPreferences.getBoolean("WORD_OPTS", false);
+            v3.setVisibility(words ? View.GONE : View.VISIBLE);
+            vw.setVisibility(words ? View.VISIBLE : View.GONE);
+            SpeakService.wordPauses = SpeakService.myPreferences.getBoolean("WORD_OPTS", false) &&
+                    SpeakService.myPreferences.getBoolean("SINGLE_WORDS", false) &&
+                    SpeakService.myPreferences.getBoolean("PAUSE_WORDS", false);
+            SpeakService.switchReadMode();
+        }
         if (SpeakService.mAudioManager != null)
             SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
 	}

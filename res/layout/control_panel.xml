@@ -25,12 +25,12 @@
             <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/atVoice_free"
+                    android:text="@string/atv_free"
                     android:textColor="#0000ff"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:gravity="left"
                     android:padding="6dp"
-                />
+                    android:singleLine="false"/>
         </TableRow>
     </TableLayout>
 
@@ -158,8 +158,31 @@
                     android:layout_weight="1"
                     />
         </TableRow>
-
     </TableLayout>
+
+
+    <LinearLayout android:id="@+id/read_words"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" >
+
+        <CheckBox android:id="@+id/single_words"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:text="@string/single_words"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                />
+
+        <CheckBox android:id="@+id/pause_words"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dp"
+                android:text="@string/pause_words"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                />
+
+    </LinearLayout>
 
     <LinearLayout
 		android:layout_width="fill_parent"

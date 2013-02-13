@@ -70,6 +70,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/headset_start_fbr" />
 
+        <CheckBox
+                android:id="@+id/word_opts"
+                android:checked="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/word_opts" />
+
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

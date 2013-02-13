@@ -33,6 +33,9 @@
     <string name="sleep_after">Sleep after</string>
     <string name="handle_wired_key">Start/stop speech when wired headset key pressed</string>
     <string name="headset_start_fbr">Start speech from headset key when FBReader is on top</string>
+    <string name="word_opts">Show read by word options</string>
+    <string name="single_words">Read words...</string>
+    <string name="pause_words">with pauses.</string>
     <string name="tts_check_err">Error: Cannot get available languages from TTS engine</string>
     <string-array name="sleep_array">
         <item>Never</item>
@@ -63,5 +66,5 @@
     <string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
     <string name="crash_dialog_ok_toast">Thank you!</string><string name="tryAllso">Try our new free app:</string>
     <string name="atVoice"> \@Voice Aloud Reader </string>
-    <string name="atVoice_free">Our new app: \@Voice Aloud Reader\nReads aloud anything. Free!</string>
+    <string name="atv_free">Free! \@Voice Aloud Reader - reads to\nyou the web, news, emails and more.</string>
 </resources>

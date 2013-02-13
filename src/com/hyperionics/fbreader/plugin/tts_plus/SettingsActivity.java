@@ -96,6 +96,15 @@ public class SettingsActivity extends Activity {
             }
         });
 
+        ((CheckBox)findViewById(R.id.word_opts)).setChecked(SpeakService.myPreferences.getBoolean("WORD_OPTS", false));
+        setListener(R.id.word_opts, new View.OnClickListener() {
+            public void onClick(View v) {
+                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                myEditor.putBoolean("WORD_OPTS", ((CheckBox) v).isChecked());
+                myEditor.commit();
+            }
+        });
+
         final EditText paraPauseEdit = (EditText)findViewById(R.id.paraPause);
         paraPauseEdit.setText(Integer.toString(SpeakService.myParaPause));
         paraPauseEdit.addTextChangedListener(new TextWatcher() {

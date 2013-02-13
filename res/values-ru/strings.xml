@@ -33,6 +33,9 @@
     <string name="sleep_after">Остановить чтение через</string>
     <string name="handle_wired_key">Старт/стоп по кнопке проводных наушников</string>
     <string name="headset_start_fbr">Старт чтения  по кнопке наушников, когда FBReader на вершине</string>
+    <string name="word_opts">Показуй панель \"читай отдельные слова\"</string>
+    <string name="single_words">Одноместные слова</string>
+    <string name="pause_words">с паузами.</string>
     <string name="tts_check_err">Ошибка: не удалось получить списка доступных языков с генератора речи.</string>
     <string name="tryAllso">Try also our new product\n@Voice Aloud Reader</string>
     <string name="atVoice"> \@Voice Aloud Reader </string>
