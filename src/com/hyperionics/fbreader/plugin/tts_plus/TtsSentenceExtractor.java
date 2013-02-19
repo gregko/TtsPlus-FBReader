@@ -148,10 +148,13 @@ public class TtsSentenceExtractor {
                             lastCh == ':' || lastCh == ';' || currSent.length() > 580;
 
                 }
+                if (!currSent.equals("") && (w.length() > 1 || !endSentence) && currSent.charAt(currSent.length()-1) != '.')
+                    currSent += " ";
+                currSent += w;
+            } else {
+                currSent += w; // + "<break time=\"1ms\"/>";
             }
-            if (!currSent.equals("") && (w.length() > 1 || !endSentence) && currSent.charAt(currSent.length()-1) != '.')
-                currSent += " ";
-            currSent += w;
+
             if (endSentence || i == wl.size()-1) {
                 ss.add(currSent);
                 inds.add(indToAdd);

@@ -65,6 +65,11 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             currentSpeakActivity = null;
             return;
         }
+
+        // Initialize AmaObserver class. At this time we only need to call static
+        //  AmaObserver.installedFromAma() to know how we were installed...
+        new AmaObserver(this);
+
         SpeakService.haveNewApi = 1;
         savedBottomMargin = -1;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -195,8 +200,13 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             public void onClick(View v) {
                 SpeakService.stopTalking();
                 try {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=com.hyperionics.avar")));
+                    if (AmaObserver.installedFromAma()) {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("amzn://apps/android?p=com.hyperionics.avar")));
+                    } else {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=com.hyperionics.avar")));
+                    }
                 } catch (android.content.ActivityNotFoundException anfe) {
                     startActivity(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://play.google.com/store/apps/details?id=com.hyperionics.avar")));
@@ -503,8 +513,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         super.onPause();
         currentlyVisible = false;
         if (isFinishing()) {
-            SpeakService.switchOff();
             restoreBottomMargin();
+            SpeakService.switchOff();
             //TtsApp.enableComponents(false);
             //sendBroadcast(new Intent(SpeakService.TTSP_KILL));
         }
@@ -515,7 +525,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     }
 
     @Override protected void onStop() { // HONEYCOMB and up: be prepared to die after this exits
-        restoreBottomMargin();
+        // restoreBottomMargin();
         super.onStop();
     }
 

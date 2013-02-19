@@ -47,6 +47,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="in-app-purchasing-1.0.3" level="project" />
   </component>
 </module>
 
