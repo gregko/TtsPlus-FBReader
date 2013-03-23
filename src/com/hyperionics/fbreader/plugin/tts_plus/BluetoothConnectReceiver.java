@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
@@ -23,6 +24,7 @@ import android.content.Intent;
  */
 
 public class BluetoothConnectReceiver extends BroadcastReceiver {
+    private Handler mHandler = new Handler();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -31,6 +33,21 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
         if (intentAction.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
             SpeakService.stopTalking();
         }
+        else if (SpeakService.myPreferences.getBoolean("plugStart", false) &&
+                intentAction.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
+            // make it start instead in about 4 seconds?
+            mHandler.postDelayed(myTimerTask, 500); // customize this time in settings? Or test if bluetooth audio connected?
+        }
     }
+
+    private Runnable myTimerTask = new Runnable() {
+        public void run() {
+            if(SpeakService.mAudioManager.isBluetoothA2dpOn()) {
+                SpeakService.toggleTalking();
+            } else {
+                mHandler.postDelayed(myTimerTask, 500); // customize this time in settings? Or test if bluetooth audio connected?
+            }
+        }
+    };
 
 }

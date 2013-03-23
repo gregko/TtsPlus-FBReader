@@ -196,14 +196,20 @@ public class TtsSentenceExtractor {
 
         if (inStr.endsWith(".")) {
             inStr = inStr.replace("Mr.", "Mr ");
+            inStr = inStr.replace("Ms.", "Mys ");
             inStr = inStr.replace("Mrs.", "Mrs ");
             inStr = inStr.replace("Dr.", "Dr "); // we don't know if it's "Doctor" or "Drive"
             inStr = inStr.replace("Prof.", "Prof ");
+            inStr = inStr.replace("\"Mr.", "\"Mr ");
+            inStr = inStr.replace("\"Ms.", "\"Mys ");
+            inStr = inStr.replace("\"Mrs.", "\"Mrs ");
+            inStr = inStr.replace("\"Dr.", "\"Dr "); // we don't know if it's "Doctor" or "Drive"
+            inStr = inStr.replace("\"Prof.", "\"Prof ");
             inStr = inStr.replace("i.e.", "I E ");
-            inStr = inStr.replace("Rev.", "Rev ");
-            inStr = inStr.replace("Gen.", "General ");
+            inStr = inStr.replace("\"Rev.", "\"Rev ");
+            inStr = inStr.replace("\"Gen.", "\"General ");
             inStr = inStr.replace("St.", "S T "); // we don't know if it's "Saint" or "Street"...
-            inStr = inStr.replace("Rep.", "Representative ");
+            inStr = inStr.replace("\"Rep.", "\"Representative ");
             inStr = inStr.replace("Ph.D.", "Ph.D ");
             inStr = inStr.replace("Sr.", "Senior ");
             inStr = inStr.replace("Jr.", "Junior ");
@@ -238,6 +244,7 @@ public class TtsSentenceExtractor {
             return inStr;
 
         inStr = inStr.replace("Mr.", "Mr ");
+        inStr = inStr.replace("Ms.", "Ms ");
         inStr = inStr.replace("Mrs.", "Mrs ");
         inStr = inStr.replace("Dr.", "Dr "); // we don't know if it's "Doctor" or "Drive"
         inStr = inStr.replace("Prof.", "Prof ");

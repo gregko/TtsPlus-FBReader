@@ -107,6 +107,7 @@ public class TtsApp extends Application
         // The following line triggers the initialization of ACRA
         //ACRA.init(this);
         Lt.d("TtsApp created");
+        InstallInfo.init(this);
         myApplication = this;
         myPackageManager = getPackageManager();
         myPackageName = getPackageName();

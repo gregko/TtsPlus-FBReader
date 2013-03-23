@@ -3,13 +3,11 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 
 /**
@@ -145,8 +143,10 @@ public class SettingsActivity extends Activity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
                 finish();
-                sa.doDestroy();
-                sa.finish();
+                if (sa != null) {
+                    sa.doDestroy();
+                    sa.finish();
+                }
                 TtsApp.ExitApp();
             }
         });

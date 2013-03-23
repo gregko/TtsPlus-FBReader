@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.hyperionics.fbreader.plugin.tts_plus"
-          android:versionCode="2000010"
-          android:versionName="2.0.1">
+          android:versionCode="2000020"
+          android:versionName="2.0.2">
     <uses-sdk android:minSdkVersion="8"
               android:targetSdkVersion="15" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -50,6 +50,7 @@
         <receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.BluetoothConnectReceiver" android:enabled="false">
             <intent-filter>
                 <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED"/>
+                <action android:name="android.bluetooth.device.action.ACL_CONNECTED"/>
             </intent-filter>
         </receiver>
         <receiver android:name=".IncomingReceiver" android:enabled="true">

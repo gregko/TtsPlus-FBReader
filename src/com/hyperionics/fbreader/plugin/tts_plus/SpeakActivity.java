@@ -66,10 +66,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             return;
         }
 
-        // Initialize AmaObserver class. At this time we only need to call static
-        //  AmaObserver.installedFromAma() to know how we were installed...
-        new AmaObserver(this);
-
         SpeakService.haveNewApi = 1;
         savedBottomMargin = -1;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -200,7 +196,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             public void onClick(View v) {
                 SpeakService.stopTalking();
                 try {
-                    if (AmaObserver.installedFromAma()) {
+                    if (InstallInfo.installedFromAma()) {
                         startActivity(new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("amzn://apps/android?p=com.hyperionics.avar")));
                     } else {
