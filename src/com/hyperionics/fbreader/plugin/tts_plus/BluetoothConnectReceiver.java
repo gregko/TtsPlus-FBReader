@@ -25,6 +25,7 @@ import android.os.Handler;
 
 public class BluetoothConnectReceiver extends BroadcastReceiver {
     private Handler mHandler = new Handler();
+    private int retryCount = 0;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -36,7 +37,8 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
         else if (SpeakService.myPreferences.getBoolean("plugStart", false) &&
                 intentAction.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
             // make it start instead in about 4 seconds?
-            mHandler.postDelayed(myTimerTask, 500); // customize this time in settings? Or test if bluetooth audio connected?
+            retryCount = 0;
+            mHandler.postDelayed(myTimerTask, 500);
         }
     }
 
@@ -44,8 +46,8 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
         public void run() {
             if(SpeakService.mAudioManager.isBluetoothA2dpOn()) {
                 SpeakService.toggleTalking();
-            } else {
-                mHandler.postDelayed(myTimerTask, 500); // customize this time in settings? Or test if bluetooth audio connected?
+            } else if (++retryCount < 10) {
+                mHandler.postDelayed(myTimerTask, 500);
             }
         }
     };
