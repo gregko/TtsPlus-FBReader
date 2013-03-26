@@ -109,7 +109,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             public void onClick(View v) {
                 boolean wasActive = SpeakService.myIsActive;
                 SpeakService.stopTalking();
-                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                 SeekBar speedControl = (SeekBar)findViewById(R.id.speed_control);
                 SeekBar pitchControl = (SeekBar)findViewById(R.id.pitch_control);
                 myEditor.putInt("rate", 100);
@@ -161,7 +161,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 View v3 = findViewById(R.id.promo);
                 View vw = findViewById(R.id.read_words);
                 ImageButton vb = (ImageButton) findViewById(R.id.button_setup);
-                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                 if (vs.isShown()) {
                     vb.setImageDrawable(getResources().getDrawable(R.drawable.setup_show));
                     vs.setVisibility(View.GONE);
@@ -174,7 +174,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     vb.setImageDrawable(getResources().getDrawable(R.drawable.setup_hide));
                     vs.setVisibility(View.VISIBLE);
                     v2.setVisibility(View.VISIBLE);
-                    boolean words = SpeakService.myPreferences.getBoolean("WORD_OPTS", false);
+                    boolean words = SpeakService.getPrefs().getBoolean("WORD_OPTS", false);
                     v3.setVisibility(words ? View.GONE : View.VISIBLE);
                     vw.setVisibility(words ? View.VISIBLE : View.GONE);
                     myEditor.putBoolean("HIDE_PREFS", false);
@@ -213,36 +213,36 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             }
         });
 
-        ((CheckBox)findViewById(R.id.single_words)).setChecked(SpeakService.myPreferences.getBoolean("SINGLE_WORDS", false));
+        ((CheckBox)findViewById(R.id.single_words)).setChecked(SpeakService.getPrefs().getBoolean("SINGLE_WORDS", false));
         setListener(R.id.single_words, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                 myEditor.putBoolean("SINGLE_WORDS", ((CheckBox) view).isChecked());
                 myEditor.commit();
                 SpeakService.stopTalking();
                 SpeakService.switchReadMode();
             }
         });
-        ((CheckBox)findViewById(R.id.pause_words)).setChecked(SpeakService.myPreferences.getBoolean("PAUSE_WORDS", false));
+        ((CheckBox)findViewById(R.id.pause_words)).setChecked(SpeakService.getPrefs().getBoolean("PAUSE_WORDS", false));
         setListener(R.id.pause_words, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                 myEditor.putBoolean("PAUSE_WORDS", ((CheckBox) view).isChecked());
                 myEditor.commit();
-                SpeakService.wordPauses = SpeakService.myPreferences.getBoolean("WORD_OPTS", false) &&
-                        SpeakService.myPreferences.getBoolean("SINGLE_WORDS", false) &&
-                        SpeakService.myPreferences.getBoolean("PAUSE_WORDS", false);
+                SpeakService.wordPauses = SpeakService.getPrefs().getBoolean("WORD_OPTS", false) &&
+                        SpeakService.getPrefs().getBoolean("SINGLE_WORDS", false) &&
+                        SpeakService.getPrefs().getBoolean("PAUSE_WORDS", false);
             }
         });
 
         final SeekBar speedControl = (SeekBar)findViewById(R.id.speed_control);
 		speedControl.setMax(200);
-		speedControl.setProgress(SpeakService.myPreferences.getInt("rate", 100));
+		speedControl.setProgress(SpeakService.getPrefs().getInt("rate", 100));
 		speedControl.setEnabled(false);
 		speedControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            private SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+            private SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser && SpeakService.myTTS != null) {
@@ -268,10 +268,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
         final SeekBar pitchControl = (SeekBar)findViewById(R.id.pitch_control);
         pitchControl.setMax(200);
-        pitchControl.setProgress(SpeakService.myPreferences.getInt("pitch", 75));
+        pitchControl.setProgress(SpeakService.getPrefs().getInt("pitch", 75));
         pitchControl.setEnabled(false);
         pitchControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            private SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+            private SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser && SpeakService.myTTS != null) {
@@ -320,7 +320,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         getWindow().setAttributes(lp);
 		setActive(false);
 		setActionsEnabled(false);
-        if (SpeakService.myPreferences.getBoolean("HIDE_PREFS", false)) {
+        if (SpeakService.getPrefs().getBoolean("HIDE_PREFS", false)) {
             ImageButton vb = (ImageButton) findViewById(R.id.button_setup);
             vb.setImageDrawable(getResources().getDrawable(R.drawable.setup_show));
             findViewById(R.id.sliders).setVisibility(View.GONE);
@@ -490,15 +490,15 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         super.onResume();
         currentSpeakActivity = this;
         currentlyVisible = true;
-        if (!SpeakService.myPreferences.getBoolean("HIDE_PREFS", false)) {
+        if (!SpeakService.getPrefs().getBoolean("HIDE_PREFS", false)) {
             View v3 = findViewById(R.id.promo);
             View vw = findViewById(R.id.read_words);
-            boolean words = SpeakService.myPreferences.getBoolean("WORD_OPTS", false);
+            boolean words = SpeakService.getPrefs().getBoolean("WORD_OPTS", false);
             v3.setVisibility(words ? View.GONE : View.VISIBLE);
             vw.setVisibility(words ? View.VISIBLE : View.GONE);
-            SpeakService.wordPauses = SpeakService.myPreferences.getBoolean("WORD_OPTS", false) &&
-                    SpeakService.myPreferences.getBoolean("SINGLE_WORDS", false) &&
-                    SpeakService.myPreferences.getBoolean("PAUSE_WORDS", false);
+            SpeakService.wordPauses = SpeakService.getPrefs().getBoolean("WORD_OPTS", false) &&
+                    SpeakService.getPrefs().getBoolean("SINGLE_WORDS", false) &&
+                    SpeakService.getPrefs().getBoolean("PAUSE_WORDS", false);
             SpeakService.switchReadMode();
         }
         if (SpeakService.mAudioManager != null)

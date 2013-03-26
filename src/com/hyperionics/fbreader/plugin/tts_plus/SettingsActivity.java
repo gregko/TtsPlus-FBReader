@@ -59,7 +59,7 @@ public class SettingsActivity extends Activity {
         ((CheckBox)findViewById(R.id.highlight_sentences)).setChecked(SpeakService.myHighlightSentences);
         setListener(R.id.highlight_sentences, new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                 SpeakService.mySentences = new TtsSentenceExtractor.SentenceIndex[0];
                 SpeakService.myHighlightSentences = ((CheckBox) v).isChecked();
                 myEditor.putBoolean("hiSentences", SpeakService.myHighlightSentences);
@@ -67,37 +67,37 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        ((CheckBox)findViewById(R.id.plug_start)).setChecked(SpeakService.myPreferences.getBoolean("plugStart", false));
+        ((CheckBox)findViewById(R.id.plug_start)).setChecked(SpeakService.getPrefs().getBoolean("plugStart", false));
         setListener(R.id.plug_start, new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                 myEditor.putBoolean("plugStart", ((CheckBox) v).isChecked());
                 myEditor.commit();
             }
         });
 
-        ((CheckBox)findViewById(R.id.wired_key)).setChecked(SpeakService.myPreferences.getBoolean("wiredKey", false));
+        ((CheckBox)findViewById(R.id.wired_key)).setChecked(SpeakService.getPrefs().getBoolean("wiredKey", false));
         setListener(R.id.wired_key, new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                 myEditor.putBoolean("wiredKey", ((CheckBox) v).isChecked());
                 myEditor.commit();
             }
         });
 
-        ((CheckBox)findViewById(R.id.fbr_headset_start)).setChecked(SpeakService.myPreferences.getBoolean("fbrStart", true));
+        ((CheckBox)findViewById(R.id.fbr_headset_start)).setChecked(SpeakService.getPrefs().getBoolean("fbrStart", true));
         setListener(R.id.fbr_headset_start, new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                 myEditor.putBoolean("fbrStart", ((CheckBox) v).isChecked());
                 myEditor.commit();
             }
         });
 
-        ((CheckBox)findViewById(R.id.word_opts)).setChecked(SpeakService.myPreferences.getBoolean("WORD_OPTS", false));
+        ((CheckBox)findViewById(R.id.word_opts)).setChecked(SpeakService.getPrefs().getBoolean("WORD_OPTS", false));
         setListener(R.id.word_opts, new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences.Editor myEditor = SpeakService.myPreferences.edit();
+                SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                 myEditor.putBoolean("WORD_OPTS", ((CheckBox) v).isChecked());
                 myEditor.commit();
             }
@@ -122,7 +122,7 @@ public class SettingsActivity extends Activity {
                     paraPauseEdit.setText(Integer.toString(pp));
                 }
                 else {
-                    SharedPreferences.Editor editor = SpeakService.myPreferences.edit();
+                    SharedPreferences.Editor editor = SpeakService.getPrefs().edit();
                     editor.putInt("paraPause", pp);
                     editor.commit();
                 }

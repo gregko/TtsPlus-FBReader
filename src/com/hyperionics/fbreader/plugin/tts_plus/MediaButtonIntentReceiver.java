@@ -47,8 +47,7 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     SpeakService.stopTalking();
                     break;
                 case KeyEvent.KEYCODE_HEADSETHOOK:
-                    if (SpeakService.myPreferences != null && SpeakService.myPreferences.getBoolean("wiredKey", false)) {
-                        Lt.d("Bluetooth media button: " + keycode);
+                    if (SpeakService.getPrefs().getBoolean("wiredKey", false)) {
                         SpeakService.toggleTalking();
                     }
                     break;

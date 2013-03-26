@@ -46,7 +46,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static TextToSpeech myTTS;
     static AudioManager mAudioManager;
     static ComponentName componentName;
-    static SharedPreferences myPreferences;
+    private static SharedPreferences myPreferences;
 
     static final String BOOK_LANG = "book";
     static boolean myHighlightSentences = true;
@@ -81,7 +81,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             if (myCurrentSentence < mySentences.length) {
                 if (myBookHash == null)
                     myBookHash = "BP:" + myApi.getBookHash();
-                SharedPreferences.Editor myEditor = myPreferences.edit();
+                SharedPreferences.Editor myEditor = getPrefs().edit();
                 Time time = new Time();
                 time.setToNow();
                 String lang = "";
@@ -102,7 +102,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         try {
             if (myBookHash == null)
                 myBookHash = "BP:" + myApi.getBookHash();
-            String s = myPreferences.getString(myBookHash, "");
+            String s = getPrefs().getString(myBookHash, "");
             int il = s.indexOf("l:");
             int para = s.indexOf("p:");
             int sent = s.indexOf("s:");
@@ -130,8 +130,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static void cleanupPositions() {
         // Cleanup - delete any hashes older than 6 months
         try {
-            Map<String, ?> prefs = myPreferences.getAll();
-            SharedPreferences.Editor myEditor = myPreferences.edit();
+            Map<String, ?> prefs = getPrefs().getAll();
+            SharedPreferences.Editor myEditor = getPrefs().edit();
             for(Map.Entry<String,?> entry : prefs.entrySet())
             {
                 if (entry.getKey().substring(0, 3).equals("BP:")) {
@@ -277,7 +277,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static void startTalking() {
         SpeakActivity.setActive(true);
         setLanguage(SpeakService.selectedLanguage);
-        wordPauses = myPreferences.getBoolean("WORD_OPTS", false) &&
+        wordPauses = getPrefs().getBoolean("WORD_OPTS", false) &&
                      myPreferences.getBoolean("SINGLE_WORDS", false) &&
                      myPreferences.getBoolean("PAUSE_WORDS", false);
         if (myCurrentSentence >= mySentences.length) {
@@ -364,7 +364,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         } catch (Exception e) {
         }
         cleanupPositions();
-        if (!myPreferences.getBoolean("fbrStart", true)) {
+        if (!getPrefs().getBoolean("fbrStart", true)) {
             disconnect();
         }
         myInitializationStatus &= ~TTS_INITIALIZED;
@@ -620,7 +620,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         });
                     }
                 } else {
-                    boolean wordsOnly = myPreferences.getBoolean("WORD_OPTS", false) &&
+                    boolean wordsOnly = getPrefs().getBoolean("WORD_OPTS", false) &&
                             myPreferences.getBoolean("SINGLE_WORDS", false);
                     mySentences = TtsSentenceExtractor.build(wl, il, myTTS, wordsOnly);
                 }
@@ -637,6 +637,16 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             //TtsApp.enableComponents(true); // takes a long time on some hardware?.
             mAudioManager.registerMediaButtonEventReceiver(componentName);
         }
+    }
+
+    public static SharedPreferences getPrefs() {
+        if (myPreferences == null) {
+            if (currentService != null)
+                myPreferences = currentService.getSharedPreferences("atVoice", MODE_PRIVATE);
+            else
+                myPreferences = TtsApp.getContext().getSharedPreferences("atVoice", MODE_PRIVATE);
+        }
+        return myPreferences;
     }
 
     // implements ApiClientImplementation.ConnectionListener

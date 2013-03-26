@@ -34,7 +34,7 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
         if (intentAction.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
             SpeakService.stopTalking();
         }
-        else if (SpeakService.myPreferences.getBoolean("plugStart", false) &&
+        else if (SpeakService.getPrefs().getBoolean("plugStart", false) &&
                 intentAction.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
             // make it start instead in about 4 seconds?
             retryCount = 0;
