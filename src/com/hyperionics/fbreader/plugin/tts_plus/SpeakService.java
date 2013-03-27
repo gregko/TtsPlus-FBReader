@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.*;
+import android.content.pm.ApplicationInfo;
 import android.media.AudioManager;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -296,6 +297,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
         } else
             stopTalking();
+    }
+
+    static boolean isTalking() {
+        return isServiceTalking;
     }
 
     static void stopTalking() {
@@ -667,7 +672,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     public static void reconnect() {
         Lt.d("reconnect()");
         readingStarted = true;
-        if (TtsApp.areComponentsEnabled() && !SpeakActivity.isVisible() && SpeakActivity.getCurrent() != null) {
+        if (TtsApp.areComponentsEnabled())
+            TtsApp.enableComponents(true);
+        if (!SpeakActivity.isVisible() && SpeakActivity.getCurrent() != null) {
             // bring SpeakActivity to top
             Lt.d("- areComponentsEnabled() is true, activity not visible");
             if (myTTS == null) {
@@ -676,9 +683,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             Intent intent = new Intent(TtsApp.getContext(), SpeakActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
             currentService.startActivity(intent);
-        }
-        else {
-            TtsApp.enableComponents(true);
         }
     }
 
@@ -749,6 +753,22 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 }
             }
         });
+
+        // Test code
+        Boolean debug = (currentService.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        if (debug) try {
+            List<String> optGroups = myApi.getOptionGroups();
+            Lt.d("Option groups:");
+            for (String s : optGroups) {
+                Lt.d(s);
+                List<String> opts = myApi.getOptionNames(s);
+                for (String ss: opts) {
+                    Lt.d(" - " + ss);
+                }
+            }
+            Lt.d("-------------------");
+        } catch (Exception e) {}
+
         if (myTTS != null) {
         	try {
         		if (myTTS.isSpeaking())

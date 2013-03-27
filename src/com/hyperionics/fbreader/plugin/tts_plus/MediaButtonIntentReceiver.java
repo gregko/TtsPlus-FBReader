@@ -47,9 +47,7 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     SpeakService.stopTalking();
                     break;
                 case KeyEvent.KEYCODE_HEADSETHOOK:
-                    if (SpeakService.getPrefs().getBoolean("wiredKey", false)) {
-                        SpeakService.toggleTalking();
-                    }
+                    SpeakService.toggleTalking();
                     break;
                 case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
                 case 127: // KeyEvent.KEYCODE_MEDIA_PAUSE: - not available under Gingerbread API

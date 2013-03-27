@@ -26,12 +26,14 @@
     <string name="tts_settings">TTS Settings</string>
     <string name="reset_tts">Reset TTS"</string>
     <string name="hi_sentences">Highlight spoken text</string>
+    <string name="screen_on">Keep screen on when reading</string>
+    <string name="screen_dimmed">Dimmed</string>
+    <string name="screen_bright">Bright</string>
     <string name="rate">Rate TTS+!</string>
     <string name="paragraph_delay">Additional pause at paragraph end (ms):</string>
     <string name="more_settings">More...</string>
     <string name="headset_plug_start">Start talking when headset connected</string>
     <string name="sleep_after">Sleep after</string>
-    <string name="handle_wired_key">Start/stop speech when wired headset key pressed</string>
     <string name="headset_start_fbr">Start speech from headset key when FBReader is on top</string>
     <string name="word_opts">Show read by word options</string>
     <string name="single_words">Read words...</string>

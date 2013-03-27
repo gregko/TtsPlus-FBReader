@@ -1,16 +1,15 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 //import org.acra.*;
 //import org.acra.annotation.*;
 
-import java.util.List;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
@@ -45,6 +44,7 @@ public class TtsApp extends Application
 {
     private static TtsApp myApplication;
     private static boolean componentsEnabled = false;
+    private static boolean myIsDebug = true;
     private static HeadsetPlugReceiver headsetPlugReceiver = null;
 
     static String versionName = "";
@@ -99,6 +99,10 @@ public class TtsApp extends Application
     	System.exit(0);
     }
 
+    public static boolean isDebug() {
+        return myIsDebug;
+    }
+
     public TtsApp() {
         (new GlobalExceptionHandler()).init(this);
     }
@@ -106,11 +110,12 @@ public class TtsApp extends Application
     @Override public void onCreate() {
         // The following line triggers the initialization of ACRA
         //ACRA.init(this);
-        Lt.d("TtsApp created");
         InstallInfo.init(this);
         myApplication = this;
+        myIsDebug = (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         myPackageManager = getPackageManager();
         myPackageName = getPackageName();
+        Lt.d("TtsApp created");
         startService(new Intent(this, SpeakService.class));
         try {
             versionName = myPackageManager.getPackageInfo(myPackageName, 0).versionName;

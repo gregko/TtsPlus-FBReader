@@ -2,7 +2,6 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,7 +16,6 @@ import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.*;
 import android.widget.*;
 import org.geometerplus.android.fbreader.api.ApiException;
@@ -501,6 +499,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     SpeakService.getPrefs().getBoolean("PAUSE_WORDS", false);
             SpeakService.switchReadMode();
         }
+        TtsApp.enableComponents(true);
         if (SpeakService.mAudioManager != null)
             SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
 	}
@@ -511,19 +510,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         if (isFinishing()) {
             restoreBottomMargin();
             SpeakService.switchOff();
-            //TtsApp.enableComponents(false);
-            //sendBroadcast(new Intent(SpeakService.TTSP_KILL));
+        } else if (!SpeakService.isTalking()) {
+            TtsApp.enableComponents(false);
         }
 	}
-
-    @Override protected void onStart() {
-        super.onStart();
-    }
-
-    @Override protected void onStop() { // HONEYCOMB and up: be prepared to die after this exits
-        // restoreBottomMargin();
-        super.onStop();
-    }
 
     static boolean isVisible() {
         return currentlyVisible;
@@ -612,9 +602,15 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
 		if (active) {
 			if (myWakeLock == null && currentSpeakActivity != null) {
-				myWakeLock =
-					((PowerManager)currentSpeakActivity.getSystemService(POWER_SERVICE))
-						.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "FBReader TTS+ plugin");
+                int wakeLevel = PowerManager.PARTIAL_WAKE_LOCK;
+                int n = SpeakService.getPrefs().getInt("screenOn", 0);
+                if (n == 1)
+                    wakeLevel = PowerManager.SCREEN_DIM_WAKE_LOCK;
+                else if (n > 1)
+                    wakeLevel = PowerManager.SCREEN_BRIGHT_WAKE_LOCK;
+
+				myWakeLock = ((PowerManager)currentSpeakActivity.getSystemService(POWER_SERVICE))
+						.newWakeLock(wakeLevel, "FBReader TTS+ plugin");
 				myWakeLock.acquire();
 			}
 		} else {

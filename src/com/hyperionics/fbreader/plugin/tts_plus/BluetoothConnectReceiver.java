@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Handler;
 
 /**
@@ -31,12 +32,12 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String intentAction = intent.getAction();
 
-        if (intentAction.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
+        if (SpeakService.isTalking() && intentAction.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
             SpeakService.stopTalking();
         }
-        else if (SpeakService.getPrefs().getBoolean("plugStart", false) &&
-                intentAction.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
-            // make it start instead in about 4 seconds?
+        else if (intentAction.equals(BluetoothDevice.ACTION_ACL_CONNECTED) &&
+                !SpeakService.isTalking() &&
+                SpeakService.getPrefs().getBoolean("plugStart", false)) {
             retryCount = 0;
             mHandler.postDelayed(myTimerTask, 500);
         }
@@ -44,7 +45,9 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
 
     private Runnable myTimerTask = new Runnable() {
         public void run() {
-            if(SpeakService.mAudioManager.isBluetoothA2dpOn()) {
+            AudioManager am = SpeakService.mAudioManager;
+            if(am != null &&
+               (am.isBluetoothA2dpOn() || am.isBluetoothScoAvailableOffCall() && am.isBluetoothScoOn())) {
                 SpeakService.toggleTalking();
             } else if (++retryCount < 10) {
                 mHandler.postDelayed(myTimerTask, 500);

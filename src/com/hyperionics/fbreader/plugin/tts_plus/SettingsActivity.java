@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.*;
 
 /**
@@ -46,8 +47,8 @@ public class SettingsActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.setup_panel);
-
         Spinner spinner = (Spinner) findViewById(R.id.sleepSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.sleep_array, android.R.layout.simple_spinner_item);
@@ -76,15 +77,6 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        ((CheckBox)findViewById(R.id.wired_key)).setChecked(SpeakService.getPrefs().getBoolean("wiredKey", false));
-        setListener(R.id.wired_key, new View.OnClickListener() {
-            public void onClick(View v) {
-                SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
-                myEditor.putBoolean("wiredKey", ((CheckBox) v).isChecked());
-                myEditor.commit();
-            }
-        });
-
         ((CheckBox)findViewById(R.id.fbr_headset_start)).setChecked(SpeakService.getPrefs().getBoolean("fbrStart", true));
         setListener(R.id.fbr_headset_start, new View.OnClickListener() {
             public void onClick(View v) {
@@ -100,6 +92,38 @@ public class SettingsActivity extends Activity {
                 SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                 myEditor.putBoolean("WORD_OPTS", ((CheckBox) v).isChecked());
                 myEditor.commit();
+            }
+        });
+
+        final RadioButton rbDim = (RadioButton)findViewById(R.id.screenDimmed);
+        final RadioButton rbBright = (RadioButton)findViewById(R.id.screenBright);
+        final RadioGroup grp = (RadioGroup) findViewById(R.id.screen_level);
+        int n = SpeakService.getPrefs().getInt("screenOn", 0);
+        ((CheckBox)findViewById(R.id.screen_on)).setChecked(n > 0);
+        if (n == 0) {
+            grp.setVisibility(View.GONE);
+        }
+        setListener(R.id.screen_on, new View.OnClickListener() {
+            public void onClick(View v) {
+                Boolean enable = ((CheckBox) v).isChecked();
+                grp.setVisibility(enable ? View.VISIBLE : View.GONE);
+                if (enable)
+                    grp.check(R.id.screenDimmed);
+                SharedPreferences.Editor edt = SpeakService.getPrefs().edit();
+                int scStat = enable ? 1  : 0;
+                edt.putInt("screenOn", scStat);
+                Lt.d("screenOn = " + scStat);
+                edt.commit();
+            }
+        });
+        grp.check(R.id.screenDimmed - 1 + n);
+        grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup g, int i) {
+                SharedPreferences.Editor edt = SpeakService.getPrefs().edit();
+                int n = i - R.id.screenDimmed + 1;
+                edt.putInt("screenOn", n);
+                Lt.d("screenOn = " + n);
+                edt.commit();
             }
         });
 

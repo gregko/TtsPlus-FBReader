@@ -1,5 +1,6 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
+import android.content.pm.ApplicationInfo;
 import android.util.Log;
 
 /**
@@ -23,8 +24,9 @@ public class Lt {
     private Lt() {}
     static void setTag(String tag) { myTag = tag; }
     public static void d(String msg) {
-        // Uncomment line below to turn on debug output
-        // Log.d(myTag, msg);
+        // Uncomment lines below to turn on debug output
+        if (TtsApp.isDebug())
+            Log.d(myTag, msg);
     }
     public static void df(String msg) {
         // Forced output, do not comment out - for exceptions etc.

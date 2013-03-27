@@ -5,12 +5,6 @@
               android:layout_height="fill_parent"
               android:id="@+id/SetupRoot">
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
     <TableLayout
             android:id="@+id/bigButtons"
             android:layout_width="fill_parent"
@@ -57,13 +51,6 @@
                 android:text="@string/headset_plug_start" />
 
         <CheckBox
-                android:id="@+id/wired_key"
-                android:checked="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/handle_wired_key" />
-
-        <CheckBox
                 android:id="@+id/fbr_headset_start"
                 android:checked="true"
                 android:layout_width="wrap_content"
@@ -76,6 +63,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/word_opts" />
+
+        <CheckBox
+                android:id="@+id/screen_on"
+                android:checked="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/screen_on" />
+
+        <RadioGroup
+                android:id="@+id/screen_level"
+                android:layout_marginLeft="35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+            <RadioButton
+                    android:id="@+id/screenDimmed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/screen_dimmed"
+                    android:checked="true" />
+
+            <RadioButton
+                    android:id="@+id/screenBright"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/screen_bright" />
+
+        </RadioGroup>
 
         <TableRow
                 android:layout_width="fill_parent"
