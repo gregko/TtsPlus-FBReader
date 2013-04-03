@@ -47,10 +47,12 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
         public void run() {
             AudioManager am = SpeakService.mAudioManager;
             if(am != null &&
-               (am.isBluetoothA2dpOn() || am.isBluetoothScoAvailableOffCall() && am.isBluetoothScoOn())) {
+                    (am.isBluetoothA2dpOn() || am.isBluetoothScoAvailableOffCall() && am.isBluetoothScoOn())) {
                 SpeakService.toggleTalking();
             } else if (++retryCount < 10) {
                 mHandler.postDelayed(myTimerTask, 500);
+            } else {
+                SpeakService.toggleTalking();
             }
         }
     };

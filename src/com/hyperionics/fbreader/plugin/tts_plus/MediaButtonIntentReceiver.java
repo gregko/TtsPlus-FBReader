@@ -46,6 +46,8 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                 case KeyEvent.KEYCODE_MEDIA_STOP:
                     SpeakService.stopTalking();
                     break;
+//                case KeyEvent.KEYCODE_CALL:
+//                case KeyEvent.KEYCODE_ENDCALL:
                 case KeyEvent.KEYCODE_HEADSETHOOK:
                     SpeakService.toggleTalking();
                     break;
