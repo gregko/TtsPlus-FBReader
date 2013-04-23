@@ -3,6 +3,7 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -85,6 +86,19 @@ public class SettingsActivity extends Activity {
                 myEditor.commit();
             }
         });
+
+        if (Build.VERSION.SDK_INT > 14) {
+            ((CheckBox)findViewById(R.id.net_synth)).setChecked(SpeakService.getPrefs().getBoolean("netSynth", true));
+            setListener(R.id.net_synth, new View.OnClickListener() {
+                public void onClick(View v) {
+                    SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
+                    myEditor.putBoolean("netSynth", ((CheckBox) v).isChecked());
+                    myEditor.commit();
+                }
+            });
+        } else {
+            findViewById(R.id.net_synth).setVisibility(View.GONE);
+        }
 
         ((CheckBox)findViewById(R.id.word_opts)).setChecked(SpeakService.getPrefs().getBoolean("WORD_OPTS", false));
         setListener(R.id.word_opts, new View.OnClickListener() {

@@ -35,6 +35,7 @@
     <string name="headset_plug_start">Start talking when headset connected</string>
     <string name="sleep_after">Sleep after</string>
     <string name="headset_start_fbr">Start speech from headset key when FBReader is on top</string>
+    <string name="net_synth">Use network speech synthesis if possible (only on WiFi)</string>
     <string name="word_opts">Show read by word options</string>
     <string name="single_words">Read words...</string>
     <string name="pause_words">with pauses.</string>

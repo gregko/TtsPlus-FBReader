@@ -6,6 +6,9 @@ import android.app.Service;
 import android.content.*;
 import android.content.pm.ApplicationInfo;
 import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.speech.tts.TextToSpeech;
@@ -58,6 +61,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static float myCurrentPitch = 1f;
     static int haveNewApi = 1;
     static private boolean isServiceTalking = false;
+    static private boolean myHasNetworkTts = false;
     static boolean readingStarted = false;
     static boolean wordPauses = false;
 
@@ -68,7 +72,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static boolean myIsActive = false;
     static boolean myWasActive = false;
-    static private HashMap<String, String> myCallbackMap;
+    static private HashMap<String, String> myParamMap;
 
     static volatile int myInitializationStatus = 0;
     static int API_INITIALIZED = 1;
@@ -163,7 +167,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myIsActive && UTTERANCE_ID.equals(uttId)) {
             if (++myCurrentSentence >= mySentences.length) {
                 if (myParaPause > 0 && myCurrentSentence == mySentences.length) {
-                    myTTS.playSilence(myParaPause, TextToSpeech.QUEUE_ADD, myCallbackMap);
+                    myTTS.playSilence(myParaPause, TextToSpeech.QUEUE_ADD, myParamMap);
                     return;
                 }
                 ++myParagraphIndex;
@@ -271,6 +275,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             alert.show();
             return false;
         }
+
         myTTS.setLanguage(locale);
         return true;
     }
@@ -293,6 +298,15 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         AudioManager.STREAM_MUSIC,
                         // Request permanent focus.
                         AudioManager.AUDIOFOCUS_GAIN);
+                myHasNetworkTts = false;
+                if (Build.VERSION.SDK_INT > 14) {
+                    myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);
+                    Set<String> ss = myTTS.getFeatures(myTTS.getLanguage());
+                    for (String s : ss) {
+                        if (s.equals(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS))
+                            myHasNetworkTts = true;
+                    }
+                }
                 if (myCurrentSentence < mySentences.length) // re-testing, still got index out of bounds exception...
                     speakString(mySentences[myCurrentSentence].s);
             }
@@ -413,6 +427,21 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             startTalking();
     }
 
+    public static int connectionType() { // ret. 0 no connection, 1 mobile only, 2 wifi
+        boolean haveConnection = false;
+        ConnectivityManager cm = (ConnectivityManager) TtsApp.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().toLowerCase().startsWith("wifi"))
+                if (ni.isConnected())
+                    return 2;
+            if (!haveConnection)
+                haveConnection = ni.isConnected();
+        }
+        return haveConnection ? 1 : 0;
+    }
+
+
     private static Pattern punctPat = Pattern.compile("[.?!'\"-,:;()\\[\\]{}\\*]");
     private static int speakString(String text) {
         int ret = TextToSpeech.SUCCESS;
@@ -425,7 +454,14 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         // int n = text.replaceAll("[.?!'\"-,:;()\\[\\]{}\\*]", "").trim().length();
         // faster with pre-compiled pattern
         if (punctPat.matcher(text).replaceAll("").trim().length() > 0) {
-            ret = myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, myCallbackMap);
+            if (myHasNetworkTts) {
+                if (getPrefs().getBoolean("netSynth", true) && connectionType() > 1) {
+                    myParamMap.put(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, "true");
+                } else {
+                    myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);
+                }
+            }
+            ret = myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, myParamMap);
             isServiceTalking = ret == TextToSpeech.SUCCESS;
         } else {
             currentService.onUtteranceCompleted(UTTERANCE_ID);
@@ -724,9 +760,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         selectedLanguage = BOOK_LANG; // myPreferences.getString("lang", BOOK_LANG);
         myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
         myParaPause = myPreferences.getInt("paraPause", myParaPause);
-        if (myCallbackMap == null) {
-            myCallbackMap = new HashMap<String, String>();
-            myCallbackMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
+        if (myParamMap == null) {
+            myParamMap = new HashMap<String, String>();
+            myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
         }
         if (myApi == null) {
             myInitializationStatus &= ~API_INITIALIZED;

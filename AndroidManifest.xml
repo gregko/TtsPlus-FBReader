@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.hyperionics.fbreader.plugin.tts_plus"
-          android:versionCode="2000060"
-          android:versionName="2.0.6">
+          android:versionCode="2001000"
+          android:versionName="2.1.0">
     <uses-sdk android:minSdkVersion="8"
               android:targetSdkVersion="15" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <supports-screens
             android:largeScreens="true"
             android:normalScreens="true"
