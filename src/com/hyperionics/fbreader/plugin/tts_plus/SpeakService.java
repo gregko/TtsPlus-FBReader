@@ -293,7 +293,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         AudioManager.STREAM_MUSIC,
                         // Request permanent focus.
                         AudioManager.AUDIOFOCUS_GAIN);
-                speakString(mySentences[myCurrentSentence].s);
+                if (myCurrentSentence < mySentences.length) // re-testing, still got index out of bounds exception...
+                    speakString(mySentences[myCurrentSentence].s);
             }
         } else
             stopTalking();
@@ -638,7 +639,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void regainBluetoothFocus() {
-        if (mAudioManager != null) {
+        if (mAudioManager != null && componentName != null) {
             //TtsApp.enableComponents(true); // takes a long time on some hardware?.
             mAudioManager.registerMediaButtonEventReceiver(componentName);
         }

@@ -344,23 +344,25 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
     static void adjustBottomMargin() {
         // Calculate the extra bottom margin needed for navigation buttons
-        try {
-            if (currentSpeakActivity.savedBottomMargin < 0)
-                currentSpeakActivity.savedBottomMargin = SpeakService.myApi.getBottomMargin();
-            Lt.d("savedBottomMargin = " + currentSpeakActivity.savedBottomMargin);
-            Rect rectf = new Rect();
-            View v = currentSpeakActivity.findViewById(R.id.nav_buttons);
-            v.getLocalVisibleRect(rectf);
-            int d = rectf.bottom;
-            d += d/5 + currentSpeakActivity.savedBottomMargin;
-            if (currentSpeakActivity.savedBottomMargin < d) {
-                SpeakService.myApi.setBottomMargin(d);
-                SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
+        if (currentSpeakActivity != null) {
+            try {
+                if (currentSpeakActivity.savedBottomMargin < 0)
+                    currentSpeakActivity.savedBottomMargin = SpeakService.myApi.getBottomMargin();
+                Lt.d("savedBottomMargin = " + currentSpeakActivity.savedBottomMargin);
+                Rect rectf = new Rect();
+                View v = currentSpeakActivity.findViewById(R.id.nav_buttons);
+                v.getLocalVisibleRect(rectf);
+                int d = rectf.bottom;
+                d += d/5 + currentSpeakActivity.savedBottomMargin;
+                if (currentSpeakActivity.savedBottomMargin < d) {
+                    SpeakService.myApi.setBottomMargin(d);
+                    SpeakService.myApi.setPageStart(SpeakService.myApi.getPageStart());
+                }
+            } catch (ApiException e) {
+                Lt.df("ApiException " + e);
+                e.printStackTrace();
+                SpeakService.haveNewApi = 0;
             }
-        } catch (ApiException e) {
-            Lt.df("ApiException " + e);
-            e.printStackTrace();
-            SpeakService.haveNewApi = 0;
         }
     }
 
@@ -492,15 +494,17 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             View v3 = findViewById(R.id.promo);
             View vw = findViewById(R.id.read_words);
             boolean words = SpeakService.getPrefs().getBoolean("WORD_OPTS", false);
-            v3.setVisibility(words ? View.GONE : View.VISIBLE);
-            vw.setVisibility(words ? View.VISIBLE : View.GONE);
+            if (v3 != null)
+                v3.setVisibility(words ? View.GONE : View.VISIBLE);
+            if (vw != null)
+                vw.setVisibility(words ? View.VISIBLE : View.GONE);
             SpeakService.wordPauses = SpeakService.getPrefs().getBoolean("WORD_OPTS", false) &&
                     SpeakService.getPrefs().getBoolean("SINGLE_WORDS", false) &&
                     SpeakService.getPrefs().getBoolean("PAUSE_WORDS", false);
             SpeakService.switchReadMode();
         }
         TtsApp.enableComponents(true);
-        if (SpeakService.mAudioManager != null)
+        if (SpeakService.mAudioManager != null && SpeakService.componentName != null)
             SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
 	}
 

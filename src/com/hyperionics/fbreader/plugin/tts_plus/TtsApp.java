@@ -78,7 +78,7 @@ public class TtsApp extends Application
             headsetPlugReceiver = null;
         }
 
-        if (SpeakService.mAudioManager != null) {
+        if (SpeakService.mAudioManager != null && SpeakService.componentName != null) {
             if (enabled) {
                 SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
             }
