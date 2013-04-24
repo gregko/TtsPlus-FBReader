@@ -302,9 +302,11 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 if (Build.VERSION.SDK_INT > 14) {
                     myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);
                     Set<String> ss = myTTS.getFeatures(myTTS.getLanguage());
-                    for (String s : ss) {
-                        if (s.equals(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS))
-                            myHasNetworkTts = true;
+                    if (ss != null) {
+                        for (String s : ss) {
+                            if (s.equals(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS))
+                                myHasNetworkTts = true;
+                        }
                     }
                 }
                 if (myCurrentSentence < mySentences.length) // re-testing, still got index out of bounds exception...
