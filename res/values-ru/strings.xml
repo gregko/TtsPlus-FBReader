@@ -35,6 +35,8 @@
     <string name="headset_plug_start">Начинать чтение при подключении наушников</string>
     <string name="sleep_after">Остановить чтение через</string>
     <string name="headset_start_fbr">Старт чтения  по кнопке наушников, когда FBReader на вершине</string>
+    <string name="net_synth">Использовай сетевый синтезатор речи, если возможно</string>
+    <string name="net_synth_wifi">только на WiFi</string>
     <string name="word_opts">Показуй панель \"читай отдельные слова\"</string>
     <string name="single_words">Одноместные слова</string>
     <string name="pause_words">с паузами.</string>

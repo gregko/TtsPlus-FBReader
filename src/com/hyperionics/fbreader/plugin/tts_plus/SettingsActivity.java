@@ -88,16 +88,50 @@ public class SettingsActivity extends Activity {
         });
 
         if (Build.VERSION.SDK_INT > 14) {
-            ((CheckBox)findViewById(R.id.net_synth)).setChecked(SpeakService.getPrefs().getBoolean("netSynth", true));
+            int netSynth = 2;
+            try {
+                netSynth = SpeakService.getPrefs().getInt("netSynth", 2); // bit 0 - use net, bit 1 - wifi only
+            } catch (ClassCastException e) {
+                SharedPreferences.Editor ed = SpeakService.getPrefs().edit();
+                ed.remove("netSynth");
+                ed.commit();
+            }
+            boolean useNetSynth = (netSynth & 1) == 1;
+            boolean onlyWiFi = (netSynth & 2) == 2;
+            ((CheckBox)findViewById(R.id.net_synth)).setChecked(useNetSynth);
+            final CheckBox wifiCb = (CheckBox)findViewById(R.id.net_synth_wifi);
+            wifiCb.setEnabled(useNetSynth);
+            wifiCb.setChecked(onlyWiFi);
             setListener(R.id.net_synth, new View.OnClickListener() {
                 public void onClick(View v) {
+                    int n = SpeakService.getPrefs().getInt("netSynth", 2); // bit 0 - use net, bit 1 - wifi only
+                    if (((CheckBox) v).isChecked()) {
+                        n |= 1;
+                        wifiCb.setEnabled(true);
+                    } else {
+                        n &= ~1;
+                        wifiCb.setEnabled(false);
+                    }
                     SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
-                    myEditor.putBoolean("netSynth", ((CheckBox) v).isChecked());
+                    myEditor.putInt("netSynth", n);
+                    myEditor.commit();
+                }
+            });
+            setListener(R.id.net_synth_wifi, new View.OnClickListener() {
+                public void onClick(View v) {
+                    int n = SpeakService.getPrefs().getInt("netSynth", 2); // bit 0 - use net, bit 1 - wifi only
+                    if (((CheckBox) v).isChecked())
+                        n |= 2;
+                    else
+                        n &= ~2;
+                    SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
+                    myEditor.putInt("netSynth", n);
                     myEditor.commit();
                 }
             });
         } else {
             findViewById(R.id.net_synth).setVisibility(View.GONE);
+            findViewById(R.id.net_synth_wifi).setVisibility(View.GONE);
         }
 
         ((CheckBox)findViewById(R.id.word_opts)).setChecked(SpeakService.getPrefs().getBoolean("WORD_OPTS", false));

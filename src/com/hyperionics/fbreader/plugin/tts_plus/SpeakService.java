@@ -455,7 +455,18 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         // faster with pre-compiled pattern
         if (punctPat.matcher(text).replaceAll("").trim().length() > 0) {
             if (myHasNetworkTts) {
-                if (getPrefs().getBoolean("netSynth", true) && connectionType() > 1) {
+                int n = 2;
+                try {
+                    n = getPrefs().getInt("netSynth", 2); // bit 0 - use net, bit 1 - wifi only
+                } catch (ClassCastException e) {
+                    SharedPreferences.Editor ed = getPrefs().edit();
+                    ed.remove("netSynth");
+                    ed.commit();
+                }
+                int conn = connectionType();
+                boolean useNet = (n & 1) == 1;
+                boolean wifiOnly = (n & 2) == 2;
+                if (useNet && (conn == 2 || conn == 1 && !wifiOnly)) {
                     myParamMap.put(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, "true");
                 } else {
                     myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);

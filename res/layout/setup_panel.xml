@@ -59,10 +59,18 @@
 
         <CheckBox
                 android:id="@+id/net_synth"
-                android:checked="true"
+                android:checked="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/net_synth" />
+
+        <CheckBox
+                android:id="@+id/net_synth_wifi"
+                android:checked="true"
+                android:layout_marginLeft="36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/net_synth_wifi" />
 
         <CheckBox
                 android:id="@+id/word_opts"
