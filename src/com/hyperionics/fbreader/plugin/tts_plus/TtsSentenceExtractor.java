@@ -116,6 +116,8 @@ public class TtsSentenceExtractor {
 
         for (i = 0; i < wl.size(); i++) {
             String w = wl.get(i);
+            if (w.length() == 0)
+                continue;
             int len = currSent.length();
             if (len == 0)
                 indToAdd = il.get(i);
@@ -129,6 +131,10 @@ public class TtsSentenceExtractor {
                 w = w.replace('\u2019', '\''); // RIGHT SINGLE QUOTATION MARK (U+2019), mis-pronounced by Google TTS?
                 if (w.charAt(0) == '\u2026')  // dec 8230 ellipses ... remove at start
                     w = " " + w.substring(1);
+                if (i < wl.size()-2 && wl.get(i+1).equals(".") && !wl.get(i+2).equals(".")) {
+                    w += ".";
+                    wl.set(i+1, "");
+                }
                 w = replaceAbbreviations(w, loc);
             }
             boolean endSentence = wordsOnly;
@@ -220,6 +226,7 @@ public class TtsSentenceExtractor {
             inStr = inStr.replace("H.M.", "H M ");
             inStr = inStr.replace("H.M.S.", "H M S ");
             inStr = inStr.replace("U.S.", "U S ");
+            inStr = inStr.replace("Cpt.", "Capitan ");
             inStr = inStr.replace("No.", "No;"); // Ivona reads it at "number", we want "no", negation, with a pause
             inStr = inStr.replace("no.", "no;");
         }
