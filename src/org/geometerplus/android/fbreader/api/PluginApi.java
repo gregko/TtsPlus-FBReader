@@ -9,8 +9,8 @@ import java.util.*;
 import android.content.*;
 import android.net.Uri;
 import android.os.*;
-import com.hyperionics.fbreader.plugin.tts_plus.Lt;
 import com.hyperionics.fbreader.plugin.tts_plus.SpeakService;
+import com.hyperionics.util.Lt;
 
 public abstract class PluginApi {
 	public static final String ACTION_REGISTER = "android.fbreader.action.plugin.REGISTER";

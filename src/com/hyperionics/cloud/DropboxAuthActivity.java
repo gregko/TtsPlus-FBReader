@@ -15,7 +15,7 @@ import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.RESTUtility;
 import com.dropbox.client2.android.AndroidAuthSession;
 import com.dropbox.client2.session.AccessTokenPair;
-import com.hyperionics.avar.R;
+import com.hyperionics.fbreader.plugin.tts_plus.R;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

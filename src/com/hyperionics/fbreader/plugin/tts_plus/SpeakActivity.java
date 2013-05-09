@@ -1,6 +1,7 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -10,6 +11,7 @@ import android.content.*;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -18,6 +20,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.*;
 import android.widget.*;
+import com.hyperionics.util.Lt;
 import org.geometerplus.android.fbreader.api.ApiException;
 
 /**
@@ -438,11 +441,22 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
             PowerManager powerManager = (PowerManager)getSystemService(POWER_SERVICE);
             KeyguardManager kgMgr = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+
+//            if (Build.VERSION.SDK_INT >= 14) {
+//                List<TextToSpeech.EngineInfo> engines = new TextToSpeech(this, null).getEngines();
+//                for (TextToSpeech.EngineInfo e : engines) {
+//                    Lt.d(e.label + " : " + e.name);
+//                }
+//            } else {
+//
+//            }
+
             if (powerManager.isScreenOn() && !kgMgr.inKeyguardRestrictedInputMode()) {
                 Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
                 String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
                 if (speakEng != null) {
-                    in = in.setPackage(speakEng);
+                    Lt.d("spekEng = " + speakEng);
+                    in = in.setPackage(speakEng); // this has no effect...
                 }
                 currentSpeakActivity.startActivityForResult(in, 1); // goes to onActivityResult() below
             } else {

@@ -1,7 +1,5 @@
 package com.hyperionics.util;
 
-import com.hyperionics.avar.Lt;
-
 import java.io.*;
 import java.util.ArrayList;
 

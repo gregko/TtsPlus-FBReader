@@ -3,6 +3,7 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import com.hyperionics.util.Lt;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>

@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
+import com.hyperionics.util.Lt;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>

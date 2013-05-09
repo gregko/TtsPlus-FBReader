@@ -14,6 +14,7 @@ import android.os.PowerManager;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
 import android.text.format.Time;
+import com.hyperionics.util.Lt;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.ApiListener;
@@ -299,7 +300,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         // Request permanent focus.
                         AudioManager.AUDIOFOCUS_GAIN);
                 myHasNetworkTts = false;
-                if (Build.VERSION.SDK_INT > 14) {
+                if (Build.VERSION.SDK_INT > 14) try {
                     myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);
                     Set<String> ss = myTTS.getFeatures(myTTS.getLanguage());
                     if (ss != null) {
@@ -308,7 +309,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                                 myHasNetworkTts = true;
                         }
                     }
-                }
+                } catch (Exception e) {}
                 if (myCurrentSentence < mySentences.length) // re-testing, still got index out of bounds exception...
                     speakString(mySentences[myCurrentSentence].s);
             }

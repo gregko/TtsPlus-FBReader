@@ -12,7 +12,7 @@ import android.app.AlertDialog;
 import android.util.Log;
 
 public class Lt {
-    private static String myTag = "avar";
+    private static String myTag = "FBReaderTTS";
     private static boolean myResult = false;
     private Lt() {}
     static void setTag(String tag) { myTag = tag; }

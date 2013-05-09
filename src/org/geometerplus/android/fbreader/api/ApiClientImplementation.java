@@ -8,8 +8,6 @@ import java.util.*;
 
 import android.content.*;
 import android.os.IBinder;
-import android.util.Log;
-import com.hyperionics.fbreader.plugin.tts_plus.Lt;
 
 public class ApiClientImplementation implements ServiceConnection, Api, ApiMethods {
 	public static interface ConnectionListener {

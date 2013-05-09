@@ -22,9 +22,10 @@ import com.dropbox.client2.jsonextract.JsonThing;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.session.AppKeyPair;
 import com.dropbox.client2.session.Session;
-import com.hyperionics.avar.Lt;
-import com.hyperionics.avar.R;
-import com.hyperionics.avar.TtsApp;
+import com.hyperionics.fbreader.plugin.tts_plus.R;
+import com.hyperionics.fbreader.plugin.tts_plus.TtsApp;
+import com.hyperionics.util.AndyUtil;
+import com.hyperionics.util.Lt;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -37,8 +38,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.hyperionics.util.FileUtil.*;
-import static com.hyperionics.util.FileUtil.copyFile;
-import static com.hyperionics.util.FileUtil.listFilesRecursive;
 
 /**
  * Created with IntelliJ IDEA.
@@ -339,7 +338,7 @@ public class Dropbox {
         }
         saveLocalMtimes();
         if (ret)
-            mLastError = TtsApp.getContext().getString(R.string.sync_ok);
+            mLastError = AndyUtil.getAppContext().getString(R.string.sync_ok);
         Lt.df("---------- Exit 4 internalSyncFolder()");
         return ret;
     }

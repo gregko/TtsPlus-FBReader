@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import com.hyperionics.util.Lt;
 //import org.acra.*;
 //import org.acra.annotation.*;
 
