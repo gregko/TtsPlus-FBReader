@@ -3,7 +3,7 @@
 	<string name="title">FBReader TTS+ Plugin</string>
     <string name="about">O programie</string>
     <string name="version">FBReader TTS+ Plugin wer.</string>
-    <string name="copyright">Copyright © 2012\nHyperionics Technology LLC</string>
+    <string name="copyright">Copyright © 2012-13\nHyperionics Technology LLC</string>
     <string name="url">http://www.hyperionics.com/TtsPlus</string>
     <string name="back"> Powrót </string>
 	<string name="failure">Przepraszamy, błąd inicjacji.</string>
@@ -41,7 +41,7 @@
     <string name="single_words">Pojedyncze słowa</string>
     <string name="pause_words">z pauzami.</string>
     <string name="tts_check_err">Błąd: Nie można otrzymać listy dostępnych języków od generatora mowy.</string>
-    <string name="tryAllso">Try also our new product</string>
+    <string name="tryAllso">Wypróbuj także nasz nowy produkt</string>
     <string name="atVoice"> \@Voice Aloud Reader </string>
     <string-array name="sleep_array">
         <item>Never</item>
@@ -61,5 +61,12 @@
         <item>4 godzinach</item>
         <item>5 godzinach</item>
     </string-array>
-
+    <string name="atv_free">Bezpłatnie! \@Voice - czyta na głos\nstrony WWW, wiadomości, maile itd.</string>
+    <string name="sync_ok">Synchronizacja Dropbox powiodła się</string>
+    <string name="previous_btn">Przycisk Wstecz</string>
+    <string name="next_btn">Przycisk Dalej</string>
+    <string name="play_btn">Przycisk Odtwarzaj</string>
+    <string name="pause_btn">Przycisk Pause</string>
+    <string name="stop_btn">Przycisk Stop</string>
+    <string name="setup_btn">Przycisk Pokaż-schowaj ustawienia</string>
 </resources>

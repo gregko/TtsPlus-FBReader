@@ -3,7 +3,7 @@
     <string name="title">Плагин FBReader TTS+</string>
     <string name="about">О программе</string>
     <string name="version">Плагин FBReader TTS+ версия</string>
-    <string name="copyright">Copyright © 2012\nHyperionics Technology LLC</string>
+    <string name="copyright">Copyright © 2012-13\nHyperionics Technology LLC</string>
     <string name="url">http://www.hyperionics.com/TtsPlus</string>
     <string name="back">Назад</string>
     <string name="failure">Ошибка инициализации</string>
@@ -41,7 +41,7 @@
     <string name="single_words">Одноместные слова</string>
     <string name="pause_words">с паузами.</string>
     <string name="tts_check_err">Ошибка: не удалось получить списка доступных языков с генератора речи.</string>
-    <string name="tryAllso">Try also our new product\n@Voice Aloud Reader</string>
+    <string name="tryAllso">Попробуйте также наш новый продукт\n@Voice Reader - читает вслух</string>
     <string name="atVoice"> \@Voice Aloud Reader </string>
     <string-array name="sleep_array">
         <item>никогда</item>
@@ -61,4 +61,12 @@
         <item>4 часа</item>
         <item>5 часа</item>
     </string-array>
+    <string name="atv_free">Бесплатно! \@Voice - читает вслух\nвеб, новости, e-mail и другое.</string>
+    <string name="sync_ok">Dropbox-синхронизация выполнена</string>
+    <string name="previous_btn">Кнопка Назад</string>
+    <string name="next_btn">Кнопка Далее</string>
+    <string name="play_btn">Кнопка Play</string>
+    <string name="pause_btn">Кнопка Пауза</string>
+    <string name="stop_btn">Кнопка Стоп</string>
+    <string name="setup_btn">Кнопка Показать Скрыть настройки</string>
 </resources>
