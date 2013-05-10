@@ -436,32 +436,68 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         }
     }
 
+    void selectTtsEngine() {
+        if (Build.VERSION.SDK_INT < 14)
+            return;
+
+        SpeakService.stopTalking();
+        int checkedItem = 0;
+        final List<TextToSpeech.EngineInfo> engines = new TextToSpeech(this, null).getEngines();
+        CharSequence[] items = new CharSequence[engines.size() + 1];
+        items[0] = getString(R.string.sys_def_tts);
+        for (int i = 1; i <= engines.size(); i++) {
+            items[i] = engines.get(i-1).label;
+            if (engines.get(i-1).name.equals(SpeakService.selectedTtsEng))
+                checkedItem = i;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.choose_tts);
+        builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                SharedPreferences.Editor ed = SpeakService.getPrefs().edit();
+                if (item == 0) {
+                    SpeakService.selectedTtsEng = null;
+                    ed.remove("selectedTtsEng").commit();
+                } else {
+                    SpeakService.selectedTtsEng = engines.get(item-1).name;
+                    ed.putString("selectedTtsEng", SpeakService.selectedTtsEng).commit();
+                }
+                try {
+                    if (SpeakService.myTTS != null) {
+                        SpeakService.myTTS.shutdown();
+                        SpeakService.myTTS = null;
+                    }
+                } catch (Exception e) {}
+                dialog.cancel();
+                doStartTts();
+            }
+        });
+        builder.create().show();
+    }
+
     void doStartTts() {
         try {
             SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
             PowerManager powerManager = (PowerManager)getSystemService(POWER_SERVICE);
             KeyguardManager kgMgr = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 
-//            if (Build.VERSION.SDK_INT >= 14) {
-//                List<TextToSpeech.EngineInfo> engines = new TextToSpeech(this, null).getEngines();
-//                for (TextToSpeech.EngineInfo e : engines) {
-//                    Lt.d(e.label + " : " + e.name);
-//                }
-//            } else {
-//
-//            }
-
-            if (powerManager.isScreenOn() && !kgMgr.inKeyguardRestrictedInputMode()) {
-                Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-                String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
-                if (speakEng != null) {
-                    Lt.d("spekEng = " + speakEng);
-                    in = in.setPackage(speakEng); // this has no effect...
-                }
-                currentSpeakActivity.startActivityForResult(in, 1); // goes to onActivityResult() below
-            } else {
+            if (Build.VERSION.SDK_INT >= 14)
+                SpeakService.myTTS = new TextToSpeech(SpeakService.getCurrentService(), this, SpeakService.selectedTtsEng);
+            else
                 SpeakService.myTTS = new TextToSpeech(SpeakService.getCurrentService(), this);
-            }
+
+//            if (powerManager.isScreenOn() && !kgMgr.inKeyguardRestrictedInputMode()) {
+//                Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+//                String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
+//                if (speakEng != null) {
+//                    Lt.d("spekEng = " + speakEng);
+//                    in = in.setPackage(speakEng); // this has no effect...
+//                }
+//                currentSpeakActivity.startActivityForResult(in, 1); // goes to onActivityResult() below
+//            } else {
+//                SpeakService.myTTS = new TextToSpeech(SpeakService.getCurrentService(), this);
+//            }
         } catch (ActivityNotFoundException e) {
             currentSpeakActivity.showErrorMessage(R.string.no_tts_installed);
         }
@@ -485,7 +521,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     myVoices = data.getStringArrayListExtra(TextToSpeech.Engine.EXTRA_AVAILABLE_VOICES);
             } else {
                 try {
-                    startActivity(new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA));
+                    Intent intent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                    intent.setPackage(SpeakService.getTtsEngine());
+                    startActivity(intent);
                 } catch (ActivityNotFoundException e) {
                     showErrorMessage(R.string.no_tts_installed);
                 }
@@ -644,9 +682,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         //myVoices = null; // test crash
         if (myVoices.size() == 0 && tryCheckTtsData) {
             Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-            String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
+            String speakEng = "com.acapelagroup.android.tts"; //Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
             if (speakEng != null) {
-                in = in.setPackage(speakEng);
+                in = in.setPackage(speakEng); // here setting package does have an effect.
             }
             try {
                 currentSpeakActivity.startActivityForResult(in, 7); // goes to onActivityResult()
@@ -655,8 +693,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             }
             return;
         }
-        AlertDialog mySetup;
-
         int checkedItem = 0;
         String curBkLang = "";
         int bookLangKnown = 1;
@@ -711,7 +747,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 dialog.cancel();
                 if (item == myVoices.size()+bookLangKnown) {
                     try {
-                        startActivity(new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA));
+                        Intent intent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                        intent.setPackage(SpeakService.getTtsEngine());
+                        startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         showErrorMessage(R.string.no_tts_installed);
                     }
@@ -720,9 +758,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 }
             }
         });
-        mySetup = builder.create();
-        mySetup.show();
-        return;
+        builder.create().show();
     }
 
     @Override

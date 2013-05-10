@@ -78,4 +78,6 @@
     <string name="pause_btn">Pause button</string>
     <string name="stop_btn">Stop button</string>
     <string name="setup_btn">Show-Hide Setup button</string>
+    <string name="choose_tts">Select TTS Engine</string>
+    <string name="sys_def_tts">Default system TTS Engine</string>
 </resources>

@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
 import android.text.format.Time;
@@ -57,6 +58,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static boolean myHighlightSentences = true;
     static int myParaPause = 300;
     static String selectedLanguage = BOOK_LANG; // either "book" or locale code like "eng-USA"
+    static String selectedTtsEng = null;
     static int myParagraphIndex = -1;
     static int myParagraphsNumber;
     static float myCurrentPitch = 1f;
@@ -257,6 +259,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                             dialog.cancel();
                             try {
                                 Intent intent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                                intent.setPackage(getTtsEngine());
                                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 currentService.startActivity(intent);
                             } catch (ActivityNotFoundException e) {
@@ -280,6 +283,16 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         myTTS.setLanguage(locale);
         return true;
     }
+
+    static String getTtsEngine() {
+        if (currentService == null)
+            return null;
+        return selectedTtsEng == null ?
+                Settings.Secure.getString(currentService.getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH) :
+                selectedTtsEng;
+    }
+
+
 
     static void startTalking() {
         SpeakActivity.setActive(true);
@@ -443,7 +456,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
         return haveConnection ? 1 : 0;
     }
-
 
     private static Pattern punctPat = Pattern.compile("[.?!'\"-,:;()\\[\\]{}\\*]");
     private static int speakString(String text) {
@@ -772,6 +784,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myPreferences == null)
             myPreferences = currentService.getSharedPreferences("FBReaderTTS", MODE_PRIVATE);
         selectedLanguage = BOOK_LANG; // myPreferences.getString("lang", BOOK_LANG);
+        selectedTtsEng = myPreferences.getString("selectedTtsEng", null);
         myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
         myParaPause = myPreferences.getInt("paraPause", myParaPause);
         if (myParamMap == null) {
