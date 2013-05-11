@@ -680,9 +680,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     public void selectLanguage(boolean tryCheckTtsData) {
         SpeakService.stopTalking();
         //myVoices = null; // test crash
-        if (myVoices.size() == 0 && tryCheckTtsData) {
+        if (tryCheckTtsData) {
             Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-            String speakEng = "com.acapelagroup.android.tts"; //Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
+            String speakEng = SpeakService.getTtsEngine(); //Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
             if (speakEng != null) {
                 in = in.setPackage(speakEng); // here setting package does have an effect.
             }

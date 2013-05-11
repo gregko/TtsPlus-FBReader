@@ -292,8 +292,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 selectedTtsEng;
     }
 
-
-
     static void startTalking() {
         SpeakActivity.setActive(true);
         setLanguage(SpeakService.selectedLanguage);

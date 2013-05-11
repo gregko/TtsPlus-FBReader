@@ -68,7 +68,7 @@
     <string name="crash_dialog_comment_prompt">По-долу можете да добавите вашите коментари относно проблема:</string>
     <string name="crash_dialog_ok_toast">Благодарим ви!</string><string name="tryAllso">Изпробвайте нашето ново безплатно приложение:</string>
     <string name="atVoice"> \@Voice Aloud Reader </string>
-    <string name="atv_free">Безплатно! \@Voice Aloud Reader - може да\nви прочете уеб страници, новини, е-писма и още.</string>
+    <string name="atv_free">Безплатно! \@Voice - чете на глас\nуеб страници, новини, е-писма...</string>
     <string name="sync_ok">Синхронизирането с Dropbox е успешно</string>
     <string name="previous_btn">Бутон за предишен</string>
     <string name="next_btn">Бутон за следващ</string>
