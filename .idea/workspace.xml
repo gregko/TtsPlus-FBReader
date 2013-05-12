@@ -46,19 +46,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36881102-1f07-46e3-b919-36d1380bf90f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TtsPlus-FBReader.apk" afterPath="$PROJECT_DIR$/TtsPlus-FBReader.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-bg/strings.xml" afterPath="$PROJECT_DIR$/res/values-bg/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-pl/strings.xml" afterPath="$PROJECT_DIR$/res/values-pl/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-ru/strings.xml" afterPath="$PROJECT_DIR$/res/values-ru/strings.xml" />
     </list>
     <ignored path="FBReaderJ-TTS.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/a.dummy" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1368307370121" ignored="false" />
-    <file path="/Dummy.txt" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1368307291782" ignored="false" />
+    <file path="/a.dummy" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1368399952529" ignored="false" />
+    <file path="/Dummy.txt" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1368399773158" ignored="false" />
     <file path="$PROJECT_DIR$/../atVoice/src/com/hyperionics/atVoice/SpeakActivity.java" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353161186558" ignored="false" />
-    <file path="/strings.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1368309606964" ignored="false" />
+    <file path="/strings.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1368400189093" ignored="false" />
     <file path="$PROJECT_DIR$/../atVoice/res/values/strings.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1356305411665" ignored="false" />
     <file path="/fragment.java" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1368055283537" ignored="false" />
     <file path="$PROJECT_DIR$/../atVoice/res/layout/about_panel.xml" changelist="36881102-1f07-46e3-b919-36d1380bf90f" time="1353158793665" ignored="false" />
@@ -218,77 +215,42 @@
         <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="286" column="30" selection-start="11816" selection-end="11828" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="docComment;class#SpeakService#0" expanded="false" />
-                <element signature="method#getCurrentService#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#savePosition#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#restorePosition#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#cleanupPositions#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#onUtteranceCompleted#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#7514:7645" expanded="false" />
-                <element signature="method#run#0;class#7514:7645" expanded="false" />
-                <element signature="method#getCurrentBookLanguage#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#setLanguage#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#10293:11331" expanded="false" />
-                <element signature="method#onClick#0;class#10293:11331" expanded="false" />
-                <element signature="class#11413:11619" expanded="false" />
-                <element signature="method#onClick#0;class#11413:11619" expanded="false" />
-                <element signature="method#startTalking#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#isTalking#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#stopTalking#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#toggleTalking#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#switchOff#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#nextToSpeak#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#prevToSpeak#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#connectionType#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#speakString#0;class#SpeakService#0" expanded="false" />
-                <element signature="e#18025#18130#0" expanded="false" />
-                <element signature="method#setSpeechRate#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#setPitch#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#setPitchTemp#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#highlightSentence#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#highlightParagraph#0;class#SpeakService#0" expanded="false" />
-                <element signature="e#22018#22063#0" expanded="false" />
-                <element signature="method#gotoPreviousSentence#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#gotoNextSentence#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#gotoPreviousParagraph#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#23786:24078" expanded="false" />
-                <element signature="method#run#0;class#23786:24078" expanded="false" />
-                <element signature="method#switchReadMode#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#processCurrentParagraph#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#25496:25830" expanded="false" />
-                <element signature="method#run#0;class#25496:25830" expanded="false" />
-                <element signature="class#26903:27237" expanded="false" />
-                <element signature="method#run#0;class#26903:27237" expanded="false" />
-                <element signature="method#regainBluetoothFocus#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#getPrefs#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#onConnected#0;class#SpeakService#0" expanded="false" />
-                <element signature="e#28650#28669#0" expanded="false" />
-                <element signature="method#reconnect#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#disconnect#0;class#SpeakService#0" expanded="false" />
-                <element signature="e#29827#29894#0" expanded="false" />
-                <element signature="method#onBind#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#onCreate#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#onDestroy#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#doStop#0;class#SpeakService#0" expanded="false" />
-                <element signature="method#doStartup#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#31811:32843" expanded="false" />
-                <element signature="method#onEvent#0;class#31811:32843" expanded="false" />
-                <element signature="method#setSleepTimer#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#34041:34376" expanded="false" />
-                <element signature="method#run#0;class#34041:34376" expanded="false" />
-                <element signature="method#onStartCommand#0;class#SpeakService#0" expanded="false" />
-                <element signature="class#34907:35682" expanded="false" />
-                <element signature="method#onAudioFocusChange#0;class#34907:35682" expanded="false" />
-              </folding>
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values-bg/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="79" column="69" selection-start="4940" selection-end="5066" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="strings.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/res/values-bg/strings.xml">
+        <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="94" selection-start="4498" selection-end="4498" vertical-scroll-proportion="0.7384106">
+            <state line="82" column="0" selection-start="4543" selection-end="4666" vertical-scroll-proportion="0.8068182">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values-pl/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="72" column="58" selection-start="4057" selection-end="4057" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values-ru/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="72" column="51" selection-start="4025" selection-end="4025" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -297,81 +259,8 @@
       <file leaf-file-name="SpeakActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="702" column="73" selection-start="29991" selection-end="30805" vertical-scroll-proportion="-16.64">
-              <folding>
-                <element signature="docComment;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#getCurrent#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#setListener#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="class#2935:3045" expanded="false" />
-                <element signature="method#onClick#0;class#2935:3045" expanded="false" />
-                <element signature="class#3084:3194" expanded="false" />
-                <element signature="method#onClick#0;class#3084:3194" expanded="false" />
-                <element signature="class#3240:3429" expanded="false" />
-                <element signature="method#onClick#0;class#3240:3429" expanded="false" />
-                <element signature="class#3474:3713" expanded="false" />
-                <element signature="method#onClick#0;class#3474:3713" expanded="false" />
-                <element signature="class#4070:4905" expanded="false" />
-                <element signature="method#onClick#0;class#4070:4905" expanded="false" />
-                <element signature="class#4951:6698" expanded="false" />
-                <element signature="method#onClick#0;class#4951:6698" expanded="false" />
-                <element signature="class#5566:5977" expanded="false" />
-                <element signature="method#onClick#0;class#5566:5977" expanded="false" />
-                <element signature="class#6041:6231" expanded="false" />
-                <element signature="method#onClick#0;class#6041:6231" expanded="false" />
-                <element signature="class#6744:8217" expanded="false" />
-                <element signature="method#onClick#0;class#6744:8217" expanded="false" />
-                <element signature="class#8263:8397" expanded="false" />
-                <element signature="method#onClick#0;class#8263:8397" expanded="false" />
-                <element signature="class#8436:8571" expanded="false" />
-                <element signature="method#onClick#0;class#8436:8571" expanded="false" />
-                <element signature="class#8610:9676" expanded="false" />
-                <element signature="method#onClick#0;class#8610:9676" expanded="false" />
-                <element signature="e#9438#9523#0" expanded="false" />
-                <element signature="class#9846:10255" expanded="false" />
-                <element signature="method#onClick#0;class#9846:10255" expanded="false" />
-                <element signature="class#10421:11005" expanded="false" />
-                <element signature="method#onClick#0;class#10421:11005" expanded="false" />
-                <element signature="class#11270:12240" expanded="false" />
-                <element signature="method#onProgressChanged#0;class#11270:12240" expanded="false" />
-                <element signature="method#onStartTrackingTouch#0;class#11270:12240" expanded="false" />
-                <element signature="method#onStopTrackingTouch#0;class#11270:12240" expanded="false" />
-                <element signature="class#12529:13516" expanded="false" />
-                <element signature="method#onProgressChanged#0;class#12529:13516" expanded="false" />
-                <element signature="method#onStartTrackingTouch#0;class#12529:13516" expanded="false" />
-                <element signature="method#onStopTrackingTouch#0;class#12529:13516" expanded="false" />
-                <element signature="class#13827:14305" expanded="false" />
-                <element signature="method#onProgressChanged#0;class#13827:14305" expanded="false" />
-                <element signature="method#onStartTrackingTouch#0;class#13827:14305" expanded="false" />
-                <element signature="method#onStopTrackingTouch#0;class#13827:14305" expanded="false" />
-                <element signature="method#onInit#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#adjustBottomMargin#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#restoreBottomMargin#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#onInitializationCompleted#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="e#18391#18436#0" expanded="false" />
-                <element signature="e#19424#19520#0" expanded="false" />
-                <element signature="method#selectTtsEngine#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="class#20420:21289" expanded="false" />
-                <element signature="method#onClick#0;class#20420:21289" expanded="false" />
-                <element signature="method#onActivityResult#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#onResume#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#onPause#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#isVisible#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#doDestroy#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#onDestroy#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#unbindDrawables#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#setActionsEnabled#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#setVolumeProgress#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="method#showErrorMessage#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="class#28033:28188" expanded="false" />
-                <element signature="method#run#0;class#28033:28188" expanded="false" />
-                <element signature="method#showErrorMessage#1;class#SpeakActivity#0" expanded="false" />
-                <element signature="class#28367:28522" expanded="false" />
-                <element signature="method#run#0;class#28367:28522" expanded="false" />
-                <element signature="method#setActive#0;class#SpeakActivity#0" expanded="false" />
-                <element signature="class#32199:33544" expanded="false" />
-                <element signature="method#onClick#0;class#32199:33544" expanded="false" />
-                <element signature="method#onSaveInstanceState#0;class#SpeakActivity#0" expanded="false" />
-              </folding>
+            <state line="702" column="73" selection-start="29991" selection-end="30805" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -410,8 +299,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/StartupActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/control_panel.xml" />
-        <option value="$PROJECT_DIR$/res/values-pl/strings.xml" />
-        <option value="$PROJECT_DIR$/res/values-ru/strings.xml" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java" />
         <option value="$PROJECT_DIR$/../android-sdk/platforms/android-15/data/res/values/themes.xml" />
@@ -423,13 +310,15 @@
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
+        <option value="$PROJECT_DIR$/res/values-pl/strings.xml" />
+        <option value="$PROJECT_DIR$/res/values-ru/strings.xml" />
         <option value="$PROJECT_DIR$/res/values-bg/strings.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="39" />
-    <option name="y" value="46" />
+    <option name="x" value="2092" />
+    <option name="y" value="63" />
     <option name="width" value="1699" />
     <option name="height" value="1099" />
   </component>
@@ -544,6 +433,28 @@
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values-ru" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TtsPlus-FBReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TtsPlus-FBReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values-pl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -560,6 +471,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="values-bg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TtsPlus-FBReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TtsPlus-FBReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -592,13 +517,13 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="project.structure.last.edited" value="Project" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="ExportedApkPath" value="D:\android\TtsPlus-FBReader\TtsPlus-FBReader.apk" />
-    <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="ExportedApkPath" value="D:\android\TtsPlus-FBReader\TtsPlus-FBReader.apk" />
     <property name="ExportedModule" value="TtsPlus-FBReader" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/build.xml" />
     <property name="DEBUGGABLE_DEVICE" value="emulator-5554 (JB-Intel)" />
@@ -615,8 +540,8 @@
     <property name="AndroidProguardConfigPath" value="D:\android\TtsPlus-FBReader\proguard.cfg" />
     <property name="options.lastSelected" value="preferences.updates" />
     <property name="AndroidLayoutSelectedEditor" value="text-editor" />
-    <property name="project.structure.side.proportion" value="0.2" />
     <property name="DefaultHtmlFileTemplate" value="Html" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="0123456789ABCDEF" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="AndroidRunProguardForReleaseBuild" value="false" />
@@ -671,6 +596,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -697,19 +635,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -820,20 +745,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="39" y="46" width="1699" height="1099" extended-state="0" />
+    <frame x="2092" y="63" width="1699" height="1099" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3227848" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3220697" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24984728" sideWeight="0.64946234" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3326791" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35053763" sideWeight="0.49786195" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3266385" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34445536" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -841,7 +765,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.207697" sideWeight="0.67336154" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.207697" sideWeight="0.6779303" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35132483" sideWeight="0.49786195" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2907758" sideWeight="0.64946234" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -852,6 +776,7 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32376298" sideWeight="0.64946234" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32844037" sideWeight="0.64867514" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3266385" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -924,64 +849,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="226" column="92" selection-start="10054" selection-end="10054" vertical-scroll-proportion="1.489426">
-          <folding>
-            <element signature="docComment;class#SettingsActivity#0" expanded="false" />
-            <element signature="class#MyOnSleepSelectedListener#0;class#SettingsActivity#0" expanded="false" />
-            <element signature="method#onItemSelected#0;class#MyOnSleepSelectedListener#0;class#SettingsActivity#0" expanded="false" />
-            <element signature="method#onNothingSelected#0;class#MyOnSleepSelectedListener#0;class#SettingsActivity#0" expanded="false" />
-            <element signature="method#setListener#0;class#SettingsActivity#0" expanded="false" />
-            <element signature="class#2463:2925" expanded="false" />
-            <element signature="method#onClick#0;class#2463:2925" expanded="false" />
-            <element signature="class#3088:3375" expanded="false" />
-            <element signature="method#onClick#0;class#3088:3375" expanded="false" />
-            <element signature="class#3550:3836" expanded="false" />
-            <element signature="method#onClick#0;class#3550:3836" expanded="false" />
-            <element signature="class#4642:5305" expanded="false" />
-            <element signature="method#onClick#0;class#4642:5305" expanded="false" />
-            <element signature="class#5357:5893" expanded="false" />
-            <element signature="method#onClick#0;class#5357:5893" expanded="false" />
-            <element signature="class#6220:6507" expanded="false" />
-            <element signature="method#onClick#0;class#6220:6507" expanded="false" />
-            <element signature="class#6996:7544" expanded="false" />
-            <element signature="method#onClick#0;class#6996:7544" expanded="false" />
-            <element signature="class#7636:8006" expanded="false" />
-            <element signature="method#onCheckedChanged#0;class#7636:8006" expanded="false" />
-            <element signature="class#8213:9291" expanded="false" />
-            <element signature="method#afterTextChanged#0;class#8213:9291" expanded="false" />
-            <element signature="method#beforeTextChanged#0;class#8213:9291" expanded="false" />
-            <element signature="method#onTextChanged#0;class#8213:9291" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-15/android/content/Intent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5409" column="18" selection-start="223863" selection-end="223863" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="189" column="0" selection-start="8609" selection-end="8609" vertical-scroll-proportion="0.33333334">
-          <folding>
-            <element signature="docComment;class#TtsSentenceExtractor#0" expanded="false" />
-            <element signature="class#SentenceIndex#0;class#TtsSentenceExtractor#0" expanded="false" />
-            <element signature="method#SentenceIndex#0;class#SentenceIndex#0;class#TtsSentenceExtractor#0" expanded="false" />
-            <element signature="method#localeFromString#0;class#TtsSentenceExtractor#0" expanded="false" />
-            <element signature="method#extract#0;class#TtsSentenceExtractor#0" expanded="false" />
-            <element signature="e#3944#4029#0" expanded="false" />
-            <element signature="e#4477#4517#0" expanded="false" />
-            <element signature="e#6805#6887#0" expanded="false" />
-            <element signature="docComment;method#replaceAbbreviations#0;class#TtsSentenceExtractor#0" expanded="false" />
-            <element signature="method#paragraphReplaceAbbreviations#0;class#TtsSentenceExtractor#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/util/AndyUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="3" selection-start="832" selection-end="832" vertical-scroll-proportion="0.0" />
@@ -1045,155 +912,41 @@
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="286" column="30" selection-start="11816" selection-end="11828" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="docComment;class#SpeakService#0" expanded="false" />
-            <element signature="method#getCurrentService#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#savePosition#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#restorePosition#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#cleanupPositions#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#onUtteranceCompleted#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#7514:7645" expanded="false" />
-            <element signature="method#run#0;class#7514:7645" expanded="false" />
-            <element signature="method#getCurrentBookLanguage#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#setLanguage#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#10293:11331" expanded="false" />
-            <element signature="method#onClick#0;class#10293:11331" expanded="false" />
-            <element signature="class#11413:11619" expanded="false" />
-            <element signature="method#onClick#0;class#11413:11619" expanded="false" />
-            <element signature="method#startTalking#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#isTalking#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#stopTalking#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#toggleTalking#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#switchOff#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#nextToSpeak#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#prevToSpeak#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#connectionType#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#speakString#0;class#SpeakService#0" expanded="false" />
-            <element signature="e#18025#18130#0" expanded="false" />
-            <element signature="method#setSpeechRate#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#setPitch#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#setPitchTemp#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#highlightSentence#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#highlightParagraph#0;class#SpeakService#0" expanded="false" />
-            <element signature="e#22018#22063#0" expanded="false" />
-            <element signature="method#gotoPreviousSentence#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#gotoNextSentence#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#gotoPreviousParagraph#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#23786:24078" expanded="false" />
-            <element signature="method#run#0;class#23786:24078" expanded="false" />
-            <element signature="method#switchReadMode#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#processCurrentParagraph#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#25496:25830" expanded="false" />
-            <element signature="method#run#0;class#25496:25830" expanded="false" />
-            <element signature="class#26903:27237" expanded="false" />
-            <element signature="method#run#0;class#26903:27237" expanded="false" />
-            <element signature="method#regainBluetoothFocus#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#getPrefs#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#onConnected#0;class#SpeakService#0" expanded="false" />
-            <element signature="e#28650#28669#0" expanded="false" />
-            <element signature="method#reconnect#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#disconnect#0;class#SpeakService#0" expanded="false" />
-            <element signature="e#29827#29894#0" expanded="false" />
-            <element signature="method#onBind#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#onCreate#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#onDestroy#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#doStop#0;class#SpeakService#0" expanded="false" />
-            <element signature="method#doStartup#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#31811:32843" expanded="false" />
-            <element signature="method#onEvent#0;class#31811:32843" expanded="false" />
-            <element signature="method#setSleepTimer#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#34041:34376" expanded="false" />
-            <element signature="method#run#0;class#34041:34376" expanded="false" />
-            <element signature="method#onStartCommand#0;class#SpeakService#0" expanded="false" />
-            <element signature="class#34907:35682" expanded="false" />
-            <element signature="method#onAudioFocusChange#0;class#34907:35682" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="702" column="73" selection-start="29991" selection-end="30805" vertical-scroll-proportion="-16.64">
-          <folding>
-            <element signature="docComment;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#getCurrent#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#setListener#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="class#2935:3045" expanded="false" />
-            <element signature="method#onClick#0;class#2935:3045" expanded="false" />
-            <element signature="class#3084:3194" expanded="false" />
-            <element signature="method#onClick#0;class#3084:3194" expanded="false" />
-            <element signature="class#3240:3429" expanded="false" />
-            <element signature="method#onClick#0;class#3240:3429" expanded="false" />
-            <element signature="class#3474:3713" expanded="false" />
-            <element signature="method#onClick#0;class#3474:3713" expanded="false" />
-            <element signature="class#4070:4905" expanded="false" />
-            <element signature="method#onClick#0;class#4070:4905" expanded="false" />
-            <element signature="class#4951:6698" expanded="false" />
-            <element signature="method#onClick#0;class#4951:6698" expanded="false" />
-            <element signature="class#5566:5977" expanded="false" />
-            <element signature="method#onClick#0;class#5566:5977" expanded="false" />
-            <element signature="class#6041:6231" expanded="false" />
-            <element signature="method#onClick#0;class#6041:6231" expanded="false" />
-            <element signature="class#6744:8217" expanded="false" />
-            <element signature="method#onClick#0;class#6744:8217" expanded="false" />
-            <element signature="class#8263:8397" expanded="false" />
-            <element signature="method#onClick#0;class#8263:8397" expanded="false" />
-            <element signature="class#8436:8571" expanded="false" />
-            <element signature="method#onClick#0;class#8436:8571" expanded="false" />
-            <element signature="class#8610:9676" expanded="false" />
-            <element signature="method#onClick#0;class#8610:9676" expanded="false" />
-            <element signature="e#9438#9523#0" expanded="false" />
-            <element signature="class#9846:10255" expanded="false" />
-            <element signature="method#onClick#0;class#9846:10255" expanded="false" />
-            <element signature="class#10421:11005" expanded="false" />
-            <element signature="method#onClick#0;class#10421:11005" expanded="false" />
-            <element signature="class#11270:12240" expanded="false" />
-            <element signature="method#onProgressChanged#0;class#11270:12240" expanded="false" />
-            <element signature="method#onStartTrackingTouch#0;class#11270:12240" expanded="false" />
-            <element signature="method#onStopTrackingTouch#0;class#11270:12240" expanded="false" />
-            <element signature="class#12529:13516" expanded="false" />
-            <element signature="method#onProgressChanged#0;class#12529:13516" expanded="false" />
-            <element signature="method#onStartTrackingTouch#0;class#12529:13516" expanded="false" />
-            <element signature="method#onStopTrackingTouch#0;class#12529:13516" expanded="false" />
-            <element signature="class#13827:14305" expanded="false" />
-            <element signature="method#onProgressChanged#0;class#13827:14305" expanded="false" />
-            <element signature="method#onStartTrackingTouch#0;class#13827:14305" expanded="false" />
-            <element signature="method#onStopTrackingTouch#0;class#13827:14305" expanded="false" />
-            <element signature="method#onInit#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#adjustBottomMargin#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#restoreBottomMargin#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#onInitializationCompleted#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="e#18391#18436#0" expanded="false" />
-            <element signature="e#19424#19520#0" expanded="false" />
-            <element signature="method#selectTtsEngine#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="class#20420:21289" expanded="false" />
-            <element signature="method#onClick#0;class#20420:21289" expanded="false" />
-            <element signature="method#onActivityResult#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#onResume#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#onPause#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#isVisible#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#doDestroy#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#onDestroy#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#unbindDrawables#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#setActionsEnabled#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#setVolumeProgress#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="method#showErrorMessage#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="class#28033:28188" expanded="false" />
-            <element signature="method#run#0;class#28033:28188" expanded="false" />
-            <element signature="method#showErrorMessage#1;class#SpeakActivity#0" expanded="false" />
-            <element signature="class#28367:28522" expanded="false" />
-            <element signature="method#run#0;class#28367:28522" expanded="false" />
-            <element signature="method#setActive#0;class#SpeakActivity#0" expanded="false" />
-            <element signature="class#32199:33544" expanded="false" />
-            <element signature="method#onClick#0;class#32199:33544" expanded="false" />
-            <element signature="method#onSaveInstanceState#0;class#SpeakActivity#0" expanded="false" />
-          </folding>
+        <state line="702" column="73" selection-start="29991" selection-end="30805" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values-ru/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="51" selection-start="4025" selection-end="4025" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values-pl/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="58" selection-start="4057" selection-end="4057" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values-bg/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="94" selection-start="4498" selection-end="4498" vertical-scroll-proportion="0.7384106">
+        <state line="79" column="69" selection-start="4940" selection-end="5066" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="0" selection-start="4543" selection-end="4666" vertical-scroll-proportion="0.8068182">
           <folding />
         </state>
       </provider>

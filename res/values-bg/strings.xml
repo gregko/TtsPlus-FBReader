@@ -17,7 +17,7 @@
     <string name="no">Не</string>
     <string name="speed">Скорост:</string>
     <string name="pitch">Височина:</string>
-    <string name="volume">Сила на звука:</string>
+    <string name="volume">Звук:</string>
     <string name="set_language">Задаване на езика</string>
     <string name="choose_language">Избор на език</string>
     <string name="book_language">Език на книгата</string>
@@ -76,4 +76,6 @@
     <string name="pause_btn">Бутон за пауза</string>
     <string name="stop_btn">Бутон за спиране</string>
     <string name="setup_btn">Бутон за показване или скриване на настройките</string>
+    <string name="choose_tts">Изберете синтезатор реч</string>
+    <string name="sys_def_tts">Система по подразбиране</string>
 </resources>

@@ -69,4 +69,6 @@
     <string name="pause_btn">Przycisk Pause</string>
     <string name="stop_btn">Przycisk Stop</string>
     <string name="setup_btn">Przycisk Pokaż-schowaj ustawienia</string>
+    <string name="choose_tts">Wybierz syntezator mowy</string>
+    <string name="sys_def_tts">Domyślny syntezator systemu</string>
 </resources>

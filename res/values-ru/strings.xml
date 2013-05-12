@@ -69,4 +69,6 @@
     <string name="pause_btn">Кнопка Пауза</string>
     <string name="stop_btn">Кнопка Стоп</string>
     <string name="setup_btn">Кнопка Показать Скрыть настройки</string>
+    <string name="choose_tts">Выберите синтезатор речи</string>
+    <string name="sys_def_tts">Система по умолчанию</string>
 </resources>
