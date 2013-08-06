@@ -12,36 +12,36 @@
     <string name="initialization_error">Не удалось получить информацию о книге от FBReader.</string>
     <string name="api_error_2">Ошибка API.</string>
     <string name="language_is_not_set">>Язык книги не указан. Используем для чтения язык %0.</string>
-    <string name="no_data_for_language" formatted="false">Данные для языка &quot;%0&quot; не установлены. Установить их сейчас?</string>
+    <string name="no_data_for_language">Данные для языка %0 не установлены. Установить их сейчас?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="speed">Скорость:</string>
     <string name="pitch">Тембр:</string>
     <string name="volume">Громкость:</string>
-    <string name="set_language">Установка языка</string>
+    <string name="set_language">Изменить голос\nили язык</string>
     <string name="choose_language">Выберите язык</string>
     <string name="book_language">Язык книги</string>
     <string name="unknown">неизвестно</string>
     <string name="add_language">Добавите новый язык...</string>
     <string name="tts_settings">Настройки TTS</string>
-    <string name="reset_tts">Перезапуск TTS"</string>
+    <string name="reset_tts">Перезапуск TTS</string>
     <string name="hi_sentences">Подсветка читаемого текста</string>
-    <string name="screen_on">Не выключать екран во время чтения</string>
+    <string name="screen_on">Не выключать экран во время чтения</string>
     <string name="screen_dimmed">Тусклый</string>
     <string name="screen_bright">Яркий</string>
     <string name="rate">Оцените TTS+!</string>
-    <string name="paragraph_delay">Дополнительная пауза в конце пункта (мс):</string>
-    <string name="more_settings">Ещё...</string>
+    <string name="paragraph_delay">Дополнительная пауза в конце абзаца (мс):</string>
+    <string name="more_settings">Параметры...</string>
     <string name="headset_plug_start">Начинать чтение при подключении наушников</string>
     <string name="sleep_after">Остановить чтение через</string>
-    <string name="headset_start_fbr">Старт чтения  по кнопке наушников, когда FBReader на вершине</string>
-    <string name="net_synth">Использовай сетевый синтезатор речи, если возможно</string>
-    <string name="net_synth_wifi">только на WiFi</string>
-    <string name="word_opts">Показуй панель \"читай отдельные слова\"</string>
-    <string name="single_words">Одноместные слова</string>
-    <string name="pause_words">с паузами.</string>
-    <string name="tts_check_err">Ошибка: не удалось получить списка доступных языков с генератора речи.</string>
-    <string name="tryAllso">Попробуйте также наш новый продукт\n@Voice Reader - читает вслух</string>
+    <string name="headset_start_fbr">Запуск/Остановка воспроизведения с пульта гарнитуры, когда FBReader находится на вершине</string>
+    <string name="net_synth">Использовать сетевый синтезатор речи, если возможно</string>
+    <string name="net_synth_wifi">только через WiFi</string>
+    <string name="word_opts">Показать панель \"чтение отдельных слов\"</string>
+    <string name="single_words">Отдельно слово</string>
+    <string name="pause_words">С паузой.</string>
+    <string name="tts_check_err">Ошибка: не удалось получить список доступных языков для генератора речи.</string>
+    <string name="tryAllso">Попробуйте также наш новый продукт\n@Voice Reader - чтение вслух</string>
     <string name="atVoice"> \@Voice Aloud Reader </string>
     <string-array name="sleep_array">
         <item>никогда</item>
@@ -61,14 +61,14 @@
         <item>4 часа</item>
         <item>5 часа</item>
     </string-array>
-    <string name="atv_free">Бесплатно! \@Voice - читает вслух\nвеб, новости, e-mail и другое.</string>
+    <string name="atv_free">Бесплатно! @Voice - чтение вслух\nвеб, новости, e-mail и другое.</string>
     <string name="sync_ok">Dropbox-синхронизация выполнена</string>
-    <string name="previous_btn">Кнопка Назад</string>
-    <string name="next_btn">Кнопка Далее</string>
-    <string name="play_btn">Кнопка Play</string>
-    <string name="pause_btn">Кнопка Пауза</string>
-    <string name="stop_btn">Кнопка Стоп</string>
-    <string name="setup_btn">Кнопка Показать Скрыть настройки</string>
+    <string name="previous_btn">Назад</string>
+    <string name="next_btn">Далее</string>
+    <string name="play_btn">Play</string>
+    <string name="pause_btn">Пауза</string>
+    <string name="stop_btn">Стоп</string>
+    <string name="setup_btn">Показать Скрыть настройки</string>
     <string name="choose_tts">Выберите синтезатор речи</string>
     <string name="sys_def_tts">Система по умолчанию</string>
 </resources>

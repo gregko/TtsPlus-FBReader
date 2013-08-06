@@ -1,11 +1,13 @@
 
 package com.hyperionics.fbreader.plugin.tts_plus;
 
+import android.annotation.TargetApi;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Handler;
 
 /**
@@ -44,6 +46,7 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
     }
 
     private Runnable myTimerTask = new Runnable() {
+        @TargetApi(Build.VERSION_CODES.FROYO)
         public void run() {
             AudioManager am = SpeakService.mAudioManager;
             if(am != null &&

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.hyperionics.fbreader.plugin.tts_plus"
-          android:versionCode="2002010"
-          android:versionName="2.2.1">
+          android:versionCode="2003070"
+          android:versionName="2.3.7dir">
     <uses-sdk android:minSdkVersion="8"
               android:targetSdkVersion="15" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -14,7 +14,6 @@
             android:normalScreens="true"
             android:smallScreens="true"
             android:anyDensity="true" />
-    <!--<uses-permission android:name="android.permission.INTERNET" />-->
     <application android:label="@string/title" android:icon="@drawable/fbreader_plugin" android:name=".TtsApp">
 		<receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.PluginInfo">
 			<intent-filter>
@@ -25,15 +24,13 @@
 		</receiver>
 		<activity android:name="com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity"
                   android:theme="@android:style/Theme.Dialog"
-                  android:configChanges="orientation|keyboardHidden"
+                  android:configChanges="orientation|screenSize|keyboardHidden"
                  >
         </activity>
         <activity android:name="com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity"
-                  android:configChanges="orientation|keyboardHidden"
                   android:theme="@android:style/Theme.Dialog">
         </activity>
         <activity android:name="com.hyperionics.fbreader.plugin.tts_plus.StartupActivity"
-                  android:configChanges="orientation|keyboardHidden"
                   android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <action android:name="android.fbreader.action.plugin.RUN" />
@@ -60,10 +57,16 @@
                 <action android:name="com.hyperionics.fbreader.plugin.tts_plus.TTSP_KILL"></action>
             </intent-filter>
         </receiver>
-        <!--<activity android:name="org.acra.CrashReportDialog"-->
-                  <!--android:theme="@android:style/Theme.Dialog"-->
-                  <!--android:launchMode="singleInstance"-->
-                  <!--android:excludeFromRecents="true"-->
-                  <!--android:finishOnTaskLaunch="true" />-->
+
+        <!-- activities from TtsSetup library project - somehow manifestmerger.enabled=true still does not work -->
+        <activity android:name="com.hyperionics.TtsSetup.VoiceSelector"
+                  android:theme="@android:style/Theme.Black"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                />
+        <activity android:name="com.hyperionics.TtsSetup.AddVoice"
+                  android:theme="@android:style/Theme.Black"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                />
+
     </application>
 </manifest>

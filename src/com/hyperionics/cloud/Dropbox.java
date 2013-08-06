@@ -22,10 +22,9 @@ import com.dropbox.client2.jsonextract.JsonThing;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.session.AppKeyPair;
 import com.dropbox.client2.session.Session;
+import com.hyperionics.TtsSetup.AndyUtil;
+import com.hyperionics.TtsSetup.Lt;
 import com.hyperionics.fbreader.plugin.tts_plus.R;
-import com.hyperionics.fbreader.plugin.tts_plus.TtsApp;
-import com.hyperionics.util.AndyUtil;
-import com.hyperionics.util.Lt;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -304,7 +303,7 @@ public class Dropbox {
             Lt.df("---------- Exit 1 internalSyncFolder()");
             return false;
         }
-        if (folderToSync == null || folderToSync.isEmpty())
+        if (folderToSync == null || folderToSync.equals(""))
             folderToSync = mTopFolder;
         File dir = new File(folderToSync);
         if (!dir.isDirectory()) {

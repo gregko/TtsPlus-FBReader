@@ -7,7 +7,7 @@
     <string name="url">http://www.hyperionics.com/TtsPlus</string>
     <string name="back"> Назад </string>
     <string name="failure">Съжаляваме, но инициализирането се провали</string>
-    <string name="speak_menu_item">Прочитай+</string>
+    <string name="speak_menu_item">Прочети+</string>
     <string name="no_tts_installed">Не успяхме да намерим речева машина на вашето устройство.</string>
     <string name="initialization_error">Не успяхме да получим данни за книгата от FBReader.</string>
     <string name="api_error_2">Грешка в API.</string>
@@ -18,7 +18,7 @@
     <string name="speed">Скорост:</string>
     <string name="pitch">Височина:</string>
     <string name="volume">Звук:</string>
-    <string name="set_language">Задаване на езика</string>
+    <string name="set_language">Промени\nгласа/езика</string>
     <string name="choose_language">Избор на език</string>
     <string name="book_language">Език на книгата</string>
     <string name="unknown">непознат</string>
@@ -70,12 +70,12 @@
     <string name="atVoice"> \@Voice Aloud Reader </string>
     <string name="atv_free">Безплатно! \@Voice - чете на глас\nуеб страници, новини, е-писма...</string>
     <string name="sync_ok">Синхронизирането с Dropbox е успешно</string>
-    <string name="previous_btn">Бутон за предишен</string>
-    <string name="next_btn">Бутон за следващ</string>
-    <string name="play_btn">Бутон за възпроизвеждане</string>
-    <string name="pause_btn">Бутон за пауза</string>
-    <string name="stop_btn">Бутон за спиране</string>
-    <string name="setup_btn">Бутон за показване или скриване на настройките</string>
-    <string name="choose_tts">Изберете синтезатор реч</string>
+    <string name="previous_btn">Предишен</string>
+    <string name="next_btn">Следващ</string>
+    <string name="play_btn">Възпроизвеждане</string>
+    <string name="pause_btn">Пауза</string>
+    <string name="stop_btn">Спиране</string>
+    <string name="setup_btn">Показване или скриване на настройките</string>
+    <string name="choose_tts">Изберете речев синтезатор</string>
     <string name="sys_def_tts">Система по подразбиране</string>
 </resources>

@@ -3,7 +3,7 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import com.hyperionics.util.Lt;
+import com.hyperionics.TtsSetup.Lt;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>

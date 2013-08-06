@@ -1,13 +1,14 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.KeyguardManager;
 import android.content.*;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -20,7 +21,9 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.*;
 import android.widget.*;
-import com.hyperionics.util.Lt;
+import com.hyperionics.TtsSetup.LangSupport;
+import com.hyperionics.TtsSetup.Lt;
+import com.hyperionics.TtsSetup.VoiceSelector;
 import org.geometerplus.android.fbreader.api.ApiException;
 
 /**
@@ -48,11 +51,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     private static boolean startTalkAtOnce = true;
     private static boolean currentlyVisible = false;
     private static volatile PowerManager.WakeLock myWakeLock;
+    static final int LANG_SEL_REQUEST = 101;
     static boolean wantStarted = false;
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
 
     private int myMaxVolume;
     private int savedBottomMargin = -1;
+    private int hidePromo = 0;
+    private final int promoMaxPress = 3;
 
     private void setListener(int id, View.OnClickListener listener) {
 		findViewById(id).setOnClickListener(listener);
@@ -73,6 +79,15 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         startTalkAtOnce = (getIntent().getIntExtra(NO_RESTART_TALK, 0) != 1);
         setContentView(R.layout.control_panel);
         currentSpeakActivity = this;
+        hidePromo = SpeakService.getPrefs().getInt("hidePromo", 0);
+        if (hidePromo < promoMaxPress) {
+            PackageManager pm = getPackageManager();
+            try {
+                pm.getPackageInfo("com.hyperionics.avar", PackageManager.GET_META_DATA);
+                hidePromo = promoMaxPress;
+                SpeakService.getPrefs().edit().putInt("hidePromo", hidePromo).commit();
+            } catch (PackageManager.NameNotFoundException e) {}
+        }
 
         myMaxVolume = SpeakService.mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
@@ -95,8 +110,20 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         });
         setListener(R.id.button_lang, new View.OnClickListener() {
             public void onClick(View v) {
-                selectLanguage(true);
-                //SpeakService.myPreferences.edit().putString("lang", SpeakService.selectedLanguage).commit();
+                SpeakService.stopTalking();
+                if (Build.VERSION.SDK_INT >= 14) {
+                    Intent intent = new Intent(currentSpeakActivity, VoiceSelector.class);
+                    String lang = SpeakService.getCurrentBookLanguage();
+                    if ("".equals(lang))
+                        lang = Locale.getDefault().getLanguage();
+                    intent.putExtra(VoiceSelector.INIT_LANG, lang);
+                    String eng = LangSupport.getSelectedTtsEng();
+                    if (eng != null)
+                        intent.putExtra(VoiceSelector.INIT_ENGINE, eng);
+                    startActivityForResult(intent, LANG_SEL_REQUEST);
+                } else {
+                    selectLanguage(true);
+                }
             }
         });
         setListener(R.id.button_more, new View.OnClickListener() {
@@ -176,7 +203,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     vs.setVisibility(View.VISIBLE);
                     v2.setVisibility(View.VISIBLE);
                     boolean words = SpeakService.getPrefs().getBoolean("WORD_OPTS", false);
-                    v3.setVisibility(words ? View.GONE : View.VISIBLE);
+                    v3.setVisibility(words || hidePromo>= promoMaxPress ? View.GONE : View.VISIBLE);
                     vw.setVisibility(words ? View.VISIBLE : View.GONE);
                     myEditor.putBoolean("HIDE_PREFS", false);
                 }
@@ -195,6 +222,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         });
         setListener(R.id.promo, new View.OnClickListener() {
             public void onClick(View v) {
+                SpeakService.getPrefs().edit().putInt("hidePromo", ++hidePromo).commit();
                 SpeakService.stopTalking();
                 try {
                     if (InstallInfo.installedFromAma()) {
@@ -327,6 +355,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             findViewById(R.id.sliders).setVisibility(View.GONE);
             findViewById(R.id.bigButtons).setVisibility(View.GONE);
             findViewById(R.id.promo).setVisibility(View.GONE);
+        } else if (hidePromo>=promoMaxPress) {
+            findViewById(R.id.promo).setVisibility(View.GONE);
         }
         findViewById(R.id.read_words).setVisibility(View.GONE);
         doStartTts();
@@ -399,7 +429,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             adjustBottomMargin();
             SpeakService.restorePosition();
             currentSpeakActivity.setActionsEnabled(true);
-            if (SpeakService.setLanguage(null) && startTalkAtOnce)
+            if (startTalkAtOnce)
                 SpeakService.startTalking();
         } catch (Exception e) {
 //            if (SpeakService.myTTS == null)
@@ -440,64 +470,28 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         if (Build.VERSION.SDK_INT < 14)
             return;
 
-        SpeakService.stopTalking();
-        int checkedItem = 0;
-        final List<TextToSpeech.EngineInfo> engines = new TextToSpeech(this, null).getEngines();
-        CharSequence[] items = new CharSequence[engines.size() + 1];
-        items[0] = getString(R.string.sys_def_tts);
-        for (int i = 1; i <= engines.size(); i++) {
-            items[i] = engines.get(i-1).label;
-            if (engines.get(i-1).name.equals(SpeakService.selectedTtsEng))
-                checkedItem = i;
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.choose_tts);
-        builder.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                SharedPreferences.Editor ed = SpeakService.getPrefs().edit();
-                if (item == 0) {
-                    SpeakService.selectedTtsEng = null;
-                    ed.remove("selectedTtsEng").commit();
-                } else {
-                    SpeakService.selectedTtsEng = engines.get(item-1).name;
-                    ed.putString("selectedTtsEng", SpeakService.selectedTtsEng).commit();
-                }
+        new LangSupport(this).setOnEngineSelected(new LangSupport.OnEngineSelected() {
+            @Override
+            public void engSelected(String engPackageName) {
                 try {
                     if (SpeakService.myTTS != null) {
                         SpeakService.myTTS.shutdown();
                         SpeakService.myTTS = null;
                     }
                 } catch (Exception e) {}
-                dialog.cancel();
                 doStartTts();
             }
-        });
-        builder.create().show();
+        }).selectTtsEngine();
     }
 
     void doStartTts() {
         try {
             SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
-            PowerManager powerManager = (PowerManager)getSystemService(POWER_SERVICE);
-            KeyguardManager kgMgr = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-
             if (Build.VERSION.SDK_INT >= 14)
-                SpeakService.myTTS = new TextToSpeech(SpeakService.getCurrentService(), this, SpeakService.selectedTtsEng);
+                SpeakService.myTTS = new TextToSpeech(SpeakService.getCurrentService(), this, LangSupport.getSelectedTtsEng());
             else
                 SpeakService.myTTS = new TextToSpeech(SpeakService.getCurrentService(), this);
 
-//            if (powerManager.isScreenOn() && !kgMgr.inKeyguardRestrictedInputMode()) {
-//                Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-//                String speakEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
-//                if (speakEng != null) {
-//                    Lt.d("spekEng = " + speakEng);
-//                    in = in.setPackage(speakEng); // this has no effect...
-//                }
-//                currentSpeakActivity.startActivityForResult(in, 1); // goes to onActivityResult() below
-//            } else {
-//                SpeakService.myTTS = new TextToSpeech(SpeakService.getCurrentService(), this);
-//            }
         } catch (ActivityNotFoundException e) {
             currentSpeakActivity.showErrorMessage(R.string.no_tts_installed);
         }
@@ -511,8 +505,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 if (SpeakService.myTTS != null) {
                     try {
                         SpeakService.myTTS.shutdown();
-                    } catch (Exception e) {
-                    }
+                    } catch (Exception e) {}
                     SpeakService.myTTS = null;
                 }
                 SpeakService.myTTS = new TextToSpeech(this, this);
@@ -522,7 +515,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             } else {
                 try {
                     Intent intent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                    intent.setPackage(SpeakService.getTtsEngine());
+                    intent.setPackage(LangSupport.getSelectedTtsEng());
                     startActivity(intent);
                 } catch (ActivityNotFoundException e) {
                     showErrorMessage(R.string.no_tts_installed);
@@ -536,9 +529,25 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             myVoices = data.getStringArrayListExtra(TextToSpeech.Engine.EXTRA_AVAILABLE_VOICES);
             selectLanguage(false);
         }
+        else if (requestCode == LANG_SEL_REQUEST && data != null) {
+            // On successful return the engine is already set as default in LangSupport
+            String lang = data.getStringExtra(VoiceSelector.SELECTED_VOICE);
+            if (lang != null) {
+                SpeakService.selectedLanguage = lang;
+                SpeakService.savePosition();
+            }
+            try {
+                if (SpeakService.myTTS != null) {
+                    SpeakService.myTTS.shutdown();
+                    SpeakService.myTTS = null;
+                }
+            } catch (Exception e) {}
+            doStartTts();
+        }
 	}
 
-	@Override protected void onResume() {
+	@TargetApi(Build.VERSION_CODES.FROYO)
+    @Override protected void onResume() {
         super.onResume();
         currentSpeakActivity = this;
         currentlyVisible = true;
@@ -547,7 +556,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             View vw = findViewById(R.id.read_words);
             boolean words = SpeakService.getPrefs().getBoolean("WORD_OPTS", false);
             if (v3 != null)
-                v3.setVisibility(words ? View.GONE : View.VISIBLE);
+                v3.setVisibility(words || hidePromo>=promoMaxPress ? View.GONE : View.VISIBLE);
             if (vw != null)
                 vw.setVisibility(words ? View.VISIBLE : View.GONE);
             SpeakService.wordPauses = SpeakService.getPrefs().getBoolean("WORD_OPTS", false) &&
@@ -570,6 +579,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             TtsApp.enableComponents(false);
         }
 	}
+
+    @Override public void onConfigurationChanged (Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 
     static boolean isVisible() {
         return currentlyVisible;
@@ -651,10 +664,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 		SpeakService.myIsActive = active;
 
         // This must be done in the same thread for Bluetooth controls to work correctly
-        if (currentSpeakActivity != null) {
+        if (currentSpeakActivity != null) try {
             currentSpeakActivity.findViewById(R.id.button_play).setVisibility(active ? View.GONE : View.VISIBLE);
             currentSpeakActivity.findViewById(R.id.button_pause).setVisibility(active ? View.VISIBLE : View.GONE);
-        }
+        } catch (Exception e) {}
 
 		if (active) {
 			if (myWakeLock == null && currentSpeakActivity != null) {
@@ -678,13 +691,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 	}
 
     public void selectLanguage(boolean tryCheckTtsData) {
+        // Now this function is called only for SDK_INT < 14
         SpeakService.stopTalking();
         //myVoices = null; // test crash
         if (tryCheckTtsData) {
             Intent in = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-            String speakEng = SpeakService.getTtsEngine(); //Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
-            if (speakEng != null) {
-                in = in.setPackage(speakEng); // here setting package does have an effect.
+            String defTtsEng = Settings.Secure.getString(getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH);
+            if (defTtsEng != null) {
+                in = in.setPackage(defTtsEng); // here setting package does have an effect.
             }
             try {
                 currentSpeakActivity.startActivityForResult(in, 7); // goes to onActivityResult()
@@ -725,7 +739,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             } else if (currentSystemLang.equals(lang)) {
                 checkedItem = i;
             }
-            items[i+bookLangKnown] = TtsSentenceExtractor.localeFromString(s).getDisplayName(); // (new Locale(lang, country)).getDisplayName();
+            items[i+bookLangKnown] = LangSupport.localeFromString(s).getDisplayName(); // (new Locale(lang, country)).getDisplayName();
         }
         items[myVoices.size()+bookLangKnown] = getString(R.string.add_language);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -748,7 +762,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 if (item == myVoices.size()+bookLangKnown) {
                     try {
                         Intent intent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                        intent.setPackage(SpeakService.getTtsEngine());
+                        intent.setPackage(LangSupport.getSelectedTtsEng());
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         showErrorMessage(R.string.no_tts_installed);

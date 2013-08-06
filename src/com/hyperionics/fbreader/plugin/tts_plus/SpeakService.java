@@ -11,11 +11,12 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
 import android.text.format.Time;
-import com.hyperionics.util.Lt;
+import com.hyperionics.TtsSetup.LangSupport;
+import com.hyperionics.TtsSetup.Lt;
+import com.hyperionics.TtsSetup.VoiceSelector;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.ApiListener;
@@ -58,7 +59,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static boolean myHighlightSentences = true;
     static int myParaPause = 300;
     static String selectedLanguage = BOOK_LANG; // either "book" or locale code like "eng-USA"
-    static String selectedTtsEng = null;
     static int myParagraphIndex = -1;
     static int myParagraphsNumber;
     static float myCurrentPitch = 1f;
@@ -92,8 +92,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 SharedPreferences.Editor myEditor = getPrefs().edit();
                 Time time = new Time();
                 time.setToNow();
-                String lang = "";
-                lang = " l:" + selectedLanguage;
+                String lang = " l:" + selectedLanguage;
+                String eng = LangSupport.getSelectedTtsEng();
+                if (eng != null)
+                    lang += "|" + eng;
                 myEditor.putString(myBookHash, lang +
                         "p:" + myParagraphIndex + " s:" + myCurrentSentence + " e:" + mySentences[myCurrentSentence].i +
                         " d:" + time.format2445()
@@ -106,7 +108,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
     }
 
-    static void restorePosition() {
+    static boolean restorePosition() {
         try {
             if (myBookHash == null)
                 myBookHash = "BP:" + myApi.getBookHash();
@@ -119,6 +121,21 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             if (para > -1 && sent > -1 && idx > -1 && dt > -1) {
                 if (il > -1) {
                     selectedLanguage = s.substring(il + 2, para);
+                    int n = selectedLanguage.lastIndexOf('|');
+                    if (n > 0) {
+                        String eng = selectedLanguage.substring(n+1);
+                        selectedLanguage = selectedLanguage.substring(0, n);
+                        if (eng != null && !eng.equals(LangSupport.getSelectedTtsEng())) {
+                            // Speech engine change necessary
+                            LangSupport.setSelectedTtsEng(eng);
+                            if (myTTS != null) try {
+                                myTTS.shutdown();
+                            } catch (Exception e) {}
+                            myTTS = null;
+                            SpeakActivity.getCurrent().doStartTts();
+                            return false;
+                        }
+                    }
                 }
                 para = Integer.parseInt(s.substring(para + 2, sent-1));
                 sent = Integer.parseInt(s.substring(sent + 2, idx - 1));
@@ -131,8 +148,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 }
             }
         } catch (ApiException e) {
-            ;
         }
+        return true;
     }
 
     static void cleanupPositions() {
@@ -215,12 +232,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (languageCode == null) {
             languageCode = getCurrentBookLanguage();
             if (languageCode == null || languageCode.equals("")) {
-                if (SpeakActivity.getCurrent() != null) {
-                    SpeakActivity.getCurrent().selectLanguage(true);
-                    return false;
-                }
-                else
-                    languageCode = BOOK_LANG;
+                languageCode = BOOK_LANG;
             }
         }
         if (languageCode.equals(BOOK_LANG)) { // the language of this book is unknown...
@@ -231,70 +243,37 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
             if (languageCode == null || languageCode.equals(""))
                 languageCode = Locale.getDefault().getLanguage();
+
+            if (LangSupport.langInstalled(myTTS, languageCode) == null) {
+                SpeakActivity sa = SpeakActivity.getCurrent();
+                if (Build.VERSION.SDK_INT >= 14) {
+                    Intent intent = new Intent(sa, VoiceSelector.class);
+                    intent.putExtra(VoiceSelector.INIT_LANG, languageCode);
+                    sa.startActivityForResult(intent, SpeakActivity.LANG_SEL_REQUEST);
+                    return false;
+                } else {
+                    sa.selectLanguage(true);
+                    return false;
+                }
+            }
         }
 
-        locale = TtsSentenceExtractor.localeFromString(languageCode);
-        if (myTTS == null)
+        if (myTTS == null || currentService == null)
             return false;
-        boolean isAvailable = false;
-        try {
-            isAvailable = myTTS.isLanguageAvailable(locale) >= 0;
-        } catch (IllegalArgumentException e) {}
-        while (!isAvailable && languageCode.contains("-")) {
-            languageCode = languageCode.substring(0, languageCode.lastIndexOf("-"));
-            locale = TtsSentenceExtractor.localeFromString(languageCode);
-            try {
-                isAvailable = myTTS.isLanguageAvailable(locale) >= 0;
-            } catch (IllegalArgumentException e) {}
-        }
-
-        if (!isAvailable) {
-            String err = currentService.getText(R.string.no_data_for_language).toString()
-                    .replace("%0", locale.getDisplayLanguage());
-            AlertDialog.Builder builder = new AlertDialog.Builder(SpeakActivity.getCurrent());
-            builder.setMessage(err)
-                    .setCancelable(false)
-                    .setPositiveButton(currentService.getText(R.string.yes), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                            try {
-                                Intent intent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                                intent.setPackage(getTtsEngine());
-                                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                currentService.startActivity(intent);
-                            } catch (ActivityNotFoundException e) {
-                                SpeakActivity.showErrorMessage(R.string.no_tts_installed);
-                            }
-                            if (SpeakActivity.getCurrent() != null) // added this line post 1.5.5 rel. - line numbrs below same.
-                                SpeakActivity.getCurrent().doDestroy();
-                            TtsApp.ExitApp();
-                        }
-                    })
-                    .setNegativeButton(currentService.getText(R.string.no), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
+        locale = LangSupport.langInstalled(myTTS, languageCode);
+        if (locale == null)
             return false;
-        }
-
         myTTS.setLanguage(locale);
         return true;
     }
 
-    static String getTtsEngine() {
-        if (currentService == null)
-            return null;
-        return selectedTtsEng == null ?
-                Settings.Secure.getString(currentService.getContentResolver(), Settings.Secure.TTS_DEFAULT_SYNTH) :
-                selectedTtsEng;
-    }
-
     static void startTalking() {
+        if (myTTS == null)
+            return;         // implement somehow creation of myTTS?...
+
+        if (!setLanguage(SpeakService.selectedLanguage))
+            return;
         SpeakActivity.setActive(true);
-        setLanguage(SpeakService.selectedLanguage);
         wordPauses = getPrefs().getBoolean("WORD_OPTS", false) &&
                      myPreferences.getBoolean("SINGLE_WORDS", false) &&
                      myPreferences.getBoolean("PAUSE_WORDS", false);
@@ -707,6 +686,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     public static SharedPreferences getPrefs() {
         if (myPreferences == null) {
+            LangSupport.setPrefsName("atVoice");
             if (currentService != null)
                 myPreferences = currentService.getSharedPreferences("atVoice", MODE_PRIVATE);
             else
@@ -782,7 +762,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myPreferences == null)
             myPreferences = currentService.getSharedPreferences("FBReaderTTS", MODE_PRIVATE);
         selectedLanguage = BOOK_LANG; // myPreferences.getString("lang", BOOK_LANG);
-        selectedTtsEng = myPreferences.getString("selectedTtsEng", null);
         myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
         myParaPause = myPreferences.getInt("paraPause", myParaPause);
         if (myParamMap == null) {

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TtsPlus-FBReader.iml" filepath="$PROJECT_DIR$/TtsPlus-FBReader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../TtsSetup/TtsSetup.iml" filepath="$PROJECT_DIR$/../TtsSetup/TtsSetup.iml" />
     </modules>
   </component>
 </project>

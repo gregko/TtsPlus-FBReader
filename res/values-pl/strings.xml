@@ -18,7 +18,7 @@
     <string name="speed">Szybkość:</string>
     <string name="pitch">Wysokość:</string>
     <string name="volume">Głośność:</string>
-    <string name="set_language">Ustaw język</string>
+    <string name="set_language">Zmień głos\nlub język</string>
     <string name="choose_language">Wybierz język</string>
     <string name="book_language">Język książki</string>
     <string name="unknown">nieznany</string>

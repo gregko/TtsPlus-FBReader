@@ -38,28 +38,6 @@ public class TtsSentenceExtractor {
         }
     }
 
-    static Locale localeFromString(String languageCode) {
-        int n = languageCode.indexOf("-");
-        if (n > 0) {
-            String lang, country;
-            lang = languageCode.substring(0, n);
-            country = languageCode.substring(n+1);
-            n = country.indexOf("-");
-            String variant = null;
-            if (n > 0) {
-                variant = country.substring(n+1);
-                country = country.substring(0, n);
-            }
-            if (variant != null)
-                return new Locale(lang, country, variant);
-            else
-                return new Locale(lang, country);
-        }
-        else {
-            return new Locale(languageCode);
-        }
-    }
-
     // extract() is used only with old versions of FBReader. Do not maintain this function any longer.
     public static SentenceIndex[] extract(String paragraph, Locale loc) {
         if (paragraph.length() > 0) {
@@ -93,6 +71,8 @@ public class TtsSentenceExtractor {
 
     public static SentenceIndex[] build(List<String> wl, ArrayList<Integer> il, TextToSpeech currentTTS, boolean wordsOnly) {
         Locale loc = currentTTS.getLanguage();
+        if (loc == null)
+            loc = Locale.getDefault();
         boolean breakSentences;
         try {
             // Stupid: getCurrentEngine() of TTS is hidden. Try to get current engine if we can -
@@ -124,8 +104,11 @@ public class TtsSentenceExtractor {
             if (w.length() == 2 && w.endsWith(".") && Character.isUpperCase(w.charAt(0))) {
                 w = w.substring(0, 1) + " ";
             } else {
-                w = w.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
-                w = w.replace('\u2014', '-'); // dec 8211, 'EM DASH', Ivona PL reads as "przecinek"
+                if (loc.getISO3Language().equals("pol")) {
+                    // do this only for Polish, else for Spanish - Ivona pronounces regular '-' as "geeon"
+                    w = w.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
+                    w = w.replace('\u2014', '-'); // dec 8211, 'EM DASH', Ivona PL reads as "przecinek"
+                }
                 w = w.replace('\u00A0', ' '); // dec 160, no-break space
                 w = w.replace("\u200B", " ");  // dec. 8203, 'zero width space' (do not replace with empty, or we may get w empty and crash)
                 w = w.replace('\u2019', '\''); // RIGHT SINGLE QUOTATION MARK (U+2019), mis-pronounced by Google TTS?

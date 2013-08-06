@@ -1,5 +1,6 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
+import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
@@ -7,7 +8,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import com.hyperionics.util.Lt;
+import android.os.Build;
+import com.hyperionics.TtsSetup.AndyUtil;
+import com.hyperionics.TtsSetup.Lt;
 //import org.acra.*;
 //import org.acra.annotation.*;
 
@@ -53,6 +56,7 @@ public class TtsApp extends Application
     static PackageManager myPackageManager;
     static String myPackageName;
 
+    @TargetApi(Build.VERSION_CODES.FROYO)
     static void enableComponents(boolean enabled) {
         componentsEnabled = enabled;
         int flag = (enabled ?
@@ -106,6 +110,7 @@ public class TtsApp extends Application
 
     public TtsApp() {
         (new GlobalExceptionHandler()).init(this);
+        AndyUtil.setApp(this);
     }
 
     @Override public void onCreate() {
@@ -116,6 +121,7 @@ public class TtsApp extends Application
         myIsDebug = (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         myPackageManager = getPackageManager();
         myPackageName = getPackageName();
+        Lt.init(this, "FBReaderTTS");
         Lt.d("TtsApp created");
         startService(new Intent(this, SpeakService.class));
         try {

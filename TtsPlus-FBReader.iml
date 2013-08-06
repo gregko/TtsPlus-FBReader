@@ -11,9 +11,16 @@
   <component name="FacetManager">
     <facet type="android" name="Android">
       <configuration>
+        <option name="UPDATE_PROPERTY_FILES" value="true" />
         <includeSystemProguardFile>false</includeSystemProguardFile>
         <includeAssetsFromLibraries>true</includeAssetsFromLibraries>
         <resOverlayFolders />
+        <notImportedProperties>
+          <property>MANIFEST_FILE_PATH</property>
+          <property>RESOURCES_DIR_PATH</property>
+          <property>ASSETS_DIR_PATH</property>
+          <property>NATIVE_LIBS_DIR_PATH</property>
+        </notImportedProperties>
       </configuration>
     </facet>
   </component>
@@ -28,6 +35,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="dropbox-android-sdk-1.5.4" level="project" />
     <orderEntry type="library" name="json_simple-1.1" level="project" />
+    <orderEntry type="module" module-name="TtsSetup" />
   </component>
 </module>
 

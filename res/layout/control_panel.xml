@@ -14,13 +14,14 @@
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="left"
                 android:layout_margin="4dp"
                 android:background="#dfdfdf"
                 >
             <ImageView
                     android:src="@drawable/at_voice"
-                    android:padding="6dp"
+                    android:padding="6dip"
+                    android:contentDescription=""
                 />
             <TextView
                     android:layout_width="fill_parent"
@@ -29,7 +30,7 @@
                     android:textColor="#0000ff"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:gravity="left"
-                    android:padding="6dp"
+                    android:padding="4dip"
                     android:singleLine="false"/>
         </TableRow>
     </TableLayout>
@@ -48,13 +49,13 @@
         <Button android:id="@+id/button_lang"
                 android:text="@string/set_language"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 />
             <Button android:id="@+id/button_more"
                     android:text="@string/more_settings"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     />
         </TableRow>
@@ -112,6 +113,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/speed"
+                    android:focusable="true"
                     />
         </TableRow>
 
@@ -134,6 +137,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/pitch"
+                    android:focusable="true"
                     />
         </TableRow>
 
@@ -156,6 +161,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/volume"
+                    android:focusable="true"
                     />
         </TableRow>
     </TableLayout>

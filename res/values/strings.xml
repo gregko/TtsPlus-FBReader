@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidLintTypographyDashes -->
 <resources>
 	<string name="title">FBReader TTS+ Plugin</string>
     <string name="about">About TTS+</string>
@@ -18,7 +19,7 @@
     <string name="speed">Rate:</string>
     <string name="pitch">Pitch:</string>
     <string name="volume">Volume:</string>
-    <string name="set_language">Set Language</string>
+    <string name="set_language">Change Voice\nor Language</string>
     <string name="choose_language">Choose Language</string>
     <string name="book_language">Book Language</string>
     <string name="unknown">unknown</string>
@@ -72,12 +73,12 @@
     <string name="atVoice"> \@Voice Aloud Reader </string>
     <string name="atv_free">Free! \@Voice Aloud Reader - reads to\nyou the web, news, emails and more.</string>
     <string name="sync_ok">Dropbox sync succeeded</string>
-    <string name="previous_btn">Previous button</string>
-    <string name="next_btn">Next button</string>
-    <string name="play_btn">Play button</string>
-    <string name="pause_btn">Pause button</string>
-    <string name="stop_btn">Stop button</string>
-    <string name="setup_btn">Show-Hide Setup button</string>
+    <string name="previous_btn">Previous</string>
+    <string name="next_btn">Next</string>
+    <string name="play_btn">Play</string>
+    <string name="pause_btn">Pause</string>
+    <string name="stop_btn">Stop</string>
+    <string name="setup_btn">Show-Hide Setup</string>
     <string name="choose_tts">Select TTS Engine</string>
     <string name="sys_def_tts">Default system TTS Engine</string>
 </resources>
