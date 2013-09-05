@@ -249,6 +249,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 if (Build.VERSION.SDK_INT >= 14) {
                     Intent intent = new Intent(sa, VoiceSelector.class);
                     intent.putExtra(VoiceSelector.INIT_LANG, languageCode);
+                    VoiceSelector.resetSelector(); // important, call before each use of the selector!
                     sa.startActivityForResult(intent, SpeakActivity.LANG_SEL_REQUEST);
                     return false;
                 } else {

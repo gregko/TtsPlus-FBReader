@@ -120,6 +120,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     String eng = LangSupport.getSelectedTtsEng();
                     if (eng != null)
                         intent.putExtra(VoiceSelector.INIT_ENGINE, eng);
+                    VoiceSelector.resetSelector(); // important, call before each use of the selector!
                     startActivityForResult(intent, LANG_SEL_REQUEST);
                 } else {
                     selectLanguage(true);

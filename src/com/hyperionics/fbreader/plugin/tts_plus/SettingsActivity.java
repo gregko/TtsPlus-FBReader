@@ -214,7 +214,8 @@ public class SettingsActivity extends Activity {
                 SpeakActivity sa = SpeakActivity.getCurrent();
                 if (Build.VERSION.SDK_INT >= 14) {
                     finish();
-                    sa.selectTtsEngine();
+                    if (sa != null)
+                        sa.selectTtsEngine();
                 } else {
                     Intent intent = new Intent("com.android.settings.TTS_SETTINGS");
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);

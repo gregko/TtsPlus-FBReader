@@ -108,6 +108,13 @@ public class TtsSentenceExtractor {
                     // do this only for Polish, else for Spanish - Ivona pronounces regular '-' as "geeon"
                     w = w.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
                     w = w.replace('\u2014', '-'); // dec 8211, 'EM DASH', Ivona PL reads as "przecinek"
+                } else if (loc.getISO3Language().equals("spa")) {
+                    int n = w.indexOf('\u2014');
+                    if (n == 0 && w.length() > 1) {
+                        char c = w.charAt(1);
+                        if (c == '.' || c == '?' || c=='!')
+                            w = w.replace(c, ' '); // add space to avoid "geeon" in Ivona
+                    }
                 }
                 w = w.replace('\u00A0', ' '); // dec 160, no-break space
                 w = w.replace("\u200B", " ");  // dec. 8203, 'zero width space' (do not replace with empty, or we may get w empty and crash)
