@@ -105,63 +105,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36881102-1f07-46e3-b919-36d1380bf90f" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\AndroidManifest.xml.d" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\R.txt" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\build.prop" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\AddVoice$1.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\AddVoice$2$1.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\AddVoice$2$2.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\AddVoice$2.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\AddVoice$3.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\AddVoice.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\AndyUtil.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\LangSupport$1.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\LangSupport$EngSearch$1.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\LangSupport$EngSearch.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\LangSupport$OnEngineSelected.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\LangSupport$OnSearchFinished.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\LangSupport.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\Lt.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\Manifest.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\R$array.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\R$id.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\R$layout.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\R.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\VoiceSelector$1.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\VoiceSelector$2.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\VoiceSelector$3.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\VoiceSelector$4.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\VoiceSelector$5.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\VoiceSelector$6.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\VoiceSelector$EngLang.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\VoiceSelector$LangCodeName.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\classes\com\hyperionics\TtsSetup\VoiceSelector.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\jarlist.cache" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\proguard.txt" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\res\drawable-hdpi\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\res\drawable-ldpi\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\bin\res\drawable-mdpi\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\android\TtsSetup\gen\R.java.d" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/AndyUtil.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/AndyUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/LangSupport$1.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/LangSupport$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/LangSupport$EngSearch$1.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/LangSupport$EngSearch$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/LangSupport$EngSearch.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/LangSupport$EngSearch.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/LangSupport.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/LangSupport.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/Lt.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/Lt.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TtsPlus-FBReader.apk" afterPath="$PROJECT_DIR$/TtsPlus-FBReader.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$1.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$2.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$3.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$4.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$5.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$6.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$EngLang.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$EngLang.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$LangCodeName.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector$LangCodeName.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector.class" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes/com/hyperionics/TtsSetup/VoiceSelector.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/classes.jar" afterPath="$PROJECT_DIR$/../TtsSetup/bin/classes.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/AndroidManifest.xml" afterPath="$PROJECT_DIR$/../TtsSetup/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/AndroidManifest.xml" afterPath="$PROJECT_DIR$/../TtsSetup/bin/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/AndyUtil.java" afterPath="$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/AndyUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/gen/com/hyperionics/TtsSetup/BuildConfig.java" afterPath="$PROJECT_DIR$/../TtsSetup/gen/com/hyperionics/TtsSetup/BuildConfig.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/LangSupport.java" afterPath="$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/LangSupport.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/Lt.java" afterPath="$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/Lt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/gen/R.java.d" afterPath="$PROJECT_DIR$/../TtsSetup/gen/R.java.d" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/gen/com/hyperionics/TtsSetup/R.java" afterPath="$PROJECT_DIR$/../TtsSetup/gen/com/hyperionics/TtsSetup/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/VoiceSelector.java" afterPath="$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/VoiceSelector.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/res/values-bg/arrays.xml" afterPath="$PROJECT_DIR$/../TtsSetup/res/values-bg/arrays.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/build.prop" afterPath="$PROJECT_DIR$/../TtsSetup/bin/build.prop" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/module_ttssetup.xml" afterPath="$PROJECT_DIR$/../TtsSetup/module_ttssetup.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/bin/proguard.txt" afterPath="$PROJECT_DIR$/../TtsSetup/bin/proguard.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/res/values-bg/strings.xml" afterPath="$PROJECT_DIR$/../TtsSetup/res/values-bg/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -186,7 +160,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -255,6 +228,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </line_breakpoints>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -287,16 +261,16 @@
       <file leaf-file-name="VoiceSelector.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/VoiceSelector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="52" selection-start="2500" selection-end="2500" vertical-scroll-proportion="0.0" vertical-offset="1105" max-vertical-offset="8058">
+            <state line="178" column="11" selection-start="7146" selection-end="7146" vertical-scroll-proportion="0.0" vertical-offset="3026" max-vertical-offset="8211">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="40" selection-start="730" selection-end="730" vertical-scroll-proportion="0.0" vertical-offset="78" max-vertical-offset="1326">
+            <state line="4" column="36" selection-start="245" selection-end="245" vertical-scroll-proportion="0.020383693" vertical-offset="51" max-vertical-offset="1326">
               <folding />
             </state>
           </provider>
@@ -304,20 +278,20 @@
       </file>
       <file leaf-file-name="about_panel.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/about_panel.xml">
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
           <provider editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
               <folding />
             </state>
           </provider>
+          <provider selected="true" editor-type-id="android-designer">
+            <state />
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="StartupActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="StartupActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/StartupActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="13" selection-start="984" selection-end="984" vertical-scroll-proportion="0.4473684" vertical-offset="0" max-vertical-offset="836">
+            <state line="25" column="13" selection-start="984" selection-end="984" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="850">
               <folding />
             </state>
           </provider>
@@ -370,8 +344,8 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="44" />
-    <option name="y" value="3" />
+    <option name="x" value="112" />
+    <option name="y" value="13" />
     <option name="width" value="1727" />
     <option name="height" value="1015" />
   </component>
@@ -401,7 +375,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -417,126 +390,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="TtsSetup" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
               <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsSetup" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsSetup" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hyperionics" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hyperionics" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tts_plus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -764,14 +624,16 @@
       <workItem from="1377621063707" duration="177000" />
       <workItem from="1378196283817" duration="1850000" />
       <workItem from="1378203906309" duration="422000" />
+      <workItem from="1378930174575" duration="203000" />
+      <workItem from="1378970018956" duration="199000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22552000" />
+    <option name="totallyTimeSpent" value="22954000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="44" y="3" width="1727" height="1015" extended-state="0" />
+    <frame x="112" y="13" width="1727" height="1015" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28887442" sideWeight="0.6596558" order="4" side_tool="false" content_ui="tabs" />
@@ -869,11 +731,11 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/res/layout/control_panel.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="49" column="44" selection-start="1809" selection-end="1809" vertical-scroll-proportion="0.35162374" vertical-offset="519" max-vertical-offset="4369" />
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values-bg/strings.xml">
@@ -898,19 +760,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="16" selection-start="983" selection-end="983" vertical-scroll-proportion="0.018518519" vertical-offset="289" max-vertical-offset="2278">
-          <folding />
-        </state>
+        <state line="28" column="16" selection-start="983" selection-end="983" vertical-scroll-proportion="0.018518519" vertical-offset="289" max-vertical-offset="2278" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="102" selection-start="5002" selection-end="5002" vertical-scroll-proportion="0.0" vertical-offset="1455" max-vertical-offset="13022">
-          <folding>
-            <element signature="e#6877#6904#0" expanded="true" />
-            <element signature="e#32514#32546#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="122" column="102" selection-start="5002" selection-end="5002" vertical-scroll-proportion="0.0" vertical-offset="1455" max-vertical-offset="13022" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
@@ -931,9 +786,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="226" column="21" selection-start="10060" selection-end="10060" vertical-scroll-proportion="0.17217392" vertical-offset="3743" max-vertical-offset="4318">
-          <folding />
-        </state>
+        <state line="226" column="21" selection-start="10060" selection-end="10060" vertical-scroll-proportion="0.17217392" vertical-offset="3743" max-vertical-offset="4318" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../TtsSetup/AndroidManifest.xml">
@@ -950,33 +803,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/about_panel.xml">
+      <provider editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/StartupActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="13" selection-start="984" selection-end="984" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="799">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/VoiceSelector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="52" selection-start="2500" selection-end="2500" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="1139">
+        <state line="178" column="11" selection-start="7146" selection-end="7146" vertical-scroll-proportion="0.0" vertical-offset="2192" max-vertical-offset="7939">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="40" selection-start="730" selection-end="730" vertical-scroll-proportion="0.0" vertical-offset="78" max-vertical-offset="1326">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/about_panel.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/StartupActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="13" selection-start="984" selection-end="984" vertical-scroll-proportion="0.4473684" vertical-offset="0" max-vertical-offset="836">
+        <state line="4" column="36" selection-start="245" selection-end="245" vertical-scroll-proportion="0.020383693" vertical-offset="51" max-vertical-offset="1326">
           <folding />
         </state>
       </provider>
