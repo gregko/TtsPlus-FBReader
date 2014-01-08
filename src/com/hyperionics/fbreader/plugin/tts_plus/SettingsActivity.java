@@ -11,7 +11,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
+import com.hyperionics.TtsSetup.CldWrapper;
+import com.hyperionics.TtsSetup.LangSupport;
 import com.hyperionics.TtsSetup.Lt;
+
+import java.util.Locale;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
@@ -175,6 +179,21 @@ public class SettingsActivity extends Activity {
                 edt.commit();
             }
         });
+
+        CheckBox avarSpeechBtn = ((CheckBox)findViewById(R.id.use_avar_speech));
+        if (SpeakActivity.avarDefaultPath != null) {
+            avarSpeechBtn.setChecked(SpeakService.getPrefs().getBoolean("AVAR_SPEECH", false));
+            avarSpeechBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    SpeakService.getPrefs().edit().putBoolean("AVAR_SPEECH", isChecked).commit();
+                    CldWrapper.initExtractorNative(SpeakService.getConfigPath(),
+                            LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage())));
+                }
+            });
+        } else {
+            avarSpeechBtn.setEnabled(false);
+        }
 
         final EditText paraPauseEdit = (EditText)findViewById(R.id.paraPause);
         paraPauseEdit.setText(Integer.toString(SpeakService.myParaPause));

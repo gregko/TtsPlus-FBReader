@@ -3,7 +3,7 @@
 	<string name="title">FBReader TTS+ Plugin</string>
     <string name="about">O programie</string>
     <string name="version">FBReader TTS+ Plugin wer.</string>
-    <string name="copyright">Copyright © 2012-13\nHyperionics Technology LLC</string>
+    <string name="copyright">Copyright © 2012-14\nHyperionics Technology LLC</string>
     <string name="url">http://www.hyperionics.com/TtsPlus</string>
     <string name="back"> Powrót </string>
 	<string name="failure">Przepraszamy, błąd inicjacji.</string>
@@ -27,6 +27,7 @@
     <string name="reset_tts">Domyślne"</string>
     <string name="hi_sentences">Podświetlaj czytany text</string>
     <string name="screen_on">Ekran włączony przy czytaniu</string>
+    <string name="avar_speech">Używaj plików wymowy z aplikacji @Voice Aloud Reader</string>
     <string name="screen_dimmed">Ściemniony</string>
     <string name="screen_bright">Jasny</string>
     <string name="rate">Oceń TTS+!</string>
@@ -71,4 +72,10 @@
     <string name="setup_btn">Przycisk Pokaż-schowaj ustawienia</string>
     <string name="choose_tts">Wybierz syntezator mowy</string>
     <string name="sys_def_tts">Domyślny syntezator systemu</string>
+        <string name="reader_info">Niniejsza wtyczka wymaga zainstalowanej aplikacji FBReader.
+            Aby jej używać, zainstaluj FBReader ze sklepu aplikacji. Następnie otwórz ebooka
+            w FBReader, naciśnij menu, przesuwaj menu w górę, znajdź i naciśnij \"Mów (+)\".
+    </string>
+    <string name="remove_icon">Usuń ikonkę Wtyczki z launchera</string>
+    <string name="remove_info">Ikonka Wtyczki będzie usunięta po restarcie urządzenia (w niektórych przypadkach wcześniej).</string>
 </resources>

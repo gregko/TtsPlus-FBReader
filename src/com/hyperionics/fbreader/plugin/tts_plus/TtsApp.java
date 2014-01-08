@@ -2,10 +2,7 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 
 import android.annotation.TargetApi;
 import android.app.Application;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -50,6 +47,7 @@ public class TtsApp extends Application
     private static boolean componentsEnabled = false;
     private static boolean myIsDebug = true;
     private static HeadsetPlugReceiver headsetPlugReceiver = null;
+    private static boolean nativeOk;
 
     static String versionName = "";
     static int versionCode = 0;
@@ -110,7 +108,6 @@ public class TtsApp extends Application
 
     public TtsApp() {
         (new GlobalExceptionHandler()).init(this);
-        AndyUtil.setApp(this);
     }
 
     @Override public void onCreate() {
@@ -122,7 +119,8 @@ public class TtsApp extends Application
         myPackageManager = getPackageManager();
         myPackageName = getPackageName();
         Lt.init(this, "FBReaderTTS");
-        Lt.d("TtsApp created");
+        nativeOk = AndyUtil.setApp(this);
+        Lt.d("TtsApp created, nativeOK = " + nativeOk);
         startService(new Intent(this, SpeakService.class));
         try {
             versionName = myPackageManager.getPackageInfo(myPackageName, 0).versionName;
@@ -130,8 +128,11 @@ public class TtsApp extends Application
             Lt.d("- version = " + versionName + " (" + versionCode + ")");
         } catch (PackageManager.NameNotFoundException e) {
         }
+
         super.onCreate();
     }
 
     static Context getContext() { return myApplication; }
+
+    public static boolean isNativeOk() { return nativeOk; }
 }

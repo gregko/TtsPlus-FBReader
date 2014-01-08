@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout"
+              android:orientation="vertical"
+              android:layout_gravity="center_horizontal|top"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="8dip"
+              android:background="@drawable/myshape" >
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/info_area"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            >
+        <ImageView android:id="@+id/icon"
+                   android:src="@drawable/fbreader_plugin"
+                   android:layout_width="32dp"
+                   android:layout_height="32dp"
+                   android:paddingLeft="2dp"
+                   android:paddingRight="2dp"
+                />
+        <TextView android:id="@+id/book_info"
+                android:textColor="@color/lltgray"
+                android:textSize="18dp"
+                android:paddingTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:singleLine="true"
+                />
+    </LinearLayout>
+    <ProgressBar android:id="@+id/book_progress"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_height="4dp"
+            android:layout_width="match_parent"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            />
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="4dip"
+            android:gravity="center"
+            android:weightSum="3"
+            android:id="@+id/nav_buttons"
+            >
+        <ImageButton android:id="@+id/button_previous"
+                     android:contentDescription="@string/previous_btn"
+                     android:focusable="true"
+                     android:layout_width="90dip"
+                     android:layout_height="60dip"
+                     android:layout_weight="1"
+                     android:src="@drawable/media_skip_backward"
+                />
+        <ImageButton android:id="@+id/button_play"
+                     android:contentDescription="@string/play_btn"
+                     android:focusable="true"
+                     android:layout_width="90dip"
+                     android:layout_height="60dip"
+                     android:layout_weight="1"
+                     android:src="@drawable/media_playback_start"
+                />
+        <ImageButton android:id="@+id/button_pause"
+                     android:contentDescription="@string/pause_btn"
+                     android:focusable="true"
+                     android:layout_width="90dip"
+                     android:layout_height="60dip"
+                     android:layout_weight="1"
+                     android:src="@drawable/media_playback_pause"
+                     android:visibility="gone"
+                />
+        <ImageButton android:id="@+id/button_next"
+                     android:contentDescription="@string/next_btn"
+                     android:focusable="true"
+                     android:layout_width="90dip"
+                     android:layout_height="60dip"
+                     android:layout_weight="1"
+                     android:src="@drawable/media_skip_forward"
+                />
+
+    </LinearLayout>
+
+</LinearLayout>

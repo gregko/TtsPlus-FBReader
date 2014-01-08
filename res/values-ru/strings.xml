@@ -3,7 +3,7 @@
     <string name="title">Плагин FBReader TTS+</string>
     <string name="about">О программе</string>
     <string name="version">Плагин FBReader TTS+ версия</string>
-    <string name="copyright">Copyright © 2012-13\nHyperionics Technology LLC</string>
+    <string name="copyright">Copyright © 2012-14\nHyperionics Technology LLC</string>
     <string name="url">http://www.hyperionics.com/TtsPlus</string>
     <string name="back">Назад</string>
     <string name="failure">Ошибка инициализации</string>
@@ -27,6 +27,7 @@
     <string name="reset_tts">Перезапуск TTS</string>
     <string name="hi_sentences">Подсветка читаемого текста</string>
     <string name="screen_on">Не выключать экран во время чтения</string>
+    <string name="avar_speech">Используйте смену произношеня из программы @Voice Aloud Reader</string>
     <string name="screen_dimmed">Тусклый</string>
     <string name="screen_bright">Яркий</string>
     <string name="rate">Оцените TTS+!</string>
@@ -71,4 +72,11 @@
     <string name="setup_btn">Показать Скрыть настройки</string>
     <string name="choose_tts">Выберите синтезатор речи</string>
     <string name="sys_def_tts">Система по умолчанию</string>
+        <string name="reader_info">Этот плагин требует приложения FBReader установленного его использования. Установите FBReader из
+         магазин приложений, откройте в нем электронную книгу, затем нажмите клавишу Меню и прокрутите его вверх, найдите и нажмите
+         \"Говори (+)\", чтобы начать слушать книгу.
+    </string>
+    <string name="remove_icon">Удалить иконку Плагина от пусковой</string>
+    <string name="remove_info">Иконка Плагина будет удалена при перезагрузке устройства, или раньше на некоторых устройствах.</string>
+
 </resources>

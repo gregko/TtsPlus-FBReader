@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.hyperionics.fbreader.plugin.tts_plus"
-          android:versionCode="2004000"
-          android:versionName="2.4.0">
+          android:versionCode="3020000"
+          android:versionName="3.2.0">
     <uses-sdk android:minSdkVersion="8"
-              android:targetSdkVersion="15" />
+              android:targetSdkVersion="17" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,6 +15,17 @@
             android:smallScreens="true"
             android:anyDensity="true" />
     <application android:label="@string/title" android:icon="@drawable/fbreader_plugin" android:name=".TtsApp">
+        <activity android:name=".InfoActivity"
+                  android:label="@string/title"
+                  android:launchMode="singleTask"
+                  android:theme="@android:style/Theme.Black.NoTitleBar"
+                >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
 		<receiver android:name="com.hyperionics.fbreader.plugin.tts_plus.PluginInfo">
 			<intent-filter>
 				<action android:name="android.fbreader.action.plugin.REGISTER" />
@@ -27,6 +38,15 @@
                   android:configChanges="orientation|screenSize|keyboardHidden"
                  >
         </activity>
+        <activity android:name=".CmdActivity"
+                  android:theme="@style/NoAnimDialog"
+                >
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.COPY_SPEECH_FILES" />
+            </intent-filter>
+        </activity>
+
         <activity android:name="com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity"
                   android:theme="@android:style/Theme.Dialog">
         </activity>
@@ -65,8 +85,36 @@
                 />
         <activity android:name="com.hyperionics.TtsSetup.AddVoice"
                   android:theme="@android:style/Theme.Black"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
                 />
+        <activity android:name="com.hyperionics.TtsSetup.EditSpeech"
+                  android:theme="@android:style/Theme.Black"
+                />
+        <activity android:name="com.hyperionics.TtsSetup.SimpleBrowser"/>
+
+        <!-- Widget -->
+        <receiver android:name="MyWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_provider" />
+        </receiver>
+        <receiver
+                android:name="MyWidgetIntentReceiver"
+                android:label="widgetBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.PREVIOUS" />
+                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.PLAY" />
+                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.PAUSE" />
+                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.NEXT" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_provider" />
+        </receiver>
 
     </application>
 </manifest>

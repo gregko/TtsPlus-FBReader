@@ -1,7 +1,10 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -14,6 +17,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
@@ -25,6 +29,7 @@ import com.hyperionics.TtsSetup.LangSupport;
 import com.hyperionics.TtsSetup.Lt;
 import com.hyperionics.TtsSetup.VoiceSelector;
 import org.geometerplus.android.fbreader.api.ApiException;
+import org.geometerplus.android.fbreader.api.TextPosition;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
@@ -47,13 +52,13 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     private static ArrayList<String> myVoices = new ArrayList<String>();
     private static SpeakActivity currentSpeakActivity;
     private static boolean isActivated = false;
-    private static final String NO_RESTART_TALK = "NO_RESTART_TALK";
-    private static boolean startTalkAtOnce = true;
     private static boolean currentlyVisible = false;
     private static volatile PowerManager.WakeLock myWakeLock;
     static final int LANG_SEL_REQUEST = 101;
+    static final int AVAR_DEF_PATH_REQUEST = 102;
     static boolean wantStarted = false;
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
+    static String avarDefaultPath = null;
 
     private int myMaxVolume;
     private int savedBottomMargin = -1;
@@ -76,7 +81,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         SpeakService.haveNewApi = 1;
         savedBottomMargin = -1;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        startTalkAtOnce = (getIntent().getIntExtra(NO_RESTART_TALK, 0) != 1);
         setContentView(R.layout.control_panel);
         currentSpeakActivity = this;
         hidePromo = SpeakService.getPrefs().getInt("hidePromo", 0);
@@ -112,15 +116,17 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             public void onClick(View v) {
                 SpeakService.stopTalking();
                 if (Build.VERSION.SDK_INT >= 14) {
+                    Lt.d("Got button_lang...");
+                    if (SpeakService.myTTS != null) {
+                        SpeakService.myTTS.shutdown();
+                        SpeakService.myTTS = null;
+                        SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
+                    }
+                    VoiceSelector.resetSelector();
                     Intent intent = new Intent(currentSpeakActivity, VoiceSelector.class);
-                    String lang = SpeakService.getCurrentBookLanguage();
-                    if ("".equals(lang))
-                        lang = Locale.getDefault().getLanguage();
+                    String lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
                     intent.putExtra(VoiceSelector.INIT_LANG, lang);
-                    String eng = LangSupport.getSelectedTtsEng();
-                    if (eng != null)
-                        intent.putExtra(VoiceSelector.INIT_ENGINE, eng);
-                    VoiceSelector.resetSelector(); // important, call before each use of the selector!
+                    intent.putExtra(VoiceSelector.CONFIG_DIR, SpeakService.getConfigPath());
                     startActivityForResult(intent, LANG_SEL_REQUEST);
                 } else {
                     selectLanguage(true);
@@ -268,7 +274,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         });
 
         final SeekBar speedControl = (SeekBar)findViewById(R.id.speed_control);
-		speedControl.setMax(200);
+		speedControl.setMax(300);
 		speedControl.setProgress(SpeakService.getPrefs().getInt("rate", 100));
 		speedControl.setEnabled(false);
 		speedControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -360,6 +366,26 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             findViewById(R.id.promo).setVisibility(View.GONE);
         }
         findViewById(R.id.read_words).setVisibility(View.GONE);
+
+        avarDefaultPath = SpeakService.getPrefs().getString("avarDefaultPath", null);
+        try {
+            Intent intent = new Intent();
+            intent.setAction("com.hyperionics.avar.GET_DEFAULT_PATH");
+            startActivityForResult(intent, AVAR_DEF_PATH_REQUEST);
+        } catch (Exception e) {
+            Lt.d("Exception: " + e);
+            // is @Voice installed?
+            if (avarDefaultPath == null) try {
+                getPackageManager().getPackageInfo("com.hyperionics.avar", 0);
+                // We have an old version of @Voice installed. Try at least the default location
+                avarDefaultPath = Environment.getExternalStorageDirectory() + "/Hyperionics/atVoice";
+            } catch (PackageManager.NameNotFoundException en) {}
+            if (avarDefaultPath != null && !new File(avarDefaultPath + "/.config").isDirectory()) {
+                SpeakService.getPrefs().edit().remove("avarDefaultPath").commit();
+                avarDefaultPath = null;
+            }
+        }
+
         doStartTts();
         isActivated = true;
 	}
@@ -413,9 +439,32 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     }
 
     static void onInitializationCompleted() {
+        onInitializationCompleted(0);
+    }
+
+    private static void onInitializationCompleted(final int count) {
+        if (count < 9) {
+            try {
+                SpeakService.myBookHash = "BP:" + SpeakService.myApi.getBookHash();
+            } catch (ApiException ae) {
+                // FBReader may not be fully initialized yet, try again after a while...
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
+                            public void run() {
+                                onInitializationCompleted(count + 1);
+                            }
+                        });
+                    }
+                }, 500);
+                return;
+            }
+        }
+
         TtsApp.enableComponents(true);
         try {
-            SpeakService.myBookHash = "BP:" + SpeakService.myApi.getBookHash();
+            //SpeakService.myBookHash = "BP:" + SpeakService.myApi.getBookHash();
             SpeakService.myParagraphIndex = SpeakService.myApi.getPageStart().ParagraphIndex;
             SpeakService.myParagraphsNumber = SpeakService.myApi.getParagraphsNumber();
 
@@ -430,8 +479,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             adjustBottomMargin();
             SpeakService.restorePosition();
             currentSpeakActivity.setActionsEnabled(true);
-            if (startTalkAtOnce)
-                SpeakService.startTalking();
+            SpeakService.startTalking();
         } catch (Exception e) {
 //            if (SpeakService.myTTS == null)
 //                ErrorReporter.getInstance().putCustomData("myTTS_null", "Yes");
@@ -545,6 +593,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             } catch (Exception e) {}
             doStartTts();
         }
+        else if (requestCode == AVAR_DEF_PATH_REQUEST && data != null) {
+            avarDefaultPath = data.getStringExtra("DEFAULT_PATH");
+            if (avarDefaultPath == null)
+                SpeakService.getPrefs().edit().remove("avarDefaultPath").commit();
+            else
+                SpeakService.getPrefs().edit().putString("avarDefaultPath", avarDefaultPath).commit();
+            Lt.d("Got avarDefaultPath = " + avarDefaultPath);
+        }
 	}
 
 	@TargetApi(Build.VERSION_CODES.FROYO)
@@ -552,6 +608,28 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         super.onResume();
         currentSpeakActivity = this;
         currentlyVisible = true;
+        if (!TtsApp.isNativeOk()) {
+            AlertDialog.Builder bld = new AlertDialog.Builder(this);
+            String message =
+                    "Wrong version of TTS+ Plugin is installed on this device. " +
+                            "Please uninstall it, then install from Google Play, Amazon App Store " +
+                            "or Hyperionics web site.\n\n" +
+                            "Technical information (please provide when contacting us):\n" +
+                            "VersionCode = " + TtsApp.versionCode + "\n" +
+                            "Build.CPU_ABI = " + Build.CPU_ABI + ", " + Build.CPU_ABI2 + "\n" +
+                            "MODEL = " + android.os.Build.MODEL + "\n" +
+                            "Android version = " + Build.VERSION.RELEASE;
+            bld.setMessage(message);
+            bld.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    currentSpeakActivity.finish();
+                    System.exit(0);
+                }
+            });
+            bld.create().show();
+            return;
+        }
         if (!SpeakService.getPrefs().getBoolean("HIDE_PREFS", false)) {
             View v3 = findViewById(R.id.promo);
             View vw = findViewById(R.id.read_words);

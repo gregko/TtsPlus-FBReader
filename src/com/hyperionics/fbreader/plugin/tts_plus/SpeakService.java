@@ -2,7 +2,9 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 
 import android.app.AlertDialog;
 import android.app.KeyguardManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
 import android.content.*;
 import android.content.pm.ApplicationInfo;
 import android.media.AudioManager;
@@ -14,6 +16,8 @@ import android.os.PowerManager;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
 import android.text.format.Time;
+import android.widget.RemoteViews;
+import com.hyperionics.TtsSetup.CldWrapper;
 import com.hyperionics.TtsSetup.LangSupport;
 import com.hyperionics.TtsSetup.Lt;
 import com.hyperionics.TtsSetup.VoiceSelector;
@@ -23,6 +27,7 @@ import org.geometerplus.android.fbreader.api.ApiListener;
 import org.geometerplus.android.fbreader.api.TextPosition;
 //import org.acra.ErrorReporter;
 
+import java.io.File;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -83,6 +88,33 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static int FULLY_INITIALIZED = API_INITIALIZED | TTS_INITIALIZED;
     static final String SVC_STARTED = "com.hyperionics.fbreader.plugin.tts_plus.SVC_STARTED";
     static final String TTSP_KILL = "com.hyperionics.fbreader.plugin.tts_plus.TTSP_KILL";
+
+    static String getConfigPath() {
+        return getConfigPath(false);
+    }
+
+    static int getCurrentSentence() {
+        return myCurrentSentence;
+    }
+
+    static int getSntLength() {
+        return mySentences.length;
+    }
+
+    static String getConfigPath(boolean noAvar) {
+        if (!noAvar && getPrefs().getBoolean("AVAR_SPEECH", false) && SpeakActivity.avarDefaultPath != null) {
+            File cfgDir = new File(SpeakActivity.avarDefaultPath + "/.config");
+            if (cfgDir.isDirectory())
+                return cfgDir.getAbsolutePath();
+        }
+        File cfgDir = new File(TtsApp.getContext().getFilesDir().getPath() + "/.config");
+        if (cfgDir.isDirectory())
+            return cfgDir.getAbsolutePath();
+        if (cfgDir.exists())
+            cfgDir.delete(); // in case it was a regular file.
+        cfgDir.mkdirs();
+        return cfgDir.getAbsolutePath();
+    }
 
     static void savePosition() {
         try {
@@ -245,11 +277,27 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 languageCode = Locale.getDefault().getLanguage();
 
             if (LangSupport.langInstalled(myTTS, languageCode) == null) {
+                PowerManager powerManager = (PowerManager) TtsApp.getContext().getSystemService(POWER_SERVICE);
+                KeyguardManager kgMgr = (KeyguardManager)  TtsApp.getContext().getSystemService(Context.KEYGUARD_SERVICE);
+                if (!powerManager.isScreenOn() || kgMgr.isKeyguardLocked()) {
+                    Lt.d("We can't auto-select language with screen off or in keyguard engaged...");
+                    return false;
+                } else {
+                    Lt.d("Screen on and no keyguard...");
+                }
+
                 SpeakActivity sa = SpeakActivity.getCurrent();
                 if (Build.VERSION.SDK_INT >= 14) {
+                    if (SpeakService.myTTS != null) {
+                        SpeakService.myTTS.shutdown();
+                        SpeakService.myTTS = null;
+                        SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
+                    }
+                    VoiceSelector.resetSelector();
                     Intent intent = new Intent(sa, VoiceSelector.class);
-                    intent.putExtra(VoiceSelector.INIT_LANG, languageCode);
-                    VoiceSelector.resetSelector(); // important, call before each use of the selector!
+                    String lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
+                    intent.putExtra(VoiceSelector.INIT_LANG, lang);
+                    intent.putExtra(VoiceSelector.CONFIG_DIR, SpeakService.getConfigPath());
                     sa.startActivityForResult(intent, SpeakActivity.LANG_SEL_REQUEST);
                     return false;
                 } else {
@@ -275,6 +323,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (!setLanguage(SpeakService.selectedLanguage))
             return;
         SpeakActivity.setActive(true);
+        String iso3lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
+        CldWrapper.initExtractorNative(getConfigPath(), iso3lang);
         wordPauses = getPrefs().getBoolean("WORD_OPTS", false) &&
                      myPreferences.getBoolean("SINGLE_WORDS", false) &&
                      myPreferences.getBoolean("PAUSE_WORDS", false);
@@ -306,6 +356,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
         } else
             stopTalking();
+
+        MyWidgetProvider.updateWidgets();
     }
 
     static boolean isTalking() {
@@ -313,7 +365,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void stopTalking() {
-        Lt.d("stopTalking()");
         SpeakActivity.setActive(false);
         savePosition();
         if (isServiceTalking && myTTS != null) {
@@ -334,18 +385,21 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             mAudioManager.abandonAudioFocus(afChangeListener);
             regainBluetoothFocus();
         }
+        MyWidgetProvider.updateWidgets();
     }
 
     static void toggleTalking() {
         if (SpeakActivity.getCurrent() == null) {
-            if (readingStarted) {
+            if (true || readingStarted) {
                 if (currentService == null) {
                     TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
+                } else {
+                    Intent i = new Intent(SVC_STARTED);
+                    SpeakActivity.wantStarted = true;
+                    TtsApp.getContext().sendBroadcast(i);
                 }
-                Intent i = new Intent(SVC_STARTED);
-                SpeakActivity.wantStarted = true;
-                TtsApp.getContext().sendBroadcast(i);
-            } else {
+            }
+            else {
                 TtsApp.enableComponents(false);
             }
             return;
@@ -435,18 +489,14 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         return haveConnection ? 1 : 0;
     }
 
-    private static Pattern punctPat = Pattern.compile("[.?!'\"-,:;()\\[\\]{}\\*]");
     private static int speakString(String text) {
-        int ret = TextToSpeech.SUCCESS;
-        // Loquendo - Nuance TTS stops on long sentences. Tested on Russian edition of Frazen's "The Corrections"
-        // "Поправки" - "Звонок звенил уже так давно, что Ламберты ..." - still speaks at 591 characters length,
-        // but stops speaking at 592. Idea - break sentences at about 512 length at the next comma, hyphen, ( or ),
-        // ellipses..., colon :, semicolon ;
+        int ret;
+        // Stupid Google voice stops on empty or silent sentences, therefore
+        // replaceForSpeechNative() will return empty string if there is only punctation and spaces.
+        text = CldWrapper.replaceForSpeechNative(text);
 
-        // stupid Google voice stops on empty or silent sentences...
-        // int n = text.replaceAll("[.?!'\"-,:;()\\[\\]{}\\*]", "").trim().length();
-        // faster with pre-compiled pattern
-        if (punctPat.matcher(text).replaceAll("").trim().length() > 0) {
+        if (text.length() > 0) {
+            myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);
             if (myHasNetworkTts) {
                 int n = 2;
                 try {
@@ -461,14 +511,12 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 boolean wifiOnly = (n & 2) == 2;
                 if (useNet && (conn == 2 || conn == 1 && !wifiOnly)) {
                     myParamMap.put(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, "true");
-                } else {
-                    myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);
                 }
             }
-            ret = myTTS.speak(text, TextToSpeech.QUEUE_FLUSH, myParamMap);
+            ret = myTTS.speak(text, TextToSpeech.QUEUE_ADD, myParamMap);
             isServiceTalking = ret == TextToSpeech.SUCCESS;
         } else {
-            currentService.onUtteranceCompleted(UTTERANCE_ID);
+            ret = myTTS.playSilence(20, TextToSpeech.QUEUE_ADD, myParamMap); // to call utteranceCompleted() on TTS thread...
         }
         return ret;
     }
@@ -676,6 +724,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 e.printStackTrace();
             }
         }
+        MyWidgetProvider.updateWidgets();
     }
 
     static void regainBluetoothFocus() {
@@ -724,7 +773,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
             Intent intent = new Intent(TtsApp.getContext(), SpeakActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
-            currentService.startActivity(intent);
+            TtsApp.getContext().startActivity(intent);
         }
     }
 
@@ -758,6 +807,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
     
     static boolean doStartup() {
+        MyWidgetProvider.updateWidgets();
         if (currentService == null)
             return false;
         if (myPreferences == null)
@@ -797,19 +847,19 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         });
 
         // Test code
-        Boolean debug = (currentService.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        if (debug) try {
-            List<String> optGroups = myApi.getOptionGroups();
-            Lt.d("Option groups:");
-            for (String s : optGroups) {
-                Lt.d(s);
-                List<String> opts = myApi.getOptionNames(s);
-                for (String ss: opts) {
-                    Lt.d(" - " + ss);
-                }
-            }
-            Lt.d("-------------------");
-        } catch (Exception e) {}
+//        Boolean debug = (currentService.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+//        if (debug) try {
+//            List<String> optGroups = myApi.getOptionGroups();
+//            Lt.d("Option groups:");
+//            for (String s : optGroups) {
+//                Lt.d(s);
+//                List<String> opts = myApi.getOptionNames(s);
+//                for (String ss: opts) {
+//                    Lt.d(" - " + ss);
+//                }
+//            }
+//            Lt.d("-------------------");
+//        } catch (Exception e) {}
 
         if (myTTS != null) {
         	try {

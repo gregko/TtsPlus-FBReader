@@ -1,9 +1,72 @@
-android.annotation.SuppressLint
-android.annotation.TargetApi
+com.example.TtsNativeLib.BuildConfig
+com.example.TtsNativeLib.R
+com.example.TtsNativeLib.R$drawable
+com.example.TtsNativeLib.R$layout
+com.example.TtsNativeLib.R$string
+com.hyperionics.TtsNativeLib.Dummy
+com.hyperionics.TtsSetup.AndyUtil:
+    43:43:private AndyUtil()
+    81:83:public static java.io.File getTempFile(java.lang.String)
+    87:87:public static java.io.File getTempFile()
+    91:96:public static java.io.File getTempFile(java.lang.String,java.lang.String)
+    101:102:public static java.io.File getPermFile(java.lang.String)
+    106:109:public static void deleteTempFiles()
+    112:123:public static java.lang.String getTtsCurrentEngine(android.speech.tts.TextToSpeech)
+    165:170:public static boolean isExploringByTouch()
+    188:190:public static int parseInt(java.lang.String)
+    196:198:public static long parseLong(java.lang.String)
+com.hyperionics.TtsSetup.BuildConfig
+com.hyperionics.TtsSetup.CldWrapper:
+    49:67:public static java.lang.String detectLang(java.lang.String)
+    72:73:public static java.lang.String detectLangSimple(java.lang.String)
+com.hyperionics.TtsSetup.EditSpeech:
+    private static final int LANG_SEL_REQUEST
+    private static final int TTS_RETURN_REQUEST
+com.hyperionics.TtsSetup.LangSupport:
+    private static final java.lang.String ENG_PREF
+    34:38:public static boolean sameLang(java.lang.String,java.lang.String)
+    228:228:public static boolean findEngineWithLang(java.lang.String,com.hyperionics.TtsSetup.LangSupport$OnSearchFinished)
+com.hyperionics.TtsSetup.LangSupport$EngSearch
+com.hyperionics.TtsSetup.LangSupport$EngSearch$1
+com.hyperionics.TtsSetup.LangSupport$OnSearchFinished
+com.hyperionics.TtsSetup.Lt:
+    31:31:private Lt()
+    42:42:public static boolean isDebugBuild()
+    60:61:public static void w(java.lang.String)
+    64:65:public static void i(java.lang.String)
+com.hyperionics.TtsSetup.R:
+    9:146:public R()
+com.hyperionics.TtsSetup.R$array:
+    10:10:public R$array()
+com.hyperionics.TtsSetup.R$color
+com.hyperionics.TtsSetup.R$drawable
+com.hyperionics.TtsSetup.R$id:
+    45:45:public R$id()
+com.hyperionics.TtsSetup.R$layout:
+    91:91:public R$layout()
+com.hyperionics.TtsSetup.R$string:
+    100:100:public R$string()
+com.hyperionics.TtsSetup.R$style
+com.hyperionics.TtsSetup.VoiceSelector:
+    public static final java.lang.String SELECTED_ENGINE
+    public static final java.lang.String SELECTED_VOICE
+    public static final java.lang.String CONFIG_DIR
+    public static final java.lang.String FOR_REPLACEMENTS
+    public static final java.lang.String INIT_LANG
+    public static final java.lang.String INIT_ENGINE
+    public static final java.lang.String INIT_AUTOSEL
 com.hyperionics.fbreader.plugin.tts_plus.BuildConfig
-com.hyperionics.fbreader.plugin.tts_plus.Lt:
-    23:23:private Lt()
-    24:24:static void setTag(java.lang.String)
+com.hyperionics.fbreader.plugin.tts_plus.InstallInfo:
+    13:13:private InstallInfo()
+    54:54:public static boolean installedFromGoogle()
+    58:63:public static boolean installedFromGoogle(java.lang.String)
+    68:68:public static android.content.pm.PackageManager getPackageManager()
+    72:72:public static java.lang.String getPackageName()
+com.hyperionics.fbreader.plugin.tts_plus.MyWidgetIntentReceiver:
+    static final java.lang.String INTENT_PREVIOUS
+    static final java.lang.String INTENT_PLAY
+    static final java.lang.String INTENT_PAUSE
+    static final java.lang.String INTENT_NEXT
 com.hyperionics.fbreader.plugin.tts_plus.R
 com.hyperionics.fbreader.plugin.tts_plus.R$array
 com.hyperionics.fbreader.plugin.tts_plus.R$attr
@@ -12,18 +75,26 @@ com.hyperionics.fbreader.plugin.tts_plus.R$drawable
 com.hyperionics.fbreader.plugin.tts_plus.R$id
 com.hyperionics.fbreader.plugin.tts_plus.R$layout
 com.hyperionics.fbreader.plugin.tts_plus.R$string
+com.hyperionics.fbreader.plugin.tts_plus.R$style
+com.hyperionics.fbreader.plugin.tts_plus.R$xml
 com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity:
-    private static final java.lang.String NO_RESTART_TALK
-    526:533:static void showErrorMessage(java.lang.CharSequence)
-com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$15
+    static final int LANG_SEL_REQUEST
+    static final int AVAR_DEF_PATH_REQUEST
+    733:740:static void showErrorMessage(java.lang.CharSequence)
+com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity$21
 com.hyperionics.fbreader.plugin.tts_plus.SpeakService:
     static final java.lang.String BOOK_LANG
     private static final java.lang.String UTTERANCE_ID
     static final java.lang.String SVC_STARTED
     static final java.lang.String TTSP_KILL
-    409:412:private static void setPitchTemp(float)
+    538:541:private static void setPitchTemp(float)
+com.hyperionics.fbreader.plugin.tts_plus.TtsApp:
+    106:106:public static boolean isDebug()
 com.hyperionics.fbreader.plugin.tts_plus.TtsSentenceExtractor:
-    26:26:private TtsSentenceExtractor()
+    29:29:private TtsSentenceExtractor()
+com.hyperionics.util.Base64
+com.hyperionics.util.Base64DecoderException
+com.hyperionics.util.FileUtil
 org.acra.ACRA:
     public static final boolean DEV_LOGGING
     static final java.lang.String RES_NOTIF_ICON
@@ -164,30 +235,29 @@ org.geometerplus.android.fbreader.api.ApiClientImplementation:
     private static final java.lang.String ACTION_API
     static final java.lang.String ACTION_API_CALLBACK
     static final java.lang.String EVENT_TYPE
-    77:78:public void removeListener(org.geometerplus.android.fbreader.api.ApiListener)
-    134:138:private java.util.Date requestDate(int,org.geometerplus.android.fbreader.api.ApiObject[])
-    150:154:private boolean requestBoolean(int,org.geometerplus.android.fbreader.api.ApiObject[])
-    192:192:private static org.geometerplus.android.fbreader.api.ApiObject[] envelope(java.lang.String)
-    201:201:public java.lang.String getFBReaderVersion()
-    206:206:public java.util.List getOptionGroups()
-    210:210:public java.util.List getOptionNames(java.lang.String)
-    214:214:public java.lang.String getOptionValue(java.lang.String,java.lang.String)
-    221:225:public void setOptionValue(java.lang.String,java.lang.String,java.lang.String)
-    232:232:public java.lang.String getBookTitle()
-    236:236:public java.util.List getBookTags()
-    240:240:public java.lang.String getBookFilePath()
-    248:248:public java.lang.String getBookUniqueId()
-    252:252:public java.util.Date getBookLastTurningTime()
-    256:256:public java.lang.String getBookLanguage(long)
-    260:260:public java.lang.String getBookTitle(long)
-    264:264:public java.util.List getBookTags(long)
-    268:268:public java.lang.String getBookFilePath(long)
-    272:272:public java.lang.String getBookHash(long)
-    276:276:public java.lang.String getBookUniqueId(long)
-    280:280:public java.util.Date getBookLastTurningTime(long)
-    292:292:public boolean isPageEndOfSection()
-    296:296:public boolean isPageEndOfText()
-    316:316:public int getElementsNumber(int)
+    80:81:public void removeListener(org.geometerplus.android.fbreader.api.ApiListener)
+    137:141:private java.util.Date requestDate(int,org.geometerplus.android.fbreader.api.ApiObject[])
+    153:157:private boolean requestBoolean(int,org.geometerplus.android.fbreader.api.ApiObject[])
+    195:195:private static org.geometerplus.android.fbreader.api.ApiObject[] envelope(java.lang.String)
+    204:204:public java.lang.String getFBReaderVersion()
+    209:209:public java.util.List getOptionGroups()
+    213:213:public java.util.List getOptionNames(java.lang.String)
+    217:217:public java.lang.String getOptionValue(java.lang.String,java.lang.String)
+    224:228:public void setOptionValue(java.lang.String,java.lang.String,java.lang.String)
+    239:239:public java.util.List getBookTags()
+    243:243:public java.lang.String getBookFilePath()
+    251:251:public java.lang.String getBookUniqueId()
+    255:255:public java.util.Date getBookLastTurningTime()
+    259:259:public java.lang.String getBookLanguage(long)
+    263:263:public java.lang.String getBookTitle(long)
+    267:267:public java.util.List getBookTags(long)
+    271:271:public java.lang.String getBookFilePath(long)
+    275:275:public java.lang.String getBookHash(long)
+    279:279:public java.lang.String getBookUniqueId(long)
+    283:283:public java.util.Date getBookLastTurningTime(long)
+    295:295:public boolean isPageEndOfSection()
+    299:299:public boolean isPageEndOfText()
+    319:319:public int getElementsNumber(int)
 org.geometerplus.android.fbreader.api.ApiException:
     private static final long serialVersionUID
 org.geometerplus.android.fbreader.api.ApiInterface$Stub:
@@ -219,3 +289,15 @@ org.geometerplus.android.fbreader.api.PluginApi$ActionInfo:
     53:53:public android.net.Uri getId()
 org.geometerplus.android.fbreader.api.PluginApi$PluginInfo:
     public static final java.lang.String KEY
+org.json.simple.ItemList
+org.json.simple.JSONArray
+org.json.simple.JSONAware
+org.json.simple.JSONObject
+org.json.simple.JSONStreamAware
+org.json.simple.JSONValue
+org.json.simple.parser.ContainerFactory
+org.json.simple.parser.ContentHandler
+org.json.simple.parser.JSONParser
+org.json.simple.parser.ParseException
+org.json.simple.parser.Yylex
+org.json.simple.parser.Yytoken

@@ -4,7 +4,7 @@
 	<string name="title">FBReader TTS+ Plugin</string>
     <string name="about">About TTS+</string>
     <string name="version">FBReader TTS+ Plugin ver.</string>
-    <string name="copyright">Copyright © 2012-13\nHyperionics Technology LLC</string>
+    <string name="copyright">Copyright © 2012-14\nHyperionics Technology LLC</string>
     <string name="url">http://www.hyperionics.com/TtsPlus</string>
     <string name="back"> Return </string>
 	<string name="failure">Initialization failed, sorry</string>
@@ -28,6 +28,7 @@
     <string name="reset_tts">Reset TTS"</string>
     <string name="hi_sentences">Highlight spoken text</string>
     <string name="screen_on">Keep screen on when reading</string>
+    <string name="avar_speech">Use @Voice Aloud Reader speech replacements</string>
     <string name="screen_dimmed">Dimmed</string>
     <string name="screen_bright">Bright</string>
     <string name="rate">Rate TTS+!</string>
@@ -69,7 +70,8 @@
         application to stop. Please help us fix this by sending us error data,
         all you have to do is click \'OK\'.</string>
     <string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
-    <string name="crash_dialog_ok_toast">Thank you!</string><string name="tryAllso">Try our new free app:</string>
+    <string name="crash_dialog_ok_toast">Thank you!</string>
+    <string name="tryAllso">Try also our new free app:</string>
     <string name="atVoice"> \@Voice Aloud Reader </string>
     <string name="atv_free">Free! \@Voice Aloud Reader - reads to\nyou the web, news, emails and more.</string>
     <string name="sync_ok">Dropbox sync succeeded</string>
@@ -81,4 +83,10 @@
     <string name="setup_btn">Show-Hide Setup</string>
     <string name="choose_tts">Select TTS Engine</string>
     <string name="sys_def_tts">Default system TTS Engine</string>
+    <string name="reader_info">This Plugin requires FBReader app installed to use it. Install FBReader from
+        the app store, open an ebook in it, then press Menu and scroll it up, find and press
+        \"Speak (+)\" item to start listening to your book.
+    </string>
+    <string name="remove_icon">Remove Plugin icon from Android launcher</string>
+    <string name="remove_info">Plugin icon will be removed when you restart your device, or sooner on some devices.</string>
 </resources>
