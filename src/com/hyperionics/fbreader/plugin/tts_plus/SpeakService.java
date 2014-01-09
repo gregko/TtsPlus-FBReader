@@ -279,7 +279,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             if (LangSupport.langInstalled(myTTS, languageCode) == null) {
                 PowerManager powerManager = (PowerManager) TtsApp.getContext().getSystemService(POWER_SERVICE);
                 KeyguardManager kgMgr = (KeyguardManager)  TtsApp.getContext().getSystemService(Context.KEYGUARD_SERVICE);
-                if (!powerManager.isScreenOn() || kgMgr.isKeyguardLocked()) {
+                if (!powerManager.isScreenOn() || kgMgr.inKeyguardRestrictedInputMode()) {
                     Lt.d("We can't auto-select language with screen off or in keyguard engaged...");
                     return false;
                 } else {
@@ -415,8 +415,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static void switchOff() {
         stopTalking();
-        currentService.mHandler.removeCallbacks(currentService.myTimerTask);
-        mySentences = new TtsSentenceExtractor.SentenceIndex[0];
+        try {
+            currentService.mHandler.removeCallbacks(currentService.myTimerTask);
+            mySentences = new TtsSentenceExtractor.SentenceIndex[0];
+        } catch (Exception dontCare) {}
         if (myApi != null && myApi.isConnected()) {
             try {
                 myApi.clearHighlighting();

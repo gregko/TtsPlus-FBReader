@@ -1,6 +1,39 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+obj/
+out/
+.idea/
+
+#other
+*.o
+*.o.d
+*.ini
+
+# Local configuration file (sdk path, etc)
 local.properties
-bin
-gen
-out
-lint.xml
-classes/
+
+# Eclipse project files
+.classpath
+.project
+
+# For Xamarin C# projects
+atVoiceExt/obj/
+atVoiceExt/Lib/
+atVoiceExt/res
+*.pdb
+*.dll
+*.mdb
+*.user
+*.apk
+

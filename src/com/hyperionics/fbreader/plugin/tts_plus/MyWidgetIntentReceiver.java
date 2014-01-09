@@ -1,11 +1,13 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
+import android.app.KeyguardManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.PowerManager;
 import android.view.View;
 import android.widget.RemoteViews;
 import com.hyperionics.TtsSetup.Lt;
@@ -23,12 +25,6 @@ public class MyWidgetIntentReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-//        Lt.d("Widget onReceive() " + intent.getAction());
-//        if (SpeakService.myApi == null)
-//            Lt.d("- myApi is null");
-//        else
-//            Lt.d(SpeakService.myApi.isConnected() ? "- FBReader connected" : "- FBReader NOT connected");
-
         if (INTENT_PREVIOUS.equals(intent.getAction())) {
             SpeakService.prevToSpeak();
 		} else if (INTENT_PLAY.equals(intent.getAction())) {
@@ -55,7 +51,7 @@ public class MyWidgetIntentReceiver extends BroadcastReceiver {
 
     static RemoteViews setLayout(Context context) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-        if (SpeakService.isTalking()) {
+        if (SpeakService.myIsActive) {
             remoteViews.setViewVisibility(R.id.button_play, View.GONE);
             remoteViews.setViewVisibility(R.id.button_pause, View.VISIBLE);
         } else {
