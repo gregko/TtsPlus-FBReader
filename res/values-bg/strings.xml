@@ -24,6 +24,7 @@
     <string name="unknown">непознат</string>
     <string name="add_language">Добавяне на нов език...</string>
     <string name="tts_settings">Настройки на речта</string>
+    <string name="edit_speech">Редактирай речта</string>
     <string name="reset_tts">Нулиране на речта"</string>
     <string name="hi_sentences">Осветявай изговаряния текст</string>
     <string name="screen_on">Дръж екрана включен по време на четене</string>

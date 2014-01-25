@@ -24,6 +24,7 @@
     <string name="unknown">неизвестно</string>
     <string name="add_language">Добавите новый язык...</string>
     <string name="tts_settings">Настройки TTS</string>
+    <string name="edit_speech">Изменить голос</string>
     <string name="reset_tts">Перезапуск TTS</string>
     <string name="hi_sentences">Подсветка читаемого текста</string>
     <string name="screen_on">Не выключать экран во время чтения</string>

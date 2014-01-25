@@ -25,6 +25,7 @@
     <string name="unknown">unknown</string>
     <string name="add_language">Add a new language...</string>
     <string name="tts_settings">TTS Settings</string>
+    <string name="edit_speech">Edit speech</string>
     <string name="reset_tts">Reset TTS"</string>
     <string name="hi_sentences">Highlight spoken text</string>
     <string name="screen_on">Keep screen on when reading</string>

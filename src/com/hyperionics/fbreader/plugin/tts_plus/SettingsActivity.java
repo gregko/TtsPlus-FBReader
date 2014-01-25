@@ -11,9 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
-import com.hyperionics.TtsSetup.CldWrapper;
-import com.hyperionics.TtsSetup.LangSupport;
-import com.hyperionics.TtsSetup.Lt;
+import com.hyperionics.TtsSetup.*;
 
 import java.util.Locale;
 
@@ -249,9 +247,20 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        setListener(R.id.button_back, new View.OnClickListener() {
+        setListener(R.id.edit_speech_btn, new View.OnClickListener() {
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(SettingsActivity.this, EditSpeech.class);
+                String eng = LangSupport.getSelectedTtsEng(); // mySelectedEngine.name();
+                if (eng != null)
+                    intent.putExtra(VoiceSelector.SELECTED_ENGINE, eng);
+                String voi = LangSupport.getPrefferedVoice(LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage())));
+                if (voi != null)
+                    voi = voi.substring(0, voi.lastIndexOf('|'));
+                else
+                    voi = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
+                intent.putExtra(VoiceSelector.SELECTED_VOICE, voi);
+                intent.putExtra(VoiceSelector.CONFIG_DIR, SpeakService.getConfigPath());
+                startActivity(intent);
             }
         });
 

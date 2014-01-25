@@ -24,6 +24,7 @@
     <string name="unknown">nieznany</string>
     <string name="add_language">Dodaj nowy język...</string>
     <string name="tts_settings">Ustawienia TTS</string>
+    <string name="edit_speech">Edycja wymowy</string>
     <string name="reset_tts">Domyślne"</string>
     <string name="hi_sentences">Podświetlaj czytany text</string>
     <string name="screen_on">Ekran włączony przy czytaniu</string>

@@ -151,8 +151,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     />
-            <Button android:id="@+id/button_back"
-                    android:text="@string/back"
+            <Button android:id="@+id/edit_speech_btn"
+                    android:text="@string/edit_speech"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     />

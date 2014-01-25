@@ -25,6 +25,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.*;
 import android.widget.*;
+import com.hyperionics.TtsSetup.CldWrapper;
 import com.hyperionics.TtsSetup.LangSupport;
 import com.hyperionics.TtsSetup.Lt;
 import com.hyperionics.TtsSetup.VoiceSelector;
@@ -116,7 +117,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             public void onClick(View v) {
                 SpeakService.stopTalking();
                 if (Build.VERSION.SDK_INT >= 14) {
-                    Lt.d("Got button_lang...");
                     if (SpeakService.myTTS != null) {
                         SpeakService.myTTS.shutdown();
                         SpeakService.myTTS = null;
@@ -385,7 +385,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 avarDefaultPath = null;
             }
         }
-
+        // call cacheContextNative() again, sometimes it does not work if called too early in the system restart process
+        CldWrapper.cacheContextNative(TtsApp.getContext());
         doStartTts();
         isActivated = true;
 	}
@@ -451,11 +452,13 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 new Timer().schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
-                            public void run() {
-                                onInitializationCompleted(count + 1);
-                            }
-                        });
+                        if (SpeakActivity.getCurrent() != null) {
+                            SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
+                                public void run() {
+                                    onInitializationCompleted(count + 1);
+                                }
+                            });
+                        }
                     }
                 }, 500);
                 return;
@@ -652,6 +655,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         super.onPause();
         currentlyVisible = false;
         if (isFinishing()) {
+            Lt.d("SpeakActivity is finishing.");
             restoreBottomMargin();
             SpeakService.switchOff();
         } else if (!SpeakService.isTalking()) {

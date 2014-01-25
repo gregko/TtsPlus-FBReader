@@ -1,12 +1,8 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
-import android.app.AlertDialog;
 import android.app.KeyguardManager;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.appwidget.AppWidgetManager;
 import android.content.*;
-import android.content.pm.ApplicationInfo;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,7 +12,6 @@ import android.os.PowerManager;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
 import android.text.format.Time;
-import android.widget.RemoteViews;
 import com.hyperionics.TtsSetup.CldWrapper;
 import com.hyperionics.TtsSetup.LangSupport;
 import com.hyperionics.TtsSetup.Lt;
@@ -29,7 +24,6 @@ import org.geometerplus.android.fbreader.api.TextPosition;
 
 import java.io.File;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
@@ -50,6 +44,7 @@ import java.util.regex.Pattern;
 public class SpeakService extends Service implements TextToSpeech.OnUtteranceCompletedListener,
         ApiClientImplementation.ConnectionListener {
     private Handler mHandler = new Handler();
+    private static LockscreenManager _lockscreenManager = null;
 
     static private SpeakService currentService;
     static SpeakService getCurrentService() { return currentService; }
@@ -351,13 +346,16 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         }
                     }
                 } catch (Exception e) {}
+
+                if (_lockscreenManager == null)
+                    _lockscreenManager = new LockscreenManager();
+                _lockscreenManager.setLockscreenPlaying();
+
                 if (myCurrentSentence < mySentences.length) // re-testing, still got index out of bounds exception...
                     speakString(mySentences[myCurrentSentence].s);
             }
         } else
             stopTalking();
-
-        MyWidgetProvider.updateWidgets();
     }
 
     static boolean isTalking() {
@@ -382,10 +380,11 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             } catch (Exception e) {}
         }
         if (mAudioManager != null) {
-            mAudioManager.abandonAudioFocus(afChangeListener);
+            // mAudioManager.abandonAudioFocus(afChangeListener);
             regainBluetoothFocus();
         }
-        MyWidgetProvider.updateWidgets();
+        if (_lockscreenManager != null)
+            _lockscreenManager.setLockscreenPaused();
     }
 
     static void toggleTalking() {
@@ -414,7 +413,13 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void switchOff() {
+        if (currentService == null)
+            return;
         stopTalking();
+        if (_lockscreenManager != null)
+            _lockscreenManager.setLockscreenStopped();
+        if (mAudioManager != null)
+            mAudioManager.abandonAudioFocus(afChangeListener);
         try {
             currentService.mHandler.removeCallbacks(currentService.myTimerTask);
             mySentences = new TtsSentenceExtractor.SentenceIndex[0];
@@ -438,6 +443,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             disconnect();
         }
         myInitializationStatus &= ~TTS_INITIALIZED;
+        doStop();
     }
 
     static void nextToSpeak() {
@@ -726,7 +732,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 e.printStackTrace();
             }
         }
-        MyWidgetProvider.updateWidgets();
     }
 
     static void regainBluetoothFocus() {
@@ -804,12 +809,14 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void doStop() {
-    	if (currentService != null)
+    	if (currentService != null) {
+            Lt.d("currentService.stopSelf()");
     		currentService.stopSelf();
+            currentService = null;
+        }
     }
     
     static boolean doStartup() {
-        MyWidgetProvider.updateWidgets();
         if (currentService == null)
             return false;
         if (myPreferences == null)
@@ -873,6 +880,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
         if (myTTS == null)
         	myInitializationStatus &= ~TTS_INITIALIZED;
+
+        if (_lockscreenManager == null)
+            _lockscreenManager = new LockscreenManager();
+
         return true;
     }
 

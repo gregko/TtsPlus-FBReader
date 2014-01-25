@@ -34,6 +34,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="json_simple-1.1" level="project" />
     <orderEntry type="module" module-name="TtsSetup" />
+    <orderEntry type="module" module-name="TtsNativeLibSmall" />
   </component>
 </module>
 
