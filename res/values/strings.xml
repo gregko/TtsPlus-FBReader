@@ -37,7 +37,7 @@
     <string name="more_settings">More...</string>
     <string name="headset_plug_start">Start talking when headset connected</string>
     <string name="sleep_after">Sleep after</string>
-    <string name="headset_start_fbr">Start speech from headset key when FBReader is on top</string>
+    <string name="headset_start_fbr">Start FBReader with headset "Play" key</string>
     <string name="net_synth">Use network speech synthesis if possible</string>
     <string name="net_synth_wifi">only on WiFi</string>
     <string name="word_opts">Show read by word options</string>
@@ -88,6 +88,12 @@
         the app store, open an ebook in it, then press Menu and scroll it up, find and press
         \"Speak (+)\" item to start listening to your book.
     </string>
-    <string name="remove_icon">Remove Plugin icon from Android launcher</string>
-    <string name="remove_info">Plugin icon will be removed when you restart your device, or sooner on some devices.</string>
+    <string name="install_fbr">Install FBReader</string>
+    <string name="start_fbr">Start FBReader</string>
+    <string name="lauch_ico">TTS+ Plugin launcher icon options:</string>
+    <string name="show_icon">When pressed, show this screen</string>
+    <string name="start_speech">When pressed, start reading aloud</string>
+    <string name="remove_icon">Hide TTS+ Plugin icon in launcher</string>
+    <string name="remove_info">Plugin icon will be removed when you restart your device, or sooner on some devices.\n
+    If you need to restore it later, click the "About TTS+" button on the Plugin screen.</string>
 </resources>

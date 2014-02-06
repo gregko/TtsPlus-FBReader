@@ -1,64 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/info"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center">
-    <TextView android:id="@+id/vtext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/version"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center"
-            />
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/copyright"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:gravity="center"
-            />
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="@string/url"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:autoLink="web"
-            android:gravity="center_horizontal|top"
-            />
-    <TextView
+        >
+    <LinearLayout
+            android:id="@+id/info"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/reader_info"
-            android:padding="8dp"
-            android:clickable="true"
-            android:onClick="fbReaderClick"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            />
-    <CheckBox
-            android:id="@+id/remove_icon"
-            android:checked="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRemoveIcon"
-            android:text="@string/remove_icon" />
-    <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="@string/tryAllso"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:gravity="center"
-            />
-    <TextView
-            android:id="@+id/atVoiceLnk"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:text="@string/atVoice"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#8080ff"
-            android:clickable="true"
-            android:onClick="atVoiceClick"
-            android:autoText="false"
-            android:gravity="center_horizontal|top"/>
-</TableLayout>
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:gravity="center">
+        <TextView android:id="@+id/vtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/version"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:gravity="center"
+                />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/copyright"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:gravity="center"
+                />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="@string/url"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:autoLink="web"
+                android:gravity="center_horizontal|top"
+                />
+        <TextView android:id="@+id/long_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reader_info"
+                android:padding="8dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                />
+        <Button android:id="@+id/start_fbr"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/install_fbr"
+                android:onClick="fbReaderClick"
+                />
+        <TextView android:id="@+id/icons_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="8dp"
+                android:text="@string/lauch_ico"
+                />
+        <RadioGroup android:id="@+id/startup_opts"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                >
+            <RadioButton
+                    android:id="@+id/show_icon"
+                    android:checked="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onIconOpts"
+                    android:text="@string/show_icon" />
+            <RadioButton
+                    android:id="@+id/start_speech"
+                    android:checked="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onIconOpts"
+                    android:text="@string/start_speech" />
+            <RadioButton
+                    android:id="@+id/remove_icon"
+                    android:checked="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onIconOpts"
+                    android:text="@string/remove_icon" />
+        </RadioGroup>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="@string/tryAllso"
+                android:paddingTop="8dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:gravity="center"
+                />
+        <TextView
+                android:id="@+id/atVoiceLnk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/atVoice"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#8080ff"
+                android:clickable="true"
+                android:onClick="atVoiceClick"
+                android:textSize="18dp"
+                android:paddingBottom="20dp"
+                android:autoText="false"
+                />
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                >
+            <Button
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onRate"
+                    android:text="@string/rate"
+                    />
+            <Button
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="onReturn"
+                    android:text="@string/back"
+                    />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

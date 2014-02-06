@@ -161,32 +161,13 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         setListener(R.id.button_about, new View.OnClickListener() {
             public void onClick(View v) {
                 SpeakService.stopTalking();
-                AlertDialog.Builder builder = new AlertDialog.Builder(SpeakActivity.this);
-                LayoutInflater inflater = LayoutInflater.from(SpeakActivity.this);
-                View view = inflater.inflate(R.layout.about_panel, null);
-                TextView tv = (TextView) view.findViewById(R.id.vtext);
-                tv.setText(getString(R.string.version) + " " + TtsApp.versionName);
-                builder.setView(view);
-                builder.setPositiveButton(R.string.rate, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=com.hyperionics.fbreader.plugin.tts_plus"));
-                        startActivity(browserIntent);
-                    }
-                });
-                builder.setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-                TextView lnk = (TextView) alert.findViewById(R.id.atVoiceLnk);
-                String s = lnk.getText().toString();
-                lnk.setText(
-                    Html.fromHtml("<a href=\"http://hyperionics.com/atVoice/index.asp\">" + s + "</a>")
-                );
-                lnk.setMovementMethod(LinkMovementMethod.getInstance());
+                ComponentName cn = new ComponentName("com.hyperionics.fbreader.plugin.tts_plus",
+                        "com.hyperionics.fbreader.plugin.tts_plus.InfoActivity");
+                getPackageManager().setComponentEnabledSetting(cn, PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                        PackageManager.DONT_KILL_APP);
+                Intent intent = new Intent(SpeakActivity.this, InfoActivity.class);
+                intent.putExtra("showAbout", true);
+                startActivity(intent);
             }
         });
         setListener(R.id.button_setup, new View.OnClickListener() {
@@ -447,7 +428,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         if (count < 9) {
             try {
                 SpeakService.myBookHash = "BP:" + SpeakService.myApi.getBookHash();
-            } catch (ApiException ae) {
+            } catch (Exception ae) {
                 // FBReader may not be fully initialized yet, try again after a while...
                 new Timer().schedule(new TimerTask() {
                     @Override

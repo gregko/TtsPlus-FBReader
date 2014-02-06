@@ -36,7 +36,7 @@
     <string name="more_settings">Параметры...</string>
     <string name="headset_plug_start">Начинать чтение при подключении наушников</string>
     <string name="sleep_after">Остановить чтение через</string>
-    <string name="headset_start_fbr">Запуск/Остановка воспроизведения с пульта гарнитуры, когда FBReader находится на вершине</string>
+    <string name="headset_start_fbr">Запуск FBReader и воспроизведения с пульта гарнитуры</string>
     <string name="net_synth">Использовать сетевый синтезатор речи, если возможно</string>
     <string name="net_synth_wifi">только через WiFi</string>
     <string name="word_opts">Показать панель \"чтение отдельных слов\"</string>

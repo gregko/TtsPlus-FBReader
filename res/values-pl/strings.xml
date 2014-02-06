@@ -36,7 +36,7 @@
     <string name="more_settings">Więcej...</string>
     <string name="headset_plug_start">Zacznij czytać przy włączeniu słuchawek</string>
     <string name="sleep_after">Przestań czytać po</string>
-    <string name="headset_start_fbr">Startuj czytanie przyciskiem słuchawek gdy FBReader jest aktywny</string>
+    <string name="headset_start_fbr">Startuj FBReader i czytanie na głos przyciskiem słuchawek</string>
     <string name="net_synth">Używaj sieciowego syntezatora mowy, jeśli jest dostępny</string>
     <string name="net_synth_wifi">tylko przez WiFi</string>
     <string name="word_opts">Pokaż opcję \"czytaj słowa\"</string>

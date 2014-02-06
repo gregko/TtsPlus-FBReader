@@ -32,9 +32,9 @@ public class IncomingReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(SpeakService.SVC_STARTED)) {
             Lt.d("GOT THE SVC_STARTED INTENT");
-            if (SpeakService.myApi == null)
+            if (SpeakService.myApi == null) {
                 Lt.d("- myApi is null");
-            else
+            } else
                 Lt.d(SpeakService.myApi.isConnected() ? "- FBReader connected" : "- FBReader NOT connected");
             if (SpeakActivity.wantStarted) {
                 Lt.d("Trying to launch FBReader...");
@@ -53,7 +53,7 @@ public class IncomingReceiver extends BroadcastReceiver {
         }
     }
 
-    private void startSpeakActivityDelayed(final int count) {
+    static void startSpeakActivityDelayed(final int count) {
         if (count > 9)
             return;
         Lt.d("startSpeakActivityDelayed() count = " + count);
@@ -71,6 +71,7 @@ public class IncomingReceiver extends BroadcastReceiver {
                     }
                 } else {
                     Lt.d("startSpeakActivityDelayed(): myApi is null");
+                    TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
                     startSpeakActivityDelayed(count + 1);
                 }
                 SpeakActivity.wantStarted = false;

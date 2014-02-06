@@ -65,7 +65,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static int haveNewApi = 1;
     static private boolean isServiceTalking = false;
     static private boolean myHasNetworkTts = false;
-    static boolean readingStarted = false;
+    //static boolean readingStarted = false;
     static boolean wordPauses = false;
 
     static private final String UTTERANCE_ID = "FBReaderTTS+Plugin";
@@ -319,7 +319,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             return;
         SpeakActivity.setActive(true);
         String iso3lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
-        CldWrapper.initExtractorNative(getConfigPath(), iso3lang);
+        CldWrapper.initExtractorNative(getConfigPath(), iso3lang, 0);
         wordPauses = getPrefs().getBoolean("WORD_OPTS", false) &&
                      myPreferences.getBoolean("SINGLE_WORDS", false) &&
                      myPreferences.getBoolean("PAUSE_WORDS", false);
@@ -389,14 +389,15 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static void toggleTalking() {
         if (SpeakActivity.getCurrent() == null) {
-            if (true || readingStarted) {
+            if (getPrefs().getBoolean("fbrStart", false)) {
+                // TODO: fix above, not right, only starts from headset button if enabled...
+                // How could I know if FBReader is on top?
                 if (currentService == null) {
                     TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
-                } else {
-                    Intent i = new Intent(SVC_STARTED);
-                    SpeakActivity.wantStarted = true;
-                    TtsApp.getContext().sendBroadcast(i);
                 }
+                Intent i = new Intent(SVC_STARTED);
+                SpeakActivity.wantStarted = true;
+                TtsApp.getContext().sendBroadcast(i);
             }
             else {
                 TtsApp.enableComponents(false);
@@ -424,13 +425,16 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             currentService.mHandler.removeCallbacks(currentService.myTimerTask);
             mySentences = new TtsSentenceExtractor.SentenceIndex[0];
         } catch (Exception dontCare) {}
+
         if (myApi != null && myApi.isConnected()) {
             try {
                 myApi.clearHighlighting();
+                myApi.disconnect();
             } catch (ApiException e) {
                 e.printStackTrace();
             }
         }
+        myApi = null;
         try {
             if (SpeakService.myTTS != null) {
                 SpeakService.myTTS.shutdown();
@@ -769,7 +773,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     public static void reconnect() {
         Lt.d("reconnect()");
-        readingStarted = true;
+        //readingStarted = true;
         if (TtsApp.areComponentsEnabled())
             TtsApp.enableComponents(true);
         if (!SpeakActivity.isVisible() && SpeakActivity.getCurrent() != null) {
@@ -833,27 +837,27 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             myApi = new ApiClientImplementation(currentService, currentService);
             myApi.connect();
         }
-        myApi.addListener(new ApiListener() {
-            @Override
-            public void onEvent(String eventType) {
-                Lt.d("onEvent: " + eventType);
-                if (eventType.equals(EVENT_READ_MODE_OPENED))
-                    readingStarted = true;
-                else if (eventType.equals(EVENT_READ_MODE_CLOSED)) {
-                    PowerManager powerManager = (PowerManager) TtsApp.getContext().getSystemService(POWER_SERVICE);
-                    KeyguardManager kgMgr = (KeyguardManager)  TtsApp.getContext().getSystemService(Context.KEYGUARD_SERVICE);
-                    if (powerManager.isScreenOn() && !kgMgr.inKeyguardRestrictedInputMode())
-                        readingStarted = false;
-                    else
-                        Lt.d("  - no stop");
-                }
-                if (!readingStarted &&
-                        (!myPreferences.getBoolean("fbrStart", true)) &&
-                        SpeakActivity.getCurrent() == null) {
-                    disconnect();
-                }
-            }
-        });
+//        myApi.addListener(new ApiListener() {
+//            @Override
+//            public void onEvent(String eventType) {
+//                Lt.d("onEvent: " + eventType);
+//                if (eventType.equals(EVENT_READ_MODE_OPENED))
+//                    readingStarted = true;
+//                else if (eventType.equals(EVENT_READ_MODE_CLOSED)) {
+//                    PowerManager powerManager = (PowerManager) TtsApp.getContext().getSystemService(POWER_SERVICE);
+//                    KeyguardManager kgMgr = (KeyguardManager)  TtsApp.getContext().getSystemService(Context.KEYGUARD_SERVICE);
+//                    if (powerManager.isScreenOn() && !kgMgr.inKeyguardRestrictedInputMode())
+//                        readingStarted = false;
+//                    else
+//                        Lt.d("  - no stop");
+//                }
+//                if (!readingStarted &&
+//                        (!myPreferences.getBoolean("fbrStart", true)) &&
+//                        SpeakActivity.getCurrent() == null) {
+//                    disconnect();
+//                }
+//            }
+//        });
 
         // Test code
 //        Boolean debug = (currentService.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
