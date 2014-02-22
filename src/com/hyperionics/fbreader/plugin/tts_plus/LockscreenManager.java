@@ -31,15 +31,13 @@ public class LockscreenManager {
             _remoteControlClient = null;
             return;
         }
-		//if (_remoteControlClient == null) {
-			Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-			intent.setComponent(new ComponentName(context, MediaButtonIntentReceiver.class));
+        Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        intent.setComponent(new ComponentName(context, MediaButtonIntentReceiver.class));
 
-            PendingIntent mediaPendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-            // create and register the remote control client
-			_remoteControlClient = new RemoteControlClient(mediaPendingIntent);
-			audioManager.registerRemoteControlClient(_remoteControlClient);
-		//}
+        PendingIntent mediaPendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        // create and register the remote control client
+        _remoteControlClient = new RemoteControlClient(mediaPendingIntent);
+        audioManager.registerRemoteControlClient(_remoteControlClient);
 
 		// android built-in lockscreen only supports play/pause/playpause/stop, previous, and next
 		_remoteControlClient.setTransportControlFlags(
@@ -68,19 +66,6 @@ public class LockscreenManager {
 			Lt.d("Updating lockscreen exception: " + e.toString());
 		}
 
-        // Again, don't know how to force the lock screen to show the position
-//        _remoteControlClient.setOnGetPlaybackPositionListener(new RemoteControlClient.OnGetPlaybackPositionListener() {
-//            @Override
-//            public long onGetPlaybackPosition() {
-//                return 5000;
-//            }
-//        });
-//        _remoteControlClient.setPlaybackPositionUpdateListener(new RemoteControlClient.OnPlaybackPositionUpdateListener() {
-//            @Override
-//            public void onPlaybackPositionUpdate(long newPositionMs) {
-//                Lt.d("newPositionMs = " + newPositionMs);
-//            }
-//        });
         _remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
 	}
 
@@ -106,11 +91,6 @@ public class LockscreenManager {
         if (SpeakService.mAudioManager != null && _remoteControlClient != null)
             SpeakService.mAudioManager.unregisterRemoteControlClient(_remoteControlClient);
         setupLockscreenControls(TtsApp.getContext());
-//		if (_remoteControlClient == null) {
-//            setupLockscreenControls(TtsApp.getContext());
-//        } else {
-//		    _remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
-//        }
 	}
 
 }

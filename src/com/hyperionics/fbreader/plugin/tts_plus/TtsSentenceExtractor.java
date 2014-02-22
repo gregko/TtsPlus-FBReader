@@ -73,7 +73,7 @@ public class TtsSentenceExtractor {
         Locale loc = currentTTS.getLanguage();
         if (loc == null)
             loc = Locale.getDefault();
-        boolean breakSentences;
+        boolean breakSentences = false;
         try {
             // Stupid: getCurrentEngine() of TTS is hidden. Try to get current engine if we can -
             // at some point we may not be using the default TTS engine...
@@ -82,7 +82,8 @@ public class TtsSentenceExtractor {
             String currEngine = (String) method.invoke(currentTTS);
             breakSentences = currEngine.equals("nuance.tts");
         } catch (Exception e) {
-            breakSentences = currentTTS.getDefaultEngine().equals("nuance.tts");
+            if (currentTTS != null)
+                breakSentences =  "nuance.tts".equals(currentTTS.getDefaultEngine());
         }
 //        catch (SecurityException e) {}
 //        catch (NoSuchMethodException e) {}

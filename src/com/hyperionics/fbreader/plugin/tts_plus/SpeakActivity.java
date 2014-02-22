@@ -57,6 +57,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     private static volatile PowerManager.WakeLock myWakeLock;
     static final int LANG_SEL_REQUEST = 101;
     static final int AVAR_DEF_PATH_REQUEST = 102;
+    static final int GET_TTS_VOICES = 107;
     static boolean wantStarted = false;
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
     static String avarDefaultPath = null;
@@ -558,8 +559,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         else if (requestCode == 2) { // SettingsActivity returned
             SpeakService.setSleepTimer(resultCode);
         }
-        else if (requestCode == 7 && data != null) {
+        else if (requestCode == GET_TTS_VOICES && data != null) {
             myVoices = data.getStringArrayListExtra(TextToSpeech.Engine.EXTRA_AVAILABLE_VOICES);
+            if (myVoices == null) {
+                Lt.alert(this, R.string.no_voices);
+                return;
+            }
             selectLanguage(false);
         }
         else if (requestCode == LANG_SEL_REQUEST && data != null) {
@@ -765,7 +770,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 in = in.setPackage(defTtsEng); // here setting package does have an effect.
             }
             try {
-                currentSpeakActivity.startActivityForResult(in, 7); // goes to onActivityResult()
+                currentSpeakActivity.startActivityForResult(in, GET_TTS_VOICES); // goes to onActivityResult()
             } catch (ActivityNotFoundException e) {
                 showErrorMessage(R.string.no_tts_installed);
             }
