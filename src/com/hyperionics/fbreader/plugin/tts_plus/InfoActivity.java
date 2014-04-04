@@ -117,11 +117,15 @@ public class InfoActivity extends Activity {
                         Uri.parse("http://play.google.com/store/apps/details?id=org.geometerplus.zlibrary.ui.android")));
             }
         } else {
+            // New method:
             // The 2 lines below will be enough to start FBReader and plugin once Nikolay fixes
             // FBReader issue (handle PLUGIN intent not only in onNewIntent(), but also in onCreate()
             // in FBReader.java
-            // launchIntent.setAction("android.fbreader.action.PLUGIN");
-            // launchIntent.setData(Uri.parse("http://hyperionics.com/plugin/tts_plus/speak"));
+//            launchIntent.setAction("android.fbreader.action.PLUGIN");
+//            launchIntent.setData(Uri.parse("http://hyperionics.com/plugin/tts_plus/speak"));
+//            startActivity(launchIntent);
+
+            // Old method:
             startActivity(launchIntent);
             if (SpeakService.getCurrentService() == null)
                 TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));

@@ -25,10 +25,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.*;
 import android.widget.*;
-import com.hyperionics.TtsSetup.CldWrapper;
-import com.hyperionics.TtsSetup.LangSupport;
-import com.hyperionics.TtsSetup.Lt;
-import com.hyperionics.TtsSetup.VoiceSelector;
+import com.hyperionics.TtsSetup.*;
 import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.TextPosition;
 
@@ -119,7 +116,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 SpeakService.stopTalking();
                 if (Build.VERSION.SDK_INT >= 14) {
                     if (SpeakService.myTTS != null) {
-                        SpeakService.myTTS.shutdown();
+                        TtsWrapper.shutdownTts(SpeakService.myTTS);
                         SpeakService.myTTS = null;
                         SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
                     }
@@ -473,10 +470,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             Lt.df("Exception in onInitializationCompleted(): " + e);
             e.printStackTrace();
     		if (SpeakService.myTTS != null) {
-		        try {
-	       			SpeakService.myTTS.shutdown();
-	        	} catch (Exception e2) {
-	        	}
+                TtsWrapper.shutdownTts(SpeakService.myTTS);
     		}
     		if (SpeakService.myApi != null) {
     			try {
@@ -509,7 +503,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             public void engSelected(String engPackageName) {
                 try {
                     if (SpeakService.myTTS != null) {
-                        SpeakService.myTTS.shutdown();
+                        TtsWrapper.shutdownTts(SpeakService.myTTS);
                         SpeakService.myTTS = null;
                     }
                 } catch (Exception e) {}
@@ -521,10 +515,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     void doStartTts() {
         try {
             SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
-            if (Build.VERSION.SDK_INT >= 14)
-                SpeakService.myTTS = new TextToSpeech(SpeakService.getCurrentService(), this, LangSupport.getSelectedTtsEng());
-            else
-                SpeakService.myTTS = new TextToSpeech(SpeakService.getCurrentService(), this);
+            SpeakService.myTTS = TtsWrapper.createTts(SpeakService.getCurrentService(), this, LangSupport.getSelectedTtsEng());
 
         } catch (ActivityNotFoundException e) {
             currentSpeakActivity.showErrorMessage(R.string.no_tts_installed);
@@ -537,12 +528,10 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_FAIL || // some engines fail here, yet work correctly...
                 resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_MISSING_DATA) { // Google TTS fails on jellybean
                 if (SpeakService.myTTS != null) {
-                    try {
-                        SpeakService.myTTS.shutdown();
-                    } catch (Exception e) {}
+                    TtsWrapper.shutdownTts(SpeakService.myTTS);
                     SpeakService.myTTS = null;
                 }
-                SpeakService.myTTS = new TextToSpeech(this, this);
+                SpeakService.myTTS = TtsWrapper.createTts(this, this, null);
                 // The line below gets voices for the "default action" speech engine...
                 if (data != null)
                     myVoices = data.getStringArrayListExtra(TextToSpeech.Engine.EXTRA_AVAILABLE_VOICES);
@@ -576,7 +565,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             }
             try {
                 if (SpeakService.myTTS != null) {
-                    SpeakService.myTTS.shutdown();
+                    TtsWrapper.shutdownTts(SpeakService.myTTS);
                     SpeakService.myTTS = null;
                 }
             } catch (Exception e) {}

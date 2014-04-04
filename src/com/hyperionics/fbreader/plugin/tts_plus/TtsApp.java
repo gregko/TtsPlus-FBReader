@@ -62,7 +62,8 @@ public class TtsApp extends Application
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
         ComponentName component = new ComponentName(myPackageName,
                 MediaButtonIntentReceiver.class.getName());
-        myPackageManager.setComponentEnabledSetting(component, flag,
+        if (enabled || !SpeakService.getPrefs().getBoolean("fbrStart", false))
+            myPackageManager.setComponentEnabledSetting(component, flag,
                 PackageManager.DONT_KILL_APP);
         component = new ComponentName(myPackageName,
                 BluetoothConnectReceiver.class.getName());
@@ -86,7 +87,8 @@ public class TtsApp extends Application
                 SpeakService.mAudioManager.registerMediaButtonEventReceiver(SpeakService.componentName);
             }
             else {
-                SpeakService.mAudioManager.unregisterMediaButtonEventReceiver(SpeakService.componentName);
+                if (!SpeakService.getPrefs().getBoolean("fbrStart", false))
+                    SpeakService.mAudioManager.unregisterMediaButtonEventReceiver(SpeakService.componentName);
                 SpeakService.mAudioManager.abandonAudioFocus(SpeakService.afChangeListener);
             }
         }

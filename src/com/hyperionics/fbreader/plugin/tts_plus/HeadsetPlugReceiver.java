@@ -43,7 +43,7 @@ public class HeadsetPlugReceiver extends BroadcastReceiver {
                 SpeakService.stopTalking();
             else if (headsetState == 1 && !SpeakService.myIsActive &&
                      SpeakService.getPrefs().getBoolean("plugStart", false) &&
-                    SpeakService.getPrefs().getBoolean("fbrStart", true))
+                    SpeakService.getPrefs().getBoolean("fbrStart", false))
                 SpeakService.toggleTalking();
         }
         else if (intentAction.equals("android.media.VOLUME_CHANGED_ACTION")) {

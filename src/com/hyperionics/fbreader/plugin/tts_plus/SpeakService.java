@@ -12,10 +12,7 @@ import android.os.PowerManager;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
 import android.text.format.Time;
-import com.hyperionics.TtsSetup.CldWrapper;
-import com.hyperionics.TtsSetup.LangSupport;
-import com.hyperionics.TtsSetup.Lt;
-import com.hyperionics.TtsSetup.VoiceSelector;
+import com.hyperionics.TtsSetup.*;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.ApiListener;
@@ -155,9 +152,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         if (eng != null && !eng.equals(LangSupport.getSelectedTtsEng())) {
                             // Speech engine change necessary
                             LangSupport.setSelectedTtsEng(eng);
-                            if (myTTS != null) try {
-                                myTTS.shutdown();
-                            } catch (Exception e) {}
+                            TtsWrapper.shutdownTts(myTTS);
                             myTTS = null;
                             SpeakActivity.getCurrent().doStartTts();
                             return false;
@@ -284,7 +279,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 SpeakActivity sa = SpeakActivity.getCurrent();
                 if (Build.VERSION.SDK_INT >= 14) {
                     if (SpeakService.myTTS != null) {
-                        SpeakService.myTTS.shutdown();
+                        TtsWrapper.shutdownTts(SpeakService.myTTS);
                         SpeakService.myTTS = null;
                         SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
                     }
@@ -319,7 +314,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             return;
         SpeakActivity.setActive(true);
         String iso3lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
-        CldWrapper.initExtractorNative(getConfigPath(), iso3lang, 0);
+        CldWrapper.initExtractorNative(getConfigPath(), iso3lang, 0, null);
         wordPauses = getPrefs().getBoolean("WORD_OPTS", false) &&
                      myPreferences.getBoolean("SINGLE_WORDS", false) &&
                      myPreferences.getBoolean("PAUSE_WORDS", false);
@@ -437,13 +432,13 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         myApi = null;
         try {
             if (SpeakService.myTTS != null) {
-                SpeakService.myTTS.shutdown();
+                TtsWrapper.shutdownTts(SpeakService.myTTS);
                 SpeakService.myTTS = null;
             }
         } catch (Exception e) {
         }
         cleanupPositions();
-        if (!getPrefs().getBoolean("fbrStart", true)) {
+        if (!getPrefs().getBoolean("fbrStart", false)) {
             disconnect();
         }
         myInitializationStatus &= ~TTS_INITIALIZED;
@@ -525,7 +520,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     myParamMap.put(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, "true");
                 }
             }
-            ret = myTTS.speak(text, TextToSpeech.QUEUE_ADD, myParamMap);
+            ret = TtsWrapper.speak(myTTS, text, TextToSpeech.QUEUE_ADD, myParamMap);
             isServiceTalking = ret == TextToSpeech.SUCCESS;
         } else {
             ret = myTTS.playSilence(20, TextToSpeech.QUEUE_ADD, myParamMap); // to call utteranceCompleted() on TTS thread...
@@ -790,9 +785,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     public static void disconnect() {
         TtsApp.enableComponents(false);
-        //currentService.sendBroadcast(new Intent(SpeakService.TTSP_KILL));
-//        mAudioManager.unregisterMediaButtonEventReceiver(SpeakService.componentName);
-//        mAudioManager.abandonAudioFocus(SpeakService.afChangeListener);
     }
 
     @Override public IBinder onBind(Intent arg0) { return null; }
@@ -802,7 +794,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         componentName = new ComponentName(getPackageName(), MediaButtonIntentReceiver.class.getName());
         myPreferences = getSharedPreferences("FBReaderTTS", MODE_PRIVATE);
-        if (myPreferences.getBoolean("fbrStart", true))
+        if (myPreferences.getBoolean("fbrStart", false))
             TtsApp.enableComponents(true);
         super.onCreate();
     }
@@ -815,6 +807,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static void doStop() {
     	if (currentService != null) {
             Lt.d("currentService.stopSelf()");
+            TtsWrapper.cleanup();
     		currentService.stopSelf();
             currentService = null;
         }
@@ -938,7 +931,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
                 myWasActive = myIsActive;
                 stopTalking();
-                mAudioManager.unregisterMediaButtonEventReceiver(componentName);
+                //mAudioManager.unregisterMediaButtonEventReceiver(componentName);
             }
         }
     };

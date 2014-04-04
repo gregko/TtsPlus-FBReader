@@ -81,7 +81,7 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        ((CheckBox)findViewById(R.id.fbr_headset_start)).setChecked(SpeakService.getPrefs().getBoolean("fbrStart", true));
+        ((CheckBox)findViewById(R.id.fbr_headset_start)).setChecked(SpeakService.getPrefs().getBoolean("fbrStart", false));
         setListener(R.id.fbr_headset_start, new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
@@ -186,7 +186,7 @@ public class SettingsActivity extends Activity {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     SpeakService.getPrefs().edit().putBoolean("AVAR_SPEECH", isChecked).commit();
                     CldWrapper.initExtractorNative(SpeakService.getConfigPath(),
-                            LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage())), 0);
+                            LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage())), 0, null);
                 }
             });
         } else {

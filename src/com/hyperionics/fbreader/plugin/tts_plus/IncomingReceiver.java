@@ -54,7 +54,7 @@ public class IncomingReceiver extends BroadcastReceiver {
     }
 
     static void startSpeakActivityDelayed(final int count) {
-        if (count > 9)
+        if (count > 20)
             return;
         Lt.d("startSpeakActivityDelayed() count = " + count);
         new Timer().schedule(new TimerTask() {
@@ -64,6 +64,10 @@ public class IncomingReceiver extends BroadcastReceiver {
                     try {
                         TextPosition tp = SpeakService.myApi.getPageStart();
                         Lt.d("- tp = " + tp.ParagraphIndex + ", " + tp.ElementIndex);
+                        if (tp.ParagraphIndex == 0 && tp.ElementIndex == 0 && count < 2) {
+                            startSpeakActivityDelayed(count + 1);
+                            return;
+                        }
                     } catch (ApiException e) {
                         Lt.d("startSpeakActivityDelayed(): ApiException");
                         startSpeakActivityDelayed(count + 1);
@@ -71,8 +75,10 @@ public class IncomingReceiver extends BroadcastReceiver {
                     }
                 } else {
                     Lt.d("startSpeakActivityDelayed(): myApi is null");
-                    TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
+                    if (SpeakService.getCurrentService() == null)
+                        TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
                     startSpeakActivityDelayed(count + 1);
+                    return;
                 }
                 SpeakActivity.wantStarted = false;
                 Intent in = new Intent(TtsApp.getContext(), SpeakActivity.class);

@@ -21,6 +21,10 @@
         <option name="packageNamePattern" value="com.hyperionics.fbreader.plugin.tts_plus" />
         <option name="pid" value="" />
       </filter>
+      <filter>
+        <option name="name" value="app: com.hyperionics.fbreader.plugin.tts_plus" />
+        <option name="packageNamePattern" value="com.hyperionics.fbreader.plugin.tts_plus" />
+      </filter>
     </filters>
   </component>
   <component name="AndroidDesignerProfile">
@@ -79,7 +83,7 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="FBReaderTTS proc" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.hyperionics.fbreader.plugin.tts_plus" />
   </component>
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
@@ -87,22 +91,20 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" line="273" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" line="268" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36881102-1f07-46e3-b919-36d1380bf90f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsNativeLibSmall/libs/armeabi/libHyperionics_avar.so" afterPath="$PROJECT_DIR$/../TtsNativeLibSmall/libs/armeabi/libHyperionics_avar.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsNativeLibSmall/libs/armeabi-v7a/libHyperionics_avar.so" afterPath="$PROJECT_DIR$/../TtsNativeLibSmall/libs/armeabi-v7a/libHyperionics_avar.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsNativeLibSmall/libs/mips/libHyperionics_avar.so" afterPath="$PROJECT_DIR$/../TtsNativeLibSmall/libs/mips/libHyperionics_avar.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsNativeLibSmall/libs/x86/libHyperionics_avar.so" afterPath="$PROJECT_DIR$/../TtsNativeLibSmall/libs/x86/libHyperionics_avar.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/LockscreenManager.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/LockscreenManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/HeadsetPlugReceiver.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/HeadsetPlugReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/IncomingReceiver.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/IncomingReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/InfoActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/InfoActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsNativeLibSmall/TtsNativeLibSmall.iml" afterPath="$PROJECT_DIR$/../TtsNativeLibSmall/TtsNativeLibSmall.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsNativeLibSmall/project.properties" afterPath="$PROJECT_DIR$/../TtsNativeLibSmall/project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/project.properties" afterPath="$PROJECT_DIR$/../TtsSetup/project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsNativeLibSmall/res/values/strings.xml" afterPath="$PROJECT_DIR$/../TtsNativeLibSmall/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsApp.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsApp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TtsPlus-FBReader.iml" afterPath="$PROJECT_DIR$/TtsPlus-FBReader.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FBReaderJ-TTS.iws" />
@@ -126,7 +128,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" converted="true">
       <breakpoint url="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" line="114" class="com.hyperionics.fbreader.plugin.tts_plus.TtsSentenceExtractor" package="com.hyperionics.fbreader.plugin.tts_plus">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
@@ -172,8 +174,38 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" line="390" class="com.hyperionics.fbreader.plugin.tts_plus.SpeakService" package="com.hyperionics.fbreader.plugin.tts_plus">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java" line="86" class="com.hyperionics.fbreader.plugin.tts_plus.SettingsActivity$3" package="com.hyperionics.fbreader.plugin.tts_plus">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
     </line_breakpoints>
-    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true" converted="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
         <option name="NOTIFY_UNCAUGHT" value="true" />
@@ -209,9 +241,9 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
-    <breakpoint_rules />
-    <ui_properties />
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" converted="true" />
+    <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -221,45 +253,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SpeakService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
+      <file leaf-file-name="TtsWrapper.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/TtsWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="383" column="16" selection-start="15864" selection-end="15864" vertical-scroll-proportion="0.0" vertical-offset="6511" max-vertical-offset="16167">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="at_voice.png" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/drawable/at_voice.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HeadsetPlugReceiver.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/HeadsetPlugReceiver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="13" selection-start="826" selection-end="826" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="952">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IncomingReceiver.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/IncomingReceiver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="36" selection-start="1519" selection-end="1519" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1394">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MediaButtonIntentReceiver.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/MediaButtonIntentReceiver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="39" selection-start="2350" selection-end="2350" vertical-scroll-proportion="0.0" vertical-offset="276" max-vertical-offset="1292">
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+              <caret line="112" column="33" selection-start-line="112" selection-start-column="33" selection-end-line="112" selection-end-column="33" />
+              <folding>
+                <element signature="docComment;class#TtsWrapper#0" expanded="false" />
+                <element signature="method#createTts#0;class#TtsWrapper#0" expanded="false" />
+                <element signature="class#1043:1208" expanded="false" />
+                <element signature="class#1599:2269" expanded="false" />
+                <element signature="method#onInit#0;class#1599:2269" expanded="false" />
+                <element signature="method#shutdownTts#0;class#TtsWrapper#0" expanded="false" />
+                <element signature="method#forceShutdownTts#0;class#TtsWrapper#0" expanded="false" />
+                <element signature="method#cleanup#0;class#TtsWrapper#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -267,26 +275,69 @@
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="100" selection-start="1637" selection-end="1637" vertical-scroll-proportion="0.5765864" vertical-offset="0" max-vertical-offset="1734">
+            <state vertical-scroll-proportion="0.028192371" vertical-offset="34" max-vertical-offset="1734">
+              <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LockscreenManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/LockscreenManager.java">
+      <file leaf-file-name="SpeakService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="58" selection-start="716" selection-end="716" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="1734">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpeakActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="564" column="49" selection-start="25466" selection-end="25466" vertical-scroll-proportion="0.0" vertical-offset="9588" max-vertical-offset="14586">
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3846" max-vertical-offset="5236">
+              <caret line="523" column="0" selection-start-line="523" selection-start-column="0" selection-end-line="523" selection-end-column="0" />
+              <folding>
+                <element signature="docComment;class#SpeakService#0" expanded="false" />
+                <element signature="method#getCurrentService#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#getConfigPath#1;class#SpeakService#0" expanded="false" />
+                <element signature="method#savePosition#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#cleanupPositions#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#onUtteranceCompleted#0;class#SpeakService#0" expanded="false" />
+                <element signature="class#9164:9295" expanded="false" />
+                <element signature="method#getCurrentBookLanguage#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#startTalking#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#stopTalking#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#toggleTalking#0;class#SpeakService#0" expanded="false" />
+                <element signature="e#15940#16016#0" expanded="false" />
+                <element signature="method#nextToSpeak#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#prevToSpeak#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#connectionType#0;class#SpeakService#0" expanded="false" />
+                <element signature="e#19561#19629#0" expanded="false" />
+                <element signature="method#setSpeechRate#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#setPitch#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#setPitchTemp#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#highlightSentence#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#highlightParagraph#0;class#SpeakService#0" expanded="false" />
+                <element signature="e#23202#23247#0" expanded="false" />
+                <element signature="method#gotoPreviousSentence#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#gotoNextSentence#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#gotoPreviousParagraph#0;class#SpeakService#0" expanded="false" />
+                <element signature="class#24970:25262" expanded="false" />
+                <element signature="method#run#0;class#24970:25262" expanded="false" />
+                <element signature="method#switchReadMode#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#processCurrentParagraph#0;class#SpeakService#0" expanded="false" />
+                <element signature="class#26680:27014" expanded="false" />
+                <element signature="method#run#0;class#26680:27014" expanded="false" />
+                <element signature="class#28087:28421" expanded="false" />
+                <element signature="method#run#0;class#28087:28421" expanded="false" />
+                <element signature="method#regainBluetoothFocus#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#getPrefs#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#onConnected#0;class#SpeakService#0" expanded="false" />
+                <element signature="e#29883#29902#0" expanded="false" />
+                <element signature="method#reconnect#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#onBind#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#onCreate#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#onDestroy#0;class#SpeakService#0" expanded="false" />
+                <element signature="method#doStartup#0;class#SpeakService#0" expanded="false" />
+                <element signature="e#32838#32885#0" expanded="false" />
+                <element signature="method#setSleepTimer#0;class#SpeakService#0" expanded="false" />
+                <element signature="class#35266:35601" expanded="false" />
+                <element signature="method#run#0;class#35266:35601" expanded="false" />
+                <element signature="method#onStartCommand#0;class#SpeakService#0" expanded="false" />
+                <element signature="class#36132:36909" expanded="false" />
+                <element signature="method#onAudioFocusChange#0;class#36132:36909" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -328,7 +379,6 @@
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/CmdActivity.java" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/MyWidgetProviderSimple.java" />
         <option value="$PROJECT_DIR$/res/xml/widget_info.xml" />
-        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsApp.java" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/MyWidgetProvider.java" />
         <option value="$PROJECT_DIR$/res/drawable/myshape.xml" />
         <option value="$PROJECT_DIR$/res/layout/widget_layout.xml" />
@@ -342,18 +392,20 @@
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/StartupActivity.java" />
         <option value="$PROJECT_DIR$/res/values-pl/strings.xml" />
         <option value="$PROJECT_DIR$/res/values-ru/strings.xml" />
-        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java" />
-        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
-        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/IncomingReceiver.java" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/AboutActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/info_panel.xml" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/InfoActivity.java" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" />
         <option value="$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/SimpleBrowser.java" />
         <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/LockscreenManager.java" />
+        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/HeadsetPlugReceiver.java" />
+        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsApp.java" />
+        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/InfoActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/IncomingReceiver.java" />
+        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -361,10 +413,10 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="124" />
-    <option name="y" value="64" />
+    <option name="x" value="288" />
+    <option name="y" value="137" />
     <option name="width" value="1592" />
-    <option name="height" value="1116" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -380,7 +432,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -393,6 +445,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -407,8 +460,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="TtsSetup" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -418,11 +471,7 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -432,15 +481,29 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TtsPlus-FBReader" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TtsPlus-FBReader" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="hyperionics" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -450,24 +513,23 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TtsPlus-FBReader" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="hyperionics" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tts_plus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -484,7 +546,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../TtsNativeLibSmall" />
     <property name="GenerateAntBuildDialog.inclineRuntiemClasspath" value="false" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="ttsplus-fbreader" />
-    <property name="DEBUGGABLE_DEVICE" value="192.168.56.102:5555" />
+    <property name="DEBUGGABLE_DEVICE" value="0123456789ABCDEF" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="DEBUGGABLE_PROCESS" value="com.hyperionics.fbreader.plugin.tts_plus" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -497,12 +559,12 @@
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="AndroidIncludeSystemProguardFile" value="true" />
     <property name="AndroidProguardConfigPath" value="D:\android\TtsPlus-FBReader\proguard.cfg" />
-    <property name="options.lastSelected" value="preferences.sourceCode.XML" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="AndroidLayoutSelectedEditor" value="text-editor" />
     <property name="DefaultHtmlFileTemplate" value="Html" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="016B7DFD0200F01E" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="192.168.56.101:5555" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="AndroidRunProguardForReleaseBuild" value="false" />
     <property name="KeystoreLocation" value="D:\Users\greg\.android\Hyperionics.keystore" />
@@ -511,6 +573,11 @@
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="options.searchVisible" value="true" />
     <property name="AndroidProguardConfigPaths" value="D:\android\android-sdk\tools\proguard\proguard-android.txt;D:\android\TtsPlus-FBReader\proguard.cfg" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings />
+    </option>
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -707,7 +774,7 @@
       <option name="launchUrl" value="false" />
       <option name="launcherParameters">
         <LauncherParameters>
-          <option name="browserFamily" value="FIREFOX" />
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
           <option name="launcherType" value="OSDefault" />
           <option name="newPlayerInstance" value="false" />
           <option name="playerPath" value="FlashPlayerDebugger.exe" />
@@ -744,6 +811,7 @@
       <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -786,11 +854,11 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" output_log_level="null" package_name="" scope="Class">
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
       <option name="BCName" value="" />
       <option name="launcherParameters">
         <LauncherParameters>
-          <option name="browserFamily" value="FIREFOX" />
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
           <option name="launcherType" value="OSDefault" />
           <option name="newPlayerInstance" value="false" />
           <option name="playerPath" value="FlashPlayerDebugger.exe" />
@@ -852,6 +920,7 @@
       <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
     <configuration default="false" name="TtsPlus" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -871,6 +940,7 @@
       <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
       <RunnerSettings RunnerId="AndroidDebugRunner" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
@@ -1001,37 +1071,49 @@
       <workItem from="1392126721521" duration="908000" />
       <workItem from="1392127732983" duration="30000" />
       <workItem from="1392830506698" duration="1971000" />
-      <workItem from="1393111309902" duration="335000" />
+      <workItem from="1393111309902" duration="881000" />
+      <workItem from="1393162337429" duration="1366000" />
+      <workItem from="1393256982550" duration="4496000" />
+      <workItem from="1393338339502" duration="3910000" />
+      <workItem from="1393683139070" duration="105000" />
+      <workItem from="1393683285507" duration="2589000" />
+      <workItem from="1394129205627" duration="678000" />
+      <workItem from="1395510412844" duration="172000" />
+      <workItem from="1396548528171" duration="1657000" />
+      <workItem from="1396550674857" duration="62000" />
+      <workItem from="1396550752504" duration="1355000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209607000" />
+    <option name="totallyTimeSpent" value="226543000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="124" y="64" width="1592" height="1116" extended-state="0" />
-    <editor active="false" />
+    <frame x="288" y="137" width="1592" height="1057" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28887442" sideWeight="0.6596558" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32921812" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32140532" sideWeight="0.6596558" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30333334" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24822696" sideWeight="0.65677965" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48909658" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24771838" sideWeight="0.65677965" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4890511" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41759354" sideWeight="0.49968335" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5239085" sideWeight="0.5003167" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3122222" sideWeight="0.49969456" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38111112" sideWeight="0.5003167" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18890357" sideWeight="0.6758475" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25749674" sideWeight="0.5916473" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3014553" sideWeight="0.49786195" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25749674" sideWeight="0.5916473" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3011111" sideWeight="0.49786195" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1042,9 +1124,7 @@
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3093995" sideWeight="0.65677965" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30552658" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Kotlin" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31224066" sideWeight="0.49969456" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32944915" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27147403" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1090,6 +1170,9 @@
     <option name="RECENTLY_FILTERED_USER_GROUPS">
       <collection />
     </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -1102,9 +1185,41 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java</url>
+          <line>114</line>
+          <properties />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/EditSpeech.java</url>
+          <line>54</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/BluetoothConnectReceiver.java</url>
+          <line>36</line>
+          <properties />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java</url>
+          <line>385</line>
+          <properties />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java</url>
+          <line>86</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
+      <option name="time" value="5" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1115,36 +1230,25 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../TtsSetup/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-17/android/media/AudioManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1997" column="15" selection-start="74926" selection-end="74926" vertical-scroll-proportion="0.33333334" vertical-offset="33102" max-vertical-offset="41973" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/media/MediaMetadataRetriever.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="419" column="28" selection-start="15995" selection-end="15995" vertical-scroll-proportion="-1.242735" vertical-offset="7425" max-vertical-offset="8109" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-17/android/annotation/TargetApi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="18" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+          <caret line="29" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/media/AudioManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2251" column="16" selection-start="86182" selection-end="86182" vertical-scroll-proportion="0.0" vertical-offset="37511" max-vertical-offset="45866" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="37511" max-vertical-offset="45866">
+          <caret line="2251" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/media/RemoteControlClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="295" column="68" selection-start="12030" selection-end="12030" vertical-scroll-proportion="0.0" vertical-offset="4055" max-vertical-offset="29274" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="4055" max-vertical-offset="29274">
+          <caret line="295" column="68" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable/fbreader_plugin.png">
@@ -1159,213 +1263,217 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/Lt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="35" selection-start="1534" selection-end="1534" vertical-scroll-proportion="0.0" vertical-offset="410" max-vertical-offset="1309" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="410" max-vertical-offset="1309">
+          <caret line="44" column="35" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/BluetoothConnectReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="117" selection-start="1352" selection-end="1352" vertical-scroll-proportion="-2.8" vertical-offset="423" max-vertical-offset="1037">
+        <state vertical-scroll-proportion="-2.8" vertical-offset="423" max-vertical-offset="1037">
+          <caret line="36" column="117" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/geometerplus/android/fbreader/api/ApiClientImplementation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="35" selection-start="1892" selection-end="1892" vertical-scroll-proportion="0.0" vertical-offset="555" max-vertical-offset="5814" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="555" max-vertical-offset="5814">
+          <caret line="59" column="35" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/setup_panel.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="41" selection-start="2204" selection-end="2204" vertical-scroll-proportion="0.0" vertical-offset="802" max-vertical-offset="2890" />
-      </provider>
       <provider editor-type-id="android-designer">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="802" max-vertical-offset="2890">
+          <caret line="61" column="41" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values-ru/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="35" selection-start="2333" selection-end="2350" vertical-scroll-proportion="0.0" vertical-offset="445" max-vertical-offset="1513" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="445" max-vertical-offset="1513">
+          <caret line="38" column="35" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/PluginInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="13" selection-start="849" selection-end="849" vertical-scroll-proportion="0.0" vertical-offset="101" max-vertical-offset="629" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="101" max-vertical-offset="629">
+          <caret line="26" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/InstallInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="215" selection-end="215" vertical-scroll-proportion="0.0" vertical-offset="730" max-vertical-offset="1258" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="730" max-vertical-offset="1258">
+          <caret line="7" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-17/android/net/Uri.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="12" selection-start="5372" selection-end="5372" vertical-scroll-proportion="0.0" vertical-offset="2508" max-vertical-offset="39083" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2508" max-vertical-offset="39083">
+          <caret line="132" column="12" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-17/android/app/ActivityThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5016" column="0" selection-start="208926" selection-end="208926" vertical-scroll-proportion="0.3327032" vertical-offset="82852" max-vertical-offset="83589" />
+        <state vertical-scroll-proportion="0.3327032" vertical-offset="82852" max-vertical-offset="83589">
+          <caret line="5016" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/CldWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="39" selection-start="2130" selection-end="2130" vertical-scroll-proportion="0.0" vertical-offset="273" max-vertical-offset="1309" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="105" selection-start="8772" selection-end="8772" vertical-scroll-proportion="0.0" vertical-offset="2744" max-vertical-offset="4573" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="273" max-vertical-offset="1309">
+          <caret line="43" column="39" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/EditSpeech.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="186" column="83" selection-start="7232" selection-end="7232" vertical-scroll-proportion="0.0" vertical-offset="2513" max-vertical-offset="9231">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2513" max-vertical-offset="9231">
+          <caret line="186" column="83" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values-pl/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="18" selection-start="4530" selection-end="4530" vertical-scroll-proportion="0.8367129" vertical-offset="576" max-vertical-offset="1513" />
+        <state vertical-scroll-proportion="0.8367129" vertical-offset="576" max-vertical-offset="1513">
+          <caret line="79" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/StartupActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="68" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0317757" vertical-offset="119" max-vertical-offset="799" />
+        <state vertical-scroll-proportion="0.0317757" vertical-offset="119" max-vertical-offset="799">
+          <caret line="11" column="68" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-17/java/lang/Class.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="994" column="18" selection-start="40286" selection-end="40286" vertical-scroll-proportion="0.0" vertical-offset="15785" max-vertical-offset="23290" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="15785" max-vertical-offset="23290">
+          <caret line="994" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-17/android/content/ComponentName.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="19" selection-start="1175" selection-end="1175" vertical-scroll-proportion="0.0" vertical-offset="94" max-vertical-offset="4692" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="63" selection-start="4019" selection-end="4019" vertical-scroll-proportion="0.33281493" vertical-offset="1095" max-vertical-offset="2295" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="94" max-vertical-offset="4692">
+          <caret line="32" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/com/android/internal/os/ZygoteInit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="782" column="0" selection-start="27039" selection-end="27039" vertical-scroll-proportion="0.0" vertical-offset="12162" max-vertical-offset="12835" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="12162" max-vertical-offset="12835">
+          <caret line="782" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/info_panel.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="45" selection-start="2109" selection-end="2119" vertical-scroll-proportion="0.16601562" vertical-offset="731" max-vertical-offset="2193" />
-      </provider>
       <provider editor-type-id="android-designer">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16601562" vertical-offset="731" max-vertical-offset="2193">
+          <caret line="48" column="45" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/geometerplus/android/fbreader/api/ApiObject.aidl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="700" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="700">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/geometerplus/android/fbreader/api/TextPosition.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="19" selection-start="170" selection-end="170" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1190" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1190">
+          <caret line="9" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-17/android/app/Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2932" column="0" selection-start="124828" selection-end="124828" vertical-scroll-proportion="0.33261803" vertical-offset="48057" max-vertical-offset="88298" />
+        <state vertical-scroll-proportion="0.33261803" vertical-offset="48057" max-vertical-offset="88298">
+          <caret line="2932" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-17/android/content/Intent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4968" column="18" selection-start="214711" selection-end="214711" vertical-scroll-proportion="0.0" vertical-offset="81207" max-vertical-offset="116501" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="81207" max-vertical-offset="116501">
+          <caret line="4968" column="18" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-19/android/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2142" column="0" selection-start="80762" selection-end="80762" vertical-scroll-proportion="0.33261803" vertical-offset="34644" max-vertical-offset="329409" />
+        <state vertical-scroll-proportion="0.33261803" vertical-offset="34644" max-vertical-offset="329409">
+          <caret line="2142" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/geometerplus/android/fbreader/api/PluginApi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="41" selection-start="1482" selection-end="1482" vertical-scroll-proportion="0.0" vertical-offset="491" max-vertical-offset="1921" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../TtsSetup/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="0" selection-start="3921" selection-end="3921" vertical-scroll-proportion="0.8887677" vertical-offset="766" max-vertical-offset="1683" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../TtsSetup/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="625" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/InfoActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="95" selection-start="5190" selection-end="5190" vertical-scroll-proportion="0.0" vertical-offset="1421" max-vertical-offset="2380">
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="491" max-vertical-offset="1921">
+          <caret line="48" column="41" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="27" selection-start="665" selection-end="674" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1802">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="564" column="49" selection-start="25466" selection-end="25466" vertical-scroll-proportion="0.0" vertical-offset="9061" max-vertical-offset="14042">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1802">
+          <caret line="12" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-17/android/speech/tts/TextToSpeech.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1234" column="36" selection-start="50716" selection-end="50716" vertical-scroll-proportion="0.35074627" vertical-offset="20003" max-vertical-offset="23171" />
+        <state vertical-scroll-proportion="0.35074627" vertical-offset="20003" max-vertical-offset="23171">
+          <caret line="1234" column="36" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="36" selection-start="3423" selection-end="3423" vertical-scroll-proportion="0.0" vertical-offset="1207" max-vertical-offset="4624">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1207" max-vertical-offset="4624">
+          <caret line="78" column="36" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/SimpleBrowser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="48" selection-start="863" selection-end="863" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
+          <caret line="30" column="48" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../TtsSetup/res/layout/browser.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="31" selection-start="39" selection-end="681" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="391">
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="391">
+          <caret line="16" column="31" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../android-sdk/sources/android-17/android/media/RemoteControlClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="13" selection-start="2730" selection-end="2730" vertical-scroll-proportion="0.33279485" vertical-offset="287" max-vertical-offset="19125" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/LockscreenManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="58" selection-start="716" selection-end="716" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="1734">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="383" column="16" selection-start="15864" selection-end="15864" vertical-scroll-proportion="0.0" vertical-offset="6511" max-vertical-offset="16167">
-          <folding />
+        <state vertical-scroll-proportion="0.33279485" vertical-offset="287" max-vertical-offset="19125">
+          <caret line="62" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1379,30 +1487,177 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/MediaButtonIntentReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="276" max-vertical-offset="1292">
+          <caret line="60" column="39" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/LockscreenManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.018220793" vertical-offset="136" max-vertical-offset="1496">
+          <caret line="23" column="58" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/HeadsetPlugReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="13" selection-start="826" selection-end="826" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="952">
+        <state vertical-scroll-proportion="0.0" vertical-offset="765" max-vertical-offset="986">
+          <caret line="45" column="72" selection-start-line="45" selection-start-column="72" selection-end-line="45" selection-end-column="72" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1530" max-vertical-offset="2465">
+          <caret line="90" column="20" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/InfoActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="782" max-vertical-offset="2601">
+          <caret line="46" column="70" selection-start-line="46" selection-start-column="9" selection-end-line="46" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/IncomingReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="36" selection-start="1519" selection-end="1519" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1394">
+        <state vertical-scroll-proportion="0.0" vertical-offset="584" max-vertical-offset="1496">
+          <caret line="66" column="87" selection-start-line="66" selection-start-column="87" selection-end-line="66" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3349" max-vertical-offset="4794">
+          <caret line="197" column="53" selection-start-line="197" selection-start-column="45" selection-end-line="197" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/MediaButtonIntentReceiver.java">
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="39" selection-start="2350" selection-end="2350" vertical-scroll-proportion="0.0" vertical-offset="276" max-vertical-offset="1292">
+        <state vertical-scroll-proportion="0.0" vertical-offset="7688" max-vertical-offset="13566">
+          <caret line="506" column="0" selection-start-line="506" selection-start-column="0" selection-end-line="506" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../TtsSetup/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../TtsSetup/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="766" max-vertical-offset="1683">
+          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../TtsSetup/ant.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="601">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../TtsSetup/project.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3846" max-vertical-offset="5236">
+          <caret line="523" column="0" selection-start-line="523" selection-start-column="0" selection-end-line="523" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#SpeakService#0" expanded="false" />
+            <element signature="method#getCurrentService#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#getConfigPath#1;class#SpeakService#0" expanded="false" />
+            <element signature="method#savePosition#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#cleanupPositions#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#onUtteranceCompleted#0;class#SpeakService#0" expanded="false" />
+            <element signature="class#9164:9295" expanded="false" />
+            <element signature="method#getCurrentBookLanguage#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#startTalking#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#stopTalking#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#toggleTalking#0;class#SpeakService#0" expanded="false" />
+            <element signature="e#15940#16016#0" expanded="false" />
+            <element signature="method#nextToSpeak#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#prevToSpeak#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#connectionType#0;class#SpeakService#0" expanded="false" />
+            <element signature="e#19561#19629#0" expanded="false" />
+            <element signature="method#setSpeechRate#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#setPitch#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#setPitchTemp#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#highlightSentence#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#highlightParagraph#0;class#SpeakService#0" expanded="false" />
+            <element signature="e#23202#23247#0" expanded="false" />
+            <element signature="method#gotoPreviousSentence#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#gotoNextSentence#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#gotoPreviousParagraph#0;class#SpeakService#0" expanded="false" />
+            <element signature="class#24970:25262" expanded="false" />
+            <element signature="method#run#0;class#24970:25262" expanded="false" />
+            <element signature="method#switchReadMode#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#processCurrentParagraph#0;class#SpeakService#0" expanded="false" />
+            <element signature="class#26680:27014" expanded="false" />
+            <element signature="method#run#0;class#26680:27014" expanded="false" />
+            <element signature="class#28087:28421" expanded="false" />
+            <element signature="method#run#0;class#28087:28421" expanded="false" />
+            <element signature="method#regainBluetoothFocus#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#getPrefs#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#onConnected#0;class#SpeakService#0" expanded="false" />
+            <element signature="e#29883#29902#0" expanded="false" />
+            <element signature="method#reconnect#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#onBind#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#onCreate#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#onDestroy#0;class#SpeakService#0" expanded="false" />
+            <element signature="method#doStartup#0;class#SpeakService#0" expanded="false" />
+            <element signature="e#32838#32885#0" expanded="false" />
+            <element signature="method#setSleepTimer#0;class#SpeakService#0" expanded="false" />
+            <element signature="class#35266:35601" expanded="false" />
+            <element signature="method#run#0;class#35266:35601" expanded="false" />
+            <element signature="method#onStartCommand#0;class#SpeakService#0" expanded="false" />
+            <element signature="class#36132:36909" expanded="false" />
+            <element signature="method#onAudioFocusChange#0;class#36132:36909" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../TtsSetup/src/com/hyperionics/TtsSetup/TtsWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+          <caret line="112" column="33" selection-start-line="112" selection-start-column="33" selection-end-line="112" selection-end-column="33" />
+          <folding>
+            <element signature="docComment;class#TtsWrapper#0" expanded="false" />
+            <element signature="method#createTts#0;class#TtsWrapper#0" expanded="false" />
+            <element signature="class#1043:1208" expanded="false" />
+            <element signature="class#1599:2269" expanded="false" />
+            <element signature="method#onInit#0;class#1599:2269" expanded="false" />
+            <element signature="method#shutdownTts#0;class#TtsWrapper#0" expanded="false" />
+            <element signature="method#forceShutdownTts#0;class#TtsWrapper#0" expanded="false" />
+            <element signature="method#cleanup#0;class#TtsWrapper#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="100" selection-start="1637" selection-end="1637" vertical-scroll-proportion="0.5765864" vertical-offset="0" max-vertical-offset="1734">
+        <state vertical-scroll-proportion="0.028192371" vertical-offset="34" max-vertical-offset="1734">
+          <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -1460,7 +1715,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>TtsPlus-FBReader</last-edited>
+          <last-edited>TtsSetup</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
