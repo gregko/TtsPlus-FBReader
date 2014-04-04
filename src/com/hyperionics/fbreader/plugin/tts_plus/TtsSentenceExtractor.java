@@ -73,17 +73,18 @@ public class TtsSentenceExtractor {
         Locale loc = currentTTS.getLanguage();
         if (loc == null)
             loc = Locale.getDefault();
-        boolean breakSentences = false;
+        int breakSentences = 1000; // other engines have troubles over 5000 characters...
         try {
             // Stupid: getCurrentEngine() of TTS is hidden. Try to get current engine if we can -
             // at some point we may not be using the default TTS engine...
             java.lang.reflect.Method method;
             method = currentTTS.getClass().getMethod("getCurrentEngine");
             String currEngine = (String) method.invoke(currentTTS);
-            breakSentences = currEngine.equals("nuance.tts");
+            if (currEngine.equals("nuance.tts"))
+                breakSentences = 500;
         } catch (Exception e) {
             if (currentTTS != null)
-                breakSentences =  "nuance.tts".equals(currentTTS.getDefaultEngine());
+                breakSentences =  "nuance.tts".equals(currentTTS.getDefaultEngine()) ? 500 : breakSentences;
         }
 //        catch (SecurityException e) {}
 //        catch (NoSuchMethodException e) {}
@@ -140,9 +141,9 @@ public class TtsSentenceExtractor {
                 }
                 // Split long sentences, Nuance TTS does not speak beyond 592 characters length...
                 // at the next comma, hyphen, ( or ), ellipses..., colon :, semicolon ;
-                if (breakSentences && !endSentence && currSent.length() > 500) {
+                if (breakSentences > 0 && !endSentence && currSent.length() > breakSentences) {
                     endSentence = lastCh == ',' || lastCh == '-' || lastCh == '(' || lastCh == ')' ||
-                            lastCh == ':' || lastCh == ';' || currSent.length() > 580;
+                            lastCh == ':' || lastCh == ';' || currSent.length() > breakSentences + 80;
 
                 }
                 if (!currSent.equals("") && (w.length() > 1 || !endSentence) && currSent.charAt(currSent.length()-1) != '.')
