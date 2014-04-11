@@ -94,21 +94,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" line="231" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36881102-1f07-46e3-b919-36d1380bf90f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/SpeakService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" afterPath="$PROJECT_DIR$/src/com/hyperionics/fbreader/plugin/tts_plus/TtsSentenceExtractor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/setup_panel.xml" afterPath="$PROJECT_DIR$/res/layout/setup_panel.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-pl/strings.xml" afterPath="$PROJECT_DIR$/res/values-pl/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-ru/strings.xml" afterPath="$PROJECT_DIR$/res/values-ru/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/res/values-es/strings.xml" afterPath="$PROJECT_DIR$/../TtsSetup/res/values-es/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/res/values-pl/strings.xml" afterPath="$PROJECT_DIR$/../TtsSetup/res/values-pl/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TtsSetup/res/values-ru/strings.xml" afterPath="$PROJECT_DIR$/../TtsSetup/res/values-ru/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="36881102-1f07-46e3-b919-36d1380bf90f" name="Default" comment="" />
     <ignored path="FBReaderJ-TTS.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -310,8 +296,8 @@
       <file leaf-file-name="strings.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/res/values-ru/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1819">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.5140772" vertical-offset="0" max-vertical-offset="1819">
+              <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -1098,12 +1084,12 @@
       <workItem from="1397057246427" duration="13234000" />
       <workItem from="1397162257294" duration="1260000" />
       <workItem from="1397232160409" duration="984000" />
-      <workItem from="1397237129218" duration="1209000" />
+      <workItem from="1397237129218" duration="1784000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="273187000" />
+    <option name="totallyTimeSpent" value="273762000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="131" y="37" width="1712" height="1142" extended-state="0" />
@@ -1623,8 +1609,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values-ru/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1819">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.5140772" vertical-offset="0" max-vertical-offset="1819">
+          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
           <folding />
         </state>
       </provider>
