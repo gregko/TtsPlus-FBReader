@@ -80,7 +80,7 @@ public class TtsSentenceExtractor {
             java.lang.reflect.Method method;
             method = currentTTS.getClass().getMethod("getCurrentEngine");
             String currEngine = (String) method.invoke(currentTTS);
-            if (currEngine.equals("nuance.tts"))
+            if (currEngine.equals("nuance.tts") || currEngine.equals("vocalizer.tts"))
                 breakSentences = 500;
         } catch (Exception e) {
             if (currentTTS != null)

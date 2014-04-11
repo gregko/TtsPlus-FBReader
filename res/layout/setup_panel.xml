@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        >
+        tools:context=".SettingsActivity">
 <LinearLayout
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
@@ -21,7 +22,6 @@
 
 
             <TextView
-                    android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -37,6 +37,29 @@
                     android:singleLine="true" >
 
                 <requestFocus />
+            </EditText>
+
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/snt_delay" />
+
+            <EditText
+                    android:id="@+id/sntPause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:singleLine="true" >
             </EditText>
 
         </TableRow>
@@ -60,6 +83,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/headset_start_fbr" />
+
+        <CheckBox
+                android:id="@+id/lock_screen"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_lock_widget"
+                android:onClick="onClickLockScreen"/>
 
         <CheckBox
                 android:id="@+id/net_synth"
@@ -90,34 +121,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/screen_on" />
 
-        <RadioGroup
-                android:id="@+id/screen_level"
-                android:layout_marginLeft="35dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-            <RadioButton
-                    android:id="@+id/screenDimmed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/screen_dimmed"
-                    android:checked="true" />
-
-            <RadioButton
-                    android:id="@+id/screenBright"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/screen_bright" />
-
-        </RadioGroup>
-
         <CheckBox
                 android:id="@+id/use_avar_speech"
                 android:checked="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/avar_speech" />
-
 
         <TableRow
                 android:layout_width="fill_parent"
@@ -134,7 +143,7 @@
             <Spinner
                 android:id="@+id/sleepSpinner"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:layout_weight="2"
                 android:prompt="@string/sleep_after"
             />

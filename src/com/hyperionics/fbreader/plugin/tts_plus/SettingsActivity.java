@@ -103,17 +103,17 @@ public class SettingsActivity extends Activity {
             boolean onlyWiFi = (netSynth & 2) == 2;
             ((CheckBox)findViewById(R.id.net_synth)).setChecked(useNetSynth);
             final CheckBox wifiCb = (CheckBox)findViewById(R.id.net_synth_wifi);
-            wifiCb.setEnabled(useNetSynth);
+            wifiCb.setVisibility(useNetSynth ? View.VISIBLE : View.GONE);
             wifiCb.setChecked(onlyWiFi);
             setListener(R.id.net_synth, new View.OnClickListener() {
                 public void onClick(View v) {
                     int n = SpeakService.getPrefs().getInt("netSynth", 2); // bit 0 - use net, bit 1 - wifi only
                     if (((CheckBox) v).isChecked()) {
                         n |= 1;
-                        wifiCb.setEnabled(true);
+                        wifiCb.setVisibility(View.VISIBLE);
                     } else {
                         n &= ~1;
-                        wifiCb.setEnabled(false);
+                        wifiCb.setVisibility(View.GONE);
                     }
                     SharedPreferences.Editor myEditor = SpeakService.getPrefs().edit();
                     myEditor.putInt("netSynth", n);
@@ -146,34 +146,15 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        final RadioButton rbDim = (RadioButton)findViewById(R.id.screenDimmed);
-        final RadioButton rbBright = (RadioButton)findViewById(R.id.screenBright);
-        final RadioGroup grp = (RadioGroup) findViewById(R.id.screen_level);
         int n = SpeakService.getPrefs().getInt("screenOn", 0);
         ((CheckBox)findViewById(R.id.screen_on)).setChecked(n > 0);
-        if (n == 0) {
-            grp.setVisibility(View.GONE);
-        }
         setListener(R.id.screen_on, new View.OnClickListener() {
             public void onClick(View v) {
                 Boolean enable = ((CheckBox) v).isChecked();
-                grp.setVisibility(enable ? View.VISIBLE : View.GONE);
-                if (enable)
-                    grp.check(R.id.screenDimmed);
                 SharedPreferences.Editor edt = SpeakService.getPrefs().edit();
                 int scStat = enable ? 1  : 0;
                 edt.putInt("screenOn", scStat);
                 Lt.d("screenOn = " + scStat);
-                edt.commit();
-            }
-        });
-        grp.check(R.id.screenDimmed - 1 + n);
-        grp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            public void onCheckedChanged(RadioGroup g, int i) {
-                SharedPreferences.Editor edt = SpeakService.getPrefs().edit();
-                int n = i - R.id.screenDimmed + 1;
-                edt.putInt("screenOn", n);
-                Lt.d("screenOn = " + n);
                 edt.commit();
             }
         });
@@ -219,12 +200,40 @@ public class SettingsActivity extends Activity {
                 SpeakService.myParaPause = pp;
             }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
+
+        final EditText sntPauseEdit = (EditText)findViewById(R.id.sntPause);
+        sntPauseEdit.setText(Integer.toString(SpeakService.mySntPause));
+        sntPauseEdit.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                int sp;
+                try {
+                    sp = Integer.parseInt(s.toString());
+                } catch (NumberFormatException e) {
+                    sp = 0;
+                }
+                SpeakService.mySntPause = sp;
+                if (sp < 0)
+                    sp = 0;
+                else if (sp > 5000)
+                    sp = 5000;
+                if (sp != SpeakService.mySntPause) {
+                    sntPauseEdit.setText(Integer.toString(sp));
+                }
+                else {
+                    SharedPreferences.Editor editor = SpeakService.getPrefs().edit();
+                    editor.putInt("sntPause", sp);
+                    editor.commit();
+                }
+                SpeakService.mySntPause = sp;
             }
 
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
+
 
         setListener(R.id.button_tts_set, new View.OnClickListener() {
             public void onClick(View v) {
@@ -264,8 +273,13 @@ public class SettingsActivity extends Activity {
             }
         });
 
+        ((CheckBox)findViewById(R.id.lock_screen)).setChecked(SpeakService.getPrefs().getBoolean("ShowLockWidget", true));
         getWindow().setGravity(Gravity.BOTTOM);
         SpeakService.setSleepTimer(0); // removes sleep timer
+    }
+
+    public void onClickLockScreen(View v) {
+        SpeakService.getPrefs().edit().putBoolean("ShowLockWidget", ((CheckBox)v).isChecked()).commit();
     }
 
     @Override protected void onDestroy() {

@@ -55,6 +55,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static final String BOOK_LANG = "book";
     static boolean myHighlightSentences = true;
     static int myParaPause = 300;
+    static int mySntPause = 0;
     static String selectedLanguage = BOOK_LANG; // either "book" or locale code like "eng-USA"
     static int myParagraphIndex = -1;
     static int myParagraphsNumber;
@@ -66,8 +67,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static boolean wordPauses = false;
 
     static private final String UTTERANCE_ID = "FBReaderTTS+Plugin";
+    static private final int utIdLen = UTTERANCE_ID.length();
     static TtsSentenceExtractor.SentenceIndex mySentences[] = new TtsSentenceExtractor.SentenceIndex[0];
     static private int myCurrentSentence = 0;
+    private static int sntLastAdded = -1;
     static String myBookHash = null;
 
     static boolean myIsActive = false;
@@ -83,14 +86,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     static String getConfigPath() {
         return getConfigPath(false);
-    }
-
-    static int getCurrentSentence() {
-        return myCurrentSentence;
-    }
-
-    static int getSntLength() {
-        return mySentences.length;
     }
 
     static String getConfigPath(boolean noAvar) {
@@ -149,7 +144,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     if (n > 0) {
                         String eng = selectedLanguage.substring(n+1);
                         selectedLanguage = selectedLanguage.substring(0, n);
-                        if (eng != null && !eng.equals(LangSupport.getSelectedTtsEng())) {
+                        String selTtsEng = LangSupport.getSelectedTtsEng();
+                        if (eng != null && selTtsEng != null && !eng.equals(LangSupport.getSelectedTtsEng())) {
                             // Speech engine change necessary
                             LangSupport.setSelectedTtsEng(eng);
                             TtsWrapper.shutdownTts(myTTS);
@@ -200,39 +196,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             myEditor.commit();
         } catch (NullPointerException e) {
             ;
-        }
-    }
-
-    public void onUtteranceCompleted(String uttId) {
-        regainBluetoothFocus();
-        isServiceTalking = false;
-        if (myIsActive && UTTERANCE_ID.equals(uttId)) {
-            if (++myCurrentSentence >= mySentences.length) {
-                if (myParaPause > 0 && myCurrentSentence == mySentences.length) {
-                    myTTS.playSilence(myParaPause, TextToSpeech.QUEUE_ADD, myParamMap);
-                    return;
-                }
-                ++myParagraphIndex;
-                processCurrentParagraph();
-                if (myParagraphIndex >= myParagraphsNumber) {
-                    stopTalking();
-                    return;
-                }
-            }
-            // Highlight the sentence here...
-            if (haveNewApi > 0)
-                highlightSentence();
-            if (wordPauses && SpeakActivity.getCurrent() != null) {
-                SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
-                    public void run() {
-                        stopTalking();
-                    }
-                });
-            } else
-                speakString(mySentences[myCurrentSentence].s);
-
-        } else {
-            SpeakActivity.setActive(false);
         }
     }
 
@@ -307,8 +270,9 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     }
 
     static void startTalking() {
-        if (myTTS == null)
+        if (myTTS == null) {
             return;         // implement somehow creation of myTTS?...
+        }
 
         if (!setLanguage(SpeakService.selectedLanguage))
             return;
@@ -342,15 +306,65 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     }
                 } catch (Exception e) {}
 
-                if (_lockscreenManager == null)
-                    _lockscreenManager = new LockscreenManager();
-                _lockscreenManager.setLockscreenPlaying();
-
-                if (myCurrentSentence < mySentences.length) // re-testing, still got index out of bounds exception...
-                    speakString(mySentences[myCurrentSentence].s);
+                if (getPrefs().getBoolean("ShowLockWidget", true)) {
+                    if (_lockscreenManager == null)
+                        _lockscreenManager = new LockscreenManager();
+                    _lockscreenManager.setLockscreenPlaying();
+                } else
+                    _lockscreenManager = null;
+                if (myCurrentSentence < mySentences.length) {
+                    speakString(mySentences[myCurrentSentence].s, UTTERANCE_ID + myCurrentSentence);
+                    sntLastAdded = myCurrentSentence;
+                    if (!wordPauses && sntLastAdded < mySentences.length - 1) {
+                        sntLastAdded++;
+                        speakString(mySentences[sntLastAdded].s, UTTERANCE_ID + sntLastAdded);
+                    }
+                }
             }
         } else
             stopTalking();
+    }
+
+    public void onUtteranceCompleted(String uttId) {
+        regainBluetoothFocus();
+        if (myIsActive) {
+            if (uttId != null && uttId.startsWith(UTTERANCE_ID)) {
+                int sntLastFinished = Integer.parseInt(uttId.substring(utIdLen));
+                if (sntLastFinished < 0)
+                    return;
+                myCurrentSentence++; // this one is probably read aloud now, or about to be started
+                if (sntLastFinished == mySentences.length-1) { // end of paragraph
+                    if (myParaPause > 0) {
+                        myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID + (-1));
+                        myTTS.playSilence(myParaPause, TextToSpeech.QUEUE_ADD, myParamMap);
+                    }
+                    ++myParagraphIndex;
+                    processCurrentParagraph();
+                    if (myParagraphIndex >= myParagraphsNumber) {
+                        stopTalking();
+                        return;
+                    }
+                    speakString(mySentences[myCurrentSentence].s, UTTERANCE_ID + myCurrentSentence);
+                    sntLastAdded = myCurrentSentence;
+                }
+                // Highlight the sentence here...
+                if (haveNewApi > 0)
+                    highlightSentence();
+                if (wordPauses && SpeakActivity.getCurrent() != null) {
+                    SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
+                        public void run() {
+                            stopTalking();
+                        }
+                    });
+                } else if (myCurrentSentence < mySentences.length - 1) {
+                    sntLastAdded = myCurrentSentence + 1;
+                    speakString(mySentences[sntLastAdded].s, UTTERANCE_ID + sntLastAdded);
+                }
+            }
+        } else {
+            SpeakActivity.setActive(false);
+            isServiceTalking = false;
+        }
     }
 
     static boolean isTalking() {
@@ -496,12 +510,13 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         return haveConnection ? 1 : 0;
     }
 
-    private static int speakString(String text) {
+    private static int speakString(String text, String utId) {
         int ret;
         // Stupid Google voice stops on empty or silent sentences, therefore
         // replaceForSpeechNative() will return empty string if there is only punctation and spaces.
         text = CldWrapper.replaceForSpeechNative(text);
 
+        myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utId);
         if (text.length() > 0) {
             myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);
             if (myHasNetworkTts) {
@@ -522,6 +537,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
             ret = TtsWrapper.speak(myTTS, text, TextToSpeech.QUEUE_ADD, myParamMap);
             isServiceTalking = ret == TextToSpeech.SUCCESS;
+            if (isServiceTalking && mySntPause > 0) {
+                myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID + (-1));
+                myTTS.playSilence(mySntPause, TextToSpeech.QUEUE_ADD, myParamMap);
+            }
         } else {
             ret = myTTS.playSilence(20, TextToSpeech.QUEUE_ADD, myParamMap); // to call utteranceCompleted() on TTS thread...
         }
@@ -821,6 +840,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         selectedLanguage = BOOK_LANG; // myPreferences.getString("lang", BOOK_LANG);
         myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
         myParaPause = myPreferences.getInt("paraPause", myParaPause);
+        mySntPause = myPreferences.getInt("sntPause", mySntPause);
         if (myParamMap == null) {
             myParamMap = new HashMap<String, String>();
             myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
@@ -830,42 +850,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             myApi = new ApiClientImplementation(currentService, currentService);
             myApi.connect();
         }
-//        myApi.addListener(new ApiListener() {
-//            @Override
-//            public void onEvent(String eventType) {
-//                Lt.d("onEvent: " + eventType);
-//                if (eventType.equals(EVENT_READ_MODE_OPENED))
-//                    readingStarted = true;
-//                else if (eventType.equals(EVENT_READ_MODE_CLOSED)) {
-//                    PowerManager powerManager = (PowerManager) TtsApp.getContext().getSystemService(POWER_SERVICE);
-//                    KeyguardManager kgMgr = (KeyguardManager)  TtsApp.getContext().getSystemService(Context.KEYGUARD_SERVICE);
-//                    if (powerManager.isScreenOn() && !kgMgr.inKeyguardRestrictedInputMode())
-//                        readingStarted = false;
-//                    else
-//                        Lt.d("  - no stop");
-//                }
-//                if (!readingStarted &&
-//                        (!myPreferences.getBoolean("fbrStart", true)) &&
-//                        SpeakActivity.getCurrent() == null) {
-//                    disconnect();
-//                }
-//            }
-//        });
-
-        // Test code
-//        Boolean debug = (currentService.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-//        if (debug) try {
-//            List<String> optGroups = myApi.getOptionGroups();
-//            Lt.d("Option groups:");
-//            for (String s : optGroups) {
-//                Lt.d(s);
-//                List<String> opts = myApi.getOptionNames(s);
-//                for (String ss: opts) {
-//                    Lt.d(" - " + ss);
-//                }
-//            }
-//            Lt.d("-------------------");
-//        } catch (Exception e) {}
 
         if (myTTS != null) {
         	try {
@@ -878,9 +862,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myTTS == null)
         	myInitializationStatus &= ~TTS_INITIALIZED;
 
-        if (_lockscreenManager == null)
-            _lockscreenManager = new LockscreenManager();
-
+        if (getPrefs().getBoolean("ShowLockWidget", true)) {
+            if (_lockscreenManager == null)
+                _lockscreenManager = new LockscreenManager();
+        }
         return true;
     }
 

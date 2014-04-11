@@ -68,8 +68,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 		findViewById(id).setOnClickListener(listener);
 	}
 
-    // make another fake activity that FBReader menu will start, to start this one with
-    // wantStarted = true etc.
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (!SpeakService.doStartup()) {
@@ -556,9 +554,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             }
             selectLanguage(false);
         }
-        else if (requestCode == LANG_SEL_REQUEST && data != null) {
+        else if (requestCode == LANG_SEL_REQUEST) {
             // On successful return the engine is already set as default in LangSupport
-            String lang = data.getStringExtra(VoiceSelector.SELECTED_VOICE);
+            String lang = data == null ? null : data.getStringExtra(VoiceSelector.SELECTED_VOICE);
             if (lang != null) {
                 SpeakService.selectedLanguage = lang;
                 SpeakService.savePosition();
@@ -579,6 +577,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 SpeakService.getPrefs().edit().putString("avarDefaultPath", avarDefaultPath).commit();
             Lt.d("Got avarDefaultPath = " + avarDefaultPath);
         }
+        super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@TargetApi(Build.VERSION_CODES.FROYO)
@@ -731,11 +730,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 			if (myWakeLock == null && currentSpeakActivity != null) {
                 int wakeLevel = PowerManager.PARTIAL_WAKE_LOCK;
                 int n = SpeakService.getPrefs().getInt("screenOn", 0);
-                if (n == 1)
-                    wakeLevel = PowerManager.SCREEN_DIM_WAKE_LOCK;
-                else if (n > 1)
-                    wakeLevel = PowerManager.SCREEN_BRIGHT_WAKE_LOCK;
-
+                if (n > 0 && currentSpeakActivity != null) {
+                    currentSpeakActivity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            if (currentSpeakActivity != null)
+                                currentSpeakActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                        }
+                    });
+                }
 				myWakeLock = ((PowerManager)currentSpeakActivity.getSystemService(POWER_SERVICE))
 						.newWakeLock(wakeLevel, "FBReader TTS+ plugin");
 				myWakeLock.acquire();
@@ -745,6 +747,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 				myWakeLock.release();
 				myWakeLock = null;
 			}
+            if (currentSpeakActivity != null) {
+                currentSpeakActivity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        if (currentSpeakActivity != null)
+                            currentSpeakActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                    }
+                });
+            }
 		}
 	}
 
