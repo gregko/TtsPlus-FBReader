@@ -15,7 +15,6 @@ import android.text.format.Time;
 import com.hyperionics.TtsSetup.*;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
-import org.geometerplus.android.fbreader.api.ApiListener;
 import org.geometerplus.android.fbreader.api.TextPosition;
 //import org.acra.ErrorReporter;
 
@@ -269,6 +268,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         return true;
     }
 
+    private static boolean sntConcurrent = true;
     static void startTalking() {
         if (myTTS == null) {
             return;         // implement somehow creation of myTTS?...
@@ -276,6 +276,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
         if (!setLanguage(SpeakService.selectedLanguage))
             return;
+        sntConcurrent = getPrefs().getBoolean("sntConcurrent", true);
         SpeakActivity.setActive(true);
         String iso3lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
         CldWrapper.initExtractorNative(getConfigPath(), iso3lang, 0, null);
@@ -315,7 +316,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 if (myCurrentSentence < mySentences.length) {
                     speakString(mySentences[myCurrentSentence].s, UTTERANCE_ID + myCurrentSentence);
                     sntLastAdded = myCurrentSentence;
-                    if (!wordPauses && sntLastAdded < mySentences.length - 1) {
+                    if (sntConcurrent && !wordPauses && sntLastAdded < mySentences.length - 1) {
                         sntLastAdded++;
                         speakString(mySentences[sntLastAdded].s, UTTERANCE_ID + sntLastAdded);
                     }
@@ -344,8 +345,10 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         stopTalking();
                         return;
                     }
-                    speakString(mySentences[myCurrentSentence].s, UTTERANCE_ID + myCurrentSentence);
-                    sntLastAdded = myCurrentSentence;
+                    if (sntConcurrent) {
+                        speakString(mySentences[myCurrentSentence].s, UTTERANCE_ID + myCurrentSentence);
+                        sntLastAdded = myCurrentSentence;
+                    }
                 }
                 // Highlight the sentence here...
                 if (haveNewApi > 0)
@@ -356,8 +359,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                             stopTalking();
                         }
                     });
-                } else if (myCurrentSentence < mySentences.length - 1) {
-                    sntLastAdded = myCurrentSentence + 1;
+                } else if (myCurrentSentence < mySentences.length - (sntConcurrent ? 1 : 0)) {
+                    sntLastAdded = myCurrentSentence + (sntConcurrent ? 1 : 0);
                     speakString(mySentences[sntLastAdded].s, UTTERANCE_ID + sntLastAdded);
                 }
             }
@@ -556,12 +559,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static void setPitch(float pitch) {
         if (myTTS != null) {
             myCurrentPitch = pitch;
-            myTTS.setPitch(pitch);
-        }
-    }
-
-    private static void setPitchTemp(float pitch) {
-        if (myTTS != null) {
             myTTS.setPitch(pitch);
         }
     }

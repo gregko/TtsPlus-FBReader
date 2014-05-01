@@ -28,6 +28,8 @@
     <string name="tts_settings">TTS Settings</string>
     <string name="edit_speech">Edit speech</string>
     <string name="reset_tts">Reset TTS</string>
+    <string name="snt_concurrent">Process sentences concurrently</string>
+    <string name="snt_concurrent_info">Try to disable if speech stutters or skips words.</string>
     <string name="hi_sentences">Highlight spoken text</string>
     <string name="screen_on">Keep screen on when reading</string>
     <string name="show_lock_widget">Show the lock screen widget</string>

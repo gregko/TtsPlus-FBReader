@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ttsplus-fbreader" default="all">
+  
+  
+  <property file="ttsplus-fbreader.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.o/**"/>
+    <exclude name="**/*.obj/**"/>
+  </patternset>
+  <patternset id="compiler.excluded">
+    <exclude name="${basedir}/gen/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.android_api_17_platform" value="C:/Program Files/Java/jdk1.6.0_32/bin"/>
+  <path id="jdk.classpath.android_api_17_platform">
+    <fileset dir="${jdk.home.android_api_17_platform}">
+      <include name="platforms/android-17/android.jar"/>
+      <include name="platforms/android-17/data/res"/>
+      <include name="tools/support/annotations.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="jdk.bin.android_4.0.3_platform" value="C:/Program Files/Java/jdk1.6.0_32/bin"/>
+  <path id="jdk.classpath.android_4.0.3_platform">
+    <fileset dir="${jdk.home.android_4.0.3_platform}">
+      <include name="platforms/android-15/android.jar"/>
+      <include name="platforms/android-15/data/res"/>
+      <include name="tools/support/annotations.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.android_4.0.3_platform}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.android_4.0.3_platform}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.android_4.0.3_platform"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.json_simple-1.1.classpath">
+    <pathelement location="${basedir}/libs/json_simple-1.1.jar"/>
+  </path>
+  
+  
+  <!-- Application Server Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm4-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module TtsNativeLibSmall -->
+  
+  <dirname property="module.ttsnativelibsmall.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.ttsnativelibsmall" value="${jdk.home.android_api_17_platform}"/>
+  <property name="module.jdk.bin.ttsnativelibsmall" value="${jdk.bin.android_api_17_platform}"/>
+  <property name="module.jdk.classpath.ttsnativelibsmall" value="jdk.classpath.android_api_17_platform"/>
+  
+  <property name="compiler.args.ttsnativelibsmall" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="ttsnativelibsmall.output.dir" value="${module.ttsnativelibsmall.basedir}/classes/production/TtsNativeLibSmall"/>
+  <property name="ttsnativelibsmall.testoutput.dir" value="${module.ttsnativelibsmall.basedir}/classes/test/TtsNativeLibSmall"/>
+  
+  <path id="ttsnativelibsmall.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="ttsnativelibsmall.module.production.classpath">
+    <path refid="${module.jdk.classpath.ttsnativelibsmall}"/>
+  </path>
+  
+  <path id="ttsnativelibsmall.runtime.production.module.classpath">
+    <pathelement location="${ttsnativelibsmall.output.dir}"/>
+  </path>
+  
+  <path id="ttsnativelibsmall.module.classpath">
+    <path refid="${module.jdk.classpath.ttsnativelibsmall}"/>
+    <pathelement location="${ttsnativelibsmall.output.dir}"/>
+  </path>
+  
+  <path id="ttsnativelibsmall.runtime.module.classpath">
+    <pathelement location="${ttsnativelibsmall.testoutput.dir}"/>
+    <pathelement location="${ttsnativelibsmall.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.ttsnativelibsmall">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.ttsnativelibsmall">
+    <patternset refid="compiler.excluded"/>
+    <patternset refid="excluded.from.module.ttsnativelibsmall"/>
+  </patternset>
+  
+  <path id="ttsnativelibsmall.module.sourcepath">
+    <dirset dir="${module.ttsnativelibsmall.basedir}/../TtsNativeLibSmall">
+      <include name="gen"/>
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.ttsnativelibsmall" depends="compile.module.ttsnativelibsmall.production,compile.module.ttsnativelibsmall.tests" description="Compile module TtsNativeLibSmall"/>
+  
+  <target name="compile.module.ttsnativelibsmall.production" depends="register.custom.compilers" description="Compile module TtsNativeLibSmall; production classes">
+    <mkdir dir="${ttsnativelibsmall.output.dir}"/>
+    <javac2 destdir="${ttsnativelibsmall.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.ttsnativelibsmall}/javac">
+      <compilerarg line="${compiler.args.ttsnativelibsmall}"/>
+      <bootclasspath refid="ttsnativelibsmall.module.bootclasspath"/>
+      <classpath refid="ttsnativelibsmall.module.production.classpath"/>
+      <src refid="ttsnativelibsmall.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.ttsnativelibsmall"/>
+    </javac2>
+    
+    <copy todir="${ttsnativelibsmall.output.dir}">
+      <fileset dir="${module.ttsnativelibsmall.basedir}/../TtsNativeLibSmall/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.ttsnativelibsmall"/>
+      </fileset>
+      <fileset dir="${module.ttsnativelibsmall.basedir}/../TtsNativeLibSmall/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.ttsnativelibsmall"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.ttsnativelibsmall.tests" depends="register.custom.compilers,compile.module.ttsnativelibsmall.production" description="compile module TtsNativeLibSmall; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.ttsnativelibsmall" description="cleanup module">
+    <delete dir="${ttsnativelibsmall.output.dir}"/>
+    <delete dir="${ttsnativelibsmall.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module TtsSetup -->
+  
+  <dirname property="module.ttssetup.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.ttssetup" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.ttssetup" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.ttssetup" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.ttssetup" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="ttssetup.output.dir" value="${module.ttssetup.basedir}/classes/production/TtsSetup"/>
+  <property name="ttssetup.testoutput.dir" value="${module.ttssetup.basedir}/classes/test/TtsSetup"/>
+  
+  <path id="ttssetup.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="ttssetup.module.production.classpath">
+    <path refid="${module.jdk.classpath.ttssetup}"/>
+  </path>
+  
+  <path id="ttssetup.runtime.production.module.classpath">
+    <pathelement location="${ttssetup.output.dir}"/>
+  </path>
+  
+  <path id="ttssetup.module.classpath">
+    <path refid="${module.jdk.classpath.ttssetup}"/>
+    <pathelement location="${ttssetup.output.dir}"/>
+  </path>
+  
+  <path id="ttssetup.runtime.module.classpath">
+    <pathelement location="${ttssetup.testoutput.dir}"/>
+    <pathelement location="${ttssetup.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.ttssetup">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.ttssetup">
+    <patternset refid="compiler.excluded"/>
+    <patternset refid="excluded.from.module.ttssetup"/>
+  </patternset>
+  
+  <path id="ttssetup.module.sourcepath">
+    <dirset dir="${module.ttssetup.basedir}/../TtsSetup">
+      <include name="gen"/>
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.ttssetup" depends="compile.module.ttssetup.production,compile.module.ttssetup.tests" description="Compile module TtsSetup"/>
+  
+  <target name="compile.module.ttssetup.production" depends="register.custom.compilers" description="Compile module TtsSetup; production classes">
+    <mkdir dir="${ttssetup.output.dir}"/>
+    <javac2 destdir="${ttssetup.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.ttssetup}/javac">
+      <compilerarg line="${compiler.args.ttssetup}"/>
+      <bootclasspath refid="ttssetup.module.bootclasspath"/>
+      <classpath refid="ttssetup.module.production.classpath"/>
+      <src refid="ttssetup.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.ttssetup"/>
+    </javac2>
+    
+    <copy todir="${ttssetup.output.dir}">
+      <fileset dir="${module.ttssetup.basedir}/../TtsSetup/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.ttssetup"/>
+      </fileset>
+      <fileset dir="${module.ttssetup.basedir}/../TtsSetup/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.ttssetup"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.ttssetup.tests" depends="register.custom.compilers,compile.module.ttssetup.production" description="compile module TtsSetup; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.ttssetup" description="cleanup module">
+    <delete dir="${ttssetup.output.dir}"/>
+    <delete dir="${ttssetup.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module TtsPlus-FBReader -->
+  
+  <dirname property="module.ttsplus-fbreader.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.ttsplus-fbreader" value="${jdk.home.android_api_17_platform}"/>
+  <property name="module.jdk.bin.ttsplus-fbreader" value="${jdk.bin.android_api_17_platform}"/>
+  <property name="module.jdk.classpath.ttsplus-fbreader" value="jdk.classpath.android_api_17_platform"/>
+  
+  <property name="compiler.args.ttsplus-fbreader" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="ttsplus-fbreader.output.dir" value="${module.ttsplus-fbreader.basedir}/bin/classes"/>
+  <property name="ttsplus-fbreader.testoutput.dir" value="${module.ttsplus-fbreader.basedir}/bin/classes"/>
+  
+  <path id="ttsplus-fbreader.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="ttsplus-fbreader.module.production.classpath">
+    <path refid="${module.jdk.classpath.ttsplus-fbreader}"/>
+    <path refid="library.json_simple-1.1.classpath"/>
+    <pathelement location="${ttssetup.output.dir}"/>
+    <pathelement location="${ttsnativelibsmall.output.dir}"/>
+  </path>
+  
+  <path id="ttsplus-fbreader.runtime.production.module.classpath">
+    <pathelement location="${ttsplus-fbreader.output.dir}"/>
+    <path refid="library.json_simple-1.1.classpath"/>
+    <path refid="ttssetup.runtime.production.module.classpath"/>
+    <path refid="ttsnativelibsmall.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="ttsplus-fbreader.module.classpath">
+    <path refid="${module.jdk.classpath.ttsplus-fbreader}"/>
+    <pathelement location="${ttsplus-fbreader.output.dir}"/>
+    <path refid="library.json_simple-1.1.classpath"/>
+    <pathelement location="${ttssetup.testoutput.dir}"/>
+    <pathelement location="${ttssetup.output.dir}"/>
+    <pathelement location="${ttsnativelibsmall.testoutput.dir}"/>
+    <pathelement location="${ttsnativelibsmall.output.dir}"/>
+  </path>
+  
+  <path id="ttsplus-fbreader.runtime.module.classpath">
+    <pathelement location="${ttsplus-fbreader.output.dir}"/>
+    <path refid="library.json_simple-1.1.classpath"/>
+    <path refid="ttssetup.runtime.module.classpath"/>
+    <path refid="ttsnativelibsmall.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.ttsplus-fbreader">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.ttsplus-fbreader">
+    <patternset refid="compiler.excluded"/>
+    <patternset refid="excluded.from.module.ttsplus-fbreader"/>
+  </patternset>
+  
+  <path id="ttsplus-fbreader.module.sourcepath">
+    <dirset dir="${module.ttsplus-fbreader.basedir}">
+      <include name="src"/>
+      <include name="gen"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.ttsplus-fbreader" depends="compile.module.ttsplus-fbreader.production,compile.module.ttsplus-fbreader.tests" description="Compile module TtsPlus-FBReader"/>
+  
+  <target name="compile.module.ttsplus-fbreader.production" depends="register.custom.compilers,compile.module.ttssetup,compile.module.ttsnativelibsmall" description="Compile module TtsPlus-FBReader; production classes">
+    <mkdir dir="${ttsplus-fbreader.output.dir}"/>
+    <javac2 destdir="${ttsplus-fbreader.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.ttsplus-fbreader}/javac">
+      <compilerarg line="${compiler.args.ttsplus-fbreader}"/>
+      <bootclasspath refid="ttsplus-fbreader.module.bootclasspath"/>
+      <classpath refid="ttsplus-fbreader.module.production.classpath"/>
+      <src refid="ttsplus-fbreader.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.ttsplus-fbreader"/>
+    </javac2>
+    
+    <copy todir="${ttsplus-fbreader.output.dir}">
+      <fileset dir="${module.ttsplus-fbreader.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.ttsplus-fbreader"/>
+      </fileset>
+      <fileset dir="${module.ttsplus-fbreader.basedir}/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.ttsplus-fbreader"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.ttsplus-fbreader.tests" depends="register.custom.compilers,compile.module.ttsplus-fbreader.production" description="compile module TtsPlus-FBReader; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.ttsplus-fbreader" description="cleanup module">
+    <delete dir="${ttsplus-fbreader.output.dir}"/>
+    <delete dir="${ttsplus-fbreader.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.ttsnativelibsmall, clean.module.ttssetup, clean.module.ttsplus-fbreader" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.ttsnativelibsmall, compile.module.ttssetup, compile.module.ttsplus-fbreader" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>

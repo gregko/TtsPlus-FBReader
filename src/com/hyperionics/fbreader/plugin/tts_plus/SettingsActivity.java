@@ -61,6 +61,8 @@ public class SettingsActivity extends Activity {
         spinner.setSelection(0);
         spinner.setOnItemSelectedListener(new MyOnSleepSelectedListener());
 
+        ((CheckBox)findViewById(R.id.snt_concurrent)).setChecked(SpeakService.getPrefs().getBoolean("sntConcurrent", true));
+
         ((CheckBox)findViewById(R.id.highlight_sentences)).setChecked(SpeakService.myHighlightSentences);
         setListener(R.id.highlight_sentences, new View.OnClickListener() {
             public void onClick(View v) {
@@ -280,6 +282,17 @@ public class SettingsActivity extends Activity {
 
     public void onClickLockScreen(View v) {
         SpeakService.getPrefs().edit().putBoolean("ShowLockWidget", ((CheckBox)v).isChecked()).commit();
+    }
+
+    public void onClickSntConcurrent(View v) {
+        CheckBox cb = (CheckBox) v;
+        SpeakService.getPrefs().edit().putBoolean("sntConcurrent", cb.isChecked()).commit();
+    }
+
+    public void onClickSntInfo(View v) {
+        boolean b = !SpeakService.getPrefs().getBoolean("sntConcurrent", true);
+        SpeakService.getPrefs().edit().putBoolean("sntConcurrent", b).commit();
+        ((CheckBox)findViewById(R.id.snt_concurrent)).setChecked(b);
     }
 
     @Override protected void onDestroy() {

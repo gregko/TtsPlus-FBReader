@@ -95,8 +95,10 @@ public class TtsSentenceExtractor {
         ArrayList<Integer> inds = new ArrayList<Integer>();
         String currSent = "";
         int i, indToAdd = 0;
-
-        for (i = 0; i < wl.size(); i++) {
+        int sz = wl.size();
+        if (il.size() < sz)
+            sz = il.size();
+        for (i = 0; i < sz; i++) {
             String w = wl.get(i);
             if (w.length() == 0)
                 continue;

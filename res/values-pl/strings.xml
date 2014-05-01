@@ -29,6 +29,8 @@
   <string name="tts_settings">Ustawienia TTS</string>
   <string name="edit_speech">Edycja wymowy</string>
   <string name="reset_tts">Resetuj TTS</string>
+  <string name="snt_concurrent">Przetwarzaj zdania jednocześnie</string>
+  <string name="snt_concurrent_info">Wyłącz jeśli słyszysz \"jąkanie\" albo słowa są pomijane.</string>
   <string name="hi_sentences">Podświetlaj czytany text</string>
   <string name="screen_on">Ekran włączony przy czytaniu</string>
   <string name="show_lock_widget">Pokazuj widget na ekranie blokady</string>
