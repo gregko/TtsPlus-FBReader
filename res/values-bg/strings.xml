@@ -29,8 +29,8 @@
   <string name="tts_settings">Настройки на речта</string>
   <string name="edit_speech">Редактирай речта</string>
   <string name="reset_tts">Нулирай речта</string>
-  <string name="snt_concurrent">Процес изречения едновременно</string>
-  <string name="snt_concurrent_info">Опитайте се да деактивирате ако реч заеква или прескача думи.</string>
+  <string name="snt_concurrent">Обработвай изреченията цялостно</string>
+  <string name="snt_concurrent_info"> Забранете в случай на прекъсване или прескачане на думи.</string>
   <string name="hi_sentences">Осветявай изговаряния текст</string>
   <string name="screen_on">Дръж екрана включен по време на четенето</string>
   <string name="show_lock_widget">Показвай притурката на екрана за заключване</string>
@@ -50,6 +50,24 @@
   <string name="single_words">Чети по думи...</string>
   <string name="pause_words">с паузи.</string>
   <string name="tts_check_err">Грешка: не успяхме да изведем поддържаните от тази речева машина езици</string>
+  <string-array name="sleep_array">
+    <item>Никога</item>
+    <item>1 минута</item>
+    <item>2 минути</item>
+    <item>3 минути</item>
+    <item>5 минути</item>
+    <item>10 минути</item>
+    <item>15 минути</item>
+    <item>20 минути</item>
+    <item>25 минути</item>
+    <item>30 минути</item>
+    <item>45 минути</item>
+    <item>1 час</item>
+    <item>2 часа</item>
+    <item>3 часа</item>
+    <item>4 часа</item>
+    <item>5 часа</item>
+  </string-array>
   <string name="crash_toast_text">Съжаляваме! TtsPlus Плъгина се срина!</string>
   <string name="crash_notif_ticker_text">Неочаквана грешка. Моля, изпратете доклад...</string>
   <string name="crash_notif_title">TtsPlus Плъгина се срина...</string>
@@ -79,22 +97,4 @@
   <string name="remove_icon">Скрий иконата на TTS+ Плъгина от панела с приложенията</string>
   <string name="remove_info">Иконата ще бъде премахната когато рестартирате вашето устройство, или при някои устройства и преди това.\n
 Ако в последствие желаете да я възстановите, натиснете бутона \"За TTS+\" в екрана на плъгина.</string>
-  <string-array name="sleep_array">
-    <item>Никога</item>
-    <item>1 минута</item>
-    <item>2 минути</item>
-    <item>3 минути</item>
-    <item>5 минути</item>
-    <item>10 минути</item>
-    <item>15 минути</item>
-    <item>20 минути</item>
-    <item>25 минути</item>
-    <item>30 минути</item>
-    <item>45 минути</item>
-    <item>1 час</item>
-    <item>2 часа</item>
-    <item>3 часа</item>
-    <item>4 часа</item>
-    <item>5 часа</item>
-  </string-array>
 </resources>

@@ -225,6 +225,10 @@ public class TtsSentenceExtractor {
             inStr = inStr.replace("Cpt.", "Capitan ");
             inStr = inStr.replace("No.", "No;"); // Ivona reads it at "number", we want "no", negation, with a pause
             inStr = inStr.replace("no.", "no;");
+            inStr = inStr.replace("R.N.", "R N");
+            inStr = inStr.replace("R.A.F.", "R A F");
+            inStr = inStr.replace("Ltd.", "L T D");
+
         }
         // Greg's private replacemtns... Move into preferences...
         inStr = inStr.replace("antiaging", "anti-aging");

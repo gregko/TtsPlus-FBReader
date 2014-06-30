@@ -35,8 +35,6 @@
                     android:ems="10"
                     android:inputType="number"
                     android:singleLine="true" >
-
-                <requestFocus />
             </EditText>
 
         </TableRow>
@@ -152,6 +150,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/avar_speech" />
+
+        <CheckBox
+                android:id="@+id/play_music"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/play_music"
+                android:onClick="onClickAllowMusic"
+                />
+
+        <TextView
+                android:id="@+id/music_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/music_info"
+                android:layout_marginTop="-10dp"
+                android:layout_marginLeft="38dp"
+                android:textSize="12dp"/>
+
 
         <TableRow
                 android:layout_width="fill_parent"

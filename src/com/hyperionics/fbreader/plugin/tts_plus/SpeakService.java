@@ -12,6 +12,7 @@ import android.os.PowerManager;
 import android.speech.tts.TextToSpeech;
 import android.os.Handler;
 import android.text.format.Time;
+import android.widget.SeekBar;
 import com.hyperionics.TtsSetup.*;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
@@ -82,6 +83,15 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static int FULLY_INITIALIZED = API_INITIALIZED | TTS_INITIALIZED;
     static final String SVC_STARTED = "com.hyperionics.fbreader.plugin.tts_plus.SVC_STARTED";
     static final String TTSP_KILL = "com.hyperionics.fbreader.plugin.tts_plus.TTSP_KILL";
+
+    // By default use AudioManager.STREAM_MUSIC
+    // Streams that also work reasonably well: STREAM_SYSTEM,
+    // STREAM_RING, STREAM_NOTIFICATION and STREAM_ALARM play both through headset and speaker, no good
+    // STREAM_VOICE_CALL - volume does not go all the way 0, very loud. No good.
+    // STREAM_DTMF = 8; how does this one work?
+    static int audioStream = AudioManager.STREAM_MUSIC;
+    static boolean allowBackgroundMusic = false;
+
 
     static String getConfigPath() {
         return getConfigPath(false);
@@ -290,11 +300,42 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             if (haveNewApi > 0)
                 highlightSentence();
             if (myApi != null && myApi.isConnected()) {
-                mAudioManager.requestAudioFocus(afChangeListener,
-                        // Use the music stream.
-                        AudioManager.STREAM_MUSIC,
-                        // Request permanent focus.
-                        AudioManager.AUDIOFOCUS_GAIN);
+
+                if (allowBackgroundMusic && mAudioManager.isMusicActive()) {
+                    // also consider using Activity method:  setVolumeControlStream (int streamType) to set
+                    // which stream will be affected by the hardware volume buttons.
+                    if (isStreamAvailable(AudioManager.STREAM_DTMF))
+                        audioStream = AudioManager.STREAM_DTMF;
+                    else if (isStreamAvailable(AudioManager.STREAM_RING))
+                        audioStream = AudioManager.STREAM_RING; // STREAM_RING works well on Kindle Fire HDX...
+                    else
+                        audioStream = AudioManager.STREAM_MUSIC;
+                    mAudioManager.requestAudioFocus(afChangeListener,
+                            // Use the selected stream.
+                            audioStream,
+                            // Request permanent focus.
+                            0); // non-exclusive...
+                } else {
+                    audioStream = AudioManager.STREAM_MUSIC;
+                    mAudioManager.requestAudioFocus(afChangeListener,
+                            // Use the music stream.
+                            AudioManager.STREAM_MUSIC,
+                            // Request permanent focus.
+                            AudioManager.AUDIOFOCUS_GAIN);
+                }
+                SpeakActivity sa = SpeakActivity.getCurrent();
+                if (sa != null) {
+                    SeekBar volumeControl = (SeekBar) sa.findViewById(R.id.volume_control);
+                    int vol = SpeakService.mAudioManager.getStreamVolume(SpeakService.audioStream);
+                    sa.myMaxVolume = mAudioManager.getStreamMaxVolume(audioStream);
+                    volumeControl.setMax(sa.myMaxVolume);
+                    volumeControl.setProgress(vol);
+                }
+                if (myParamMap != null)
+                    myParamMap.put(TextToSpeech.Engine.KEY_PARAM_STREAM,
+                            String.valueOf(audioStream));
+
+
                 myHasNetworkTts = false;
                 if (Build.VERSION.SDK_INT > 14) try {
                     myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);
@@ -324,6 +365,27 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
         } else
             stopTalking();
+    }
+
+    static boolean isStreamAvailable(int strNum) {
+        if (strNum == AudioManager.STREAM_MUSIC)
+            return true;
+        int origMusicVol = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 1, 0);
+        boolean isAvailable = false;
+        try {
+            int maxVol = mAudioManager.getStreamMaxVolume(strNum);
+            int vol = mAudioManager.getStreamVolume(strNum);
+            // Try to change the volume of each stream and see if STREAM_MUSIC changes as well...
+            mAudioManager.setStreamVolume(strNum, maxVol, 0);
+
+            int newMusicVol = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+            mAudioManager.setStreamVolume(strNum, vol, 0);
+            isAvailable = (newMusicVol != maxVol);
+        } catch (Exception e) {}
+
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, origMusicVol, 0);
+        return isAvailable;
     }
 
     public void onUtteranceCompleted(String uttId) {
@@ -838,9 +900,14 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
         myParaPause = myPreferences.getInt("paraPause", myParaPause);
         mySntPause = myPreferences.getInt("sntPause", mySntPause);
+        allowBackgroundMusic = myPreferences.getBoolean("allowBackgroundMusic", false);
+
         if (myParamMap == null) {
             myParamMap = new HashMap<String, String>();
             myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
+            // STREAM_MUSIC is the default stream for TTS
+            myParamMap.put(TextToSpeech.Engine.KEY_PARAM_STREAM,
+                    String.valueOf(audioStream));
         }
         if (myApi == null) {
             myInitializationStatus &= ~API_INITIALIZED;

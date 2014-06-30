@@ -59,7 +59,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
     static String avarDefaultPath = null;
 
-    private int myMaxVolume;
+    int myMaxVolume;
     private int savedBottomMargin = -1;
     private int hidePromo = 0;
     private final int promoMaxPress = 3;
@@ -90,7 +90,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             } catch (PackageManager.NameNotFoundException e) {}
         }
 
-        myMaxVolume = SpeakService.mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        myMaxVolume = SpeakService.mAudioManager.getStreamMaxVolume(SpeakService.audioStream);
 
 		setListener(R.id.button_previous, new View.OnClickListener() {
 			public void onClick(View v) {
@@ -309,14 +309,14 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         });
 
         final SeekBar volumeControl = (SeekBar)findViewById(R.id.volume_control);
-        int vol = SpeakService.mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        int vol = SpeakService.mAudioManager.getStreamVolume(SpeakService.audioStream);
         volumeControl.setMax(myMaxVolume);
         volumeControl.setProgress(vol);
         volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    SpeakService.mAudioManager.setStreamVolume(SpeakService.mAudioManager.STREAM_MUSIC, progress, 0);
+                    SpeakService.mAudioManager.setStreamVolume(SpeakService.audioStream, progress, 0);
                 }
             }
 
@@ -363,7 +363,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             }
         }
         // call cacheContextNative() again, sometimes it does not work if called too early in the system restart process
-        CldWrapper.cacheContextNative(TtsApp.getContext());
+        CldWrapper.initNativeLib(TtsApp.getContext());
         doStartTts();
         isActivated = true;
 	}
@@ -690,7 +690,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         if (currentSpeakActivity != null && currentlyVisible) {
             final SeekBar volumeControl = (SeekBar)currentSpeakActivity.findViewById(R.id.volume_control);
             if (volumeControl != null) {
-                int vol = SpeakService.mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                int vol = SpeakService.mAudioManager.getStreamVolume(SpeakService.audioStream);
                 volumeControl.setProgress(vol);
             }
         }

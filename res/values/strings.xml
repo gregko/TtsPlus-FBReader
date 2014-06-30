@@ -34,6 +34,8 @@
     <string name="screen_on">Keep screen on when reading</string>
     <string name="show_lock_widget">Show the lock screen widget</string>
     <string name="avar_speech">Use @Voice Aloud Reader speech replacements</string>
+    <string name="play_music">Let music play in the background</string>
+    <string name="music_info">Start music first with any Music app, then start speech here. Control speech volume with the slider in TTS+ Plugin, and the music volume with the device\'s volume buttons.\nNOTE: THE SEPARATE VOLUME CONTROL FOR MUSIC AND SPEECH MAY NOT WORK ON ALL DEVICES!</string>
     <string name="screen_dimmed">Dimmed</string>
     <string name="screen_bright">Bright</string>
     <string name="rate">Rate TTS+!</string>

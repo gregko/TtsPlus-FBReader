@@ -277,6 +277,10 @@ public class SettingsActivity extends Activity {
 
         ((CheckBox)findViewById(R.id.lock_screen)).setChecked(SpeakService.getPrefs().getBoolean("ShowLockWidget", true));
         getWindow().setGravity(Gravity.BOTTOM);
+
+        ((CheckBox)findViewById(R.id.play_music)).setChecked(SpeakService.allowBackgroundMusic);
+        findViewById(R.id.music_info).setVisibility(SpeakService.allowBackgroundMusic ? View.VISIBLE : View.GONE);
+
         SpeakService.setSleepTimer(0); // removes sleep timer
     }
 
@@ -293,6 +297,13 @@ public class SettingsActivity extends Activity {
         boolean b = !SpeakService.getPrefs().getBoolean("sntConcurrent", true);
         SpeakService.getPrefs().edit().putBoolean("sntConcurrent", b).commit();
         ((CheckBox)findViewById(R.id.snt_concurrent)).setChecked(b);
+    }
+
+    public void onClickAllowMusic(View v) {
+        boolean allowMusic = ((CheckBox) v).isChecked();
+        SpeakService.getPrefs().edit().putBoolean("allowBackgroundMusic", allowMusic).commit();
+        SpeakService.allowBackgroundMusic = allowMusic;
+        findViewById(R.id.music_info).setVisibility(allowMusic ? View.VISIBLE : View.GONE);
     }
 
     @Override protected void onDestroy() {
