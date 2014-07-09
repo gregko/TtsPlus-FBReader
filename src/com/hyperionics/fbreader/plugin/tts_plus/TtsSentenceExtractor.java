@@ -108,20 +108,6 @@ public class TtsSentenceExtractor {
             if (w.length() == 2 && w.endsWith(".") && Character.isUpperCase(w.charAt(0))) {
                 w = w.substring(0, 1) + " ";
             } else {
-                if (loc.getISO3Language().equals("pol")) {
-                    // do this only for Polish, else for Spanish - Ivona pronounces regular '-' as "geeon"
-                    w = w.replace('\u2013', '-'); // dec 8211, "en dash" or long dash, Ivona PL reads as "przecinek"
-                    w = w.replace('\u2014', '-'); // dec 8211, 'EM DASH', Ivona PL reads as "przecinek"
-                } else if (loc.getISO3Language().equals("spa")) {
-                    w = w.replace('\u2013', ','); // dec 8211, "en dash" or long dash, Ivona, Samsung voices reads as "geeon"
-                    w = w.replace('\u2014', ','); // dec 8211, 'EM DASH', Ivona, Samsung voices read as "geeon"
-//                    int n = w.indexOf('\u2014');
-//                    if (n == 0 && w.length() > 1) {
-//                        char c = w.charAt(1);
-//                        if (c == '.' || c == '?' || c=='!')
-//                            w = w.replace(c, ' '); // add space to avoid "geeon" in Ivona
-//                    }
-                }
                 w = w.replace('\u00A0', ' '); // dec 160, no-break space
                 w = w.replace("\u200B", " ");  // dec. 8203, 'zero width space' (do not replace with empty, or we may get w empty and crash)
                 w = w.replace('\u2019', '\''); // RIGHT SINGLE QUOTATION MARK (U+2019), mis-pronounced by Google TTS?

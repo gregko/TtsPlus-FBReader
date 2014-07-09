@@ -1,13 +1,19 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.*;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.os.Build;
 import com.hyperionics.TtsSetup.AndyUtil;
 import com.hyperionics.TtsSetup.Lt;
+import com.hyperionics.util.FileUtil;
+
+import java.io.*;
 //import org.acra.*;
 //import org.acra.annotation.*;
 
@@ -106,6 +112,56 @@ public class TtsApp extends Application
 
     public static boolean isDebug() {
         return myIsDebug;
+    }
+
+    @SuppressLint("NewApi")
+    public static long getLastUpdateTime() {
+        if (Build.VERSION.SDK_INT < 10)
+            return 0;
+        try {
+            PackageInfo pi = myPackageManager.getPackageInfo(myPackageName, 0);
+            return pi.lastUpdateTime;
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchFieldError e2) {
+
+        }
+        return 0;
+    }
+
+    static String copyAsset(String fileName, String targetDir) {
+        if (myApplication == null)
+            return null;
+        AssetManager assetManager = myApplication.getAssets();
+        if (targetDir == null)
+            targetDir = myApplication.getFilesDir().toString();
+        String targetName = targetDir + "/" + fileName;
+        new File(targetName).getParentFile().mkdirs(); // just in case, create the directory.
+
+        // Check if this asset was already copied or if we have a newer asset
+        long lut = getLastUpdateTime();
+        File targetFile = new File(targetName);
+        if (lut > 0 && targetFile.exists()) {
+            long fmt = targetFile.lastModified();
+            if (fmt >= lut) { // asset already copied, and there are no newer asset to replace it.
+                return targetName;
+            }
+        }
+
+        InputStream in;
+        OutputStream out;
+        try {
+            in = assetManager.open(fileName);
+            out = new FileOutputStream(targetName);
+            FileUtil.copyFile(in, out);
+            in.close();
+            out.flush();
+            out.close();
+        } catch(IOException e) {
+            Lt.d("Failed to copy asset file: " + fileName + " " + e);
+            return null;
+        }
+        return targetName;
     }
 
     public TtsApp() {

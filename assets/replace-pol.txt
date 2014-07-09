@@ -1,0 +1,7 @@
+; Replacing 0x2013 "en dash", 0x2014 EM DASH and a regular ASCII - with comma or nothing.
+; ?<b> is "named group, replaced with ${b}, see DEELX ref.
+*"(^\s*[–—-]\s*)|(\s*[–—-]\s*$)|((?<b>[.!?,]+)\s*[–—-])" "${b}"
+*"\s*[–—-]\s*" ", "
+*"\s+," ", "
+; Add space after a comma, if comma between two letters, no spaces
+*"([:Ualpha:]),([:Ualpha:])" "$1, $2"

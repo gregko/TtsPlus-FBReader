@@ -3,14 +3,12 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.*;
+import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
-import android.os.IBinder;
-import android.os.PowerManager;
+import android.os.*;
 import android.speech.tts.TextToSpeech;
-import android.os.Handler;
 import android.text.format.Time;
 import android.widget.SeekBar;
 import com.hyperionics.TtsSetup.*;
@@ -80,7 +78,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static volatile int myInitializationStatus = 0;
     static int API_INITIALIZED = 1;
     static int TTS_INITIALIZED = 2;
-    static int FULLY_INITIALIZED = API_INITIALIZED | TTS_INITIALIZED;
+    static int SERVICE_INITIALIZED = 4;
+    static int FULLY_INITIALIZED = API_INITIALIZED | TTS_INITIALIZED | SERVICE_INITIALIZED;
     static final String SVC_STARTED = "com.hyperionics.fbreader.plugin.tts_plus.SVC_STARTED";
     static final String TTSP_KILL = "com.hyperionics.fbreader.plugin.tts_plus.TTSP_KILL";
 
@@ -930,6 +929,36 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             if (_lockscreenManager == null)
                 _lockscreenManager = new LockscreenManager();
         }
+
+        // must copy the assets in another thread...
+        new AsyncTask<Integer, Integer, Integer>() {
+            @Override protected Integer doInBackground(Integer... params) {
+                try {
+                    // copy abbrev-*.txt and replace-*.txt assets to .config/assets directory, as we need to read them in native code
+                    String[] list;
+                    AssetManager assetManager = currentService.getAssets();
+                    list = assetManager.list("");
+                    for (String s : list) {
+                        if (s.endsWith(".txt") && (s.startsWith("abbrev-") || s.startsWith("replace-"))) {
+                            // getExternalFilesDir() returns something like /mnt/sdcard/Android/data/[package_name]/files/
+                            TtsApp.copyAsset(s, currentService.getExternalFilesDir(null) + "/assets");
+                        }
+                    }
+                } catch (Exception e) {
+                    Lt.df("Exception in doStartup() AsyncTask: " + e);
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+
+            @Override protected void onPostExecute(Integer result) {
+                myInitializationStatus |= SERVICE_INITIALIZED;
+                if (myInitializationStatus == FULLY_INITIALIZED)
+                    SpeakActivity.onInitializationCompleted();
+            }
+        }.execute(0);
+
+
         return true;
     }
 
