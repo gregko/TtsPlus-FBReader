@@ -431,6 +431,43 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
     }
 
+    private static int speakString(String text, String utId) {
+        int ret;
+        // Stupid Google voice stops on empty or silent sentences, therefore
+        // replaceForSpeechNative() will return empty string if there is only punctation and spaces.
+        text = CldWrapper.replaceForSpeechNative(text);
+
+        myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utId);
+        if (text.length() > 0) {
+            if (myHasNetworkTts) {
+                myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);
+                int n = 2;
+                try {
+                    n = getPrefs().getInt("netSynth", 2); // bit 0 - use net, bit 1 - wifi only
+                } catch (ClassCastException e) {
+                    SharedPreferences.Editor ed = getPrefs().edit();
+                    ed.remove("netSynth");
+                    ed.commit();
+                }
+                int conn = connectionType();
+                boolean useNet = (n & 1) == 1;
+                boolean wifiOnly = (n & 2) == 2;
+                if (useNet && (conn == 2 || conn == 1 && !wifiOnly)) {
+                    myParamMap.put(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, "true");
+                }
+            }
+            ret = TtsWrapper.speak(myTTS, text, TextToSpeech.QUEUE_ADD, myParamMap);
+            isServiceTalking = ret == TextToSpeech.SUCCESS;
+            if (isServiceTalking && mySntPause > 0) {
+                myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID + "-1");
+                myTTS.playSilence(mySntPause, TextToSpeech.QUEUE_ADD, myParamMap);
+            }
+        } else {
+            ret = myTTS.playSilence(50, TextToSpeech.QUEUE_ADD, myParamMap); // to call utteranceCompleted() on TTS thread...
+        }
+        return ret;
+    }
+
     static boolean isTalking() {
         return isServiceTalking;
     }
@@ -572,43 +609,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 haveConnection = ni.isConnected();
         }
         return haveConnection ? 1 : 0;
-    }
-
-    private static int speakString(String text, String utId) {
-        int ret;
-        // Stupid Google voice stops on empty or silent sentences, therefore
-        // replaceForSpeechNative() will return empty string if there is only punctation and spaces.
-        text = CldWrapper.replaceForSpeechNative(text);
-
-        myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utId);
-        if (text.length() > 0) {
-            myParamMap.remove(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS);
-            if (myHasNetworkTts) {
-                int n = 2;
-                try {
-                    n = getPrefs().getInt("netSynth", 2); // bit 0 - use net, bit 1 - wifi only
-                } catch (ClassCastException e) {
-                    SharedPreferences.Editor ed = getPrefs().edit();
-                    ed.remove("netSynth");
-                    ed.commit();
-                }
-                int conn = connectionType();
-                boolean useNet = (n & 1) == 1;
-                boolean wifiOnly = (n & 2) == 2;
-                if (useNet && (conn == 2 || conn == 1 && !wifiOnly)) {
-                    myParamMap.put(TextToSpeech.Engine.KEY_FEATURE_NETWORK_SYNTHESIS, "true");
-                }
-            }
-            ret = TtsWrapper.speak(myTTS, text, TextToSpeech.QUEUE_ADD, myParamMap);
-            isServiceTalking = ret == TextToSpeech.SUCCESS;
-            if (isServiceTalking && mySntPause > 0) {
-                myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID + (-1));
-                myTTS.playSilence(mySntPause, TextToSpeech.QUEUE_ADD, myParamMap);
-            }
-        } else {
-            ret = myTTS.playSilence(20, TextToSpeech.QUEUE_ADD, myParamMap); // to call utteranceCompleted() on TTS thread...
-        }
-        return ret;
     }
 
     static void setSpeechRate(int progress) {

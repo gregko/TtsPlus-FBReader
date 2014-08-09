@@ -680,10 +680,15 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
 	private void setActionsEnabled(final boolean enabled) {
         // again trouble if it's done through runOnUiThread()
-        findViewById(R.id.button_previous).setEnabled(enabled);
-        findViewById(R.id.button_next).setEnabled(enabled);
-        findViewById(R.id.button_play).setEnabled(enabled);
-        findViewById(R.id.button_setup).setEnabled(enabled);
+        try {
+            findViewById(R.id.button_previous).setEnabled(enabled);
+            findViewById(R.id.button_next).setEnabled(enabled);
+            findViewById(R.id.button_play).setEnabled(enabled);
+            findViewById(R.id.button_setup).setEnabled(enabled);
+        } catch (Exception e) {
+            e.printStackTrace();
+            finish();
+        }
 	}
 
     static void setVolumeProgress() {

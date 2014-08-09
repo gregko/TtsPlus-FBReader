@@ -124,6 +124,7 @@ public class TtsSentenceExtractor {
                 char lastCh = w.charAt(w.length() - 1);
                 endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
                               lastCh == '!' || lastCh == '?';
+                endSentence |= lastCh == 0x964; // "Devanagari Danda" sentence delimiter. Consider also STerm Unicode set.
                 if (!endSentence && w.length () > 1 && (lastCh == '"' || lastCh == 0x201D || lastCh == ')')) {
                     lastCh = w.charAt(w.length() - 2);
                     endSentence = lastCh == '.' && (i == wl.size()-1 || !wl.get(i+1).equals(".")) ||
