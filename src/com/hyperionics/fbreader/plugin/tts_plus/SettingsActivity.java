@@ -169,7 +169,7 @@ public class SettingsActivity extends Activity {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     SpeakService.getPrefs().edit().putBoolean("AVAR_SPEECH", isChecked).commit();
                     CldWrapper.initExtractorNative(SpeakService.getConfigPath(),
-                            LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage())), 0, null);
+                            SpeakService.getCurrentLangISO3(), 0, null);
                 }
             });
         } else {
@@ -264,11 +264,16 @@ public class SettingsActivity extends Activity {
                 String eng = LangSupport.getSelectedTtsEng(); // mySelectedEngine.name();
                 if (eng != null)
                     intent.putExtra(VoiceSelector.SELECTED_ENGINE, eng);
-                String voi = LangSupport.getPrefferedVoice(LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage())));
+                String voi = LangSupport.getPrefferedVoice(SpeakService.getCurrentLangISO3());
                 if (voi != null)
                     voi = voi.substring(0, voi.lastIndexOf('|'));
                 else
-                    voi = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
+                    voi = SpeakService.getCurrentLangISO3();
+//                String voi = LangSupport.getPrefferedVoice(LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage())));
+//                if (voi != null)
+//                    voi = voi.substring(0, voi.lastIndexOf('|'));
+//                else
+//                    voi = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
                 intent.putExtra(VoiceSelector.SELECTED_VOICE, voi);
                 intent.putExtra(VoiceSelector.CONFIG_DIR, SpeakService.getConfigPath());
                 startActivity(intent);

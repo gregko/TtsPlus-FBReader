@@ -26,7 +26,6 @@ public class InfoActivity extends Activity {
         myCn = getComponentName();
         fbrInstalled = myPm.getLaunchIntentForPackage(FBR_PACKAGE) != null;
         boolean autoStartSpeech = getSharedPreferences("atVoice", MODE_PRIVATE).getBoolean("speakFromIcon", false);
-        Lt.d("speakFromIcon = " + autoStartSpeech);
         boolean showAbout = getIntent().getBooleanExtra("showAbout", false);
 
         if (fbrInstalled && autoStartSpeech && !showAbout) {

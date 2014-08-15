@@ -207,6 +207,15 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         }
     }
 
+    public static String getCurrentLangISO3() {
+        if (myTTS != null)
+            return myTTS.getLanguage().getISO3Language();
+        else if (VoiceSelector.useSystemVoiceOnly())
+            return new Locale(SpeakService.getCurrentBookLanguage()).getISO3Language();
+        else
+            return Locale.getDefault().getISO3Language();
+    }
+
     public static String getCurrentBookLanguage() {
         String languageCode = "";
         try {
@@ -287,7 +296,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             return;
         sntConcurrent = getPrefs().getBoolean("sntConcurrent", true);
         SpeakActivity.setActive(true);
-        String iso3lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
+        String iso3lang = SpeakService.getCurrentLangISO3(); // LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
         CldWrapper.initExtractorNative(getConfigPath(), iso3lang, 0, null);
         wordPauses = getPrefs().getBoolean("WORD_OPTS", false) &&
                      myPreferences.getBoolean("SINGLE_WORDS", false) &&

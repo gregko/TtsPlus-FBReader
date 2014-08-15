@@ -13,7 +13,6 @@ import android.content.*;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Rect;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,13 +20,10 @@ import android.os.Environment;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.*;
 import android.widget.*;
 import com.hyperionics.TtsSetup.*;
 import org.geometerplus.android.fbreader.api.ApiException;
-import org.geometerplus.android.fbreader.api.TextPosition;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
