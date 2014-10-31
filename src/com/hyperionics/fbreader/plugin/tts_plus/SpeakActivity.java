@@ -378,7 +378,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
     static void adjustBottomMargin() {
         // Calculate the extra bottom margin needed for navigation buttons
-        if (currentSpeakActivity != null) {
+        if (currentSpeakActivity != null && SpeakService.myApi != null) {
             try {
                 if (currentSpeakActivity.savedBottomMargin < 0)
                     currentSpeakActivity.savedBottomMargin = SpeakService.myApi.getBottomMargin();
@@ -836,7 +836,8 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     } catch (ActivityNotFoundException e) {
                         showErrorMessage(R.string.no_tts_installed);
                     }
-                    SpeakActivity.getCurrent().doDestroy();
+                    if (SpeakActivity.getCurrent() != null)
+                        SpeakActivity.getCurrent().doDestroy();
                     TtsApp.ExitApp();
                 }
             }
