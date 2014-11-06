@@ -728,8 +728,11 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             if (SpeakActivity.getCurrent() != null) {
                 SpeakActivity.getCurrent().runOnUiThread(new Runnable() {
                     public void run() {
-                        SpeakActivity.getCurrent().findViewById(R.id.button_next).setEnabled(true);
-                        SpeakActivity.getCurrent().findViewById(R.id.button_play).setEnabled(true);
+                        SpeakActivity sa = SpeakActivity.getCurrent();
+                        if (sa != null) {
+                            sa.findViewById(R.id.button_next).setEnabled(true);
+                            sa.findViewById(R.id.button_play).setEnabled(true);
+                        }
                     }
                 });
             }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.hyperionics.fbreader.plugin.tts_plus"
-          android:versionCode="3050400"
-          android:versionName="3.5.4">
+          android:versionCode="3050500"
+          android:versionName="3.5.5">
     <uses-sdk android:minSdkVersion="8"
               android:targetSdkVersion="17" />
     <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
