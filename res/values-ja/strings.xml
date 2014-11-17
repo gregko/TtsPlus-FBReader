@@ -33,7 +33,7 @@
     <string name="hi_sentences">読み上げるテキストを強調表示する</string>
     <string name="screen_on">本を読んでいる時に画面をオンのままにする</string>
     <string name="show_lock_widget">ロック画面ウィジェットを表示する</string>
-    <string name="avar_speech">@Voice Aloud Reader を読み上げに使用する</string>
+    <string name="avar_speech">\@Voice Aloud Reader を読み上げに使用する</string>
     <string name="play_music">バックグラウンドで音楽の再生を行う</string>
     <string name="music_info">まず最初に何かの音楽アプリで音楽の再生を開始してください。その後でここから読み上げを開始してくだい。読み上げの音量はTTS+ のスライダーで変更します、音楽の音量はデバイスの音量ボタンで変更します。\n注意: 音楽と読み上げの音量を別々に変更する機能は、すべてのデバイスで動作するとは限りません!</string>
     <string name="screen_dimmed">暗く</string>

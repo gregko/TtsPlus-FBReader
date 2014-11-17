@@ -409,13 +409,15 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID + (-1));
                         myTTS.playSilence(myParaPause, TextToSpeech.QUEUE_ADD, myParamMap);
                     }
-                    ++myParagraphIndex;
-                    processCurrentParagraph();
-                    if (myParagraphIndex >= myParagraphsNumber) {
-                        stopTalking();
-                        return;
-                    }
-                    if (sntConcurrent) {
+                    do {
+                        ++myParagraphIndex;
+                        processCurrentParagraph();
+                        if (myParagraphIndex >= myParagraphsNumber) {
+                            stopTalking();
+                            return;
+                        }
+                    } while (mySentences.length == 0);
+                    if (sntConcurrent && myCurrentSentence < mySentences.length) {
                         speakString(mySentences[myCurrentSentence].s, UTTERANCE_ID + myCurrentSentence);
                         sntLastAdded = myCurrentSentence;
                     }

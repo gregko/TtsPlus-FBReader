@@ -100,6 +100,8 @@ public class TtsSentenceExtractor {
             sz = il.size();
         for (i = 0; i < sz; i++) {
             String w = wl.get(i);
+            while (w.length() > 0 && w.charAt(w.length() - 1) == '\u00A0')
+                w = w.substring(0, w.length()-1);
             if (w.length() == 0)
                 continue;
             int len = currSent.length();
