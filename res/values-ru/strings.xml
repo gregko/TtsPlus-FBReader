@@ -35,6 +35,8 @@
   <string name="screen_on">Не выключать экран при чтении</string>
   <string name="show_lock_widget">Виджет на экране блокировки</string>
   <string name="avar_speech">Использовать правки произношения из @Voice Aloud Reader</string>
+  <string name="play_music">Не прерывать фоновую музыку</string>
+  <string name="music_info">Сначала включите музыку в любом плеере, затем запустите речь. Громкость речи регулируйте движком в плагине TTS+, а громкость музыки - кнопками на устройстве.\nВНИМАНИЕ: РАЗДЕЛЬНАЯ РЕГУЛИРОВКА ГРОМКОСТИ РЕЧИ И МУЗЫКИ РАБОТАЕТ НЕ НА ВСЕХ УСТРОЙСТВАХ!</string>
   <string name="screen_dimmed">Тусклый</string>
   <string name="screen_bright">Яркий</string>
   <string name="rate">Оцените TTS+!</string>
@@ -52,28 +54,28 @@
   <string name="tts_check_err">Ошибка: не удалось получить список языков для генератора речи.</string>
   <string-array name="sleep_array">
     <item>Никогда</item>
-    <item>1 минуту</item>
-    <item>2 минуты</item>
-    <item>3 минуты</item>
-    <item>5 минут</item>
-    <item>10 минут</item>
-    <item>15 минут</item>
-    <item>20 минут</item>
-    <item>25 минут</item>
-    <item>30 минут</item>
-    <item>45 минут</item>
-    <item>1 час</item>
-    <item>2 часа</item>
-    <item>3 часа</item>
-    <item>4 часа</item>
-    <item>5 часов</item>
+    <item>1 мин</item>
+    <item>2 мин</item>
+    <item>3 мин</item>
+    <item>5 мин</item>
+    <item>10 мин</item>
+    <item>15 мин</item>
+    <item>20 мин</item>
+    <item>25 мин</item>
+    <item>30 мин</item>
+    <item>45 мин</item>
+    <item>1 ч</item>
+    <item>2 ч</item>
+    <item>3 ч</item>
+    <item>4 ч</item>
+    <item>5 ч</item>
   </string-array>
-  <string name="crash_toast_text">Извините! Плагин TtsPlus был аварийно завершён!</string>
-  <string name="crash_notif_ticker_text">Непредвиденная ошибка, пожалуйста, пришлите нам отчёт...</string>
-  <string name="crash_notif_title">Плагин TtsPlus был аварийно завершён...</string>
+  <string name="crash_toast_text">Плагин TtsPlus вызвал сбой!</string>
+  <string name="crash_notif_ticker_text">Неизвестная ошибка, пришлите нам отчёт...</string>
+  <string name="crash_notif_title">Плагин TtsPlus вызвал сбой...</string>
   <string name="crash_notif_text">Нажмите здесь, чтобы помочь нам исправить проблему.</string>
-  <string name="crash_dialog_title">Плагин TtsPlus был аварийно завершён</string>
-  <string name="crash_dialog_text">Произошла непредвиденная ошибка из-за которой пришлось остановить работу приложения. Пожалуйста, помогите нам исправить её, отправив данные об этой ошибке. Всё что вам нужно сделать, это нажать \"OK\".</string>
+  <string name="crash_dialog_title">Плагин TtsPlus вызвал сбой</string>
+  <string name="crash_dialog_text">Приложение остановлено из-за неизвестной ошибки. Помогите нам исправить её, отправив данные об ошибке. Для этого просто нажмите OK.</string>
   <string name="crash_dialog_comment_prompt">Вы можете добавить комментарий об этой проблеме:</string>
   <string name="crash_dialog_ok_toast">Спасибо!</string>
   <string name="tryAllso">Попробуйте также наш новый продукт\n@Voice Reader - чтение вслух</string>

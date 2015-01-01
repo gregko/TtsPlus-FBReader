@@ -35,6 +35,8 @@
   <string name="screen_on">朗讀時保持螢幕打開</string>
   <string name="show_lock_widget">顯示鎖定螢幕小工具</string>
   <string name="avar_speech">使用大聲朗讀語音取代</string>
+  <string name="play_music">Let music play in the background</string>
+  <string name="music_info">Start music first with any Music app, then start speech here. Control speech volume with the slider in TTS+ Plugin, and the music volume with the device\'s volume buttons.\nNOTE: THE SEPARATE VOLUME CONTROL FOR MUSIC AND SPEECH MAY NOT WORK ON ALL DEVICES!</string>
   <string name="screen_dimmed">無法使用</string>
   <string name="screen_bright">明亮</string>
   <string name="rate">速率 TTS+!</string>

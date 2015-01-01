@@ -35,6 +35,8 @@
   <string name="screen_on">Ekran włączony przy czytaniu</string>
   <string name="show_lock_widget">Pokazuj widget na ekranie blokady</string>
   <string name="avar_speech">Używaj plików wymowy z aplikacji @Voice Aloud Reader</string>
+  <string name="play_music">Pozwalaj na muzykę w tle</string>
+  <string name="music_info">Najpierw uruchom muzykę w aplikacji Muzyka, potem wystartuj czytanie na głos. Ustawiaj głośność mowy suwakiem w tej aplikacji, a głośność muzyki za pomocą przycisków sprzętowych.\nUWAGA: OSOBNA REGULACJA GŁOŚNOŚCI MUZYKI I MOWY MOŻE NIE DZIAŁAĆ NA NIEKTÓRYCH URZĄDZENIACH!</string>
   <string name="screen_dimmed">Ściemniony</string>
   <string name="screen_bright">Jasny</string>
   <string name="rate">Oceń TTS+!</string>
