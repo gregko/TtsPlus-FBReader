@@ -10,10 +10,10 @@
   <string name="back">返回</string>
   <string name="failure">初始化失敗，抱歉</string>
   <string name="speak_menu_item">Speak+</string>
-  <string name="no_tts_installed">沒有安裝tts</string>
+  <string name="no_tts_installed">沒有安裝 tts</string>
   <string name="no_voices">沒有語音</string>
   <string name="initialization_error">初始化錯誤</string>
-  <string name="api_error_2">api錯誤</string>
+  <string name="api_error_2">api 錯誤</string>
   <string name="language_is_not_set">書本語言未設定。嘗試閱讀 %0 的書。</string>
   <string name="no_data_for_language" formatted="false">%0 需要文字轉語音資料來朗讀這本書。\n\n你現在要安裝嗎？</string>
   <string name="yes">是</string>
@@ -29,13 +29,13 @@
   <string name="tts_settings">tts設定</string>
   <string name="edit_speech">編輯語音</string>
   <string name="reset_tts">重設 TTS</string>
-  <string name="snt_concurrent">同時處理多句</string>
+  <string name="snt_concurrent">並行處理文具</string>
   <string name="snt_concurrent_info">如果語音口吃或跳字可以嘗試關閉</string>
   <string name="hi_sentences">反白顯示朗讀的文字</string>
   <string name="screen_on">朗讀時保持螢幕打開</string>
   <string name="show_lock_widget">顯示鎖定螢幕小工具</string>
   <string name="avar_speech">使用大聲朗讀語音取代</string>
-  <string name="play_music">Let music play in the background</string>
+  <string name="play_music">讓音樂在背景播放</string>
   <string name="music_info">Start music first with any Music app, then start speech here. Control speech volume with the slider in TTS+ Plugin, and the music volume with the device\'s volume buttons.\nNOTE: THE SEPARATE VOLUME CONTROL FOR MUSIC AND SPEECH MAY NOT WORK ON ALL DEVICES!</string>
   <string name="screen_dimmed">無法使用</string>
   <string name="screen_bright">明亮</string>

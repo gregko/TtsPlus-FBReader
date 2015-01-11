@@ -10,7 +10,7 @@
   <string name="back">Назад</string>
   <string name="failure">Ошибка инициализации</string>
   <string name="speak_menu_item">Читать вслух (+)</string>
-  <string name="no_tts_installed">На вашем устройстве не найден речевой движок.</string>
+  <string name="no_tts_installed">В вашем устройстве не найден речевой движок.</string>
   <string name="no_voices">Ошибка: не удалось получить список установленных голосoв.</string>
   <string name="initialization_error">Не удалось получить информацию о книге от FBReader.</string>
   <string name="api_error_2">Ошибка API.</string>
