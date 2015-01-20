@@ -734,8 +734,13 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 if (n > 0 && currentSpeakActivity != null) {
                     currentSpeakActivity.runOnUiThread(new Runnable() {
                         public void run() {
-                            if (currentSpeakActivity != null)
+                            if (currentSpeakActivity != null) {
                                 currentSpeakActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                                // Extra code, the above does not work on some devices...
+                                View content = currentSpeakActivity.findViewById(android.R.id.content);
+                                if (content != null)
+                                    content.setKeepScreenOn(true);
+                            }
                         }
                     });
                 }
@@ -751,8 +756,12 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
             if (currentSpeakActivity != null) {
                 currentSpeakActivity.runOnUiThread(new Runnable() {
                     public void run() {
-                        if (currentSpeakActivity != null)
+                        if (currentSpeakActivity != null) {
                             currentSpeakActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                            View content = currentSpeakActivity.findViewById(android.R.id.content);
+                            if (content != null)
+                                content.setKeepScreenOn(false);
+                        }
                     }
                 });
             }

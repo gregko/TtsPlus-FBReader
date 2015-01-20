@@ -5,7 +5,7 @@
   <string name="title">FBReader TTS+ Plugin</string>
   <string name="about">О программе</string>
   <string name="version">Плагин FBReader TTS+, версия</string>
-  <string name="copyright">Copyright © 2012-14\nHyperionics Technology LLC</string>
+  <string name="copyright">Copyright © 2012-15\nHyperionics Technology LLC</string>
   <string name="url">http://www.hyperionics.com/TtsPlus</string>
   <string name="back">Назад</string>
   <string name="failure">Ошибка инициализации</string>

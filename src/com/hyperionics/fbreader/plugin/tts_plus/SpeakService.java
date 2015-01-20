@@ -297,7 +297,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         sntConcurrent = getPrefs().getBoolean("sntConcurrent", true);
         SpeakActivity.setActive(true);
         String iso3lang = SpeakService.getCurrentLangISO3(); // LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
-        CldWrapper.initExtractorNative(getConfigPath(), iso3lang, 0, null);
+        CldWrapper.initExtractorNative(getConfigPath(), iso3lang, 0, null, 0);
         wordPauses = getPrefs().getBoolean("WORD_OPTS", false) &&
                      myPreferences.getBoolean("SINGLE_WORDS", false) &&
                      myPreferences.getBoolean("PAUSE_WORDS", false);
@@ -640,6 +640,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             int endEI = myCurrentSentence < mySentences.length-1 ?
                             mySentences[myCurrentSentence+1].i-1: Integer.MAX_VALUE;
             TextPosition stPos;
+            if (myCurrentSentence >= mySentences.length)
+                myCurrentSentence = mySentences.length - 1;
             if (myCurrentSentence <= 0) {
                 myCurrentSentence = 0;
                 stPos = new TextPosition(myParagraphIndex, 0, 0);

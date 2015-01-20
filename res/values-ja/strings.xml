@@ -4,7 +4,7 @@
 	<string name="title">FBReader TTS+ Plugin</string>
     <string name="about">TTS+ について</string>
     <string name="version">FBReader TTS+ Plugin ver.</string>
-    <string name="copyright">Copyright © 2012-14\nHyperionics Technology LLC</string>
+    <string name="copyright">Copyright © 2012-15\nHyperionics Technology LLC</string>
     <string name="url">http://www.hyperionics.com/TtsPlus</string>
     <string name="back"> 戻る </string>
 	<string name="failure">初期化に失敗しました、申し訳ありません</string>

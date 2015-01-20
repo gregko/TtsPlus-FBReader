@@ -82,6 +82,8 @@ public class TtsSentenceExtractor {
             String currEngine = (String) method.invoke(currentTTS);
             if (currEngine.equals("nuance.tts") || currEngine.equals("vocalizer.tts"))
                 breakSentences = 500;
+            else if (currEngine.equals("es.codefactory.eloquencetts"))
+                breakSentences = 256;
         } catch (Exception e) {
             if (currentTTS != null)
                 breakSentences =  "nuance.tts".equals(currentTTS.getDefaultEngine()) ? 500 : breakSentences;

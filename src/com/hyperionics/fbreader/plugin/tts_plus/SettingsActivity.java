@@ -169,7 +169,7 @@ public class SettingsActivity extends Activity {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     SpeakService.getPrefs().edit().putBoolean("AVAR_SPEECH", isChecked).commit();
                     CldWrapper.initExtractorNative(SpeakService.getConfigPath(),
-                            SpeakService.getCurrentLangISO3(), 0, null);
+                            SpeakService.getCurrentLangISO3(), 0, null, 0);
                 }
             });
         } else {
