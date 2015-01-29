@@ -5,7 +5,7 @@
   <string name="title">FBReader TTS+ Plugin</string>
   <string name="about">О программе</string>
   <string name="version">Плагин FBReader TTS+, версия</string>
-  <string name="copyright">Copyright © 2012-15\nHyperionics Technology LLC</string>
+  <string name="copyright">Copyright © 2012-14\nHyperionics Technology LLC</string>
   <string name="url">http://www.hyperionics.com/TtsPlus</string>
   <string name="back">Назад</string>
   <string name="failure">Ошибка инициализации</string>
@@ -36,7 +36,7 @@
   <string name="show_lock_widget">Виджет на экране блокировки</string>
   <string name="avar_speech">Использовать правки произношения из @Voice Aloud Reader</string>
   <string name="play_music">Не прерывать фоновую музыку</string>
-  <string name="music_info">Сначала включите музыку в любом плеере, затем запустите речь. Громкость речи регулируйте движком в плагине TTS+, а громкость музыки - кнопками на устройстве.\nВНИМАНИЕ: РАЗДЕЛЬНАЯ РЕГУЛИРОВКА ГРОМКОСТИ РЕЧИ И МУЗЫКИ РАБОТАЕТ НЕ НА ВСЕХ УСТРОЙСТВАХ!</string>
+  <string name="music_info">Сначала включите музыку в любом плеере, затем запустите чтение. Громкость чтения регулируйте с помощью бегунка в плагине TTS+, а громкость музыки - кнопками на устройстве.\nВНИМАНИЕ: РАЗДЕЛЬНАЯ РЕГУЛИРОВКА ГРОМКОСТИ РЕЧИ И МУЗЫКИ РАБОТАЕТ НЕ НА ВСЕХ УСТРОЙСТВАХ!</string>
   <string name="screen_dimmed">Тусклый</string>
   <string name="screen_bright">Яркий</string>
   <string name="rate">Оцените TTS+!</string>
