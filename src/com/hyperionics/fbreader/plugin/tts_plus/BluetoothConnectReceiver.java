@@ -2,6 +2,7 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
 import android.annotation.TargetApi;
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -35,13 +36,18 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
         String intentAction = intent.getAction();
 
         if (SpeakService.isTalking() && intentAction.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
-            SpeakService.stopTalking();
+            BluetoothDevice dev = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            if (dev != null && dev.getBluetoothClass().hasService(BluetoothClass.Service.AUDIO)) {
+                SpeakService.stopTalking();
+            }
         }
-        else if (intentAction.equals(BluetoothDevice.ACTION_ACL_CONNECTED) &&
-                !SpeakService.isTalking() &&
-                SpeakService.getPrefs().getBoolean("plugStart", false)) {
-            retryCount = 0;
-            mHandler.postDelayed(myTimerTask, 500);
+        else if (intentAction.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
+            BluetoothDevice dev = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            if (dev != null && !SpeakService.isTalking() && SpeakService.getPrefs().getBoolean("plugStart", false) &&
+                    dev.getBluetoothClass().hasService(BluetoothClass.Service.AUDIO)) {
+                retryCount = 0;
+                mHandler.postDelayed(myTimerTask, 500);
+            }
         }
     }
 

@@ -115,7 +115,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                         SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
                     }
                     VoiceSelector.resetSelector();
-                    Intent intent = new Intent(currentSpeakActivity, VoiceSelector.class);
+                    Intent intent = new Intent(SpeakActivity.this, VoiceSelector.class);
                     String lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
                     intent.putExtra(VoiceSelector.INIT_LANG, lang);
                     intent.putExtra(VoiceSelector.CONFIG_DIR, SpeakService.getConfigPath());
