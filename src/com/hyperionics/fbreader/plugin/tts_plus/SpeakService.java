@@ -988,7 +988,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
 
     private Runnable myTimerTask = new Runnable() {
         public void run() {
-            switchOff();
             SpeakActivity sa = SpeakActivity.getCurrent();
             if (sa != null) {
                 sa.restoreBottomMargin();
@@ -996,6 +995,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 sa.doDestroy();
                 sa.finish();
             }
+            switchOff();
         }
     };
 
