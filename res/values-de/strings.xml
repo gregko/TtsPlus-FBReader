@@ -3,105 +3,104 @@
 <!--suppress AndroidLintTypographyDashes -->
 <resources>
   <string name="title">FBReader TTS+ Plugin</string>
-  <string name="about">About TTS+</string>
-  <string name="version">FBReader TTS+ Plugin ver.</string>
-  <string name="copyright">Copyright © 2012-14\nHyperionics Technology LLC</string>
+  <string name="about">Über TTS+</string>
+  <string name="version">FBReader TTS+ Plugin Version</string>
+  <string name="copyright">Copyright © 2012-15\nHyperionics Technology LLC</string>
   <string name="url">http://www.hyperionics.com/TtsPlus</string>
-  <string name="back"> Return </string>
-  <string name="failure">Initialization failed, sorry</string>
+  <string name="back"> Zurück </string>
+  <string name="failure">Initialisierung fehlgeschlagen.</string>
   <string name="speak_menu_item">Speak+</string>
-  <string name="no_tts_installed">Could not connect TTS engine on your device.</string>
-  <string name="no_voices">Error: could not get a list of installed Text-to-Speech voices.</string>
-  <string name="initialization_error">Could not get book data from FBReader.</string>
-  <string name="api_error_2">Api error.</string>
-  <string name="language_is_not_set">Book language is not set. Trying to read book in %0.</string>
-  <string name="no_data_for_language" formatted="false">Need text-to-speech data for %0 to read this book.\n\nDo you want to install it now?</string>
-  <string name="yes">Yes</string>
-  <string name="no">No</string>
-  <string name="speed">Rate:</string>
-  <string name="pitch">Pitch:</string>
-  <string name="volume">Volume:</string>
-  <string name="set_language">Change Voice\nor Language</string>
-  <string name="choose_language">Choose Language</string>
-  <string name="book_language">Book Language</string>
-  <string name="unknown">unknown</string>
-  <string name="add_language">Add a new language...</string>
-  <string name="tts_settings">TTS Settings</string>
-  <string name="edit_speech">Edit speech</string>
-  <string name="reset_tts">Reset TTS</string>
-  <string name="snt_concurrent">Process sentences concurrently</string>
-  <string name="snt_concurrent_info">Try to disable if speech stutters or skips words.</string>
-  <string name="hi_sentences">Highlight spoken text</string>
-  <string name="screen_on">Keep screen on when reading</string>
-  <string name="show_lock_widget">Show the lock screen widget</string>
-  <string name="avar_speech">Use @Voice Aloud Reader speech replacements</string>
-  <string name="play_music">Let music play in the background</string>
-  <string name="music_info">Start music first with any Music app, then start speech here. Control speech volume with the slider in TTS+ Plugin, and the music volume with the device\'s volume buttons.\nNOTE: THE SEPARATE VOLUME CONTROL FOR MUSIC AND SPEECH MAY NOT WORK ON ALL DEVICES!</string>
-  <string name="screen_dimmed">Dimmed</string>
-  <string name="screen_bright">Bright</string>
-  <string name="rate">Rate TTS+!</string>
-  <string name="paragraph_delay">Pause at paragraph end (ms):</string>
-  <string name="snt_delay">Pause at sentence end (ms):</string>
-  <string name="more_settings">More...</string>
-  <string name="headset_plug_start">Start talking when headset connected</string>
-  <string name="sleep_after">Sleep after</string>
-  <string name="headset_start_fbr">Start FBReader with headset \"Play\" key</string>
-  <string name="net_synth">Use network speech synthesis if possible</string>
-  <string name="net_synth_wifi">only on WiFi</string>
-  <string name="word_opts">Show read by word options</string>
-  <string name="single_words">Read words...</string>
-  <string name="pause_words">with pauses.</string>
-  <string name="tts_check_err">Error: Cannot get available languages from TTS engine</string>
+  <string name="no_tts_installed">Keine Verbindung zum Sprachausgabemodul auf Ihrem Gerät.</string>
+  <string name="no_voices">Fehler: Die Liste mit den Stimmen des Sprachausgabemoduls konnte nicht geladen werden.</string>
+  <string name="initialization_error">Bücher-Daten in FBReader konnten nicht gelesen werden.</string>
+  <string name="api_error_2">API-Fehler.</string>
+  <string name="language_is_not_set">Zum Buch ist keine Sprache ausgewählt. Versuche, in %0 zu lesen.</string>
+  <string name="no_data_for_language" formatted="false">Für dieses Buch werden Sprachdaten in %0 benötigt.\n\nWollen Sie diese jetzt installieren?</string>
+  <string name="yes">Ja</string>
+  <string name="no">Nein</string>
+  <string name="speed">Sprechgeschwindigkeit:</string>
+  <string name="pitch">Stimmlage:</string>
+  <string name="volume">Lautstärke:</string>
+  <string name="set_language">Stimme oder\nSprache ändern</string>
+  <string name="choose_language">Sprache auswählen</string>
+  <string name="book_language">Sprache des Buches</string>
+  <string name="unknown">unbekannt</string>
+  <string name="add_language">Neue Sprache hinzufügen ...</string>
+  <string name="tts_settings">Einstellungen Sprachmodul</string>
+  <string name="edit_speech">Sprache editieren</string>
+  <string name="reset_tts">Sprachmodul zurücksetzen</string>
+  <string name="snt_concurrent">Verarbeitung der Sätze im Hintergrund</string>
+  <string name="snt_concurrent_info">Wenn Sprachausgabe stockt, bitte deaktivieren.</string>
+  <string name="hi_sentences">Gesprochenen Absatz hervorheben</string>
+  <string name="screen_on">Bildschirmsperre während Sprachausgabe deaktivieren</string>
+  <string name="show_lock_widget">Lockscreen-Widget anzeigen</string>
+  <string name="avar_speech">Aussprache-Modifikationen von @Voice Aloud Reader verwenden</string>
+  <string name="play_music">Musik im Hintergrund abspielen</string>
+  <string name="music_info">Starten Sie zuerst die Musikwidergabe mit der App Ihrer Wahl, anschließend starten Sie hier die Sprachausgabe. Die Lautstärke der Sprachausgabe wird mit dem Regler des TTS+ Plugins gesteuert, die Musik-Lautstärke mit den Tasten am Gerät.\nBITTE BEACHTEN SIE: DIE SEPARATE LAUTSTÄRKEREGELUNG FUNKTIONIERT NICHT AUF ALLEN GERÄTEN!</string>
+  <string name="screen_dimmed">Abgedunkelt</string>
+  <string name="screen_bright">Volle Helligkeit</string>
+  <string name="rate">TTS+ bewerten!</string>
+  <string name="paragraph_delay">Pause zwischen Absätzen (ms):</string>
+  <string name="snt_delay">Pause zwischen Sätzen (ms):</string>
+  <string name="more_settings">Mehr...</string>
+  <string name="headset_plug_start">Vorlesen starten, wenn Kopfhörer angeschlossen wird</string>
+  <string name="sleep_after">Ruhezustand nach</string>
+  <string name="headset_start_fbr">Starttaste am Kopfhörer startet FBReader</string>
+  <string name="net_synth">Wenn möglich, Netzwerk-Sprachsynthese verwenden</string>
+  <string name="net_synth_wifi">nur über WLAN</string>
+  <string name="word_opts">Einstellungen für Wort-für-Wort-Ausgabe anzeigen</string>
+  <string name="single_words">Wort für Wort lesen ...</string>
+  <string name="pause_words">mit Pausen.</string>
+  <string name="tts_check_err">Fehler: Sprachen im Sprachmodul nicht verfügbar</string>
   <string-array name="sleep_array">
-    <item>Never</item>
-    <item>1 minute</item>
-    <item>2 minutes</item>
-    <item>3 minutes</item>
-    <item>5 minutes</item>
-    <item>10 minutes</item>
-    <item>15 minutes</item>
-    <item>20 minutes</item>
-    <item>25 minutes</item>
-    <item>30 minutes</item>
-    <item>45 minutes</item>
-    <item>1 hour</item>
-    <item>2 hours</item>
-    <item>3 hours</item>
-    <item>4 hours</item>
-    <item>5 hours</item>
+    <item>Nie</item>
+    <item>1 Minute</item>
+    <item>2 Minuten</item>
+    <item>3 Minuten</item>
+    <item>5 Minuten</item>
+    <item>10 Minuten</item>
+    <item>15 Minuten</item>
+    <item>20 Minuten</item>
+    <item>25 Minuten</item>
+    <item>30 Minuten</item>
+    <item>45 Minuten</item>
+    <item>1 Stunde</item>
+    <item>2 Stunden</item>
+    <item>3 Stunden</item>
+    <item>4 Stunden</item>
+    <item>5 Stunden</item>
   </string-array>
-  <string name="crash_toast_text">Sorry! TtsPlus Plugin has crashed!</string>
-  <string name="crash_notif_ticker_text">Unexpected error, please send a report...</string>
-  <string name="crash_notif_title">TtsPlus Plugin has crashed...</string>
-  <string name="crash_notif_text">Please click here to help fix the issue.</string>
-  <string name="crash_dialog_title">TtsPlus Plugin has crashed</string>
-  <string name="crash_dialog_text">An unexpected error occurred forcing the
-        application to stop. Please help us fix this by sending us error data,
-        all you have to do is click \'OK\'.</string>
-  <string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
-  <string name="crash_dialog_ok_toast">Thank you!</string>
-  <string name="tryAllso">Try also our new free app:</string>
+  <string name="crash_toast_text">Entschuldigung! TTS+ Plugin ist abgestürzt!</string>
+  <string name="crash_notif_ticker_text">Unerwarteter Fehler, bitte senden Sie einen Bericht ...</string>
+  <string name="crash_notif_title">TTs+ Plugin ist abgestürzt ...</string>
+  <string name="crash_notif_text">Bitte klicken Sie hier, um uns bei der Problembehebung behilflich zu sein.</string>
+  <string name="crash_dialog_title">TTS+ Plugin ist abgestürzt</string>
+  <string name="crash_dialog_text">Das Programm wurde wegen eines unerwarteten Fehlers beendet.
+        Bitte helfen Sie, diesen Fehler zu beheben, indem Sie uns die Fehlerdaten senden.
+        Sie brauchen nur hier \'OK\' zu klicken.</string>
+  <string name="crash_dialog_comment_prompt">Platz für Kommentare (Vorgeschichte, Besondere Umstände):</string>
+  <string name="crash_dialog_ok_toast">Vielen Dank!</string>
+  <string name="tryAllso">Kennen Sie schon unsere neue freie App?</string>
   <string name="atVoice"> \@Voice Aloud Reader </string>
-  <string name="atv_free">Free! \@Voice Aloud Reader - reads to\nyou the web, news, emails and more.</string>
-  <string name="sync_ok">Dropbox sync succeeded</string>
-  <string name="previous_btn">Previous</string>
-  <string name="next_btn">Next</string>
-  <string name="play_btn">Play</string>
+  <string name="atv_free">\@Voice Aloud Reader - die freie Vorlese-App\nWeb-Inhalte, News, E-Mails und mehr.</string>
+  <string name="sync_ok">Dropbox-Sync erfolgreich</string>
+  <string name="previous_btn">Vorheriger Titel</string>
+  <string name="next_btn">Nächster Titel</string>
+  <string name="play_btn">Wiedergabe</string>
   <string name="pause_btn">Pause</string>
   <string name="stop_btn">Stop</string>
-  <string name="setup_btn">Show-Hide Setup</string>
-  <string name="choose_tts">Select TTS Engine</string>
-  <string name="sys_def_tts">Default system TTS Engine</string>
-  <string name="reader_info">This Plugin requires FBReader app installed to use it. Install FBReader from
-        the app store, open an ebook in it, then press Menu and scroll it up, find and press
-        \"Speak (+)\" item to start listening to your book.
+  <string name="setup_btn">Setup anzeigen / verbergen</string>
+  <string name="choose_tts">Sprachausgabemodul wählen</string>
+  <string name="sys_def_tts">Default-Sprachausgabesystem</string>
+  <string name="reader_info">Für dieses Plugin muss FBReader installiert sein. Installieren Sie FBReader vom
+        PlayStore, öffnen Sie in FBReader ein E-Book, drücken Sie Menu, wählen Sie den Eintrag
+        \"Speak (+)\" aus und lassen Sie sich das Buch vorlesen.
     </string>
-  <string name="install_fbr">Install FBReader</string>
-  <string name="start_fbr">Start FBReader</string>
-  <string name="lauch_ico">TTS+ Plugin launcher icon options:</string>
-  <string name="show_icon">When pressed, show this screen</string>
-  <string name="start_speech">When pressed, start reading aloud</string>
-  <string name="remove_icon">Hide TTS+ Plugin icon in launcher</string>
-  <string name="remove_info">Plugin icon will be removed when you restart your device, or sooner on some devices.\n
-    If you need to restore it later, click the \"About TTS+\" button on the Plugin screen.</string>
+  <string name="install_fbr">FBReader installieren</string>
+  <string name="start_fbr">FBReader starten</string>
+  <string name="lauch_ico">Optionen für das Start-Icon vonTTS+ Plugin:</string>
+  <string name="show_icon">Drücken um diesen Bildschirm anzuzeigen</string>
+  <string name="start_speech">Drücken um das Vorlesen zu starten</string>
+  <string name="remove_icon">Start-Icon des TTS+ Plugin verbergen</string>
+  <string name="remove_info">Das Start-Icon von TTS+ Plugin wird nach dem nächsten Neustart Ihres Geräts - bei manchen Geräten auch gleich - entfernt. Sie können es in der Plugin-Anzeige mit dem \"Über TTS+\"-Button wieder einschalten.</string>
 </resources>

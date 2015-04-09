@@ -201,7 +201,7 @@ public class TtsSentenceExtractor {
             inStr = inStr.replace("i.e.", "I E ");
             inStr = inStr.replace("\"Rev.", "\"Rev ");
             inStr = inStr.replace("\"Gen.", "\"General ");
-            inStr = inStr.replace("St.", "S T "); // we don't know if it's "Saint" or "Street"...
+            //inStr = inStr.replace("St.", "S T "); // we don't know if it's "Saint" or "Street"...
             inStr = inStr.replace("\"Rep.", "\"Representative ");
             inStr = inStr.replace("Ph.D.", "Ph.D ");
             inStr = inStr.replace("Sr.", "Senior ");

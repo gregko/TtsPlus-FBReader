@@ -37,14 +37,18 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
 
         if (SpeakService.isTalking() && intentAction.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
             BluetoothDevice dev = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            if (dev != null && dev.getBluetoothClass().hasService(BluetoothClass.Service.AUDIO)) {
+            if (dev != null && dev.getBluetoothClass() != null &&
+                    dev.getBluetoothClass().hasService(BluetoothClass.Service.AUDIO))
+            {
                 SpeakService.stopTalking();
             }
         }
         else if (intentAction.equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
             BluetoothDevice dev = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            if (dev != null && !SpeakService.isTalking() && SpeakService.getPrefs().getBoolean("plugStart", false) &&
-                    dev.getBluetoothClass().hasService(BluetoothClass.Service.AUDIO)) {
+            if (dev != null && dev.getBluetoothClass() != null && !SpeakService.isTalking() &&
+                    SpeakService.getPrefs().getBoolean("plugStart", false) &&
+                    dev.getBluetoothClass().hasService(BluetoothClass.Service.AUDIO))
+            {
                 retryCount = 0;
                 mHandler.postDelayed(myTimerTask, 500);
             }
