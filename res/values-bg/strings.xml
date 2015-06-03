@@ -20,7 +20,7 @@
   <string name="no">Не</string>
   <string name="speed">Скорост:</string>
   <string name="pitch">Височина:</string>
-  <string name="volume">Звук:</string>
+  <string name="volume">Сила:</string>
   <string name="set_language">Промени\nгласа/езика</string>
   <string name="choose_language">Избери език</string>
   <string name="book_language">Език на книгата</string>

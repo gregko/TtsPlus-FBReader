@@ -446,7 +446,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         int ret;
         // Stupid Google voice stops on empty or silent sentences, therefore
         // replaceForSpeechNative() will return empty string if there is only punctation and spaces.
-        text = CldWrapper.replaceForSpeechNative(text);
+        text = CldWrapper.replaceForSpeechNative(text, 0);
 
         myParamMap.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utId);
         if (text.length() > 0) {
