@@ -8,5 +8,5 @@ public interface ApiListener {
 	String EVENT_READ_MODE_OPENED = "startReading";
 	String EVENT_READ_MODE_CLOSED = "stopReading";
 
-	void onEvent(String eventType);
+	void onEvent(int event);
 }

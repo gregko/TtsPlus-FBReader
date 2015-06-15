@@ -179,7 +179,7 @@ public class TtsApp extends Application
         Lt.init(this, "FBReaderTTS");
         nativeOk = AndyUtil.setApp(this);
         Lt.d("TtsApp created, nativeOK = " + nativeOk);
-        startService(new Intent(this, SpeakService.class));
+        //startService(new Intent(this, SpeakService.class));
         try {
             versionName = myPackageManager.getPackageInfo(myPackageName, 0).versionName;
             versionCode = myPackageManager.getPackageInfo(myPackageName, 0).versionCode;

@@ -4,17 +4,20 @@
 
 package org.geometerplus.android.fbreader.api;
 
-import java.util.*;
-
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
-import android.os.*;
-import com.hyperionics.fbreader.plugin.tts_plus.SpeakService;
-import com.hyperionics.TtsSetup.Lt;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class PluginApi {
-	public static final String ACTION_REGISTER = "android.fbreader.action.plugin.REGISTER";
-	public static final String ACTION_RUN = "android.fbreader.action.plugin.RUN";
+	public static final String ACTION_REGISTER_POSTFIX = ".action.plugin.REGISTER";
+	public static final String ACTION_RUN_POSTFIX = ".action.plugin.RUN";
 
 	public static abstract class PluginInfo extends BroadcastReceiver {
 		public static final String KEY = "actions";
@@ -30,8 +33,6 @@ public abstract class PluginApi {
 				actions.addAll(newActions);
 				bundle.putParcelableArrayList(KEY, actions);
 			}
-            Lt.d("PluginInfo onReceive()");
-            SpeakService.reconnect();
         }
 
 		protected abstract List<ActionInfo> implementedActions(Context context);

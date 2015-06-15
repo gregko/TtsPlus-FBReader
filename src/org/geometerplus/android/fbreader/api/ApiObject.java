@@ -152,6 +152,10 @@ public abstract class ApiObject implements Parcelable {
 		return new Integer(value);
 	}
 
+	static ApiObject envelope(long value) {
+		return new Long(value);
+	}
+
 	static ApiObject envelope(boolean value) {
 		return new Boolean(value);
 	}
@@ -164,10 +168,18 @@ public abstract class ApiObject implements Parcelable {
 		return new Date(value);
 	}
 
-	static List<ApiObject> envelope(List<java.lang.String> values) {
+	static List<ApiObject> envelopeStringList(List<java.lang.String> values) {
 		final ArrayList<ApiObject> objects = new ArrayList<ApiObject>(values.size());
 		for (java.lang.String v : values) {
 			objects.add(new String(v));
+		}
+		return objects;
+	}
+
+	static List<ApiObject> envelopeIntegerList(List<java.lang.Integer> values) {
+		final ArrayList<ApiObject> objects = new ArrayList<ApiObject>(values.size());
+		for (java.lang.Integer v : values) {
+			objects.add(new Integer(v));
 		}
 		return objects;
 	}

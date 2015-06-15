@@ -13,8 +13,6 @@ import android.view.Window;
 import android.widget.*;
 import com.hyperionics.TtsSetup.*;
 
-import java.util.Locale;
-
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
  *
@@ -260,10 +258,10 @@ public class SettingsActivity extends Activity {
 
         setListener(R.id.edit_speech_btn, new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, EditSpeech.class);
+                Intent intent = new Intent(SettingsActivity.this, EditSpeechActivity.class);
                 String eng = LangSupport.getSelectedTtsEng(); // mySelectedEngine.name();
                 if (eng != null)
-                    intent.putExtra(VoiceSelector.SELECTED_ENGINE, eng);
+                    intent.putExtra(VoiceSelectorActivity.SELECTED_ENGINE, eng);
                 String voi = LangSupport.getPrefferedVoice(SpeakService.getCurrentLangISO3());
                 if (voi != null)
                     voi = voi.substring(0, voi.lastIndexOf('|'));
@@ -274,8 +272,8 @@ public class SettingsActivity extends Activity {
 //                    voi = voi.substring(0, voi.lastIndexOf('|'));
 //                else
 //                    voi = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
-                intent.putExtra(VoiceSelector.SELECTED_VOICE, voi);
-                intent.putExtra(VoiceSelector.CONFIG_DIR, SpeakService.getConfigPath());
+                intent.putExtra(VoiceSelectorActivity.SELECTED_VOICE, voi);
+                intent.putExtra(VoiceSelectorActivity.CONFIG_DIR, SpeakService.getConfigPath());
                 startActivity(intent);
             }
         });

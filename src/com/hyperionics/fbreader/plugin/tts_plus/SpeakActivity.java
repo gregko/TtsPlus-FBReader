@@ -1,11 +1,5 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,9 +15,18 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.view.*;
-import android.widget.*;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.Toast;
 import com.hyperionics.TtsSetup.*;
 import org.geometerplus.android.fbreader.api.ApiException;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
@@ -66,6 +69,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentSpeakActivity = this;
         if (!SpeakService.doStartup()) {
             currentSpeakActivity = null;
             return;
@@ -75,7 +79,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         savedBottomMargin = -1;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.control_panel);
-        currentSpeakActivity = this;
         hidePromo = SpeakService.getPrefs().getInt("hidePromo", 0);
         if (hidePromo < promoMaxPress) {
             PackageManager pm = getPackageManager();
@@ -85,6 +88,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 SpeakService.getPrefs().edit().putInt("hidePromo", hidePromo).commit();
             } catch (PackageManager.NameNotFoundException e) {}
         }
+        SpeakService.getCurrentService().connectToApi(null);
 
         myMaxVolume = SpeakService.mAudioManager.getStreamMaxVolume(SpeakService.audioStream);
 
@@ -114,11 +118,11 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                         SpeakService.myTTS = null;
                         SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
                     }
-                    VoiceSelector.resetSelector();
-                    Intent intent = new Intent(SpeakActivity.this, VoiceSelector.class);
+                    VoiceSelectorActivity.resetSelector();
+                    Intent intent = new Intent(SpeakActivity.this, VoiceSelectorActivity.class);
                     String lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
-                    intent.putExtra(VoiceSelector.INIT_LANG, lang);
-                    intent.putExtra(VoiceSelector.CONFIG_DIR, SpeakService.getConfigPath());
+                    intent.putExtra(VoiceSelectorActivity.INIT_LANG, lang);
+                    intent.putExtra(VoiceSelectorActivity.CONFIG_DIR, SpeakService.getConfigPath());
                     startActivityForResult(intent, LANG_SEL_REQUEST);
                 } else {
                     selectLanguage(true);
@@ -552,7 +556,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         }
         else if (requestCode == LANG_SEL_REQUEST) {
             // On successful return the engine is already set as default in LangSupport
-            String lang = data == null ? null : data.getStringExtra(VoiceSelector.SELECTED_VOICE);
+            String lang = data == null ? null : data.getStringExtra(VoiceSelectorActivity.SELECTED_VOICE);
             if (lang != null) {
                 SpeakService.selectedLanguage = lang;
                 SpeakService.savePosition();

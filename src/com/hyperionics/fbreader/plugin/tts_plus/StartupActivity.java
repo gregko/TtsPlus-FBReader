@@ -24,8 +24,11 @@ import com.hyperionics.TtsSetup.Lt;
 // This is a dummy activity, it never actually starts. It's invoked only from FBReader menu,
 // posts intent to start our main SpeakActivity.
 public class StartupActivity extends Activity {
+    static Intent originalIntent = null;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        originalIntent = getIntent();
         if (SpeakActivity.getCurrent() == null) {
             if (SpeakService.myApi != null) {
                 try {
@@ -37,7 +40,7 @@ public class StartupActivity extends Activity {
                 SpeakService.myApi = null;
             }
             // this is asynchronous
-            SpeakActivity.wantStarted = true;
+            SpeakActivity.wantStarted = false;
             startService(new Intent(TtsApp.getContext(), SpeakService.class));
         }
         finish();

@@ -10,21 +10,42 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import com.hyperionics.TtsSetup.Lt;
+import org.geometerplus.android.fbreader.api.ApiClientImplementation;
+import org.geometerplus.android.fbreader.api.PluginApi;
 
 /**
  * Created by greg on 1/8/14.
  */
 public class InfoActivity extends Activity {
-    static final String FBR_PACKAGE = "org.geometerplus.zlibrary.ui.android";
+
+    private static final String FBR_PACKAGE = "org.geometerplus.zlibrary.ui.android";
+    private static final String FBR_PACKAGE_PREMIUM = "com.fbreader";
     private PackageManager myPm;
     private boolean fbrInstalled = false;
     ComponentName myCn;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StartupActivity.originalIntent = getIntent();
+        if (SpeakActivity.getCurrent() == null) {
+            if (SpeakService.myApi != null) {
+                try {
+                    SpeakService.myApi.disconnect();
+                } catch (Exception e) {
+                    Lt.df("StartupActivity exception: " + e);
+                    e.printStackTrace();
+                }
+                SpeakService.myApi = null;
+            }
+            // this is asynchronous
+            SpeakActivity.wantStarted = false;
+            startService(new Intent(TtsApp.getContext(), SpeakService.class));
+        }
         myPm = getPackageManager();
         myCn = getComponentName();
-        fbrInstalled = myPm.getLaunchIntentForPackage(FBR_PACKAGE) != null;
+        fbrInstalled = myPm.getLaunchIntentForPackage(FBR_PACKAGE_PREMIUM) != null;
+        if (!fbrInstalled)
+            fbrInstalled = myPm.getLaunchIntentForPackage(FBR_PACKAGE) != null;
         boolean autoStartSpeech = getSharedPreferences("atVoice", MODE_PRIVATE).getBoolean("speakFromIcon", false);
         boolean showAbout = getIntent().getBooleanExtra("showAbout", false);
 
@@ -101,7 +122,12 @@ public class InfoActivity extends Activity {
     }
 
     public void fbReaderClick(View viewNotUsed) {
-        Intent launchIntent = myPm.getLaunchIntentForPackage(FBR_PACKAGE);
+        boolean launchPremium = true;
+        Intent launchIntent = myPm.getLaunchIntentForPackage(FBR_PACKAGE_PREMIUM);
+        if (launchIntent == null) {
+            launchIntent = myPm.getLaunchIntentForPackage(FBR_PACKAGE);
+            launchPremium = false;
+        }
         if (launchIntent == null) {
             try {
                 if (InstallInfo.installedFromAma()) {
@@ -125,6 +151,9 @@ public class InfoActivity extends Activity {
 //            startActivity(launchIntent);
 
             // Old method:
+            StartupActivity.originalIntent.setAction((launchPremium ?
+                    ApiClientImplementation.FBREADER_PREMIUM_PREFIX : ApiClientImplementation.FBREADER_PREFIX) +
+                    PluginApi.ACTION_RUN_POSTFIX);
             startActivity(launchIntent);
             if (SpeakService.getCurrentService() == null)
                 TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));

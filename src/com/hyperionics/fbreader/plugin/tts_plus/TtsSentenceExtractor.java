@@ -2,7 +2,6 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 
 import android.speech.tts.TextToSpeech;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -69,7 +68,7 @@ public class TtsSentenceExtractor {
         return si;
     }
 
-    public static SentenceIndex[] build(List<String> wl, ArrayList<Integer> il, TextToSpeech currentTTS, boolean wordsOnly) {
+    public static SentenceIndex[] build(List<String> wl, List<Integer> il, TextToSpeech currentTTS, boolean wordsOnly) {
         Locale loc = currentTTS.getLanguage();
         if (loc == null)
             loc = Locale.getDefault();

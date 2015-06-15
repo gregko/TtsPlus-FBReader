@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.hyperionics.fbreader.plugin.tts_plus"
-          android:versionCode="3051100"
-          android:versionName="3.5.11">
+          android:versionCode="3060300"
+          android:versionName="3.6.3">
     <uses-sdk android:minSdkVersion="8"
               android:targetSdkVersion="17" />
     <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
@@ -33,6 +33,11 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.INFO" />
 			</intent-filter>
+            <intent-filter>
+                <action android:name="com.fbreader.action.plugin.REGISTER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.INFO" />
+            </intent-filter>
 		</receiver>
 		<activity android:name="com.hyperionics.fbreader.plugin.tts_plus.SpeakActivity"
                   android:theme="@android:style/Theme.Dialog"
@@ -58,6 +63,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:host="hyperionics.com" android:scheme="http" android:path="/plugin/tts_plus/speak" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="com.fbreader.action.plugin.RUN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:host="hyperionics.com" android:scheme="http" android:path="/plugin/tts_plus/speak" />
+            </intent-filter>
         </activity>
         <service android:name=".SpeakService">
         </service>
@@ -80,19 +90,18 @@
         </receiver>
 
         <!-- activities from TtsSetup library project - somehow manifestmerger.enabled=true still does not work -->
-        <activity android:name="com.hyperionics.TtsSetup.VoiceSelector"
+        <activity android:name="com.hyperionics.TtsSetup.VoiceSelectorActivity"
                   android:theme="@android:style/Theme.Black"
                   android:configChanges="keyboardHidden|orientation|screenSize"
                 />
-        <activity android:name="com.hyperionics.TtsSetup.AddVoice"
+        <activity android:name="com.hyperionics.TtsSetup.AddVoiceActivity"
                   android:theme="@android:style/Theme.Black"
                 />
-        <activity android:name="com.hyperionics.TtsSetup.EditSpeech"
+        <activity android:name="com.hyperionics.TtsSetup.EditSpeechActivity"
                   android:theme="@style/Theme.AppCompat"
                 />
-        <activity android:name="com.hyperionics.TtsSetup.SimpleBrowser"/>
+        <activity android:name="com.hyperionics.TtsSetup.SimpleBrowserActivity"/>
         <activity android:name="com.hyperionics.TtsSetup.GenericFileDialog"
-                  android:theme="@android:style/Theme.Holo"
                 />
     </application>
 </manifest>

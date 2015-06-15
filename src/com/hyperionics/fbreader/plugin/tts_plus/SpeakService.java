@@ -14,6 +14,7 @@ import android.widget.SeekBar;
 import com.hyperionics.TtsSetup.*;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
+import org.geometerplus.android.fbreader.api.PluginApi;
 import org.geometerplus.android.fbreader.api.TextPosition;
 //import org.acra.ErrorReporter;
 
@@ -210,7 +211,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     public static String getCurrentLangISO3() {
         if (myTTS != null && myTTS.getLanguage() != null)
             return myTTS.getLanguage().getISO3Language();
-        else if (VoiceSelector.useSystemVoiceOnly())
+        else if (VoiceSelectorActivity.useSystemVoiceOnly())
             return new Locale(SpeakService.getCurrentBookLanguage()).getISO3Language();
         else
             return Locale.getDefault().getISO3Language();
@@ -263,11 +264,11 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                         SpeakService.myTTS = null;
                         SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
                     }
-                    VoiceSelector.resetSelector();
-                    Intent intent = new Intent(sa, VoiceSelector.class);
+                    VoiceSelectorActivity.resetSelector();
+                    Intent intent = new Intent(sa, VoiceSelectorActivity.class);
                     String lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
-                    intent.putExtra(VoiceSelector.INIT_LANG, lang);
-                    intent.putExtra(VoiceSelector.CONFIG_DIR, SpeakService.getConfigPath());
+                    intent.putExtra(VoiceSelectorActivity.INIT_LANG, lang);
+                    intent.putExtra(VoiceSelectorActivity.CONFIG_DIR, SpeakService.getConfigPath());
                     sa.startActivityForResult(intent, SpeakActivity.LANG_SEL_REQUEST);
                     return false;
                 } else {
@@ -794,13 +795,13 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             // The code below uses new APIs
             try {
                 List<String> wl = null;
-                ArrayList<Integer> il = null;
+                List<Integer> il = null;
                 myCurrentSentence = 0;
                 for (; myParagraphIndex < myParagraphsNumber; ++myParagraphIndex) {
                     // final String s = myApi.getParagraphText(myParagraphIndex);
                     wl = myApi.getParagraphWords(myParagraphIndex);
                     if (wl != null && wl.size() > 0) {
-                        il = myApi.getParagraphIndices(myParagraphIndex);
+                        il = myApi.getParagraphWordIndices(myParagraphIndex);
                         break;
                     }
                 }
@@ -905,6 +906,25 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             currentService = null;
         }
     }
+
+    void connectToApi(String prefix) {
+        if (myApi != null)
+            return;
+        myInitializationStatus &= ~API_INITIALIZED;
+        if (prefix == null)
+            prefix = ApiClientImplementation.FBREADER_PREFIX;
+        if (StartupActivity.originalIntent != null) {
+            String action = null;
+            if (StartupActivity.originalIntent != null)
+                action = StartupActivity.originalIntent.getAction();
+            if (action != null && action.endsWith(PluginApi.ACTION_RUN_POSTFIX)) {
+                prefix = action.substring(0, action.length() - PluginApi.ACTION_RUN_POSTFIX.length());
+            }
+        }
+        Lt.d("SpeakService connectToApi() prefix = " + prefix);
+        myApi = new ApiClientImplementation(this, this, prefix);
+        myApi.connect();
+    }
     
     static boolean doStartup() {
         if (currentService == null)
@@ -924,10 +944,8 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             myParamMap.put(TextToSpeech.Engine.KEY_PARAM_STREAM,
                     String.valueOf(audioStream));
         }
-        if (myApi == null) {
-            myInitializationStatus &= ~API_INITIALIZED;
-            myApi = new ApiClientImplementation(currentService, currentService);
-            myApi.connect();
+        if (myApi == null && currentService != null) {
+            currentService.connectToApi(null);
         }
 
         if (myTTS != null) {
