@@ -212,7 +212,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myTTS != null && myTTS.getLanguage() != null)
             return myTTS.getLanguage().getISO3Language();
         else if (VoiceSelectorActivity.useSystemVoiceOnly())
-            return new Locale(SpeakService.getCurrentBookLanguage()).getISO3Language();
+            return LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
         else
             return Locale.getDefault().getISO3Language();
     }
