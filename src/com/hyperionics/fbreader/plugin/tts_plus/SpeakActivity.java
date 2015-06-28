@@ -54,7 +54,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     static final int LANG_SEL_REQUEST = 101;
     static final int AVAR_DEF_PATH_REQUEST = 102;
     static final int GET_TTS_VOICES = 107;
-    static boolean wantStarted = false;
+    static boolean wantFBReaderStarted = false;
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
     static String avarDefaultPath = null;
 
@@ -88,7 +88,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 SpeakService.getPrefs().edit().putInt("hidePromo", hidePromo).commit();
             } catch (PackageManager.NameNotFoundException e) {}
         }
-        SpeakService.getCurrentService().connectToApi(null);
+        //SpeakService.getCurrentService().connectToApi(null);
 
         myMaxVolume = SpeakService.mAudioManager.getStreamMaxVolume(SpeakService.audioStream);
 
@@ -123,6 +123,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     String lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
                     intent.putExtra(VoiceSelectorActivity.INIT_LANG, lang);
                     intent.putExtra(VoiceSelectorActivity.CONFIG_DIR, SpeakService.getConfigPath());
+                    intent.putExtra("isDarkTheme", true);
                     startActivityForResult(intent, LANG_SEL_REQUEST);
                 } else {
                     selectLanguage(true);
@@ -707,7 +708,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         final CharSequence text = currentSpeakActivity.getText(textId);
         currentSpeakActivity.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(currentSpeakActivity, text, Toast.LENGTH_SHORT).show();
+                Toast.makeText(currentSpeakActivity, text, Toast.LENGTH_LONG).show();
             }
         });
     }

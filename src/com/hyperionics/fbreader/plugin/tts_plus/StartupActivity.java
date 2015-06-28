@@ -40,7 +40,7 @@ public class StartupActivity extends Activity {
                 SpeakService.myApi = null;
             }
             // this is asynchronous
-            SpeakActivity.wantStarted = false;
+            SpeakActivity.wantFBReaderStarted = false;
             startService(new Intent(TtsApp.getContext(), SpeakService.class));
         }
         finish();

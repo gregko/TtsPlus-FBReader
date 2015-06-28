@@ -3,9 +3,9 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import com.hyperionics.TtsSetup.Lt;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
-import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.TextPosition;
 
 import java.util.Timer;
@@ -33,7 +33,7 @@ public class IncomingReceiver extends BroadcastReceiver {
                     Lt.d("- FBReader connected");
                 }
             }
-            if (SpeakActivity.wantStarted) {
+            if (SpeakActivity.wantFBReaderStarted) {
                 Lt.d("Trying to launch FBReader...");
                 Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage("com.fbreader");
                 if (launchIntent == null)
@@ -66,11 +66,16 @@ public class IncomingReceiver extends BroadcastReceiver {
                             startSpeakActivityDelayed(count + 1);
                             return;
                         }
-                    } catch (ApiException e) {
+                    } catch (Exception e) {
                         Lt.d("startSpeakActivityDelayed(): ApiException " + e);
-                        SpeakService.myApi.disconnect();
+                        if (SpeakService.myApi != null) try {
+                            SpeakService.myApi.disconnect();
+                        } catch (Exception eIgnore) {}
                         SpeakService.myApi = null;
-                        SpeakService.getCurrentService().connectToApi(ApiClientImplementation.FBREADER_PREMIUM_PREFIX);
+                        PackageManager pm = TtsApp.getContext().getPackageManager();
+                        boolean hasPremium = pm.getLaunchIntentForPackage(InfoActivity.FBR_PACKAGE_PREMIUM) != null;
+                        SpeakService.getCurrentService().connectToApi(hasPremium ?
+                                ApiClientImplementation.FBREADER_PREMIUM_PREFIX : ApiClientImplementation.FBREADER_PREFIX);
                         startSpeakActivityDelayed(count + 1);
                         return;
                     }
@@ -78,13 +83,13 @@ public class IncomingReceiver extends BroadcastReceiver {
                     Lt.d("startSpeakActivityDelayed(): myApi is null");
                     if (SpeakService.getCurrentService() == null)
                         TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
-                    SpeakActivity.wantStarted = false;
+                    SpeakActivity.wantFBReaderStarted = false;
                 }
                 Intent in = new Intent(TtsApp.getContext(), SpeakActivity.class);
                 in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 TtsApp.getContext().startActivity(in);
                 //startSpeakActivityDelayed(count + 1);
             }
-        }, 500);
+        }, count == 0 ? 100 : 1000);
     }
 }

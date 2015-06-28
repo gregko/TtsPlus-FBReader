@@ -518,7 +518,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                     TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
                 }
                 Intent i = new Intent(SVC_STARTED);
-                SpeakActivity.wantStarted = true;
+                SpeakActivity.wantFBReaderStarted = true;
                 TtsApp.getContext().sendBroadcast(i);
             }
             else {

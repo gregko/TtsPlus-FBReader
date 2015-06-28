@@ -18,8 +18,8 @@ import org.geometerplus.android.fbreader.api.PluginApi;
  */
 public class InfoActivity extends Activity {
 
-    private static final String FBR_PACKAGE = "org.geometerplus.zlibrary.ui.android";
-    private static final String FBR_PACKAGE_PREMIUM = "com.fbreader";
+    static final String FBR_PACKAGE = "org.geometerplus.zlibrary.ui.android";
+    static final String FBR_PACKAGE_PREMIUM = "com.fbreader";
     private PackageManager myPm;
     private boolean fbrInstalled = false;
     ComponentName myCn;
@@ -38,7 +38,7 @@ public class InfoActivity extends Activity {
                 SpeakService.myApi = null;
             }
             // this is asynchronous
-            SpeakActivity.wantStarted = false;
+            SpeakActivity.wantFBReaderStarted = false;
             startService(new Intent(TtsApp.getContext(), SpeakService.class));
         }
         myPm = getPackageManager();

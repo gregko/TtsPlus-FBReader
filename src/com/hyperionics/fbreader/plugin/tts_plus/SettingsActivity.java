@@ -274,6 +274,7 @@ public class SettingsActivity extends Activity {
 //                    voi = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
                 intent.putExtra(VoiceSelectorActivity.SELECTED_VOICE, voi);
                 intent.putExtra(VoiceSelectorActivity.CONFIG_DIR, SpeakService.getConfigPath());
+                intent.putExtra("isDarkTheme", true);
                 startActivity(intent);
             }
         });
