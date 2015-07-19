@@ -20,20 +20,12 @@ public class IncomingReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(SpeakService.SVC_STARTED)) {
-            Lt.d("GOT THE SVC_STARTED INTENT");
-            if (SpeakService.myApi == null) {
-                Lt.d("- myApi is null");
-            } else {
-                if (!SpeakService.myApi.isConnected()) {
-                    Lt.d("- FBReader NOT connected");
-                    SpeakService.myApi = null;
-                    SpeakService.getCurrentService().connectToApi(null);
-                } else {
-                    Lt.d("- FBReader connected");
-                }
-            }
+        String action = intent.getAction();
+        if (action.equals(SpeakService.SVC_STARTED) || action.equals(SpeakService.API_CONNECTED)) {
+            boolean startActivity = !InfoActivity.isShowing();
+            Lt.d("GOT THE INTENT: " + action);
             if (SpeakActivity.wantFBReaderStarted) {
+                SpeakActivity.wantFBReaderStarted = false;
                 Lt.d("Trying to launch FBReader...");
                 Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage("com.fbreader");
                 if (launchIntent == null)
@@ -43,7 +35,26 @@ public class IncomingReceiver extends BroadcastReceiver {
                     TtsApp.getContext().startActivity(launchIntent);
                 }
             }
-            startSpeakActivityDelayed(0);
+            if (SpeakService.myApi == null) {
+                Lt.d("- myApi is null");
+                if (SpeakService.getCurrentService() == null) {
+                    Lt.d("- current service is null too.");
+                    return;
+                }
+                SpeakService.getCurrentService().connectToApi(null);
+                startActivity = false;
+            } else {
+                if (!SpeakService.myApi.isConnected()) {
+                    Lt.d("- FBReader NOT connected");
+//                    SpeakService.myApi = null;
+//                    SpeakService.getCurrentService().connectToApi(null);
+                    startActivity = false;
+                } else {
+                    Lt.d("- FBReader connected");
+                }
+            }
+            if (startActivity)
+                startSpeakActivityDelayed(0);
         }
         else if (intent.getAction().equals(SpeakService.TTSP_KILL)) {
             Lt.d("GOT THE TTSP_KILL INTENT");
@@ -58,7 +69,7 @@ public class IncomingReceiver extends BroadcastReceiver {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                if (SpeakService.myApi != null) {
+                if (SpeakService.getCurrentService() != null && SpeakService.myApi != null) {
                     try {
                         TextPosition tp = SpeakService.myApi.getPageStart();
                         Lt.d("- tp = " + tp.ParagraphIndex + ", " + tp.ElementIndex);
@@ -68,12 +79,15 @@ public class IncomingReceiver extends BroadcastReceiver {
                         }
                     } catch (Exception e) {
                         Lt.d("startSpeakActivityDelayed(): ApiException " + e);
+                        e.printStackTrace();
                         if (SpeakService.myApi != null) try {
                             SpeakService.myApi.disconnect();
                         } catch (Exception eIgnore) {}
                         SpeakService.myApi = null;
                         PackageManager pm = TtsApp.getContext().getPackageManager();
                         boolean hasPremium = pm.getLaunchIntentForPackage(InfoActivity.FBR_PACKAGE_PREMIUM) != null;
+                        if (SpeakService.getCurrentService() == null)
+                            return;
                         SpeakService.getCurrentService().connectToApi(hasPremium ?
                                 ApiClientImplementation.FBREADER_PREMIUM_PREFIX : ApiClientImplementation.FBREADER_PREFIX);
                         startSpeakActivityDelayed(count + 1);

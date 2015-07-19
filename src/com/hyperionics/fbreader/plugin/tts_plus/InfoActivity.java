@@ -21,7 +21,8 @@ public class InfoActivity extends Activity {
     static final String FBR_PACKAGE = "org.geometerplus.zlibrary.ui.android";
     static final String FBR_PACKAGE_PREMIUM = "com.fbreader";
     private PackageManager myPm;
-    private boolean fbrInstalled = false;
+    private boolean _fbrInstalled = false;
+    private static boolean _isInfoShowing = false;
     ComponentName myCn;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +44,13 @@ public class InfoActivity extends Activity {
         }
         myPm = getPackageManager();
         myCn = getComponentName();
-        fbrInstalled = myPm.getLaunchIntentForPackage(FBR_PACKAGE_PREMIUM) != null;
-        if (!fbrInstalled)
-            fbrInstalled = myPm.getLaunchIntentForPackage(FBR_PACKAGE) != null;
+        _fbrInstalled = myPm.getLaunchIntentForPackage(FBR_PACKAGE_PREMIUM) != null;
+        if (!_fbrInstalled)
+            _fbrInstalled = myPm.getLaunchIntentForPackage(FBR_PACKAGE) != null;
         boolean autoStartSpeech = getSharedPreferences("atVoice", MODE_PRIVATE).getBoolean("speakFromIcon", false);
         boolean showAbout = getIntent().getBooleanExtra("showAbout", false);
 
-        if (fbrInstalled && autoStartSpeech && !showAbout) {
+        if (_fbrInstalled && autoStartSpeech && !showAbout) {
             fbReaderClick(null); // will finish()
             return;
         }
@@ -65,7 +66,7 @@ public class InfoActivity extends Activity {
             fbrButton.setVisibility(View.GONE);
             findViewById(R.id.long_info).setVisibility(View.GONE);
         }
-        else if (fbrInstalled) {
+        else if (_fbrInstalled) {
             fbrButton.setText(R.string.start_fbr);
             findViewById(R.id.long_info).setVisibility(View.GONE);
         }
@@ -109,11 +110,20 @@ public class InfoActivity extends Activity {
     }
 
     @Override
+    public void onResume() {
+        _isInfoShowing = true;
+        super.onResume();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         if (getSharedPreferences("atVoice", MODE_PRIVATE).getBoolean("hideLauncherIcon", false))
             myPm.setComponentEnabledSetting(myCn, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        _isInfoShowing = false;
     }
+
+    public static boolean isShowing() { return _isInfoShowing; }
 
     public void atVoiceClick(View view) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
@@ -122,6 +132,7 @@ public class InfoActivity extends Activity {
     }
 
     public void fbReaderClick(View viewNotUsed) {
+        _isInfoShowing = false;
         boolean launchPremium = true;
         Intent launchIntent = myPm.getLaunchIntentForPackage(FBR_PACKAGE_PREMIUM);
         if (launchIntent == null) {
@@ -157,7 +168,7 @@ public class InfoActivity extends Activity {
             startActivity(launchIntent);
             if (SpeakService.getCurrentService() == null)
                 TtsApp.getContext().startService(new Intent(TtsApp.getContext(), SpeakService.class));
-            IncomingReceiver.startSpeakActivityDelayed(0);
+            //IncomingReceiver.startSpeakActivityDelayed(0); // startService() will start the activity when all ready
         }
         finish();
     }

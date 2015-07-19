@@ -1,11 +1,12 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
-import java.util.*;
-
-import android.content.*;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
-
 import org.geometerplus.android.fbreader.api.PluginApi;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
@@ -27,7 +28,13 @@ import org.geometerplus.android.fbreader.api.PluginApi;
 public class PluginInfo extends PluginApi.PluginInfo {
 	@Override
 	protected List<PluginApi.ActionInfo> implementedActions(Context context) {
-		return Collections.<PluginApi.ActionInfo>singletonList(new PluginApi.MenuActionInfo(
+        if (SpeakService.getCurrentService() != null) {
+            Intent in = new Intent(TtsApp.getContext(), SpeakActivity.class);
+            in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            TtsApp.getContext().startActivity(in);
+        }
+
+        return Collections.<PluginApi.ActionInfo>singletonList(new PluginApi.MenuActionInfo(
 			Uri.parse("http://hyperionics.com/plugin/tts_plus/speak"),
 			context.getText(R.string.speak_menu_item).toString(),
 			Integer.MAX_VALUE

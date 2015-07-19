@@ -82,6 +82,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static int SERVICE_INITIALIZED = 4;
     static int FULLY_INITIALIZED = API_INITIALIZED | TTS_INITIALIZED | SERVICE_INITIALIZED;
     static final String SVC_STARTED = "com.hyperionics.fbreader.plugin.tts_plus.SVC_STARTED";
+    static final String API_CONNECTED = "com.hyperionics.fbreader.plugin.tts_plus.API_CONNECTED";
     static final String TTSP_KILL = "com.hyperionics.fbreader.plugin.tts_plus.TTSP_KILL";
 
     // By default use AudioManager.STREAM_MUSIC
@@ -849,6 +850,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     public void onConnected() {
         if (myInitializationStatus != FULLY_INITIALIZED && myApi != null) {
             myInitializationStatus |= API_INITIALIZED;
+            sendBroadcast(new Intent(API_CONNECTED));
 //            try {
 //                ErrorReporter.getInstance().putCustomData("FBReaderVer", myApi.getFBReaderVersion());
 //            } catch (ApiException e) {
@@ -858,6 +860,7 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
                 SpeakActivity.onInitializationCompleted();
             }
         }
+
     }
 
     public static void reconnect() {
