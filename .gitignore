@@ -35,5 +35,5 @@ atVoiceExt/res
 *.dll
 *.mdb
 *.user
-*.apk
 
+/voice-aloud-reader.zip

@@ -43,6 +43,7 @@
     <string name="snt_delay">Pause at sentence end (ms):</string>
     <string name="more_settings">More...</string>
     <string name="headset_plug_start">Start talking when headset connected</string>
+    <string name="headset_plug_stop">Stop talking when headset disconnected</string>
     <string name="sleep_after">Sleep after</string>
     <string name="headset_start_fbr">Start FBReader with headset "Play" key</string>
     <string name="net_synth">Use network speech synthesis if possible</string>

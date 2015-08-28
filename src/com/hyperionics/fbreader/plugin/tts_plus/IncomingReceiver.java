@@ -3,9 +3,7 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import com.hyperionics.TtsSetup.Lt;
-import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.TextPosition;
 
 import java.util.Timer;
@@ -80,16 +78,16 @@ public class IncomingReceiver extends BroadcastReceiver {
                     } catch (Exception e) {
                         Lt.d("startSpeakActivityDelayed(): ApiException " + e);
                         e.printStackTrace();
-                        if (SpeakService.myApi != null) try {
-                            SpeakService.myApi.disconnect();
-                        } catch (Exception eIgnore) {}
-                        SpeakService.myApi = null;
-                        PackageManager pm = TtsApp.getContext().getPackageManager();
-                        boolean hasPremium = pm.getLaunchIntentForPackage(InfoActivity.FBR_PACKAGE_PREMIUM) != null;
-                        if (SpeakService.getCurrentService() == null)
-                            return;
-                        SpeakService.getCurrentService().connectToApi(hasPremium ?
-                                ApiClientImplementation.FBREADER_PREMIUM_PREFIX : ApiClientImplementation.FBREADER_PREFIX);
+//                        if (SpeakService.myApi != null) try {
+//                            SpeakService.myApi.disconnect();
+//                        } catch (Exception eIgnore) {}
+//                        SpeakService.myApi = null;
+//                        PackageManager pm = TtsApp.getContext().getPackageManager();
+//                        boolean hasPremium = pm.getLaunchIntentForPackage(InfoActivity.FBR_PACKAGE_PREMIUM) != null;
+//                        if (SpeakService.getCurrentService() == null)
+//                            return;
+//                        SpeakService.getCurrentService().connectToApi(hasPremium ?
+//                                ApiClientImplementation.FBREADER_PREMIUM_PREFIX : ApiClientImplementation.FBREADER_PREFIX);
                         startSpeakActivityDelayed(count + 1);
                         return;
                     }

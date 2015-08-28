@@ -35,7 +35,9 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String intentAction = intent.getAction();
 
-        if (SpeakService.isTalking() && intentAction.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
+        if (SpeakService.isTalking() && intentAction.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) &&
+                SpeakService.getPrefs().getBoolean("plugStop", true))
+        {
             BluetoothDevice dev = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             if (dev != null && dev.getBluetoothClass() != null &&
                     dev.getBluetoothClass().hasService(BluetoothClass.Service.AUDIO))

@@ -1,6 +1,5 @@
 package com.hyperionics.fbreader.plugin.tts_plus;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.*;
@@ -581,7 +580,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	@TargetApi(Build.VERSION_CODES.FROYO)
+	//@TargetApi(Build.VERSION_CODES.FROYO)
     @Override protected void onResume() {
         super.onResume();
         currentSpeakActivity = this;

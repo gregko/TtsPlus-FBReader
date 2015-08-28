@@ -39,7 +39,7 @@ public class HeadsetPlugReceiver extends BroadcastReceiver {
                 return;
             }
             int headsetState = intent.getIntExtra("state", 0);      //get the headset state property
-            if (headsetState == 0 && SpeakService.myIsActive)
+            if (headsetState == 0 && SpeakService.myIsActive && SpeakService.getPrefs().getBoolean("plugStop", true))
                 SpeakService.stopTalking();
             else if (headsetState == 1 && !SpeakService.myIsActive &&
                      SpeakService.getPrefs().getBoolean("plugStart", false) &&

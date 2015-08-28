@@ -101,6 +101,13 @@
                 android:text="@string/headset_plug_start" />
 
         <CheckBox
+                android:id="@+id/plug_stop"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/headset_plug_stop" />
+
+        <CheckBox
                 android:id="@+id/fbr_headset_start"
                 android:checked="true"
                 android:layout_width="wrap_content"
