@@ -44,6 +44,7 @@
   <string name="snt_delay">Fiare une pause en fin de phrase (ms) :</string>
   <string name="more_settings">Plus...</string>
   <string name="headset_plug_start">Démarrer la lecture lors de la connection d\'un casque audio</string>
+  <string name="headset_plug_stop">Arrêter la lecture lorsque le casque audio est déconnecté</string>
   <string name="sleep_after">Mise en sommeil après</string>
   <string name="headset_start_fbr">Lancer FBReader avec le bouton \"Play\" du casque audio</string>
   <string name="net_synth">Si possible, utiliser synthèse vocale du réseau </string>

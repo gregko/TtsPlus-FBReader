@@ -44,6 +44,7 @@
   <string name="snt_delay">Una pausa al final de la oración (ms):</string>
   <string name="more_settings">Más...</string>
   <string name="headset_plug_start">Iniciar la lectura al conectar los auriculares</string>
+  <string name="headset_plug_stop">Deja de hablar cuando se desconecta el auricular</string>
   <string name="sleep_after">Apagar después de</string>
   <string name="headset_start_fbr">Iniciar FBReader con la tecla \"Reproducir\" de los auriculares</string>
   <string name="net_synth">Utilizar síntesis de voz de red cuando sea posible</string>

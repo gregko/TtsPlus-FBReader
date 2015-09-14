@@ -44,6 +44,7 @@
   <string name="snt_delay">Пауза в края на изреченията (мсек):</string>
   <string name="more_settings">Още...</string>
   <string name="headset_plug_start">Започни да четеш при свързване на слушалки</string>
+  <string name="headset_plug_stop">Спирай прочита при разкачване на слушалките</string>
   <string name="sleep_after">Заспивай след</string>
   <string name="headset_start_fbr">Стартирай FBReader с бутона за възпроизвеждане на слушалките</string>
   <string name="net_synth">Използвай синтез на реч от интернет, ако е възможно</string>

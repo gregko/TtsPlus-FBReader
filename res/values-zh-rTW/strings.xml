@@ -44,6 +44,7 @@
   <string name="snt_delay">在鋸子結束暫停 (ms):</string>
   <string name="more_settings">更多...</string>
   <string name="headset_plug_start">連接耳機後開始朗讀</string>
+  <string name="headset_plug_stop">Stop talking when headset disconnected</string>
   <string name="sleep_after">睡眠之後</string>
   <string name="headset_start_fbr">用耳機 \"播放\" 件開啟 FBReader</string>
   <string name="net_synth">可能的話使用網路語音合成</string>
