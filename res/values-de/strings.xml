@@ -44,7 +44,7 @@
   <string name="snt_delay">Pause zwischen Sätzen (ms):</string>
   <string name="more_settings">Mehr...</string>
   <string name="headset_plug_start">Vorlesen starten, wenn Kopfhörer angeschlossen wird</string>
-  <string name="headset_plug_stop">Stop talking when headset disconnected</string>
+  <string name="headset_plug_stop">Abziehen des Kopfhörers stoppt Sprachausgabe</string>
   <string name="sleep_after">Ruhezustand nach</string>
   <string name="headset_start_fbr">Starttaste am Kopfhörer startet FBReader</string>
   <string name="net_synth">Wenn möglich, Netzwerk-Sprachsynthese verwenden</string>
