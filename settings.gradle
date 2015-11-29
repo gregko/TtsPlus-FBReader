@@ -1,0 +1,5 @@
+include ":TtsPlus-FBReader"
+include ":TtsNativeLibSmall"
+project(':TtsNativeLibSmall').projectDir = new File(settingsDir, '../TtsNativeLibSmall')
+include ":TtsSetup"
+project(':TtsSetup').projectDir = new File(settingsDir, '../TtsSetup')

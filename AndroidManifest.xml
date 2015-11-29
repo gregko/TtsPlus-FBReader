@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.hyperionics.fbreader.plugin.tts_plus"
-          android:versionCode="3061100"
-          android:versionName="3.6.11">
-    <uses-sdk android:minSdkVersion="8"
-              android:targetSdkVersion="17" />
+        >
     <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -15,7 +12,7 @@
             android:normalScreens="true"
             android:smallScreens="true"
             android:anyDensity="true" />
-    <application android:label="@string/title" android:icon="@drawable/fbreader_plugin" android:name=".TtsApp">
+    <application android:name=".TtsApp">
         <activity android:name=".InfoActivity"
                   android:label="@string/title"
                   android:launchMode="singleTask"

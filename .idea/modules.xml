@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../TtsNativeLibSmall/TtsNativeLibSmall.iml" filepath="$PROJECT_DIR$/../TtsNativeLibSmall/TtsNativeLibSmall.iml" />
       <module fileurl="file://$PROJECT_DIR$/TtsPlus-FBReader.iml" filepath="$PROJECT_DIR$/TtsPlus-FBReader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TtsPlus-FBReader/TtsPlus-FBReader-TtsPlus-FBReader.iml" filepath="$PROJECT_DIR$/TtsPlus-FBReader/TtsPlus-FBReader-TtsPlus-FBReader.iml" />
       <module fileurl="file://$PROJECT_DIR$/../TtsSetup/TtsSetup.iml" filepath="$PROJECT_DIR$/../TtsSetup/TtsSetup.iml" />
       <module fileurl="file://$PROJECT_DIR$/../atVoiceLibs/appcompat/appcompat.iml" filepath="$PROJECT_DIR$/../atVoiceLibs/appcompat/appcompat.iml" />
     </modules>
