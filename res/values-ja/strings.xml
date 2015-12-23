@@ -42,14 +42,15 @@
     <string name="paragraph_delay">段落の終わりで一時停止 (ミリ秒):</string>
     <string name="snt_delay">文末で一時停止 (ミリ秒):</string>
     <string name="more_settings">詳細...</string>
-    <string name="headset_plug_start">ヘッドセットが接続された時に読みあげを開始する</string>
+    <string name="headset_plug_start">ヘッドセットを接続した時に読み上げを開始する</string>
+    <string name="headset_plug_stop">ヘッドセットを外した時に読み上げを停止する</string>
     <string name="sleep_after">スリープまでの時間</string>
     <string name="headset_start_fbr">ヘッドセットの "再生" キーで FBReader を開始する</string>
     <string name="net_synth">使用可能な場合、ネットワーク音声合成を使用する</string>
     <string name="net_synth_wifi">WiFi 接続時のみ</string>
     <string name="word_opts">単語で読むオプションを表示する</string>
     <string name="single_words">単語で読む...</string>
-    <string name="pause_words">一時停止する.</string>
+    <string name="pause_words">ポーズする.</string>
     <string name="tts_check_err">エラー: TTS エンジンから利用可能な言語を取得できませんでした</string>
     <string-array name="sleep_array">
         <item>しない</item>
