@@ -16,7 +16,6 @@ import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.PluginApi;
 import org.geometerplus.android.fbreader.api.TextPosition;
-//import org.acra.ErrorReporter;
 
 import java.io.File;
 import java.util.*;

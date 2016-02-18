@@ -281,7 +281,7 @@ public class SettingsActivity extends Activity {
 //                    voi = voi.substring(0, voi.lastIndexOf('|'));
 //                else
 //                    voi = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
-                intent.putExtra(VoiceSelectorActivity.SELECTED_VOICE, voi);
+                intent.putExtra(VoiceSelectorActivity.SELECTED_VOICE_LOC, voi);
                 intent.putExtra(VoiceSelectorActivity.CONFIG_DIR, SpeakService.getConfigPath());
                 intent.putExtra("isDarkTheme", true);
                 startActivity(intent);

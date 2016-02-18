@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../TtsNativeLibSmall/TtsNativeLibSmall.iml" filepath="$PROJECT_DIR$/../TtsNativeLibSmall/TtsNativeLibSmall.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TtsPlus-FBReader.iml" filepath="$PROJECT_DIR$/TtsPlus-FBReader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TtsPlus-FBReader/TtsPlus-FBReader-TtsPlus-FBReader.iml" filepath="$PROJECT_DIR$/TtsPlus-FBReader/TtsPlus-FBReader-TtsPlus-FBReader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../TtsSetup/TtsSetup.iml" filepath="$PROJECT_DIR$/../TtsSetup/TtsSetup.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../atVoiceLibs/appcompat/appcompat.iml" filepath="$PROJECT_DIR$/../atVoiceLibs/appcompat/appcompat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/49506292/TtsNativeLibSmall.iml" filepath="$PROJECT_DIR$/.idea/modules/49506292/TtsNativeLibSmall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TtsPlus-FBReader.iml" filepath="$PROJECT_DIR$/.idea/modules/TtsPlus-FBReader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TtsPlus-FBReader/TtsPlus-FBReader-TtsPlus-FBReader.iml" filepath="$PROJECT_DIR$/.idea/modules/TtsPlus-FBReader/TtsPlus-FBReader-TtsPlus-FBReader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1222277858/TtsSetup.iml" filepath="$PROJECT_DIR$/.idea/modules/1222277858/TtsSetup.iml" />
     </modules>
   </component>
 </project>

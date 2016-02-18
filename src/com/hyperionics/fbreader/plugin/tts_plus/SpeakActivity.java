@@ -556,7 +556,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         }
         else if (requestCode == LANG_SEL_REQUEST) {
             // On successful return the engine is already set as default in LangSupport
-            String lang = data == null ? null : data.getStringExtra(VoiceSelectorActivity.SELECTED_VOICE);
+            String lang = data == null ? null : data.getStringExtra(VoiceSelectorActivity.SELECTED_VOICE_LOC);
             if (lang != null) {
                 SpeakService.selectedLanguage = lang;
                 SpeakService.savePosition();

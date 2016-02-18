@@ -5,6 +5,8 @@
 package org.geometerplus.android.fbreader.api;
 
 import android.content.*;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.IBinder;
 
 import java.util.*;
@@ -52,9 +54,27 @@ public class ApiClientImplementation implements ServiceConnection, Api, ApiMetho
 		connect();
 	}
 
+    public static Intent convertImplicitIntentToExplicitIntent(Intent implicitIntent, Context context) {
+        PackageManager pm = context.getPackageManager();
+        List<ResolveInfo> resolveInfoList = pm.queryIntentServices(implicitIntent, 0);
+
+        if (resolveInfoList == null || resolveInfoList.size() != 1) {
+            return null;
+        }
+        ResolveInfo serviceInfo = resolveInfoList.get(0);
+        ComponentName component = new ComponentName(serviceInfo.serviceInfo.packageName, serviceInfo.serviceInfo.name);
+        Intent explicitIntent = new Intent(implicitIntent);
+        explicitIntent.setComponent(component);
+        return explicitIntent;
+    }
+
 	public synchronized void connect() {
 		if (myInterface == null) {
-			myContext.bindService(new Intent(myPrefix + ACTION_API_POSTFIX), this, Context.BIND_AUTO_CREATE);
+            Intent intent = new Intent(myPrefix + ACTION_API_POSTFIX);
+            Intent explicitIntent = convertImplicitIntentToExplicitIntent(intent, myContext);
+            if (explicitIntent == null)
+                explicitIntent = intent;
+            myContext.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE);
 			myContext.registerReceiver(myEventReceiver, new IntentFilter(myPrefix + ACTION_API_CALLBACK_POSTFIX));
 		}
 	}
