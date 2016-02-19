@@ -8,6 +8,7 @@ import android.content.*;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.IBinder;
+import com.hyperionics.TtsSetup.Lt;
 
 import java.util.*;
 
@@ -74,8 +75,13 @@ public class ApiClientImplementation implements ServiceConnection, Api, ApiMetho
             Intent explicitIntent = convertImplicitIntentToExplicitIntent(intent, myContext);
             if (explicitIntent == null)
                 explicitIntent = intent;
-            myContext.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE);
-			myContext.registerReceiver(myEventReceiver, new IntentFilter(myPrefix + ACTION_API_CALLBACK_POSTFIX));
+            try {
+                myContext.bindService(explicitIntent, this, Context.BIND_AUTO_CREATE);
+                myContext.registerReceiver(myEventReceiver, new IntentFilter(myPrefix + ACTION_API_CALLBACK_POSTFIX));
+            } catch (Exception e) {
+                Lt.e("Exception in ApiClientImplementation.connect(): " + e);
+                e.printStackTrace();
+            }
 		}
 	}
 

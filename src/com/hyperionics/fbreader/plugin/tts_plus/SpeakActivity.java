@@ -123,6 +123,7 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                     intent.putExtra(VoiceSelectorActivity.INIT_LANG, lang);
                     intent.putExtra(VoiceSelectorActivity.CONFIG_DIR, SpeakService.getConfigPath());
                     intent.putExtra("isDarkTheme", true);
+                    intent.putExtra("netSynth", SpeakService.getPrefs().getInt("netSynth", 2));
                     startActivityForResult(intent, LANG_SEL_REQUEST);
                 } else {
                     selectLanguage(true);
