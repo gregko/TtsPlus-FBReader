@@ -3,8 +3,8 @@
 <!--suppress AndroidLintTypographyDashes -->
 <resources>
   <string name="title">FBReader TTS+ Plugin</string>
-  <string name="about">About TTS+</string>
-  <string name="version">FBReader TTS + Plugin ver.</string>
+  <string name="about">Circa TTS+</string>
+  <string name="version">Versione di FBReader TTS + Plugin.</string>
   <string name="copyright">Copyright © 2012-15\nHyperionics Technology LLC</string>
   <string name="url">http://www.hyperionics.com/TtsPlus</string>
   <string name="back"> Ritorno </string>
@@ -16,7 +16,7 @@
   <string name="api_error_2">Errore delle funzioni API.</string>
   <string name="language_is_not_set">La lingua del libro non è impostata. Tentativo di lettura del libro
 allo %0.</string>
-  <string name="no_data_for_language" formatted="false">Sono necessari dati di sintesi vocale per %0 di leggere questo eBook.\n\n Si desidera installarli ora?</string>
+  <string name="no_data_for_language" formatted="false">Sono necessari dati di sintesi vocale per %0 per leggere questo eBook.\n\n Si desidera installarli ora?</string>
   <string name="yes">Si</string>
   <string name="no">No</string>
   <string name="speed">Velocità:</string>
@@ -27,10 +27,10 @@ allo %0.</string>
   <string name="book_language">Lingua dell\'eBook</string>
   <string name="unknown">sconosciuto</string>
   <string name="add_language">Aggiungi una nuova lingua...</string>
-  <string name="tts_settings">TTS Settings</string>
+  <string name="tts_settings">Impostazioni del TTS</string>
   <string name="edit_speech">Edita il parlato</string>
   <string name="reset_tts">Reimpostare Il TTS</string>
-  <string name="snt_concurrent">Process sentences concurrently</string>
+  <string name="snt_concurrent">Dichiarazioni di processo in concomitanza</string>
   <string name="snt_concurrent_info">Provare a disattivare se il parlato balbetta o salta delle parole.</string>
   <string name="hi_sentences">Evidenzia il testo pronunciato</string>
   <string name="screen_on">Tenere lo schermo attivo durante la lettura</string>
@@ -50,9 +50,9 @@ allo %0.</string>
   <string name="headset_start_fbr">Avviare FBReader con il tasto \"Play\" dell\'auricolare</string>
   <string name="net_synth">Se possibile, utilizzare la sintesi vocale di rete</string>
   <string name="net_synth_wifi">solo con la WiFi</string>
-  <string name="word_opts">Show read by word options</string>
+  <string name="word_opts">Mostra quelle lette, tra le parole di opozione</string>
   <string name="single_words">Leggere le parole...</string>
-  <string name="pause_words">with pauses.</string>
+  <string name="pause_words">con pause.</string>
   <string name="tts_check_err">Errore: Impossibile ottenere lingue disponibili dal motore TTS</string>
   <string-array name="sleep_array">
     <item>Mai</item>
