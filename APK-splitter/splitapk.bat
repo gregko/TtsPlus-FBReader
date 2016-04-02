@@ -1,4 +1,4 @@
-@echo off
+
 set apkfile=TtsPlus-FBReader
 del *.apk
 
