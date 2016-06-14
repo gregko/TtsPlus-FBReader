@@ -36,7 +36,7 @@
   <string name="show_lock_widget">顯示鎖定螢幕小工具</string>
   <string name="avar_speech">使用大聲朗讀語音取代</string>
   <string name="play_music">讓音樂在背景播放</string>
-  <string name="music_info">Start music first with any Music app, then start speech here. Control speech volume with the slider in TTS+ Plugin, and the music volume with the device\'s volume buttons.\nNOTE: THE SEPARATE VOLUME CONTROL FOR MUSIC AND SPEECH MAY NOT WORK ON ALL DEVICES!</string>
+  <string name="music_info">從音樂開始首先任何音樂應用程式，然後開始在這裡演講。控制語音音量使用 TTS + 外掛程式，在滑塊和音樂音量與設備的音量按鈕。 \nNOTE: 單獨音量控制的音樂和語音可能不工作上的所有設備 ！</string>
   <string name="screen_dimmed">無法使用</string>
   <string name="screen_bright">明亮</string>
   <string name="rate">速率 TTS+!</string>
@@ -44,7 +44,7 @@
   <string name="snt_delay">在鋸子結束暫停 (ms):</string>
   <string name="more_settings">更多...</string>
   <string name="headset_plug_start">連接耳機後開始朗讀</string>
-  <string name="headset_plug_stop">Stop talking when headset disconnected</string>
+  <string name="headset_plug_stop">停止說話時耳機斷開連接</string>
   <string name="sleep_after">睡眠之後</string>
   <string name="headset_start_fbr">用耳機 \"播放\" 件開啟 FBReader</string>
   <string name="net_synth">可能的話使用網路語音合成</string>
@@ -55,21 +55,21 @@
   <string name="tts_check_err">促勿: 無法獲取 TTS 引擎提供的語言</string>
   <string-array name="sleep_array">
     <item>永遠不要</item>
-    <item>一分鐘</item>
-    <item>二分鐘</item>
-    <item>三分鐘</item>
-    <item>五分鐘</item>
-    <item>十分鐘</item>
-    <item>十五分鐘</item>
-    <item>二十分鐘</item>
-    <item>二十五分鐘</item>
-    <item>三十分鐘</item>
-    <item>四十五分鐘</item>
-    <item>一小時</item>
-    <item>二小時</item>
-    <item>三小時</item>
-    <item>四小時</item>
-    <item>五小時</item>
+    <item>1分鐘</item>
+    <item>2 分鐘</item>
+    <item>3 分鐘</item>
+    <item>5 分鐘</item>
+    <item>10 分鐘</item>
+    <item>15 分鐘</item>
+    <item>20 分鐘</item>
+    <item>25 分鐘</item>
+    <item>30 分鐘</item>
+    <item>45 分鐘</item>
+    <item>1 小時</item>
+    <item>2 小時</item>
+    <item>3 小時</item>
+    <item>4 小時</item>
+    <item>5 小時</item>
   </string-array>
   <string name="crash_toast_text">抱歉！</string>
   <string name="crash_notif_ticker_text">無法預期的錯誤，請寄一份報告...</string>
@@ -79,7 +79,7 @@
   <string name="crash_dialog_text">發生無法預期的錯誤導致程式停止。請寄給我們錯誤資料以協助修正問題，您必須做的指示按下 \'確定\'.</string>
   <string name="crash_dialog_comment_prompt">您可以加入關於以下問題的評論:</string>
   <string name="crash_dialog_ok_toast">感謝您！</string>
-  <string name="tryAllso">也常是我們的心免費軟體:</string>
+  <string name="tryAllso">試試我們新的免費應用程式 ︰</string>
   <string name="atVoice">大聲朗讀</string>
   <string name="atv_free">免費！大聲朗讀 - 網頁, 新聞, 電子郵件還有更多都報讀給你聽‧</string>
   <string name="sync_ok">Dropbox 同步成功</string>
