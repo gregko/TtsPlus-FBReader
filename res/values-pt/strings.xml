@@ -4,7 +4,7 @@
 <resources>
   <string name="title">Plugin FBReader TTS+</string>
   <string name="about">Sobre o TTS+</string>
-  <string name="version">Plugin FBReader TTS+ Versão</string>
+  <string name="version">Plugin FBReader TTS+ ver.</string>
   <string name="copyright">Todos os direitos reservados © 2012-2015\nHyperionics Technology LLC</string>
   <string name="url">http://www.hyperionics.com/TtsPlus</string>
   <string name="back"> Voltar </string>

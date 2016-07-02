@@ -3,9 +3,9 @@
 <!--suppress AndroidLintTypographyDashes -->
 <resources>
   <string name="title">FBReader TTS+ Plugin</string>
-  <string name="about">Acerca de TTS +</string>
+  <string name="about">Acerca de TTS+</string>
   <string name="version">Versión de FBReader TTS+</string>
-  <string name="copyright">Copyright © 2012-15\nHyperionics Technology LLC</string>
+  <string name="copyright">Copyright © 2012-16\nHyperionics Technology LLC</string>
   <string name="url">http://www.hyperionics.com/TtsPlus</string>
   <string name="back"> Volver </string>
   <string name="failure">Inicialización fallida, lo sentimos</string>
