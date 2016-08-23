@@ -8,7 +8,7 @@
   <string name="copyright">Todos os direitos reservados © 2012-2015\nHyperionics Technology LLC</string>
   <string name="url">http://www.hyperionics.com/TtsPlus</string>
   <string name="back"> Voltar </string>
-  <string name="failure">Desculpe, falha na inicialização</string>
+  <string name="failure">Inicialização falhou, desculpe</string>
   <string name="speak_menu_item">Falar</string>
   <string name="no_tts_installed">Não foi possível conectar-se ao TTS no seu dispositivo.</string>
   <string name="no_voices">Erro: não foi possível obter a lista de vozes instaladas.</string>
