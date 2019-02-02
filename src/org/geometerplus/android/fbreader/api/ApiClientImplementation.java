@@ -8,7 +8,7 @@ import android.content.*;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.IBinder;
-import com.hyperionics.TtsSetup.Lt;
+import com.hyperionics.ttssetup.Lt;
 
 import java.util.*;
 

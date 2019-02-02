@@ -11,7 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.*;
-import com.hyperionics.TtsSetup.*;
+import com.hyperionics.ttssetup.*;
 
 /**
  *  Copyright (C) 2012 Hyperionics Technology LLC <http://www.hyperionics.com>
@@ -168,21 +168,6 @@ public class SettingsActivity extends Activity {
             }
         });
 
-        CheckBox avarSpeechBtn = ((CheckBox)findViewById(R.id.use_avar_speech));
-        if (SpeakActivity.avarDefaultPath != null) {
-            avarSpeechBtn.setChecked(SpeakService.getPrefs().getBoolean("AVAR_SPEECH", false));
-            avarSpeechBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    SpeakService.getPrefs().edit().putBoolean("AVAR_SPEECH", isChecked).commit();
-                    CldWrapper.initExtractorNative(SpeakService.getConfigPath(),
-                            SpeakService.getCurrentLangISO3(), 0, null, 0);
-                }
-            });
-        } else {
-            avarSpeechBtn.setEnabled(false);
-        }
-
         final EditText paraPauseEdit = (EditText)findViewById(R.id.paraPause);
         paraPauseEdit.setText(Integer.toString(SpeakService.myParaPause));
         paraPauseEdit.addTextChangedListener(new TextWatcher() {
@@ -244,27 +229,6 @@ public class SettingsActivity extends Activity {
         });
 
 
-        setListener(R.id.button_tts_set, new View.OnClickListener() {
-            public void onClick(View v) {
-                SpeakActivity sa = SpeakActivity.getCurrent();
-                if (Build.VERSION.SDK_INT >= 14) {
-                    finish();
-                    if (sa != null)
-                        sa.selectTtsEngine();
-                } else {
-                    Intent intent = new Intent("com.android.settings.TTS_SETTINGS");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    finish();
-                    if (sa != null) {
-                        sa.doDestroy();
-                        sa.finish();
-                    }
-                    TtsApp.ExitApp();
-                }
-            }
-        });
-
         setListener(R.id.edit_speech_btn, new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, EditSpeechActivity.class);
@@ -291,9 +255,6 @@ public class SettingsActivity extends Activity {
         ((CheckBox)findViewById(R.id.lock_screen)).setChecked(SpeakService.getPrefs().getBoolean("ShowLockWidget", true));
         getWindow().setGravity(Gravity.BOTTOM);
 
-        ((CheckBox)findViewById(R.id.play_music)).setChecked(SpeakService.allowBackgroundMusic);
-        findViewById(R.id.music_info).setVisibility(SpeakService.allowBackgroundMusic ? View.VISIBLE : View.GONE);
-
         SpeakService.setSleepTimer(0); // removes sleep timer
     }
 
@@ -310,13 +271,6 @@ public class SettingsActivity extends Activity {
         boolean b = !SpeakService.getPrefs().getBoolean("sntConcurrent", true);
         SpeakService.getPrefs().edit().putBoolean("sntConcurrent", b).commit();
         ((CheckBox)findViewById(R.id.snt_concurrent)).setChecked(b);
-    }
-
-    public void onClickAllowMusic(View v) {
-        boolean allowMusic = ((CheckBox) v).isChecked();
-        SpeakService.getPrefs().edit().putBoolean("allowBackgroundMusic", allowMusic).commit();
-        SpeakService.allowBackgroundMusic = allowMusic;
-        findViewById(R.id.music_info).setVisibility(allowMusic ? View.VISIBLE : View.GONE);
     }
 
     @Override protected void onDestroy() {

@@ -5,13 +5,16 @@ import android.app.Service;
 import android.content.*;
 import android.content.res.AssetManager;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.*;
 import android.speech.tts.TextToSpeech;
 import android.text.format.Time;
 import android.widget.SeekBar;
-import com.hyperionics.TtsSetup.*;
+import android.widget.Toast;
+
+import com.hyperionics.ttssetup.*;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.ApiException;
 import org.geometerplus.android.fbreader.api.PluginApi;
@@ -90,19 +93,30 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     // STREAM_VOICE_CALL - volume does not go all the way 0, very loud. No good.
     // STREAM_DTMF = 8; how does this one work?
     static int audioStream = AudioManager.STREAM_MUSIC;
-    static boolean allowBackgroundMusic = false;
 
+    static void oreoMediaButtonHack() {
+        if (Build.VERSION.SDK_INT > 25) {
+            // Stupid Android 8 "Oreo" hack to make media buttons work
+            // Hack still necessary after system update 9/25/2017 on Nexus 6P
+            final MediaPlayer mediaPlayer;
+            mediaPlayer = MediaPlayer.create(TtsApp.getContext(), R.raw.silent_sound);
+            if (mediaPlayer != null) {
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        mediaPlayer.release();
+                    }
+                });
+                mediaPlayer.start();
+            }
+        }
+    }
 
     static String getConfigPath() {
         return getConfigPath(false);
     }
 
     static String getConfigPath(boolean noAvar) {
-        if (!noAvar && getPrefs().getBoolean("AVAR_SPEECH", false) && SpeakActivity.avarDefaultPath != null) {
-            File cfgDir = new File(SpeakActivity.avarDefaultPath + "/.config");
-            if (cfgDir.isDirectory())
-                return cfgDir.getAbsolutePath();
-        }
         File cfgDir = new File(TtsApp.getContext().getFilesDir().getPath() + "/.config");
         if (cfgDir.isDirectory())
             return cfgDir.getAbsolutePath();
@@ -246,41 +260,57 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
             }
             if (languageCode == null || languageCode.equals(""))
                 languageCode = Locale.getDefault().getLanguage();
-
-            if (LangSupport.langInstalled(myTTS, languageCode) == null) {
-                PowerManager powerManager = (PowerManager) TtsApp.getContext().getSystemService(POWER_SERVICE);
-                KeyguardManager kgMgr = (KeyguardManager)  TtsApp.getContext().getSystemService(Context.KEYGUARD_SERVICE);
-                if (!powerManager.isScreenOn() || kgMgr.inKeyguardRestrictedInputMode()) {
-                    Lt.d("We can't auto-select language with screen off or in keyguard engaged...");
-                    return false;
-                } else {
-                    Lt.d("Screen on and no keyguard...");
-                }
-
-                SpeakActivity sa = SpeakActivity.getCurrent();
-                if (Build.VERSION.SDK_INT >= 14) {
-                    if (SpeakService.myTTS != null) {
-                        TtsWrapper.shutdownTts(SpeakService.myTTS);
-                        SpeakService.myTTS = null;
-                        SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
-                    }
-                    VoiceSelectorActivity.resetSelector();
-                    Intent intent = new Intent(sa, VoiceSelectorActivity.class);
-                    String lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
-                    intent.putExtra(VoiceSelectorActivity.INIT_LANG, lang);
-                    intent.putExtra(VoiceSelectorActivity.CONFIG_DIR, SpeakService.getConfigPath());
-                    sa.startActivityForResult(intent, SpeakActivity.LANG_SEL_REQUEST);
-                    return false;
-                } else {
-                    sa.selectLanguage(true);
-                    return false;
-                }
+        }
+        String i3c = LangSupport.getIso3Lang(new Locale(languageCode));
+        String voi_eng = LangSupport.getPrefferedVoice(i3c);
+        if (voi_eng == null) {
+            PowerManager powerManager = (PowerManager) TtsApp.getContext().getSystemService(POWER_SERVICE);
+            KeyguardManager kgMgr = (KeyguardManager)  TtsApp.getContext().getSystemService(Context.KEYGUARD_SERVICE);
+            if (!powerManager.isScreenOn() || kgMgr.inKeyguardRestrictedInputMode()) {
+                Lt.d("We can't auto-select language with screen off or in keyguard engaged...");
+                return false;
+            } else {
+                Lt.d("Screen on and no keyguard...");
             }
+
+            SpeakActivity sa = SpeakActivity.getCurrent();
+            if (Build.VERSION.SDK_INT >= 14) {
+                if (SpeakService.myTTS != null) {
+                    TtsWrapper.shutdownTts(SpeakService.myTTS);
+                    SpeakService.myTTS = null;
+                    SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
+                }
+                VoiceSelectorActivity.resetSelector();
+                Intent intent = new Intent(sa, VoiceSelectorActivity.class);
+                String lang = LangSupport.getIso3Lang(new Locale(SpeakService.getCurrentBookLanguage()));
+                intent.putExtra(VoiceSelectorActivity.INIT_LANG, lang);
+                intent.putExtra(VoiceSelectorActivity.CONFIG_DIR, SpeakService.getConfigPath());
+                sa.startActivityForResult(intent, SpeakActivity.LANG_SEL_REQUEST);
+                return false;
+            } else {
+                sa.selectLanguage(true);
+                return false;
+            }
+        }
+
+        int n = voi_eng.indexOf('|');
+        String voi = voi_eng.substring(0, n); // Locale
+        int m = voi_eng.indexOf('|', ++n);
+        String eng;
+        if (m < n) {
+            eng = voi_eng.substring(n);
+        } else {
+            eng = voi_eng.substring(n, m);
+        }
+        // check if this engine/voice is still available
+        if (!eng.equals(AndyUtil.getTtsCurrentEngine(myTTS)) || !eng.equals(LangSupport.getSelectedTtsEng())) {
+            LangSupport.setSelectedTtsEng(eng);
+            return false;
         }
 
         if (myTTS == null || currentService == null)
             return false;
-        locale = LangSupport.langInstalled(myTTS, languageCode);
+        locale = LangSupport.localeFromString(languageCode);
         if (locale == null)
             return false;
         myTTS.setLanguage(locale);
@@ -305,33 +335,18 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         if (myCurrentSentence >= mySentences.length) {
             processCurrentParagraph();
         }
+        oreoMediaButtonHack();
         if (myCurrentSentence < mySentences.length) {
             if (haveNewApi > 0)
                 highlightSentence();
             if (myApi != null && myApi.isConnected()) {
+                audioStream = AudioManager.STREAM_MUSIC;
+                mAudioManager.requestAudioFocus(afChangeListener,
+                        // Use the music stream.
+                        AudioManager.STREAM_MUSIC,
+                        // Request permanent focus.
+                        AudioManager.AUDIOFOCUS_GAIN);
 
-                if (allowBackgroundMusic && mAudioManager.isMusicActive()) {
-                    // also consider using Activity method:  setVolumeControlStream (int streamType) to set
-                    // which stream will be affected by the hardware volume buttons.
-                    if (isStreamAvailable(AudioManager.STREAM_DTMF))
-                        audioStream = AudioManager.STREAM_DTMF;
-                    else if (isStreamAvailable(AudioManager.STREAM_RING))
-                        audioStream = AudioManager.STREAM_RING; // STREAM_RING works well on Kindle Fire HDX...
-                    else
-                        audioStream = AudioManager.STREAM_MUSIC;
-                    mAudioManager.requestAudioFocus(afChangeListener,
-                            // Use the selected stream.
-                            audioStream,
-                            // Request permanent focus.
-                            0); // non-exclusive...
-                } else {
-                    audioStream = AudioManager.STREAM_MUSIC;
-                    mAudioManager.requestAudioFocus(afChangeListener,
-                            // Use the music stream.
-                            AudioManager.STREAM_MUSIC,
-                            // Request permanent focus.
-                            AudioManager.AUDIOFOCUS_GAIN);
-                }
                 SpeakActivity sa = SpeakActivity.getCurrent();
                 if (sa != null) {
                     SeekBar volumeControl = (SeekBar) sa.findViewById(R.id.volume_control);
@@ -903,7 +918,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
     static void doStop() {
     	if (currentService != null) {
             Lt.d("currentService.stopSelf()");
-            TtsWrapper.cleanup();
     		currentService.stopSelf();
             currentService = null;
         }
@@ -937,7 +951,6 @@ public class SpeakService extends Service implements TextToSpeech.OnUtteranceCom
         myHighlightSentences = myPreferences.getBoolean("hiSentences", true);
         myParaPause = myPreferences.getInt("paraPause", myParaPause);
         mySntPause = myPreferences.getInt("sntPause", mySntPause);
-        allowBackgroundMusic = myPreferences.getBoolean("allowBackgroundMusic", false);
 
         if (myParamMap == null) {
             myParamMap = new HashMap<String, String>();

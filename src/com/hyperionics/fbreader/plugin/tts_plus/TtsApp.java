@@ -9,8 +9,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Build;
-import com.hyperionics.TtsSetup.AndyUtil;
-import com.hyperionics.TtsSetup.Lt;
+import com.hyperionics.ttssetup.AndyUtil;
+import com.hyperionics.ttssetup.Lt;
 import com.hyperionics.util.FileUtil;
 
 import java.io.*;
@@ -158,8 +158,8 @@ public class TtsApp extends Application
         myIsDebug = (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         myPackageManager = getPackageManager();
         myPackageName = getPackageName();
-        Lt.init(this, "FBReaderTTS");
-        nativeOk = AndyUtil.setApp(this);
+        Lt.init("FBReaderTTS");
+        nativeOk = AndyUtil.setAppSmall(this);
         Lt.d("TtsApp created, nativeOK = " + nativeOk);
         //startService(new Intent(this, SpeakService.class));
         try {

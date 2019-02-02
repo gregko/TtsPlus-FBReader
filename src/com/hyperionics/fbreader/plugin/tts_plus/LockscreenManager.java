@@ -12,7 +12,7 @@ import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
 import android.media.RemoteControlClient.MetadataEditor;
 import android.os.Build;
-import com.hyperionics.TtsSetup.Lt;
+import com.hyperionics.ttssetup.Lt;
 
 import java.util.List;
 

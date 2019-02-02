@@ -3,7 +3,9 @@ package com.hyperionics.fbreader.plugin.tts_plus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import com.hyperionics.TtsSetup.Lt;
+
+import com.hyperionics.ttssetup.Lt;
+
 import org.geometerplus.android.fbreader.api.TextPosition;
 
 import java.util.Timer;
@@ -19,9 +21,9 @@ public class IncomingReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
+        Lt.d("GOT THE INTENT: " + action);
         if (action.equals(SpeakService.SVC_STARTED) || action.equals(SpeakService.API_CONNECTED)) {
             boolean startActivity = !InfoActivity.isShowing();
-            Lt.d("GOT THE INTENT: " + action);
             if (SpeakActivity.wantFBReaderStarted) {
                 SpeakActivity.wantFBReaderStarted = false;
                 Lt.d("Trying to launch FBReader...");

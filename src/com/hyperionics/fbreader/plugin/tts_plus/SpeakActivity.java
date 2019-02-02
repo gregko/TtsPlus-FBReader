@@ -18,7 +18,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Toast;
-import com.hyperionics.TtsSetup.*;
+import com.hyperionics.ttssetup.*;
 import org.geometerplus.android.fbreader.api.ApiException;
 
 import java.io.File;
@@ -51,11 +51,9 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
     private static boolean currentlyVisible = false;
     private static volatile PowerManager.WakeLock myWakeLock;
     static final int LANG_SEL_REQUEST = 101;
-    static final int AVAR_DEF_PATH_REQUEST = 102;
     static final int GET_TTS_VOICES = 107;
     static boolean wantFBReaderStarted = false;
     static SpeakActivity getCurrent() { return currentSpeakActivity; }
-    static String avarDefaultPath = null;
 
     int myMaxVolume;
     private int savedBottomMargin = -1;
@@ -345,24 +343,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         }
         findViewById(R.id.read_words).setVisibility(View.GONE);
 
-        avarDefaultPath = SpeakService.getPrefs().getString("avarDefaultPath", null);
-        try {
-            Intent intent = new Intent();
-            intent.setAction("com.hyperionics.avar.GET_DEFAULT_PATH");
-            startActivityForResult(intent, AVAR_DEF_PATH_REQUEST);
-        } catch (Exception e) {
-            Lt.d("Exception: " + e);
-            // is @Voice installed?
-            if (avarDefaultPath == null) try {
-                getPackageManager().getPackageInfo("com.hyperionics.avar", 0);
-                // We have an old version of @Voice installed. Try at least the default location
-                avarDefaultPath = Environment.getExternalStorageDirectory() + "/Hyperionics/atVoice";
-            } catch (PackageManager.NameNotFoundException en) {}
-            if (avarDefaultPath != null && !new File(avarDefaultPath + "/.config").isDirectory()) {
-                SpeakService.getPrefs().edit().remove("avarDefaultPath").commit();
-                avarDefaultPath = null;
-            }
-        }
         // call cacheContextNative() again, sometimes it does not work if called too early in the system restart process
         CldWrapper.initNativeLib(TtsApp.getContext());
         doStartTts();
@@ -493,24 +473,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
         }
     }
 
-    void selectTtsEngine() {
-        if (Build.VERSION.SDK_INT < 14)
-            return;
-
-        new LangSupport(this).setOnEngineSelected(new LangSupport.OnEngineSelected() {
-            @Override
-            public void engSelected(String engPackageName) {
-                try {
-                    if (SpeakService.myTTS != null) {
-                        TtsWrapper.shutdownTts(SpeakService.myTTS);
-                        SpeakService.myTTS = null;
-                    }
-                } catch (Exception e) {}
-                doStartTts();
-            }
-        }).selectTtsEngine();
-    }
-
     void doStartTts() {
         try {
             SpeakService.myInitializationStatus &= ~SpeakService.TTS_INITIALIZED;
@@ -569,14 +531,6 @@ public class SpeakActivity extends Activity implements TextToSpeech.OnInitListen
                 }
             } catch (Exception e) {}
             doStartTts();
-        }
-        else if (requestCode == AVAR_DEF_PATH_REQUEST && data != null) {
-            avarDefaultPath = data.getStringExtra("DEFAULT_PATH");
-            if (avarDefaultPath == null)
-                SpeakService.getPrefs().edit().remove("avarDefaultPath").commit();
-            else
-                SpeakService.getPrefs().edit().putString("avarDefaultPath", avarDefaultPath).commit();
-            Lt.d("Got avarDefaultPath = " + avarDefaultPath);
         }
         super.onActivityResult(requestCode, resultCode, data);
 	}

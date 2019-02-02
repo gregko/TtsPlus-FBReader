@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
-import com.hyperionics.TtsSetup.Lt;
+import com.hyperionics.ttssetup.Lt;
 import org.geometerplus.android.fbreader.api.ApiClientImplementation;
 import org.geometerplus.android.fbreader.api.PluginApi;
 

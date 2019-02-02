@@ -81,25 +81,10 @@
         </receiver>
         <receiver android:name=".IncomingReceiver" android:enabled="true">
             <intent-filter>
-                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.SVC_STARTED"></action>
-                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.API_CONNECTED"></action>
-                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.TTSP_KILL"></action>
+                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.SVC_STARTED"/>
+                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.API_CONNECTED"/>
+                <action android:name="com.hyperionics.fbreader.plugin.tts_plus.TTSP_KILL"/>
             </intent-filter>
         </receiver>
-
-        <!-- activities from TtsSetup library project - somehow manifestmerger.enabled=true still does not work -->
-        <activity android:name="com.hyperionics.TtsSetup.VoiceSelectorActivity"
-                  android:theme="@android:style/Theme.Black"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                />
-        <activity android:name="com.hyperionics.TtsSetup.AddVoiceActivity"
-                  android:theme="@android:style/Theme.Black"
-                />
-        <activity android:name="com.hyperionics.TtsSetup.EditSpeechActivity"
-                  android:theme="@style/Theme.AppCompat"
-                />
-        <activity android:name="com.hyperionics.TtsSetup.SimpleBrowserActivity"/>
-        <activity android:name="com.hyperionics.TtsSetup.GenericFileDialog"
-                />
     </application>
 </manifest>

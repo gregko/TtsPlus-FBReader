@@ -151,32 +151,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/screen_on" />
 
-        <CheckBox
-                android:id="@+id/use_avar_speech"
-                android:checked="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/avar_speech" />
-
-        <CheckBox
-                android:id="@+id/play_music"
-                android:checked="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/play_music"
-                android:onClick="onClickAllowMusic"
-                />
-
-        <TextView
-                android:id="@+id/music_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/music_info"
-                android:layout_marginTop="-10dp"
-                android:layout_marginLeft="38dp"
-                android:textSize="12dp"/>
-
-
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -204,11 +178,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical" >
 
-            <Button android:id="@+id/button_tts_set"
-                    android:text="@string/tts_settings"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    />
             <Button android:id="@+id/edit_speech_btn"
                     android:text="@string/edit_speech"
                     android:layout_width="0dp"
